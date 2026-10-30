@@ -1,5 +1,13 @@
 # Kartenalbum – Änderungen
 
+## Version 1.7 · 30.10.2026
+- Kartenansicht als Bottom Sheet: fährt von unten hoch, halb und ganz offen, Schließen per Wischen nach unten
+- Zurück-Wischgeste vom linken Bildschirmrand im Set-Album
+- Zurück zum Ursprung: aus Pokédex oder Suche geöffnete Sets führen mit „‹ Pokédex“ bzw. „‹ Suche“ an dieselbe Stelle zurück
+- Größerer, klar erkennbarer Zurück-Knopf
+- Suche: Kartenbilder in Farbe, Set-Name und Nummer, gruppiert nach Set, Besitz als Haken mit Anzahl
+- Alben mit Set-Covern: offizielles Set-Logo, Fächer der wertvollsten Karten, Set-Symbol, Fortschritt und Wert
+
 ## Version 1.6 · 30.10.2026
 - Neue Navigation: Tab-Leiste unten mit Alben, Pokédex, Suche und Mehr, Kopfzeile mit Zurück-Knopf
 - Neuer Tab Suche: findet Karten und Pokémon über alle Sets
