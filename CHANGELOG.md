@@ -1,5 +1,13 @@
 # Kartenalbum – Änderungen
 
+## Version 1.6 · 30.10.2026
+- Neue Navigation: Tab-Leiste unten mit Alben, Pokédex, Suche und Mehr, Kopfzeile mit Zurück-Knopf
+- Neuer Tab Suche: findet Karten und Pokémon über alle Sets
+- Varianten-Zähler: pro Karte alle offiziellen Varianten (Normal, Holo, Reverse, Ball-Reverse …) mit Anzahl, aufklappbar nach Sprache und Zustand
+- Preis pro Variante von Cardmarket, Sammlungswert = Anzahl × Variantenpreis
+- Seiten blättern im Ordner, größere Filter
+- Standard-Sprache und -Zustand unter Mehr einstellbar; bestehende Einträge werden automatisch übernommen
+
 ## Version 1.5 · 30.10.2026
 - Versionshinweis entfernt – Version, Änderungen, Sicherung und Werte jetzt unter dem Info-Knopf oben rechts im Regal (roter Punkt bei Neuerungen)
 - Im Set-Album: Liste „Deine Exemplare“ ohne doppeltes Kartenbild
