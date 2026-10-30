@@ -1,5 +1,10 @@
 # Kartenalbum – Änderungen
 
+## Version 1.5 · 30.10.2026
+- Versionshinweis entfernt – Version, Änderungen, Sicherung und Werte jetzt unter dem Info-Knopf oben rechts im Regal (roter Punkt bei Neuerungen)
+- Im Set-Album: Liste „Deine Exemplare“ ohne doppeltes Kartenbild
+- Im Pokédex: größere Kartenvorschau pro Exemplar, Antippen öffnet die Karte im Set-Album; kein großes Einzelbild mehr
+
 ## Version 1.4 · 30.10.2026
 - Kartenkopf neu mit Badges: Set und Nummer, Seltenheit, Typ mit Original-Typsymbol, Anzahl im Album
 - Preis-Box neu: aktueller Cardmarket-Preis groß, daneben Höchststand seit Erfassung mit Datum

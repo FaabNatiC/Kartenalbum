@@ -192,6 +192,15 @@ form.f h4{grid-column:1/-1;margin:0;font-size:12px;text-transform:uppercase;lett
 .prow b{font-size:14px;display:block}
 .prow small{color:var(--muted);font:500 12px var(--f-num)}
 .prow em{font-style:normal;font-size:12px;color:var(--muted)}
+.top-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.info-btn{position:relative;flex:0 0 auto;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);background:var(--page);color:var(--muted);text-decoration:none;font:700 16px var(--f-num)}
+.info-btn .dot{position:absolute;top:1px;right:1px;width:9px;height:9px;border-radius:50%;background:var(--accent);border:2px solid var(--bg)}
+.info-sec{background:var(--page);border-radius:10px;box-shadow:var(--shadow);padding:14px 16px;display:grid;gap:10px;max-width:680px}
+.info-sec h2{margin:0;font:700 17px var(--f-display)}
+.cards-h{margin:0;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.card.ex{grid-template-columns:minmax(0,1fr) auto}
+.card.big-t{grid-template-columns:72px minmax(0,1fr) auto}
+.card.big-t .thumb{width:72px;padding:0;border:0;cursor:pointer}
 .log{display:grid;gap:14px;margin-top:20px;max-width:680px}
 .log section{background:var(--page);border-radius:10px;box-shadow:var(--shadow);padding:14px 16px}
 .log h2{margin:0;font:700 17px var(--f-display);display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
@@ -208,7 +217,7 @@ form.f h4{grid-column:1/-1;margin:0;font-size:12px;text-transform:uppercase;lett
   <div id="status" class="note" hidden></div>
   <div id="tools"></div>
   <main id="view"></main>
-  <p class="foot"><a href="#neu" id="ver-link">Version</a> · Kartendaten und Kartenbilder werden von TCGdex geladen (Setliste Stand 30.10.2026). Fehlt der deutsche Scan, zeigt das Album den englischen. Deine Sammlung bleibt ausschließlich auf diesem Gerät. Pokémon und Pokémon-Sammelkarten sind Marken von Nintendo, Creatures und GAME FREAK.</p>
+  <p class="foot">Kartendaten und Kartenbilder werden von TCGdex geladen (Setliste Stand 30.10.2026). Fehlt der deutsche Scan, zeigt das Album den englischen. Deine Sammlung bleibt ausschließlich auf diesem Gerät. Pokémon und Pokémon-Sammelkarten sind Marken von Nintendo, Creatures und GAME FREAK.</p>
 </div>
 
 <dialog id="dlg" aria-labelledby="d-title">
@@ -219,6 +228,7 @@ form.f h4{grid-column:1/-1;margin:0;font-size:12px;text-transform:uppercase;lett
       <button class="x" type="button" data-close aria-label="Schließen">×</button>
     </div>
     <div class="price" id="d-price" hidden></div>
+    <p class="cards-h" id="d-cards-h" hidden></p>
     <div class="cards" id="d-cards"></div>
     <form class="f" id="form" novalidate>
       <h4 id="f-head">Karte hinzufügen</h4>
@@ -293,7 +303,7 @@ $("#f-rar").innerHTML = FREE_RAR.map(r=>`<option>${esc(r)}</option>`).join("");
 let cards = [], albums = [];
 let store = null, assets = null, canWrite = true;
 let view = {name:"regal"}, filter = "all";
-let ctx = null, editId = null, confirmDel = null;
+let ctx = null, editId = null, confirmDel = null, pendingOpen = null;
 
 function setStatus(t){ const el=$("#status"); el.textContent=t||""; el.hidden=!t; }
 const LS = {
@@ -323,6 +333,7 @@ async function init(){
 
 /* ---------- Änderungsprotokoll ---------- */
 const CHANGELOG = [
+  {v:"1.5", d:"2026-10-30", items:["Versionshinweis entfernt – Version, Änderungen, Sicherung und Werte jetzt unter dem Info-Knopf oben rechts im Regal (roter Punkt bei Neuerungen)","Im Set-Album: Liste „Deine Exemplare“ ohne doppeltes Kartenbild","Im Pokédex: größere Kartenvorschau pro Exemplar, Antippen öffnet die Karte im Set-Album; kein großes Einzelbild mehr"]},
   {v:"1.4", d:"2026-10-30", items:["Kartenkopf neu mit Badges: Set und Nummer, Seltenheit, Typ mit Original-Typsymbol, Anzahl im Album","Preis-Box neu: aktueller Cardmarket-Preis groß, daneben Höchststand seit Erfassung mit Datum","Preise werden bei jedem Abruf auf dem Gerät mitprotokolliert"]},
   {v:"1.3", d:"2026-10-30", items:["Änderungsprotokoll in der App: Versionsnummer unten auf jeder Seite, Hinweis nach jedem Update"]},
   {v:"1.2", d:"2026-10-30", items:["Seitliches Verrutschen im Kartendialog behoben (Datumsfeld, iOS-Zoom bei Eingabefeldern)","Manuelles Wertfeld entfernt – beim Speichern wird automatisch der Cardmarket-Trend übernommen, bei Reverse Holo der Reverse-Holo-Trend","Neu im Regal: „Alle Werte aktualisieren“ für die ganze Sammlung"]},
@@ -330,31 +341,35 @@ const CHANGELOG = [
   {v:"1.0", d:"2026-10-30", items:["Erste Version als iPhone-App über GitHub Pages","Regal mit Pokédex-Ordner (1.025 Pokémon) und Set-Alben für 53 Sets von Schwert & Schild bis Mega-Entwicklung","Original-Kartenbilder von TCGdex, Deutsch mit englischem Ersatz","Sammlung nur lokal auf dem Gerät, Sicherung per Export/Import"]}
 ];
 const APP_VERSION = CHANGELOG[0].v;
-function renderLog(){
-  $("#head").innerHTML = `<a class="back" href="#regal">← Regal</a><header class="top"><div><h1>Änderungen</h1><p class="sub">Was sich am Kartenalbum geändert hat, neueste Version zuerst. Aktuell: <b>Version ${APP_VERSION}</b></p></div></header>`;
+function renderInfo(){
+  LS.put("pk-seen", APP_VERSION);
+  const last = LS.raw("pk-lastbackup");
+  const days = last ? Math.floor((Date.now()-new Date(last))/864e5) : null;
+  $("#head").innerHTML = `<a class="back" href="#regal">← Regal</a><header class="top"><div><h1>Info</h1><p class="sub">Sammlung pflegen und sehen, was sich geändert hat.</p></div></header>`;
   $("#tools").innerHTML = "";
-  $("#view").innerHTML = `<div class="log">${CHANGELOG.map(e=>`<section><h2>Version ${esc(e.v)} <small>${deDate(e.d)}</small></h2><ul>${e.items.map(i=>`<li>${esc(i)}</li>`).join("")}</ul></section>`).join("")}</div>`;
+  $("#view").innerHTML = `<div class="log">
+    <section class="info-sec"><h2>Werte</h2><p class="hint">Holt für alle deine Karten den aktuellen Cardmarket-Trend.</p>
+      <div class="row">${cards.some(c=>c.setId)?`<button class="btn" type="button" id="upd-all">Alle Werte aktualisieren</button>`:`<span class="hint">Noch keine Karten aus Sets eingetragen.</span>`}</div></section>
+    <section class="info-sec"><h2>Sicherung</h2><p class="hint" id="bk-msg">${cards.length ? (last ? `Letzte Sicherung am ${deDate(last)}${days>30?" – Zeit für eine neue.":"."}` : "Noch keine Sicherung. Deine Sammlung liegt nur auf diesem Gerät – exportiere ab und zu eine Datei, z. B. in iCloud Drive.") : "Deine Sammlung liegt nur auf diesem Gerät."}</p>
+      <div class="row"><button class="btn" type="button" id="exp">Sicherung exportieren</button><label class="btn" for="imp">Sicherung importieren</label><input type="file" id="imp" accept="application/json,.json" hidden></div></section>
+    <section class="info-sec"><h2>Version ${esc(APP_VERSION)}</h2><p class="hint">Änderungen, neueste zuerst.</p></section>
+    ${CHANGELOG.map(e=>`<section><h2>Version ${esc(e.v)} <small>${deDate(e.d)}</small></h2><ul>${e.items.map(i=>`<li>${esc(i)}</li>`).join("")}</ul></section>`).join("")}</div>`;
+  $("#exp").addEventListener("click", exportBackup);
+  $("#upd-all")?.addEventListener("click", () => updatePrices(null));
+  $("#imp").addEventListener("change", importBackup);
 }
-function versionNotice(){
-  $("#ver-link").textContent = "Version " + APP_VERSION;
-  const seen = LS.raw("pk-version");
-  if(seen && seen !== APP_VERSION){
-    setStatus("");
-    const el = $("#status"); el.hidden = false;
-    el.innerHTML = `Update auf Version ${esc(APP_VERSION)}: ${esc(CHANGELOG[0].items[0])} <a href="#neu">Alle Änderungen ansehen</a>`;
-  }
-  LS.put("pk-version", APP_VERSION);
-}
+function versionNotice(){ if(!LS.raw("pk-seen") && !cards.length) LS.put("pk-seen", APP_VERSION); }
 
 /* ---------- Routing ---------- */
 function route(){
   const h = location.hash.slice(1);
   if(h==="dex") view={name:"dex"};
-  else if(h==="neu") view={name:"neu"};
+  else if(h==="info" || h==="neu") view={name:"info"};
   else if(h.startsWith("set-") && SLUG.has(h.slice(4))) view={name:"set", set:SLUG.get(h.slice(4))};
   else view={name:"regal"};
   filter="all"; confirmAlbumDel=false;
   render(); window.scrollTo(0,0);
+  if(pendingOpen && view.name==="set" && view.set.id===pendingOpen.setId){ const p = pendingOpen; pendingOpen = null; openCtx(p); }
 }
 const go = h => { if(location.hash.slice(1)===h) route(); else location.hash = h; };
 
@@ -438,7 +453,7 @@ function entryLabel(c){
 function render(){
   if(view.name==="dex") renderDex();
   else if(view.name==="set") renderSet(view.set);
-  else if(view.name==="neu") renderLog();
+  else if(view.name==="info") renderInfo();
   else renderShelf();
   if(ctx && $("#dlg").open) renderDialog();
   if($("#pick").open) renderPicker();
@@ -447,7 +462,8 @@ function render(){
 function renderShelf(){
   const dm = dexOwned();
   const total = sum(cards,qtyOf), value = sum(cards,c=>(+c.val||0)*qtyOf(c));
-  $("#head").innerHTML = `<header class="top"><div><h1>Pokémon <span>Kartenalbum</span></h1><p class="sub">Dein Regal: ein Pokédex-Ordner und ein Ordner pro Set.</p></div>
+  const unseen = LS.raw("pk-seen") !== APP_VERSION;
+  $("#head").innerHTML = `<header class="top"><div class="top-row"><div><h1>Pokémon <span>Kartenalbum</span></h1><p class="sub">Dein Regal: ein Pokédex-Ordner und ein Ordner pro Set.</p></div><a class="info-btn" href="#info" aria-label="Info, Sicherung und Änderungen${unseen?" – neue Version":""}">i${unseen?'<span class="dot"></span>':""}</a></div>
     <div class="stats"><div class="stat"><small>Karten</small><b>${total}</b></div><div class="stat"><small>Sammlungswert</small><b>${eur(value)}</b></div><div class="stat"><small>Pokédex</small><b>${dm.size} / ${TOTAL}</b></div></div></header>`;
   $("#tools").innerHTML = "";
   let html = `<div class="shelf">
@@ -461,15 +477,8 @@ function renderShelf(){
       <span class="bar"><i class="m" style="width:${(p.all/p.allTotal*100).toFixed(1)}%"></i><i style="width:${(p.base/p.allTotal*100).toFixed(1)}%"></i></span></span></a>`;
   }
   if(canWrite) html += `<button class="cover add" type="button" id="add-album"><b>+</b><span>Album für ein Set anlegen</span></button>`;
-  const last = LS.raw("pk-lastbackup");
-  const days = last ? Math.floor((Date.now()-new Date(last))/864e5) : null;
-  html += `</div><div class="shelf-acts">${cards.some(c=>c.setId)?`<button class="btn" type="button" id="upd-all">Alle Werte aktualisieren</button>`:""}<button class="btn" type="button" id="exp">Sicherung exportieren</button><label class="btn" for="imp">Sicherung importieren</label><input type="file" id="imp" accept="application/json,.json" hidden></div>
-    <p class="hint" id="bk-msg">${cards.length ? (last ? `Letzte Sicherung am ${deDate(last)}${days>30?" – Zeit für eine neue.":"."}` : "Noch keine Sicherung. Deine Sammlung liegt nur auf diesem Gerät – exportiere ab und zu eine Datei, z. B. in iCloud Drive.") : ""}</p>`;
-  $("#view").innerHTML = html;
+  $("#view").innerHTML = html + "</div>";
   $("#add-album")?.addEventListener("click", openPicker);
-  $("#exp").addEventListener("click", exportBackup);
-  $("#upd-all")?.addEventListener("click", () => updatePrices(null));
-  $("#imp").addEventListener("change", importBackup);
 }
 function spineColor(s){ const h = [...s.id].reduce((a,ch)=>(a*31+ch.charCodeAt(0))%360,7); return `hsl(${h} 45% 45%)`; }
 
@@ -606,8 +615,7 @@ function renderDialog(){
     links = `<a class="btn" href="${cmLink(s,c)}" target="_blank" rel="noopener">Bei Cardmarket suchen ↗</a>`;
   }
   $("#d-links").innerHTML = links;
-  const pic = ctx.kind==="set" ? {s:SET.get(ctx.setId), num:ctx.num, lang:list[0]?.lang}
-    : (()=>{ const o = list.find(c=>c.setId && SET.has(c.setId)); return o ? {s:SET.get(o.setId), num:o.num, lang:o.lang} : null; })();
+  const pic = ctx.kind==="set" ? {s:SET.get(ctx.setId), num:ctx.num, lang:list[0]?.lang} : null;
   const key = pic ? pic.s.id+"|"+pic.num : "";
   const old = $("#d-img");
   if(old.dataset.key !== key){
@@ -630,20 +638,25 @@ function renderDialog(){
       });
     }
   }
+  const hd = $("#d-cards-h");
+  hd.hidden = !list.length; hd.textContent = ctx.kind==="set" ? "Deine Exemplare" : "Deine Karten von " + NAMES[ctx.dex-1];
   $("#d-cards").innerHTML = list.map(c=>{
     const lab = entryLabel(c);
-    const bits = [ctx.kind==="dex"?lab.sub:"", c.variant, c.lang, c.cond, qtyOf(c)>1?`${c.qty}×`:"", c.val?eur(+c.val):"", c.date?deDate(c.date):""].filter(Boolean).map(esc).join(" · ");
+    const bits = [ctx.kind==="dex"?lab.sub:"", ctx.kind==="dex"?c.variant:"", c.lang, c.cond, qtyOf(c)>1?`${c.qty}×`:"", c.val?eur(+c.val):"", c.date?deDate(c.date):""].filter(Boolean).map(esc).join(" · ");
     const acts = !canWrite ? "" : confirmDel===c.id
       ? `<button class="btn danger" type="button" data-del-yes="${esc(c.id)}">Wirklich löschen</button><button class="btn" type="button" data-del-no>Nein</button>`
       : `<button class="btn" type="button" data-edit="${esc(c.id)}">Bearbeiten</button><button class="btn danger" type="button" data-del="${esc(c.id)}" aria-label="Löschen">✕</button>`;
     const ts = c.setId && SET.get(c.setId);
-    return `<div class="card"><div class="thumb">${esc(lab.glyph||"★")}${ts ? cimg(ts, c.num, "low", "timg", c.lang) : ""}</div>
+    if(ctx.kind==="set") return `<div class="card ex"><div style="min-width:0"><h4>${esc(c.variant||"Normal")}</h4><p>${bits}</p>${c.note?`<p>${esc(c.note)}</p>`:""}</div><div class="acts">${acts}</div></div>`;
+    const thumb = ts ? `<button type="button" class="thumb" data-open="${esc(c.setId)}|${esc(c.num)}" aria-label="Im Album ${esc(ts.de)} öffnen">${esc(lab.glyph||"★")}${cimg(ts, c.num, "low", "timg", c.lang)}</button>` : `<div class="thumb">${esc(lab.glyph||"★")}</div>`;
+    return `<div class="card big-t">${thumb}
       <div style="min-width:0"><h4>${esc(ctx.kind==="dex"?lab.title:(c.variant||"Karte"))}</h4><p>${bits}</p>${c.note?`<p>${esc(c.note)}</p>`:""}</div><div class="acts">${acts}</div></div>`;
   }).join("");
   $("#form").hidden = !canWrite;
 }
 $("#d-cards").addEventListener("click", async e=>{
   const t=e.target.closest("button"); if(!t) return;
+  if(t.dataset.open){ const [sid,num] = t.dataset.open.split("|"); pendingOpen = {kind:"set", setId:sid, num}; $("#dlg").close(); go("set-"+slugOf(sid)); return; }
   if(t.dataset.edit) startEdit(t.dataset.edit);
   else if(t.dataset.del){ confirmDel=t.dataset.del; renderDialog(); }
   else if("delNo" in t.dataset){ confirmDel=null; renderDialog(); }
