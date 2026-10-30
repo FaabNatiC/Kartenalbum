@@ -144,7 +144,14 @@ dialog::backdrop{background:rgba(10,14,24,.55)}
 .cards{display:grid;gap:8px}
 .card{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:8px}
 .thumb{width:52px;aspect-ratio:63/88;border-radius:4px;background:var(--frame);display:grid;place-content:center;overflow:hidden;font:700 11px var(--f-num);color:#3b2f06}
-.thumb img{width:100%;height:100%;object-fit:cover}
+.thumb{position:relative}
+.thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.price{border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:grid;gap:8px;font-size:13px;color:var(--muted)}
+.price .pv{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline}
+.price .pv span{display:grid;gap:1px}
+.price .pv small{font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+.price .pv b{font:700 18px var(--f-num);color:var(--ink);font-variant-numeric:tabular-nums}
+.price .row{justify-content:space-between}
 .card h4{margin:0;font-size:14px}
 .card p{margin:1px 0 0;font-size:12.5px;color:var(--muted)}
 .card .acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
@@ -188,6 +195,7 @@ form.f h4{grid-column:1/-1;margin:0;font-size:12px;text-transform:uppercase;lett
       <div><h2 id="d-title"></h2><p id="d-sub"></p><div class="dlg-links" id="d-links"></div></div>
       <button class="x" type="button" data-close aria-label="Schließen">×</button>
     </div>
+    <div class="price" id="d-price" hidden></div>
     <div class="cards" id="d-cards"></div>
     <form class="f" id="form" novalidate>
       <h4 id="f-head">Karte hinzufügen</h4>
@@ -321,6 +329,37 @@ function cimg(s, num, q, cls, lang){
   const first = lang==="Englisch" ? "en" : "de", second = first==="de" ? "en" : "de";
   return `<img class="${cls}" src="${imgUrl(s,num,first,q)}" data-alt="${imgUrl(s,num,second,q)}" alt="" loading="lazy" decoding="async" onload="imgOk(this)" onerror="imgErr(this)">`;
 }
+/* ---------- TCGdex-API: genaues Kartenbild + Cardmarket-Preis ---------- */
+const API = "https://api.tcgdex.net/v2";
+const infoCache = new Map();
+function cardInfo(s, num, preferEn){
+  const k = s.id + "|" + num + (preferEn ? "|en" : "");
+  if(infoCache.has(k)) return infoCache.get(k);
+  const get = async l => { const r = await fetch(`${API}/${l}/cards/${encodeURIComponent(s.id + "-" + num)}`); if(!r.ok) throw new Error("HTTP " + r.status); return r.json(); };
+  const p = (async () => {
+    const first = preferEn ? "en" : "de", second = preferEn ? "de" : "en";
+    let a = null, b = null;
+    try { a = await get(first); } catch {}
+    if(!a?.image){ try { b = await get(second); } catch {} }
+    if(!a && !b) throw new Error("Karte bei TCGdex nicht gefunden");
+    return { image: a?.image || b?.image || null, price: (a || b)?.pricing?.cardmarket || null };
+  })();
+  infoCache.set(k, p); p.catch(() => infoCache.delete(k));
+  return p;
+}
+const priceFor = (p, variant) => p ? ((variant === "Reverse Holo" && p["trend-holo"]) || p.trend || p.avg || 0) : 0;
+const fmtPrice = n => n ? eur(n) : "–";
+function renderPrice(p, s, num){
+  const box = $("#d-price");
+  if(!p){ box.innerHTML = "Für diese Karte gibt es aktuell keinen Cardmarket-Preis."; box.hidden = false; return; }
+  const holo = p["trend-holo"];
+  box.innerHTML = `<div class="pv"><span><small>Trend</small><b>${fmtPrice(p.trend)}</b></span><span><small>ab</small><b>${fmtPrice(p.low)}</b></span><span><small>Ø 30 Tage</small><b>${fmtPrice(p.avg30)}</b></span>${holo?`<span><small>Reverse Holo</small><b>${fmtPrice(holo)}</b></span>`:""}</div>
+    <div class="row"><span>Cardmarket-Richtwert, Stand ${deDate((p.updated||"").slice(0,10))}</span><button class="btn" type="button" id="p-take">Als Wert übernehmen</button></div>`;
+  box.hidden = false;
+  $("#p-take").addEventListener("click", () => { const v = priceFor(p, $("#f-var").value); if(v){ $("#f-val").value = v.toFixed(2).replace(".", ","); $("#f-msg").textContent = $("#f-var").value === "Reverse Holo" && holo ? "Reverse-Holo-Trend übernommen." : "Trendpreis übernommen."; } });
+}
+let infoReq = 0;
+
 function imgOk(el){ if(el.classList.contains("cimg")) el.parentNode.classList.add("loaded"); }
 function imgErr(el){
   if(el.dataset.alt){ const a = el.dataset.alt; el.dataset.alt = ""; el.src = a; return; }
@@ -442,9 +481,10 @@ function renderSet(s){
     <div class="stats"><div class="grow"><div class="stat"><small>Grundset</small><b>${p.base} / ${p.baseTotal}</b></div><div class="bar"><i class="m" style="width:${(p.all/p.allTotal*100).toFixed(1)}%"></i><i style="width:${(p.base/p.allTotal*100).toFixed(1)}%"></i></div></div>
     ${p.allTotal>p.baseTotal?`<div class="stat"><small>Master-Set</small><b>${p.all} / ${p.allTotal}</b></div>`:""}
     <div class="stat"><small>Karten</small><b>${sum(list,qtyOf)}</b></div><div class="stat"><small>Wert</small><b>${eur(sum(list,c=>(+c.val||0)*qtyOf(c)))}</b></div></div>
-    ${delBtn?`<div class="row">${delBtn}</div>`:""}</header>`;
+    <div class="row">${list.length?`<button class="btn" type="button" id="upd-prices">Werte aktualisieren</button>`:""}${delBtn}<span class="hint" id="upd-msg"></span></div></header>`;
   $("#alb-del")?.addEventListener("click",()=>{ confirmAlbumDel=true; render(); });
   $("#alb-del-no")?.addEventListener("click",()=>{ confirmAlbumDel=false; render(); });
+  $("#upd-prices")?.addEventListener("click", () => updatePrices(s));
   $("#alb-del-yes")?.addEventListener("click", async ()=>{ try{ await store.removeAlbum(slugOf(s.id)); go("regal"); }catch(err){ setStatus("Entfernen fehlgeschlagen: "+(err?.message||err)); } });
   $("#tools").innerHTML = `<div class="toolbar"><div class="row">${segHTML()}<div class="search"><input id="q" type="search" placeholder="Name oder Kartennummer, z. B. 143" autocomplete="off"></div></div></div>`;
   bindTools(v=>{
@@ -499,10 +539,24 @@ function renderDialog(){
   const key = pic ? pic.s.id+"|"+pic.num : "";
   const old = $("#d-img");
   if(old.dataset.key !== key){
-    const tmp = document.createElement("div");
-    tmp.innerHTML = pic ? cimg(pic.s, pic.num, "high", "big", pic.lang) : `<img class="big noimg" alt="">`;
-    const im = tmp.firstChild; im.id = "d-img"; im.dataset.key = key; im.loading = "eager";
+    const im = document.createElement("img");
+    im.className = "big" + (pic ? "" : " noimg"); im.id = "d-img"; im.alt = ""; im.dataset.key = key;
     old.replaceWith(im);
+    $("#d-price").hidden = true;
+    if(pic){
+      const req = ++infoReq;
+      $("#d-price").innerHTML = "Preis wird geladen …"; $("#d-price").hidden = false;
+      cardInfo(pic.s, pic.num, pic.lang === "Englisch").then(info => {
+        if(req !== infoReq) return;
+        if(info.image){ im.onerror = () => im.classList.add("noimg"); im.src = info.image + "/high.webp"; }
+        else im.classList.add("noimg");
+        renderPrice(info.price, pic.s, pic.num);
+      }).catch(err => {
+        if(req !== infoReq) return;
+        im.onerror = () => im.classList.add("noimg"); im.src = imgUrl(pic.s, pic.num, "en", "high");
+        $("#d-price").textContent = "Preis und Bild konnten nicht geladen werden (" + (err?.message || err) + "). Prüfe die Internetverbindung.";
+      });
+    }
   }
   $("#d-cards").innerHTML = list.map(c=>{
     const lab = entryLabel(c);
@@ -510,7 +564,8 @@ function renderDialog(){
     const acts = !canWrite ? "" : confirmDel===c.id
       ? `<button class="btn danger" type="button" data-del-yes="${esc(c.id)}">Wirklich löschen</button><button class="btn" type="button" data-del-no>Nein</button>`
       : `<button class="btn" type="button" data-edit="${esc(c.id)}">Bearbeiten</button><button class="btn danger" type="button" data-del="${esc(c.id)}" aria-label="Löschen">✕</button>`;
-    return `<div class="card"><div class="thumb">${c.photo?`<img src="${photoUrl(c.photo)}" alt="">`:esc(lab.glyph||"★")}</div>
+    const ts = c.setId && SET.get(c.setId);
+    return `<div class="card"><div class="thumb">${esc(lab.glyph||"★")}${ts ? cimg(ts, c.num, "low", "timg", c.lang) : ""}</div>
       <div style="min-width:0"><h4>${esc(ctx.kind==="dex"?lab.title:(c.variant||"Karte"))}</h4><p>${bits}</p>${c.note?`<p>${esc(c.note)}</p>`:""}</div><div class="acts">${acts}</div></div>`;
   }).join("");
   $("#form").hidden = !canWrite;
@@ -596,6 +651,21 @@ $("#form").addEventListener("submit", async e=>{
     $("#f-msg").textContent = "Speichern fehlgeschlagen: " + (err?.message || err) + ". Bitte erneut versuchen.";
   }finally{ btn.disabled=false; }
 });
+
+/* ---------- Preise ---------- */
+async function updatePrices(s){
+  const btn = $("#upd-prices"), msg = $("#upd-msg");
+  const nums = [...new Set(cards.filter(c => c.setId === s.id).map(c => c.num))];
+  btn.disabled = true;
+  const prices = new Map(); let done = 0, failed = 0, stand = "";
+  const queue = nums.slice();
+  const worker = async () => { while(queue.length){ const n = queue.shift(); try{ const i = await cardInfo(s, n, false); prices.set(n, i.price); if(i.price?.updated) stand = i.price.updated; }catch{ failed++; } done++; msg.textContent = `Lade Preise … ${done}/${nums.length}`; } };
+  await Promise.all([worker(), worker(), worker(), worker()]);
+  let changed = 0;
+  cards = cards.map(c => { if(c.setId !== s.id) return c; const v = priceFor(prices.get(c.num), c.variant); if(!v) return c; changed++; return {...c, val: Math.round(v*100)/100, priceDate: (stand || new Date().toISOString()).slice(0,10)}; });
+  LS.set("pk-cards", cards); render();
+  $("#upd-msg").textContent = `${changed} Einträge mit Cardmarket-Trend aktualisiert${stand ? `, Stand ${deDate(stand.slice(0,10))}` : ""}${failed ? ` · ${failed} Karten ohne Antwort` : ""}.`;
+}
 
 /* ---------- Sicherung ---------- */
 async function exportBackup(){
