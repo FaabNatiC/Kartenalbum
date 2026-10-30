@@ -1,5 +1,15 @@
 # Kartenalbum – Änderungen
 
+## Version 1.8 · 30.10.2026
+- Alle Overlays als einheitliches Bottom Sheet: Karte, Pokédex, Album anlegen, Filter
+- Karten-Sheet öffnet bis unter „Bei Cardmarket suchen“, Weiterscrollen öffnet es fließend ganz
+- Preis-Box mit Varianten-Chips: Preis und Höchststand je Variante
+- Pokédex zeigt das offizielle Pokémon-Artwork, fehlende als Silhouette
+- Set-Album: Set-Logo, Fortschrittsring mit Grundset, Master-Set und Wert; Kopf schrumpft beim Scrollen zu einer Leiste
+- Filter im Set-Album nach Kategorie, Typ, Variante und Seltenheit – Variante kombiniert mit Gesammelt/Fehlend
+- Suche mit ×-Knopf zum Leeren
+- Album anlegen mit Set-Logos; Pokédex-Ordner aus dem Alben-Tab entfernt
+
 ## Version 1.7 · 30.10.2026
 - Kartenansicht als Bottom Sheet: fährt von unten hoch, halb und ganz offen, Schließen per Wischen nach unten
 - Zurück-Wischgeste vom linken Bildschirmrand im Set-Album

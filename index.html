@@ -70,6 +70,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .tab svg{width:25px;height:25px}
 .tab[aria-current="page"]{color:var(--accent)}
 .tab .dot{position:absolute;top:7px;left:calc(50% + 9px);width:9px;height:9px;border-radius:50%;background:var(--accent);border:2px solid var(--page)}
+#tools{display:contents}
 .wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px calc(var(--tabh) + env(safe-area-inset-bottom,0px) + 28px)}
 
 /* Kopf der Ansichten */
@@ -179,7 +180,7 @@ h1 span{color:var(--accent)}
 /* Bottom Sheet */
 .scrim{position:fixed;inset:0;z-index:50;background:rgba(10,14,24,.5);opacity:0;transition:opacity .25s}
 .scrim.on{opacity:1}
-.sheet{position:fixed;left:0;right:0;bottom:0;z-index:51;margin:0 auto;width:min(640px,100%);height:calc(100dvh - env(safe-area-inset-top,0px) - 10px);background:var(--page);color:var(--ink);border-radius:18px 18px 0 0;box-shadow:0 -10px 40px rgba(0,0,0,.3);display:flex;flex-direction:column;transform:translateY(100%);transition:transform .32s cubic-bezier(.2,.8,.2,1);will-change:transform;touch-action:none}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:52;margin:0 auto;width:min(640px,100%);height:calc(100dvh - env(safe-area-inset-top,0px) - 10px);background:var(--page);color:var(--ink);border-radius:18px 18px 0 0;box-shadow:0 -10px 40px rgba(0,0,0,.3);display:flex;flex-direction:column;transform:translateY(100%);transition:transform .32s cubic-bezier(.2,.8,.2,1);will-change:transform;touch-action:none}
 .sheet.drag{transition:none}
 .grab{flex:0 0 auto;display:grid;place-items:center;height:26px;cursor:grab}
 .grab span{width:40px;height:5px;border-radius:99px;background:var(--line)}
@@ -190,6 +191,65 @@ dialog{border:0;padding:0;background:var(--page);color:var(--ink);border-radius:
 dialog::backdrop{background:rgba(10,14,24,.55)}
 .dlg{display:grid;gap:16px;padding:4px 16px 20px}
 .sheet .dlg{padding-top:0}
+.sheet h2.sh-t{margin:0;font-family:var(--f-display);font-stretch:112%;font-weight:800;font-size:22px;padding-right:46px}
+.big.art{aspect-ratio:1;width:min(55%,200px);object-fit:contain;background:transparent;box-shadow:none}
+/* Pokédex-Artwork */
+:root{--sil:brightness(0);--silo:.42}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--sil:brightness(0) invert(1);--silo:.2}}
+:root[data-theme="dark"]{--sil:brightness(0) invert(1);--silo:.2}
+.slot.dexs{background:var(--pocket);border:1px solid var(--pocket-edge);padding:0}
+.slot.dexs .art{position:absolute;left:8%;right:8%;top:10%;width:84%;aspect-ratio:1;object-fit:contain;z-index:1}
+.slot.dexs:not(.owned) .art{filter:var(--sil);opacity:var(--silo)}
+.slot.dexs.owned{background:color-mix(in srgb,var(--frame) 22%,var(--page));border:1.5px solid color-mix(in srgb,var(--frame) 70%,transparent);box-shadow:none}
+.slot.dexs .dnm{position:absolute;left:0;right:0;bottom:6px;z-index:2;font:600 clamp(9px,2.4vw,11px)/1.15 var(--f-body);color:var(--muted);padding:0 4px;overflow-wrap:anywhere}
+.slot.dexs.owned .dnm{color:var(--ink)}
+.slot.dexs .dno{position:absolute;left:5px;top:4px;z-index:2;font:700 10px var(--f-num);color:var(--muted)}
+/* Set-Kopf */
+.sethead{display:grid;gap:12px;justify-items:center;text-align:center}
+.slogo{height:64px;display:grid;place-items:center;max-width:min(100%,320px)}
+.slogo img{max-height:64px;max-width:100%;object-fit:contain}
+.slogo .logo-t{display:none;font:800 26px/1.1 var(--f-display);font-stretch:115%}
+.slogo:not(:has(img)) .logo-t{display:block}
+.ringrow{display:flex;align-items:center;gap:16px;width:min(100%,420px);text-align:left}
+.ring{width:82px;height:82px;flex:0 0 auto}
+.ring text{font:700 15px var(--f-num);fill:var(--ink)}
+.kvs{flex:1;min-width:0;display:grid;gap:4px}
+.kv{display:flex;justify-content:space-between;gap:8px;font-size:14px}
+.kv span{color:var(--muted)}
+.kv b{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+.stick{position:sticky;top:calc(env(safe-area-inset-top,0px) + 49px);z-index:15;background:var(--bg);margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding-inline:max(16px,env(safe-area-inset-left,0px));padding-block:2px 10px}
+.stick.shrunk{box-shadow:0 6px 10px -8px rgba(0,0,0,.35)}
+.mini{display:none;align-items:center;gap:10px;padding-top:8px;font-size:13px}
+.stick.shrunk .mini{display:flex}
+.mini b{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.mini span{font:600 12.5px var(--f-num);color:var(--muted);white-space:nowrap;margin-left:auto}
+.segrow{display:flex;gap:8px;align-items:stretch;margin-top:10px}
+.segrow .seg{flex:1;margin-top:0}
+.fbtn{border:1px solid var(--line);background:var(--page);border-radius:10px;padding:0 12px;font:600 14px var(--f-body);display:inline-flex;align-items:center;gap:6px;cursor:pointer;min-height:44px}
+.fbtn svg{width:18px;height:18px}
+.fbtn.on{border-color:var(--accent);color:var(--accent)}
+.fchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;align-items:center}
+.fchips .chip{cursor:pointer}
+.fgroup{display:grid;gap:8px}
+.fgroup h3{margin:0;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.fopts{display:flex;flex-wrap:wrap;gap:6px}
+.fopt{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:8px 12px;font:600 13px var(--f-body);cursor:pointer;display:inline-flex;align-items:center;gap:6px;min-height:38px}
+.fopt[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.cnt{font:600 13px var(--f-num);color:var(--muted);margin-top:12px}
+/* Suche leeren */
+.qwrap{position:relative;margin-top:14px}
+.qwrap .field{padding-right:46px}
+.qclr{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:50%;border:0;background:var(--pocket);color:var(--ink);font-size:18px;cursor:pointer}
+/* Preis-Chips */
+.pchips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:0 -2px;padding:0 2px}
+.pchip{flex:0 0 auto;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:6px 11px;font:600 12.5px var(--f-body);cursor:pointer;white-space:nowrap}
+.pchip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.pchip small{font:600 11px var(--f-num);opacity:.75;margin-left:4px}
+/* Picker-Logo */
+.prow .plogo{width:62px;height:30px;display:grid;place-items:center}
+.prow .plogo img{max-width:62px;max-height:30px;object-fit:contain}
+.prow .plogo .ab{display:none}
+.prow .plogo:not(:has(img)) .ab{display:block}
 .dlg-x{position:sticky;top:0;z-index:3;display:flex;justify-content:flex-end;height:0;pointer-events:none}
 .x{pointer-events:auto;border:0;background:var(--pocket);color:var(--ink);width:38px;height:38px;border-radius:50%;font-size:20px;cursor:pointer;box-shadow:var(--shadow)}
 .big{display:block;width:min(100%,250px);aspect-ratio:63/88;margin:0 auto;border-radius:12px;object-fit:cover;background:var(--pocket);box-shadow:var(--shadow)}
@@ -297,14 +357,24 @@ form.f{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 </section>
 <div class="edge-hint" id="edge-hint"></div>
 
-<dialog id="pick" aria-labelledby="p-title">
-  <div class="dlg">
-    <div class="dlg-x"><button class="x" type="button" data-close aria-label="Schließen">×</button></div>
-    <div><h2 id="p-title">Album anlegen</h2><p class="dmeta">Wähle ein Set. Jede Karte bekommt ihre Tasche, sortiert nach Kartennummer.</p></div>
+<section class="sheet" id="pick" role="dialog" aria-modal="true" aria-labelledby="p-title" hidden>
+  <div class="grab" aria-hidden="true"><span></span></div>
+  <div class="sheet-scroll"><div class="dlg">
+    <div class="dlg-x"><button class="x" type="button" data-sheet-close aria-label="Schließen">×</button></div>
+    <div><h2 class="sh-t" id="p-title">Album anlegen</h2><p class="dmeta">Wähle ein Set. Jede Karte bekommt ihre Tasche, sortiert nach Kartennummer.</p></div>
     <input class="field" id="p-q" type="search" placeholder="Set suchen, z. B. Stellarkrone oder SCR" autocomplete="off">
     <div class="plist" id="p-list"></div>
-  </div>
-</dialog>
+  </div></div>
+</section>
+<section class="sheet" id="filt" role="dialog" aria-modal="true" aria-labelledby="f-title" hidden>
+  <div class="grab" aria-hidden="true"><span></span></div>
+  <div class="sheet-scroll"><div class="dlg">
+    <div class="dlg-x"><button class="x" type="button" data-sheet-close aria-label="Schließen">×</button></div>
+    <h2 class="sh-t" id="f-title">Filter</h2>
+    <div id="f-body" style="display:grid;gap:18px"></div>
+    <div class="row" style="justify-content:space-between"><button class="btn" type="button" id="f-reset">Alle zurücksetzen</button><button class="btn primary" type="button" id="f-done">Fertig</button></div>
+  </div></div>
+</section>
 
 <script src="data.js"></script>
 <script>
@@ -320,6 +390,7 @@ const CONDS = ["Mint","Near Mint","Excellent","Good","Light Played","Played","Po
 
 /* ---------- Änderungsprotokoll ---------- */
 const CHANGELOG = [
+  {v:"1.8", d:"2026-10-30", items:["Alle Overlays als einheitliches Bottom Sheet: Karte, Pokédex, Album anlegen, Filter","Karten-Sheet öffnet bis unter „Bei Cardmarket suchen“, Weiterscrollen öffnet es fließend ganz","Preis-Box mit Varianten-Chips: Preis und Höchststand je Variante","Pokédex zeigt das offizielle Pokémon-Artwork, fehlende als Silhouette","Set-Album: Set-Logo, Fortschrittsring mit Grundset, Master-Set und Wert; Kopf schrumpft beim Scrollen zu einer Leiste","Filter im Set-Album nach Kategorie, Typ, Variante und Seltenheit – Variante kombiniert mit Gesammelt/Fehlend","Suche mit ×-Knopf zum Leeren","Album anlegen mit Set-Logos; Pokédex-Ordner aus dem Alben-Tab entfernt"]},
   {v:"1.7", d:"2026-10-30", items:["Kartenansicht als Bottom Sheet: fährt von unten hoch, halb und ganz offen, Schließen per Wischen nach unten","Zurück-Wischgeste vom linken Bildschirmrand im Set-Album","Zurück zum Ursprung: aus Pokédex oder Suche geöffnete Sets führen mit „‹ Pokédex“ bzw. „‹ Suche“ an dieselbe Stelle zurück","Größerer, klar erkennbarer Zurück-Knopf","Suche: Kartenbilder in Farbe, Set-Name und Nummer, gruppiert nach Set, Besitz als Haken mit Anzahl","Alben mit Set-Covern: offizielles Set-Logo, Fächer der wertvollsten Karten, Set-Symbol, Fortschritt und Wert"]},
   {v:"1.6", d:"2026-10-30", items:["Neue Navigation: Tab-Leiste unten mit Alben, Pokédex, Suche und Mehr, Kopfzeile mit Zurück-Knopf","Neuer Tab Suche: findet Karten und Pokémon über alle Sets","Varianten-Zähler: pro Karte alle offiziellen Varianten (Normal, Holo, Reverse, Ball-Reverse …) mit Anzahl, aufklappbar nach Sprache und Zustand","Preis pro Variante von Cardmarket, Sammlungswert = Anzahl × Variantenpreis","Seiten blättern im Ordner, größere Filter","Standard-Sprache und -Zustand unter Mehr einstellbar; bestehende Einträge werden automatisch übernommen"]},
   {v:"1.5", d:"2026-10-30", items:["Versionshinweis entfernt – Version, Änderungen, Sicherung und Werte unter dem Info-Knopf","Im Set-Album: Liste „Deine Exemplare“ ohne doppeltes Kartenbild","Im Pokédex: größere Kartenvorschau pro Exemplar, Antippen öffnet die Karte im Set-Album"]},
@@ -454,17 +525,18 @@ function cardInfo(s, num, preferEn){
     const vd = Array.isArray(src.variants_detailed) ? src.variants_detailed : [];
     const base = src.pricing?.cardmarket || null;
     const normalId = vd.find(x=>x?.type==="normal")?.thirdParty?.cardmarket;
-    const vprice = {};
+    const vprice = {}, vavg = {};
     keys.forEach((key, i) => {
       const d = vd.length === keys.length ? vd[i] : null;
       const pc = d?.pricing?.cardmarket || null;
       const rev = key.startsWith("reverse");
       let v = 0;
       if(pc){ v = rev && (!normalId || d.thirdParty?.cardmarket === normalId) && pc["trend-holo"] ? pc["trend-holo"] : (pc.trend || pc.avg || 0); }
-      if(!v && base){ v = rev ? (base["trend-holo"] || 0) : (vMain(key) ? (base.trend || base.avg || 0) : 0); }
-      vprice[key] = v;
+      let a30 = pc ? (rev && (!normalId || d.thirdParty?.cardmarket === normalId) && pc["avg30-holo"] ? pc["avg30-holo"] : (pc.avg30 || 0)) : 0;
+      if(!v && base){ v = rev ? (base["trend-holo"] || 0) : (vMain(key) ? (base.trend || base.avg || 0) : 0); a30 = rev ? (base["avg30-holo"] || 0) : (vMain(key) ? (base.avg30 || 0) : 0); }
+      vprice[key] = v; vavg[key] = a30;
     });
-    return { image: a?.image || b?.image || null, price: base, vprice };
+    return { image: a?.image || b?.image || null, price: base, vprice, vavg };
   })();
   infoCache.set(k, p); p.catch(() => infoCache.delete(k));
   return p;
@@ -486,6 +558,7 @@ function recordPrice(key, p){
   if(!p) return null;
   const h = priceHist(), today = (p.updated || new Date().toISOString()).slice(0,10), cur = h[key];
   const cands = [p.trend]; if(!cur && p.avg30) cands.push(p.avg30);
+  if(!p.trend && !cur) return null;
   const best = cur ? {...cur} : {max:0, d:today, since:today};
   for(const v of cands) if(v && v > best.max){ best.max = v; best.d = today; }
   h[key] = best; LS.put("pk-pricehist", JSON.stringify(h));
@@ -517,7 +590,7 @@ function stepVariant(setId, num, v, delta){
 
 /* ---------- Routing ---------- */
 let view = {name:"regal"}, filter = "all", searchQ = "", pendingOpen = null, confirmAlbumDel = false;
-let backTo = null, restore = null;
+let backTo = null, restore = null, restoreFilt = false;
 const VIEW_LBL = {regal:"Alben", dex:"Pokédex", suche:"Suche", mehr:"Mehr"};
 function jumpToSet(setId, num){
   backTo = {setId, hash: location.hash.slice(1) || "regal", view: view.name, y: window.scrollY, reopen: ctx ? {...ctx} : null};
@@ -538,8 +611,9 @@ function route(){
   else if(h.startsWith("set-") && SLUG.has(h.slice(4))) view={name:"set", set:SLUG.get(h.slice(4))};
   else view={name:"regal"};
   filter="all"; confirmAlbumDel=false;
+  if(!(view.name==="set" && filtSet && filtSet.id===view.set.id && restoreFilt)) filt = {cat:new Set(), type:new Set(), var:new Set(), rar:new Set()};
   if(backTo && !(view.name==="set" && view.set.id===backTo.setId)) backTo = null;
-  if(sheetState!=="closed" && !pendingOpen) closeSheet();
+  if(!pendingOpen) sheets.forEach(x=>x.close());
   $("#tools").innerHTML = "";
   render();
   const r = restore; restore = null;
@@ -563,23 +637,17 @@ function render(){
   else if(view.name==="mehr") renderMore();
   else renderShelf();
   if(ctx && $("#dlg").open) renderDialog();
-  if($("#pick").open) renderPicker();
+  if(pickSheet.state!=="closed") renderPicker();
   updatePager();
 }
 
 /* ---------- Alben ---------- */
 function renderShelf(){
   $("#bar-title").textContent = "Alben";
-  const dm = dexOwned();
   $("#head").innerHTML = `<h1>Pokémon <span>Kartenalbum</span></h1>
-    <div class="stats"><div class="stat"><small>Karten</small><b>${sum(cards,qtyOf)}</b></div><div class="stat"><small>Sammlungswert</small><b>${eur(sum(cards,valOf))}</b></div><div class="stat"><small>Pokédex</small><b>${dm.size} / ${TOTAL}</b></div></div>`;
+    <div class="stats"><div class="stat"><small>Karten</small><b>${sum(cards,qtyOf)}</b></div><div class="stat"><small>Sammlungswert</small><b>${eur(sum(cards,valOf))}</b></div><div class="stat"><small>Alben</small><b>${shelfSets().length}</b></div></div>`;
   $("#tools").innerHTML = "";
-  const dexTop = cards.filter(c=>c.setId && SET.has(c.setId) && qtyOf(c) && c.dex).sort((a,b)=>(+b.val||0)-(+a.val||0)).filter((c,i,a)=>a.findIndex(x=>x.setId===c.setId&&x.num===c.num)===i).slice(0,3);
-  let html = `<div class="shelf"><a class="cover dexc" href="#dex" style="--spine:var(--accent)">
-    <div class="fan">${dexTop.length ? fanOrder(dexTop).map((c,i)=>`<span class="fc f${i}">${cimg(SET.get(c.setId), c.num, "low", "fimg", c.lang)}</span>`).join("") : `<span class="ab" style="position:absolute;inset:0;display:grid;place-items:center;font:700 34px var(--f-num);color:var(--accent)">DEX</span>`}</div>
-    <div class="logo"><b class="logo-t" style="display:block">Pokédex</b></div>
-    <div class="cmeta"><span>${dm.size} / ${TOTAL}</span><span class="v">${eur(sum(cards.filter(c=>c.dex),valOf))}</span></div>
-    <span class="bar-p"><i style="width:${(dm.size/TOTAL*100).toFixed(1)}%"></i></span></a>`;
+  let html = `<div class="shelf">`;
   for(const s of shelfSets()) html += coverHTML(s);
   html += `<button class="cover add" type="button" id="add-album"><b>+</b><span>Album anlegen</span></button></div>`;
   $("#view").innerHTML = html;
@@ -606,13 +674,10 @@ function coverHTML(s){
 }
 
 /* ---------- Taschen ---------- */
+const artUrl = n => `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${n}.png`;
 function slotDex(n, list){
-  const name = NAMES[n-1];
-  if(!list?.length) return `<button class="slot" type="button" data-dex="${n}" id="slot-${n}" aria-label="#${pad4(n)} ${esc(name)}, fehlt"><span class="no"><b>${pad4(n)}</b><span>${esc(name)}</span></span></button>`;
-  const q = sum(list,qtyOf), top = list.find(c=>c.setId && SET.has(c.setId));
-  const t = TYPES[top ? cardAt(top.setId, top.num)?.[5] : ""];
-  const img = top ? cimg(SET.get(top.setId), top.num, "low", "cimg", top.lang) : "";
-  return `<button class="slot owned" type="button" data-dex="${n}" id="slot-${n}" aria-label="#${pad4(n)} ${esc(name)}, ${q} Karte(n)">${q>1?`<span class="badge">${q}×</span>`:""}${img}<span class="face" style="${t?`--tb:${t[1]};--ti:${t[2]}`:""}"><span class="band"><span class="dx">#${pad4(n)}</span><span class="nm">${esc(name)}</span></span></span></button>`;
+  const name = NAMES[n-1], q = list?.length ? sum(list,qtyOf) : 0;
+  return `<button class="slot dexs${q?" owned":""}" type="button" data-dex="${n}" id="slot-${n}" aria-label="#${pad4(n)} ${esc(name)}${q?`, ${q} Karte(n)`:", fehlt"}"><span class="dno">${pad4(n)}</span>${q>1?`<span class="badge">${q}×</span>`:""}<img class="art" src="${artUrl(n)}" alt="" loading="lazy" decoding="async" onerror="this.remove()"><span class="dnm">${esc(name)}</span></button>`;
 }
 function slotSet(s, c, list, noId){
   const nm = cName(c), sec = isSecret(s,c);
@@ -664,38 +729,97 @@ function renderDex(){
 }
 
 /* ---------- Set-Album ---------- */
+let filt = {cat:new Set(), type:new Set(), var:new Set(), rar:new Set()};
+const FILTER_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>';
+const RAR_ORDER = ["C","U","R","RH","RR","V","VMAX","VSTAR","ACE","RAD","AR","UR","IR","SR","SRV","SRVMAX","SIR","SUR","BWR","HR","MAR","MHR","PIK","FUR","RGB","CC","SEC","FA","PR",""];
+const filtCount = () => filt.cat.size + filt.type.size + filt.var.size + filt.rar.size;
+function setFilterOptions(s){
+  const cats = new Set(), types = new Set(), vars = new Set(), rars = new Set();
+  for(const c of s.cards){ cats.add(c[4]); if(c[5]) types.add(c[5]); rars.add(c[3]); for(const v of cardVariants(c)) if(vMain(v)) vars.add(v); }
+  return {
+    cat: ["P","T","E"].filter(x=>cats.has(x)).map(x=>[x, CAT[x]]),
+    type: Object.keys(TYPES).filter(x=>types.has(x)).map(x=>[x, TYPES[x][0], typeIcon(x)]),
+    var: [...vars].sort((a,b)=>["normal","holo","reverse"].indexOf(a.split("/")[0]) - ["normal","holo","reverse"].indexOf(b.split("/")[0]) || a.localeCompare(b)).map(x=>[x, vLabel(x)]),
+    rar: RAR_ORDER.filter(x=>rars.has(x) && x!=="").map(x=>[x, (RAR[x]||[x])[0]])
+  };
+}
+const FGROUPS = [["cat","Kategorie"],["type","Typ"],["var","Variante"],["rar","Seltenheit"]];
+function cardPasses(s, c){
+  if(filt.cat.size && !filt.cat.has(c[4])) return false;
+  if(filt.type.size && !filt.type.has(c[5])) return false;
+  if(filt.rar.size && !filt.rar.has(c[3])) return false;
+  if(filt.var.size && !cardVariants(c).some(v=>filt.var.has(v))) return false;
+  return true;
+}
+function ownState(s, c, owned){
+  if(!filt.var.size) return owned.has(c[0]);
+  return cardVariants(c).filter(v=>filt.var.has(v)).some(v=>bucketsOf(s.id, c[0], v).length);
+}
+function missingState(s, c, owned){
+  if(!filt.var.size) return !owned.has(c[0]);
+  return cardVariants(c).filter(v=>filt.var.has(v)).some(v=>!bucketsOf(s.id, c[0], v).length);
+}
+function ringSVG(p){
+  const r = 34, C = 2*Math.PI*r, f = p.baseTotal ? p.base/p.baseTotal : 0, fm = p.allTotal ? p.all/p.allTotal : 0;
+  return `<svg class="ring" viewBox="0 0 82 82" role="img" aria-label="${Math.round(f*100)} Prozent vom Grundset"><circle cx="41" cy="41" r="${r}" fill="none" stroke="var(--pocket)" stroke-width="8"/><circle cx="41" cy="41" r="${r}" fill="none" stroke="color-mix(in srgb,var(--accent) 35%,transparent)" stroke-width="8" stroke-dasharray="${(fm*C).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 41 41)"/><circle cx="41" cy="41" r="${r}" fill="none" stroke="var(--accent)" stroke-width="8" stroke-linecap="round" stroke-dasharray="${(f*C).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 41 41)"/><text x="41" y="46" text-anchor="middle">${Math.round(f*100)}%</text></svg>`;
+}
 function renderSet(s){
-  $("#bar-title").textContent = s.de;
-  const owned = setOwned(s), p = setProgress(s, owned), list = [...owned.values()].flat();
-  const hasAlbum = albums.some(a=>a.setId===s.id);
-  $("#head").innerHTML = `<h1>${esc(s.de)}</h1>
-    <p class="sub"><b>${esc(s.abbr)}</b> · ${esc(s.serie)} · ${deDate(s.rel)} · ${s.promo?`${s.cards.length} Promokarten`:`${s.off} Karten + ${s.cards.length - p.baseTotal} Secret`}</p>
-    <div class="stats"><div class="grow"><div class="stat"><small>Grundset</small><b>${p.base} / ${p.baseTotal}</b></div><span class="bar-p"><i class="m" style="width:${(p.all/p.allTotal*100).toFixed(1)}%"></i><i style="width:${(p.base/p.allTotal*100).toFixed(1)}%"></i></span></div>
-    ${p.allTotal>p.baseTotal?`<div class="stat"><small>Master</small><b>${p.all} / ${p.allTotal}</b></div>`:""}
-    <div class="stat"><small>Wert</small><b>${eur(sum(list,valOf))}</b></div></div>`;
-  $("#tools").innerHTML = `${segHTML()}${filter==="all"?pagerHTML(Math.ceil(s.cards.length/9)):""}`;
+  $("#bar-title").textContent = "";
+  const owned = setOwned(s), p = setProgress(s, owned), list = [...owned.values()].flat(), value = sum(list,valOf);
+  const hasAlbum = albums.some(a=>a.setId===s.id), fc = filtCount();
+  $("#head").innerHTML = `<div class="sethead" id="sethead"><div class="slogo"><img src="${logoUrl(s,"de")}" data-alt="${logoUrl(s,"en")}" alt="${esc(s.de)}" onerror="logoErr(this)"><b class="logo-t">${esc(s.de)}</b></div>
+    <div class="ringrow">${ringSVG(p)}<div class="kvs"><div class="kv"><span>Grundset</span><b>${p.base} / ${p.baseTotal}</b></div>${p.allTotal>p.baseTotal?`<div class="kv"><span>Master-Set</span><b>${p.all} / ${p.allTotal}</b></div>`:""}<div class="kv"><span>Wert</span><b>${eur(value)}</b></div></div></div>
+    <p class="sub">${esc(s.abbr)} · ${esc(s.serie)} · ${deDate(s.rel)} · ${s.promo?`${s.cards.length} Promokarten`:`${s.off} Karten + ${s.cards.length - p.baseTotal} Secret`}</p></div>`;
+  const opts = setFilterOptions(s);
+  const chips = FGROUPS.flatMap(([g])=>[...filt[g]].map(v=>{ const o = opts[g].find(x=>x[0]===v); return `<button class="chip" type="button" data-funset="${g}|${esc(v)}" aria-label="Filter ${esc(o?o[1]:v)} entfernen">${o&&o[2]?o[2]:""}${esc(o?o[1]:v)} ✕</button>`; })).join("");
+  const filtered = fc>0;
+  $("#tools").innerHTML = `<div class="stick" id="stick"><div class="mini"><b>${esc(s.de)}</b><span>${p.base}/${p.baseTotal} · ${eur(value)}</span></div>
+    <div class="segrow">${segHTML().replace('class="seg"','class="seg" style="margin-top:0"')}<button class="fbtn${fc?" on":""}" type="button" id="open-filter" aria-label="Filter${fc?`, ${fc} aktiv`:""}">${FILTER_SVG}${fc?fc:""}</button></div>
+    ${fc?`<div class="fchips">${chips}<button class="chip" type="button" id="f-clear">Alle zurücksetzen</button></div>`:""}</div>
+    ${filter==="all" && !filtered ? pagerHTML(Math.ceil(s.cards.length/9)) : ""}`;
   let html;
-  if(filter==="all") html = pages(s.cards, c=>slotSet(s,c,owned.get(c[0])), ch=>`${esc(ch[0][0])}–${esc(ch[ch.length-1][0])}`);
+  if(filter==="all" && !filtered) html = pages(s.cards, c=>slotSet(s,c,owned.get(c[0])), ch=>`${esc(ch[0][0])}–${esc(ch[ch.length-1][0])}`);
   else {
-    const f = s.cards.filter(c=>(filter==="owned")===owned.has(c[0]));
-    html = f.length ? `<div class="flat">${f.map(c=>slotSet(s,c,owned.get(c[0]))).join("")}</div>` : `<p class="empty">${filter==="owned"?"Noch keine Karte aus diesem Set. Tippe auf eine Tasche.":"Set komplett – keine Lücken mehr."}</p>`;
+    const f = s.cards.filter(c=>cardPasses(s,c) && (filter==="all" || (filter==="owned" ? ownState(s,c,owned) : missingState(s,c,owned))));
+    html = `<p class="cnt">${f.length} ${f.length===1?"Karte":"Karten"}</p>` + (f.length ? `<div class="flat">${f.map(c=>slotSet(s,c,owned.get(c[0]))).join("")}</div>` : `<p class="empty">${filtered?"Keine Karte passt zu diesen Filtern.":filter==="owned"?"Noch keine Karte aus diesem Set. Tippe auf eine Tasche.":"Set komplett – keine Lücken mehr."}</p>`);
   }
   const canDel = hasAlbum && !list.length;
   html += `<div class="row" style="margin-top:22px">${list.length?`<button class="btn" type="button" id="upd-prices">Werte aktualisieren</button>`:""}${canDel?(confirmAlbumDel?`<button class="btn danger" type="button" id="alb-del-yes">Album wirklich entfernen</button><button class="btn" type="button" id="alb-del-no">Behalten</button>`:`<button class="btn" type="button" id="alb-del">Leeres Album entfernen</button>`):""}<span class="hint" id="upd-msg"></span></div>`;
   $("#view").innerHTML = html;
+  $("#open-filter").addEventListener("click", ()=>openFilter(s));
+  $("#f-clear")?.addEventListener("click", ()=>{ FGROUPS.forEach(([g])=>filt[g].clear()); render(); });
+  document.querySelectorAll("[data-funset]").forEach(b=>b.addEventListener("click",()=>{ const [g,v] = b.dataset.funset.split("|"); filt[g].delete(v); render(); }));
   $("#upd-prices")?.addEventListener("click", () => updatePrices(s));
   $("#alb-del")?.addEventListener("click",()=>{ confirmAlbumDel=true; render(); });
   $("#alb-del-no")?.addEventListener("click",()=>{ confirmAlbumDel=false; render(); });
   $("#alb-del-yes")?.addEventListener("click",()=>{ albums = albums.filter(a=>a.setId!==s.id); LS.set("pk-albums",albums); go("regal"); });
+  updateShrink();
 }
+function updateShrink(){
+  const st = $("#stick"), hd = $("#sethead"); if(!st || !hd) return;
+  st.classList.toggle("shrunk", hd.getBoundingClientRect().bottom < 60);
+}
+window.addEventListener("scroll", ()=>{ if(view.name==="set") updateShrink(); }, {passive:true});
+let filtSet = null;
+function openFilter(s){ filtSet = s; renderFilter(); filtSheet.open("half"); }
+function renderFilter(){
+  const s = filtSet; if(!s) return;
+  const o = setFilterOptions(s);
+  $("#f-body").innerHTML = FGROUPS.filter(([g])=>o[g].length>1).map(([g,lbl])=>`<div class="fgroup"><h3>${lbl}</h3><div class="fopts">${o[g].map(([v,l,ic])=>`<button class="fopt" type="button" data-fopt="${g}|${esc(v)}" aria-pressed="${filt[g].has(v)}">${ic||""}${esc(l)}</button>`).join("")}</div></div>`).join("") + (filt.var.size ? `<p class="hint">Mit Variante beziehen sich „Gesammelt“ und „Fehlend“ auf diese Variante – ideal fürs Master-Set.</p>` : "");
+}
+$("#f-body").addEventListener("click", e=>{ const b = e.target.closest("[data-fopt]"); if(!b) return; const [g,v] = b.dataset.fopt.split("|"); filt[g].has(v) ? filt[g].delete(v) : filt[g].add(v); renderFilter(); render(); });
+$("#f-reset").addEventListener("click", ()=>{ FGROUPS.forEach(([g])=>filt[g].clear()); renderFilter(); render(); });
+$("#f-done").addEventListener("click", ()=>filtSheet.close());
 
 /* ---------- Suche ---------- */
 function renderSearch(){
   $("#bar-title").textContent = "Suche";
   $("#head").innerHTML = `<h1>Suche</h1><p class="sub">Karten und Pokémon in allen Sets, z. B. „Glurak“, „Pikachu ex“ oder „Pyapabeere“.</p>`;
   if(!$("#q")){
-    $("#tools").innerHTML = `<div style="margin-top:14px"><input class="field" id="q" type="search" placeholder="Name eingeben" autocomplete="off" enterkeyhint="search" value="${esc(searchQ)}"></div>`;
-    $("#q").addEventListener("input", e=>{ searchQ = e.target.value; renderResults(); });
+    $("#tools").innerHTML = `<div class="qwrap"><input class="field" id="q" type="text" inputmode="search" placeholder="Name eingeben" autocomplete="off" autocorrect="off" enterkeyhint="search" value="${esc(searchQ)}"><button class="qclr" type="button" id="q-clr" aria-label="Suche leeren" ${searchQ?"":"hidden"}>×</button></div>`;
+    $("#q").addEventListener("input", e=>{ searchQ = e.target.value; $("#q-clr").hidden = !searchQ; renderResults(); });
+    $("#q-clr").addEventListener("pointerdown", e=>e.preventDefault());
+    $("#q-clr").addEventListener("click", ()=>{ searchQ = ""; const q = $("#q"); q.value = ""; $("#q-clr").hidden = true; q.focus(); renderResults(); });
   }
   renderResults();
 }
@@ -755,62 +879,88 @@ $("#view").addEventListener("click", e=>{
 document.querySelectorAll("[data-close]").forEach(b=>b.addEventListener("click",()=>b.closest("dialog").close()));
 document.querySelectorAll("dialog").forEach(d=>d.addEventListener("click", e=>{ if(e.target===d) d.close(); }));
 
-/* Bottom Sheet: halb offen → ganz offen → zu */
-const sheet = $("#dlg"), scrim = $("#scrim"), sScroll = $("#sheet-scroll");
-let sheetState = "closed";
-const sheetH = () => sheet.getBoundingClientRect().height || window.innerHeight;
-const halfY = () => Math.round(sheetH() * 0.42);
-function setSheet(state){
-  sheetState = state;
-  sheet.classList.toggle("half", state==="half");
-  sheet.style.transform = state==="full" ? "translateY(0)" : state==="half" ? `translateY(${halfY()}px)` : "translateY(100%)";
+/* Bottom Sheet: einheitlicher Baustein für alle Overlays (halb offen → ganz offen → zu) */
+const scrim = $("#scrim"), sheets = [];
+const topSheet = () => sheets.filter(x=>x.state!=="closed").pop();
+const anySheet = () => sheets.some(x=>x.state!=="closed");
+function makeSheet(el, opt = {}){
+  const sc = el.querySelector(".sheet-scroll");
+  const S = {el, sc, state:"closed", onClose: opt.onClose};
+  sheets.push(S);
+  const H = () => el.getBoundingClientRect().height || window.innerHeight;
+  const halfY = () => { const h = H(); let y = opt.half ? opt.half(S, h) : h - (sc.scrollHeight + 34); return Math.round(Math.max(0, Math.min(h * 0.62, y))); };
+  S.y = 0;
+  S.set = st => {
+    let y = st==="full" ? 0 : st==="half" ? halfY() : null;
+    if(st==="half" && y < 24){ st = "full"; y = 0; }
+    S.state = st; S.y = y ?? 0;
+    el.classList.toggle("half", st==="half");
+    el.style.transform = st==="closed" ? "translateY(100%)" : `translateY(${y}px)`;
+  };
+  S.open = (st = "half") => {
+    if(S.state!=="closed"){ sc.scrollTop = 0; return; }
+    el.hidden = false; scrim.hidden = false; document.body.classList.add("locked");
+    sc.scrollTop = 0; el.style.zIndex = 52 + sheets.filter(x=>x.state!=="closed").length;
+    S.state = "opening";
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{ scrim.classList.add("on"); S.set(window.innerHeight < 560 ? "full" : st); }));
+  };
+  S.close = () => {
+    if(S.state==="closed") return;
+    S.set("closed");
+    if(!anySheet()){ scrim.classList.remove("on"); document.body.classList.remove("locked"); }
+    S.onClose?.();
+    setTimeout(()=>{ if(S.state==="closed"){ el.hidden = true; if(!anySheet()) scrim.hidden = true; } }, 330);
+  };
+  el.querySelector("[data-sheet-close]")?.addEventListener("click", S.close);
+  let sd = null;
+  el.addEventListener("touchstart", e=>{
+    if(S.state==="closed") return;
+    sd = {y0:e.touches[0].clientY, base:S.y, dy:0, onGrab:!!e.target.closest(".grab"), live:false, scrolled:false, wasHalf:S.state==="half"};
+  },{passive:true});
+  el.addEventListener("touchmove", e=>{
+    if(!sd) return;
+    const dy = e.touches[0].clientY - sd.y0;
+    if(!sd.live){
+      if(Math.abs(dy) < 8) return;
+      if(S.state==="full" && !sd.onGrab && (dy < 0 || sc.scrollTop > 0)){ sd = null; return; }
+      sd.live = true; el.classList.add("drag");
+    }
+    e.preventDefault();
+    sd.dy = dy;
+    const y = sd.base + dy;
+    if(y < 0 && sd.wasHalf){
+      if(S.state!=="full"){ S.state = "full"; S.y = 0; el.classList.remove("half"); el.style.transform = "translateY(0)"; }
+      sc.scrollTop = -y; sd.scrolled = true;
+    } else el.style.transform = `translateY(${Math.max(0, y)}px)`;
+  },{passive:false});
+  el.addEventListener("touchend", ()=>{
+    if(!sd) return;
+    const {dy, live, scrolled, wasHalf} = sd; sd = null; el.classList.remove("drag");
+    if(!live) return;
+    if(scrolled) return;
+    if(wasHalf){ if(dy < -50) S.set("full"); else if(dy > 70) S.close(); else S.set("half"); }
+    else { if(dy > 140) S.close(); else if(dy > 60 && halfY() > 24) S.set("half"); else if(dy > 60) S.close(); else S.set("full"); }
+  });
+  sc.addEventListener("scroll", ()=>{ if(S.state==="half" && sc.scrollTop>0) S.set("full"); }, {passive:true});
+  el.addEventListener("wheel", e=>{ if(S.state==="half" && e.deltaY>0) S.set("full"); }, {passive:true});
+  window.addEventListener("resize", ()=>{ if(S.state==="half" || S.state==="full") S.set(S.state); });
+  return S;
 }
-function openSheet(){
-  if(sheetState!=="closed") return;
-  sheet.hidden = false; scrim.hidden = false; document.body.classList.add("locked");
-  sScroll.scrollTop = 0;
-  requestAnimationFrame(()=>{ scrim.classList.add("on"); setSheet(window.innerHeight < 560 ? "full" : "half"); });
-}
-function closeSheet(){
-  if(sheetState==="closed") return;
-  setSheet("closed"); scrim.classList.remove("on"); document.body.classList.remove("locked");
-  ctx = null;
-  setTimeout(()=>{ if(sheetState==="closed"){ sheet.hidden = true; scrim.hidden = true; } }, 330);
-}
-sheet.open = false;
-Object.defineProperty(sheet, "open", {get:()=>sheetState!=="closed"});
-scrim.addEventListener("click", closeSheet);
-document.querySelector("[data-sheet-close]").addEventListener("click", closeSheet);
-document.addEventListener("keydown", e=>{ if(e.key==="Escape" && sheetState!=="closed") closeSheet(); });
-let sd = null;
-sheet.addEventListener("touchstart", e=>{
-  if(sheetState==="closed") return;
-  const y = e.touches[0].clientY, onGrab = !!e.target.closest(".grab");
-  if(sheetState==="half" || onGrab || sScroll.scrollTop<=0) sd = {y0:y, base: sheetState==="half" ? halfY() : 0, dy:0, onGrab, live:false};
-},{passive:true});
-sheet.addEventListener("touchmove", e=>{
-  if(!sd) return;
-  const dy = e.touches[0].clientY - sd.y0;
-  if(!sd.live){
-    if(Math.abs(dy) < 8) return;
-    if(sheetState==="full" && !sd.onGrab && (dy < 0 || sScroll.scrollTop > 0)){ sd = null; return; }
-    sd.live = true; sheet.classList.add("drag");
-  }
-  e.preventDefault();
-  sd.dy = dy;
-  sheet.style.transform = `translateY(${Math.max(0, sd.base + dy)}px)`;
-},{passive:false});
-sheet.addEventListener("touchend", ()=>{
-  if(!sd) return;
-  const {dy, live} = sd; sd = null; sheet.classList.remove("drag");
-  if(!live) return;
-  if(sheetState==="half"){ if(dy < -50) setSheet("full"); else if(dy > 70) closeSheet(); else setSheet("half"); }
-  else { if(dy > 140) closeSheet(); else if(dy > 60) setSheet("half"); else setSheet("full"); }
+scrim.addEventListener("click", ()=>topSheet()?.close());
+document.addEventListener("keydown", e=>{ if(e.key==="Escape") topSheet()?.close(); });
+
+/* Karten-Sheet: halbe Stufe endet unter „Bei Cardmarket suchen“ */
+const cardSheet = makeSheet($("#dlg"), {
+  onClose: () => { ctx = null; },
+  half: (S, h) => { const l = $("#d-links"), ref = (l && l.offsetHeight ? l : $("#d-chips")); const r = ref.getBoundingClientRect(), top = S.el.getBoundingClientRect().top; return h - (r.bottom - top + 18); }
 });
-sScroll.addEventListener("scroll", ()=>{ if(sheetState==="half" && sScroll.scrollTop>0) setSheet("full"); }, {passive:true});
-sheet.addEventListener("wheel", e=>{ if(sheetState==="half" && e.deltaY>0) setSheet("full"); }, {passive:true});
-window.addEventListener("resize", ()=>{ if(sheetState!=="closed") setSheet(sheetState); });
-function openCtx(c){ ctx=c; openDet = new Set(); showMore=false; confirmDel=null; $("#d-img").dataset.key=""; renderDialog(); if(sheetState==="closed") openSheet(); else sScroll.scrollTop = 0; }
+const sScroll = $("#sheet-scroll");
+const openSheet = () => cardSheet.open("half");
+const closeSheet = () => cardSheet.close();
+Object.defineProperty($("#dlg"), "open", {get:()=>cardSheet.state!=="closed"});
+const pickSheet = makeSheet($("#pick"));
+const filtSheet = makeSheet($("#filt"));
+function openCtx(c){ ctx=c; openDet = new Set(); showMore=false; confirmDel=null; priceVar=null; $("#d-img").dataset.key=""; renderDialog(); if(cardSheet.state==="closed") openSheet(); else { sScroll.scrollTop = 0; cardSheet.set("half"); } }
 
 function renderDialog(){
   if(ctx.kind==="dex") return renderDexDialog();
@@ -830,8 +980,9 @@ function renderDialog(){
       if(req !== infoReq || !ctx) return;
       lastInfo.set(key, info);
       if(info.image){ im.onerror = () => im.classList.add("noimg"); im.src = info.image + "/high.webp"; } else im.classList.add("noimg");
-      renderPrice(info.price, key);
+      recordVariants(key, info); renderPrice();
       if(applyPrices(s.id, c[0], info)) render(); else renderVariants();
+      if(cardSheet.state==="half") cardSheet.set("half");
     }).catch(() => {
       if(req !== infoReq) return;
       im.onerror = () => im.classList.add("noimg"); im.src = imgUrl(s, c[0], "en", "high");
@@ -840,15 +991,30 @@ function renderDialog(){
   }
   renderVariants();
 }
-function renderPrice(p, key){
+let priceVar = null;
+function recordVariants(key, info){
+  const upd = info.price?.updated;
+  for(const v of Object.keys(info.vprice)) if(info.vprice[v]) recordPrice(key+"|"+v, {trend:info.vprice[v], avg30:info.vavg?.[v]||0, updated:upd});
+}
+function renderPrice(){
   const box = $("#d-price");
-  if(!p){ box.innerHTML = "Für diese Karte gibt es aktuell keinen Cardmarket-Preis."; box.hidden = false; return; }
-  const ath = recordPrice(key, p);
-  box.innerHTML = `<div class="pmain"><div class="now"><small>Aktueller Preis</small><b>${fmtPrice(p.trend)}</b></div>
-    <div class="ath"><small>Höchststand</small><b>${fmtPrice(ath?.max)}</b><em>am ${deDate(ath?.d)} · erfasst seit ${deDate(ath?.since)}</em></div></div>
-    <span>Cardmarket-Trend · Stand ${deDate(p.updated)} · Preise je Variante unten</span>`;
+  if(!ctx || ctx.kind!=="set") return;
+  const s = SET.get(ctx.setId), c = cardAt(ctx.setId, ctx.num), key = s.id+"|"+c[0], info = lastInfo.get(key);
+  if(!info) return;
+  const keys = cardVariants(c).filter(v=>info.vprice[v] || vMain(v));
+  if(!keys.some(v=>info.vprice[v])){ box.innerHTML = "Für diese Karte gibt es aktuell keinen Cardmarket-Preis."; box.hidden = false; return; }
+  if(!priceVar || !keys.includes(priceVar)){
+    const ownedV = keys.filter(v=>bucketsOf(s.id, c[0], v).length).sort((a,b)=>(info.vprice[b]||0)-(info.vprice[a]||0));
+    priceVar = ownedV[0] || keys.find(v=>info.vprice[v]) || keys[0];
+  }
+  const h = priceHist()[key+"|"+priceVar];
+  box.innerHTML = `${keys.length>1?`<div class="pchips" role="group" aria-label="Variante für den Preis">${keys.map(v=>`<button class="pchip" type="button" data-pvar="${esc(v)}" aria-pressed="${v===priceVar}">${esc(vLabel(v))}<small>${info.vprice[v]?eur(info.vprice[v]):"–"}</small></button>`).join("")}</div>`:""}
+    <div class="pmain"><div class="now"><small>Aktueller Preis · ${esc(vLabel(priceVar))}</small><b>${fmtPrice(info.vprice[priceVar])}</b></div>
+    <div class="ath"><small>Höchststand</small><b>${fmtPrice(h?.max)}</b>${h?`<em>am ${deDate(h.d)} · erfasst seit ${deDate(h.since)}</em>`:""}</div></div>
+    <span>Cardmarket-Trend · Stand ${deDate(info.price?.updated)}</span>`;
   box.hidden = false;
 }
+$("#d-price").addEventListener("click", e=>{ const b = e.target.closest("[data-pvar]"); if(!b) return; priceVar = b.dataset.pvar; renderPrice(); });
 function renderVariants(){
   if(!ctx || ctx.kind!=="set") return;
   const s = SET.get(ctx.setId), c = cardAt(ctx.setId, ctx.num), keys = cardVariants(c);
@@ -887,7 +1053,7 @@ $("#d-body").addEventListener("click", e=>{
 /* Pokédex-Dialog: alle Karten eines Pokémon, Tap öffnet das Set */
 function renderDexDialog(){
   const n = ctx.dex, mine = cards.filter(e=>+e.dex===n && qtyOf(e)), q = sum(mine,qtyOf);
-  const im = $("#d-img"); im.dataset.key = ""; im.className = "big noimg"; $("#d-price").hidden = true; $("#d-links").innerHTML = "";
+  const im = $("#d-img"); if(im.dataset.key !== "dex"+n){ im.dataset.key = "dex"+n; im.className = "big art"; im.onerror = () => im.classList.add("noimg"); im.src = artUrl(n); } $("#d-price").hidden = true; $("#d-links").innerHTML = "";
   $("#d-title").textContent = NAMES[n-1];
   $("#d-chips").innerHTML = `<span class="chip num">#${pad4(n)}</span>${q?`<span class="chip have">${q}× im Album</span>`:`<span class="chip none">nicht im Album</span>`}`;
   $("#d-meta").textContent = `${(DEXCARDS.get(n)||[]).length} Karten in der Setliste` + (q ? ` · Wert ${eur(sum(mine,valOf))}` : "");
@@ -929,7 +1095,7 @@ async function updatePrices(s){
   if(btn) btn.disabled = true;
   let done = 0, failed = 0, stand = "";
   const queue = keys.slice();
-  const worker = async () => { while(queue.length){ const k = queue.shift(); const [sid, num] = k.split("|"); try{ const i = await cardInfo(SET.get(sid), num, false); lastInfo.set(k,i); applyPrices(sid, num, i); recordPrice(k, i.price); if(i.price?.updated) stand = i.price.updated; }catch{ failed++; } done++; if(out()) out().textContent = `Lade Preise … ${done}/${keys.length}`; } };
+  const worker = async () => { while(queue.length){ const k = queue.shift(); const [sid, num] = k.split("|"); try{ const i = await cardInfo(SET.get(sid), num, false); lastInfo.set(k,i); applyPrices(sid, num, i); recordVariants(k, i); if(i.price?.updated) stand = i.price.updated; }catch{ failed++; } done++; if(out()) out().textContent = `Lade Preise … ${done}/${keys.length}`; } };
   await Promise.all([worker(), worker(), worker(), worker()]);
   render();
   if(out()) out().textContent = `${keys.length - failed} Karten aktualisiert${stand ? `, Stand ${deDate(stand)}` : ""}${failed ? ` · ${failed} ohne Antwort` : ""}.`;
@@ -963,18 +1129,18 @@ async function importBackup(e){
 }
 
 /* ---------- Album anlegen ---------- */
-function openPicker(){ $("#p-q").value=""; renderPicker(); $("#pick").showModal(); }
+function openPicker(){ $("#p-q").value=""; renderPicker(); pickSheet.open("full"); }
 function renderPicker(){
   const q = $("#p-q").value.trim().toLowerCase(), have = new Set(shelfSets().map(s=>s.id)), groups = new Map();
   for(const s of SETS){ if(q && !(`${s.de} ${s.en} ${s.abbr} ${s.id}`.toLowerCase().includes(q))) continue; if(!groups.has(s.serie)) groups.set(s.serie,[]); groups.get(s.serie).push(s); }
-  $("#p-list").innerHTML = groups.size ? [...groups].map(([g,list])=>`<div><h5>${esc(g)}</h5><div class="grp">${list.map(s=>`<button class="prow" type="button" data-pset="${esc(s.id)}" ${have.has(s.id)?"disabled":""}><span class="ab">${esc(s.abbr||s.id.toUpperCase())}</span><span><b>${esc(s.de)}</b><small>${deDate(s.rel)} · ${s.cards.length} Karten</small></span><em>${have.has(s.id)?"im Regal":"Anlegen"}</em></button>`).join("")}</div></div>`).join("") : `<p class="empty">Kein Set gefunden.</p>`;
+  $("#p-list").innerHTML = groups.size ? [...groups].map(([g,list])=>`<div><h5>${esc(g)}</h5><div class="grp">${list.map(s=>`<button class="prow" type="button" data-pset="${esc(s.id)}" ${have.has(s.id)?"disabled":""}><span class="plogo"><img src="${logoUrl(s,"de")}" data-alt="${logoUrl(s,"en")}" alt="" loading="lazy" onerror="logoErr(this)"><span class="ab">${esc(s.abbr||s.id.toUpperCase())}</span></span><span><b>${esc(s.de)}</b><small>${esc(s.abbr||"")}${s.abbr?" · ":""}${deDate(s.rel)} · ${s.cards.length} Karten</small></span><em>${have.has(s.id)?"im Regal":"Anlegen"}</em></button>`).join("")}</div></div>`).join("") : `<p class="empty">Kein Set gefunden.</p>`;
 }
 $("#p-q").addEventListener("input", renderPicker);
 $("#p-list").addEventListener("click", e=>{
   const b = e.target.closest("[data-pset]"); if(!b || b.disabled) return;
   const id = b.dataset.pset;
   if(!albums.some(a=>a.setId===id)){ albums.push({id:slugOf(id), setId:id, created:new Date().toISOString()}); LS.set("pk-albums", albums); }
-  $("#pick").close(); go("set-"+slugOf(id));
+  pickSheet.close(); go("set-"+slugOf(id));
 });
 
 /* ---------- Zurück-Wischgeste vom linken Rand ---------- */
@@ -982,7 +1148,7 @@ $("#p-list").addEventListener("click", e=>{
   const wrap = document.querySelector(".wrap"), hint = $("#edge-hint");
   let sw = null;
   document.addEventListener("touchstart", e=>{
-    if(view.name!=="set" || sheetState!=="closed" || $("#pick").open) return;
+    if(view.name!=="set" || anySheet()) return;
     const t = e.touches[0];
     if(t.clientX > 28) return;
     sw = {x0:t.clientX, y0:t.clientY, dx:0, live:false};
