@@ -149,6 +149,21 @@ dialog::backdrop{background:rgba(10,14,24,.55)}
 .thumb{width:52px;aspect-ratio:63/88;border-radius:4px;background:var(--frame);display:grid;place-content:center;overflow:hidden;font:700 11px var(--f-num);color:#3b2f06}
 .thumb{position:relative}
 .thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{display:inline-flex;align-items:center;gap:5px;font:600 12px/1.2 var(--f-body);padding:4px 10px;border-radius:999px;background:var(--pocket);color:var(--ink);border:1px solid var(--line);white-space:nowrap}
+.chip.num{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+.chip.rare{background:#faeeda;color:#633806;border-color:#ef9f27}
+.chip.type{background:var(--tb);color:var(--ti);border-color:transparent}
+.chip.have{background:color-mix(in srgb,var(--accent) 14%,transparent);color:var(--ink);border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
+.chip.none{color:var(--muted)}
+.ticon{display:inline-block;width:15px;height:16px;border-radius:4px;background-repeat:no-repeat;background-position:0 0;background-size:auto 16px;flex:0 0 auto}
+.dmeta{margin:8px 0 0;font-size:13px;color:var(--muted)}
+.pmain{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.pmain .now b{display:block;font:700 32px/1.05 var(--f-num);color:var(--ink);font-variant-numeric:tabular-nums}
+.pmain .ath{text-align:right}
+.pmain .ath b{display:block;font:700 17px var(--f-num);color:var(--ink);font-variant-numeric:tabular-nums}
+.pmain small{font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+.pmain em{font-style:normal;font-size:11.5px}
 .price{border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:grid;gap:8px;font-size:13px;color:var(--muted)}
 .price .pv{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline}
 .price .pv span{display:grid;gap:1px}
@@ -200,7 +215,7 @@ form.f h4{grid-column:1/-1;margin:0;font-size:12px;text-transform:uppercase;lett
   <div class="dlg">
     <img class="big" id="d-img" alt="">
     <div class="dlg-h">
-      <div><h2 id="d-title"></h2><p id="d-sub"></p><div class="dlg-links" id="d-links"></div></div>
+      <div style="min-width:0"><h2 id="d-title"></h2><div class="chips" id="d-sub"></div><p class="dmeta" id="d-meta"></p><div class="dlg-links" id="d-links"></div></div>
       <button class="x" type="button" data-close aria-label="Schließen">×</button>
     </div>
     <div class="price" id="d-price" hidden></div>
@@ -308,6 +323,7 @@ async function init(){
 
 /* ---------- Änderungsprotokoll ---------- */
 const CHANGELOG = [
+  {v:"1.4", d:"2026-10-30", items:["Kartenkopf neu mit Badges: Set und Nummer, Seltenheit, Typ mit Original-Typsymbol, Anzahl im Album","Preis-Box neu: aktueller Cardmarket-Preis groß, daneben Höchststand seit Erfassung mit Datum","Preise werden bei jedem Abruf auf dem Gerät mitprotokolliert"]},
   {v:"1.3", d:"2026-10-30", items:["Änderungsprotokoll in der App: Versionsnummer unten auf jeder Seite, Hinweis nach jedem Update"]},
   {v:"1.2", d:"2026-10-30", items:["Seitliches Verrutschen im Kartendialog behoben (Datumsfeld, iOS-Zoom bei Eingabefeldern)","Manuelles Wertfeld entfernt – beim Speichern wird automatisch der Cardmarket-Trend übernommen, bei Reverse Holo der Reverse-Holo-Trend","Neu im Regal: „Alle Werte aktualisieren“ für die ganze Sammlung"]},
   {v:"1.1", d:"2026-10-30", items:["Kartenvorschau statt gelber Fläche in der Kartenliste","Großes Kartenbild im Dialog direkt über die TCGdex-API","Cardmarket-Preise im Kartendialog: Trend, ab, Ø 30 Tage, Reverse Holo","„Werte aktualisieren“ pro Set-Album"]},
@@ -385,12 +401,28 @@ const fmtPrice = n => n ? eur(n) : "–";
 function renderPrice(p, s, num){
   const box = $("#d-price");
   if(!p){ box.innerHTML = "Für diese Karte gibt es aktuell keinen Cardmarket-Preis."; box.hidden = false; return; }
+  const ath = recordPrice(s.id + "|" + num, p);
   const holo = p["trend-holo"];
-  box.innerHTML = `<div class="pv"><span><small>Trend</small><b>${fmtPrice(p.trend)}</b></span><span><small>ab</small><b>${fmtPrice(p.low)}</b></span><span><small>Ø 30 Tage</small><b>${fmtPrice(p.avg30)}</b></span>${holo?`<span><small>Reverse Holo</small><b>${fmtPrice(holo)}</b></span>`:""}</div>
-    <div class="row"><span>Cardmarket-Richtwert, Stand ${deDate((p.updated||"").slice(0,10))} – wird beim Speichern als Wert übernommen.</span></div>`;
+  box.innerHTML = `<div class="pmain"><div class="now"><small>Aktueller Preis</small><b>${fmtPrice(p.trend)}</b>${holo?`<em>Reverse Holo ${fmtPrice(holo)}</em>`:""}</div>
+    <div class="ath"><small>Höchststand</small><b>${fmtPrice(ath?.max)}</b><em>am ${deDate(ath?.d)} · erfasst seit ${deDate(ath?.since)}</em></div></div>
+    <span>Cardmarket-Trend · Stand ${deDate((p.updated||"").slice(0,10))}</span>`;
   box.hidden = false;
 }
 let infoReq = 0;
+const TYPE_ICON = {Grass:12,Fire:10,Water:11,Lightning:13,Psychic:14,Fighting:2,Darkness:17,Metal:9,Dragon:16,Colorless:1,Fairy:18};
+const typeIcon = t => TYPE_ICON[t] ? `<span class="ticon" aria-hidden="true" style="background-image:url(https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-viii/legends-arceus/${TYPE_ICON[t]}.png)"></span>` : "";
+function priceHist(){ try{ return JSON.parse(LS.raw("pk-pricehist")||"{}"); }catch{ return {}; } }
+function recordPrice(key, p){
+  if(!p) return null;
+  const h = priceHist(), today = (p.updated || new Date().toISOString()).slice(0,10);
+  const cur = h[key];
+  const cands = [[p.trend, today]];
+  if(!cur && p.avg30) cands.push([p.avg30, today]);
+  let best = cur ? {max:cur.max, d:cur.d, since:cur.since} : {max:0, d:today, since:today};
+  for(const [v,d] of cands) if(v && v > best.max){ best.max = v; best.d = d; }
+  h[key] = best; LS.put("pk-pricehist", JSON.stringify(h));
+  return best;
+}
 
 function imgOk(el){ if(el.classList.contains("cimg")) el.parentNode.classList.add("loaded"); }
 function imgErr(el){
@@ -558,13 +590,19 @@ function openCtx(c){ ctx=c; confirmDel=null; resetForm(); renderDialog(); if(!$(
 function renderDialog(){
   const list = ctxList(), q = sum(list,qtyOf), val = sum(list,c=>(+c.val||0)*qtyOf(c));
   let links = "";
+  const haveChip = q ? `<span class="chip have">${q}× im Album</span>` : `<span class="chip none">nicht im Album</span>`;
   if(ctx.kind==="dex"){
     $("#d-title").textContent = NAMES[ctx.dex-1];
-    $("#d-sub").textContent = `#${pad4(ctx.dex)} · ` + (list.length ? `${q} Karte${q>1?"n":""} · ${eur(val)}` : "noch keine Karte") + ` · ${(DEXCARDS.get(ctx.dex)||[]).length} Karten in der Setliste`;
+    $("#d-sub").innerHTML = `<span class="chip num">#${pad4(ctx.dex)}</span>${haveChip}`;
+    $("#d-meta").textContent = `${(DEXCARDS.get(ctx.dex)||[]).length} Karten in der Setliste` + (q ? ` · Wert ${eur(val)}` : "");
   } else {
     const s = SET.get(ctx.setId), c = s.cards[s.idx.get(ctx.num)], t = TYPES[c[5]], rar = RAR[c[3]]||[c[3]];
     $("#d-title").textContent = cName(c);
-    $("#d-sub").textContent = [`${s.abbr} ${numDisp(s,c[0])}`, rar[0], c[4]==="P" ? (t?t[0]:"") : CAT[c[4]], c[6]?`${c[6]} KP`:"", c[7]?`Pokédex #${pad4(c[7])}`:"", list.length?`${q}× · ${eur(val)}`:""].filter(Boolean).join(" · ");
+    const typeChip = c[4]==="P" && t
+      ? `<span class="chip type" style="--tb:${t[1]};--ti:${t[2]}">${typeIcon(c[5])}${esc(t[0])}</span>`
+      : `<span class="chip">${esc(CAT[c[4]]||"")}</span>`;
+    $("#d-sub").innerHTML = `<span class="chip num">${esc(s.abbr)} ${esc(numDisp(s,c[0]))}</span>${rar[0]&&rar[0]!=="–"?`<span class="chip rare">${esc(rar[1] && /★/.test(rar[1]) ? rar[1]+" " : "")}${esc(rar[0])}</span>`:""}${typeChip}${haveChip}`;
+    $("#d-meta").textContent = [s.de, c[7] ? `Pokédex #${pad4(c[7])}` : "", q ? `Wert ${eur(val)}` : ""].filter(Boolean).join(" · ");
     links = `<a class="btn" href="${cmLink(s,c)}" target="_blank" rel="noopener">Bei Cardmarket suchen ↗</a>`;
   }
   $("#d-links").innerHTML = links;
@@ -695,7 +733,7 @@ async function updatePrices(s){
   if(btn) btn.disabled = true;
   const prices = new Map(); let done = 0, failed = 0, stand = "";
   const queue = keys.slice();
-  const worker = async () => { while(queue.length){ const k = queue.shift(); const [sid, num] = k.split("|"); try{ const i = await cardInfo(SET.get(sid), num, false); prices.set(k, i.price); if(i.price?.updated) stand = i.price.updated; }catch{ failed++; } done++; if(out()) out().textContent = `Lade Preise … ${done}/${keys.length}`; } };
+  const worker = async () => { while(queue.length){ const k = queue.shift(); const [sid, num] = k.split("|"); try{ const i = await cardInfo(SET.get(sid), num, false); prices.set(k, i.price); recordPrice(k, i.price); if(i.price?.updated) stand = i.price.updated; }catch{ failed++; } done++; if(out()) out().textContent = `Lade Preise … ${done}/${keys.length}`; } };
   await Promise.all([worker(), worker(), worker(), worker()]);
   let changed = 0;
   cards = cards.map(c => { const v = priceFor(prices.get(c.setId + "|" + c.num), c.variant); if(!v) return c; changed++; return {...c, val: Math.round(v*100)/100, priceDate: (stand || new Date().toISOString()).slice(0,10)}; });

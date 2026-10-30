@@ -1,5 +1,10 @@
 # Kartenalbum – Änderungen
 
+## Version 1.4 · 30.10.2026
+- Kartenkopf neu mit Badges: Set und Nummer, Seltenheit, Typ mit Original-Typsymbol, Anzahl im Album
+- Preis-Box neu: aktueller Cardmarket-Preis groß, daneben Höchststand seit Erfassung mit Datum
+- Preise werden bei jedem Abruf auf dem Gerät mitprotokolliert
+
 ## Version 1.3 · 30.10.2026
 - Änderungsprotokoll in der App: Versionsnummer unten auf jeder Seite, Hinweis nach jedem Update
 
