@@ -1,5 +1,11 @@
 # Kartenalbum – Änderungen
 
+## Version 1.11 · 02.11.2026
+- Darstellung wählbar: Automatisch, Hell oder Dunkel
+- Mehr-Tab neu im Stil der iPhone-Einstellungen: Darstellung, Sammlung, Sicherung, Tipps, Über die App; Änderungen als Bottom Sheet
+- Erklärtexte aus den Ansichten in den Bereich „Tipps“ verschoben, Quellenhinweis nur noch unter Mehr
+- Preis-Box: Varianten-Chips brechen um, alle Varianten ohne Scrollen sichtbar
+
 ## Version 1.10 · 02.11.2026
 - Album: Flackern beim Blättern behoben – Seiten werden nur einmal gebaut, Nachbarseiten vorgeladen
 - Preis-Box aufgeräumt: aktueller Preis und Höchststand nebeneinander, eine Infozeile, Varianten-Chips ohne Preis

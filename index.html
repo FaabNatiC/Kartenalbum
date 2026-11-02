@@ -13,6 +13,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" href="icon-192.png">
+<script>try{var th=localStorage.getItem("pk-theme");if(th==="light"||th==="dark")document.documentElement.setAttribute("data-theme",th);}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Chakra+Petch:wght@500;600;700&display=swap">
 <style>
@@ -284,8 +285,8 @@ dialog::backdrop{background:rgba(10,14,24,.55)}
 .qwrap .field{padding-right:46px}
 .qclr{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:50%;border:0;background:var(--pocket);color:var(--ink);font-size:18px;cursor:pointer}
 /* Preis-Chips */
-.pchips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:0 -2px;padding:0 2px}
-.pchip{flex:0 0 auto;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:6px 11px;font:600 12.5px var(--f-body);cursor:pointer;white-space:nowrap}
+.pchips{display:flex;flex-wrap:wrap;gap:5px}
+.pchip{flex:0 0 auto;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:5px 10px;font:600 12px var(--f-body);cursor:pointer;white-space:nowrap;min-height:30px}
 .pchip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .pchip small{font:600 11px var(--f-num);opacity:.75;margin-left:4px}
 /* Picker-Logo */
@@ -393,10 +394,29 @@ form.f{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .card-s ul{margin:4px 0 0;padding-left:18px;display:grid;gap:4px;font-size:14px}
 .ver small{font:600 12px var(--f-num);color:var(--muted);margin-left:6px}
 .foot{margin-top:28px;font-size:12px;color:var(--muted)}
+.set-sec{display:grid;gap:6px;margin-top:22px;max-width:680px}
+.set-sec>h2{margin:0 0 0 14px;font:600 12px var(--f-body);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.group{background:var(--page);border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+.srow{display:flex;align-items:center;gap:12px;min-height:50px;padding:6px 14px;border:0;border-top:1px solid var(--line);background:none;width:100%;text-align:left;color:var(--ink);font:500 15px var(--f-body);cursor:pointer;text-decoration:none}
+.group>.srow:first-child,.group>:first-child .srow{border-top:0}
+.srow .lbl{flex:1;min-width:0}
+.srow .val{color:var(--muted);font:500 14px var(--f-body);white-space:nowrap}
+.srow .chev{color:var(--muted);font-size:18px;line-height:1}
+.srow select{appearance:none;-webkit-appearance:none;border:0;background:none;color:var(--muted);font:500 15px var(--f-body);text-align:right;text-align-last:right;padding:8px 0;cursor:pointer;max-width:55%}
+.srow.act{color:var(--accent)}
+.srow:disabled{opacity:.5;cursor:default}
+.srow.seg-row{display:block;padding:8px}
+.srow.seg-row .seg{margin:0}
+.sfoot{margin:0 14px;font-size:12.5px;color:var(--muted)}
+.tips{margin:0;padding:10px 14px 12px 32px;display:grid;gap:8px;font-size:14px}
+.logv{display:grid;gap:4px;padding:4px 0}
+.logv b{font-size:15px}
+.logv small{font:600 12px var(--f-num);color:var(--muted);margin-left:6px}
+.logv ul{margin:2px 0 8px;padding-left:18px;display:grid;gap:4px;font-size:14px}
 .toast{position:fixed;left:50%;bottom:calc(var(--tabh) + env(safe-area-inset-bottom,0px) + 12px);z-index:60;transform:translate(-50%,140%);opacity:0;transition:transform .35s cubic-bezier(.2,.9,.3,1.1),opacity .25s;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border-radius:14px;padding:8px 8px 8px 14px;box-shadow:0 10px 30px rgba(0,0,0,.3);font:600 14px var(--f-body);width:max-content;max-width:calc(100vw - 32px)}
 .toast.on{transform:translate(-50%,0);opacity:1}
 .toast .btn{min-height:36px;padding:6px 12px}
-.toast a.btn{background:transparent;color:var(--bg);border-color:color-mix(in srgb,var(--bg) 40%,transparent)}
+.toast #t-log,.toast a.btn{background:transparent;color:var(--bg);border-color:color-mix(in srgb,var(--bg) 40%,transparent)}
 .toast .tx{border:0;background:none;color:inherit;font-size:20px;width:32px;height:32px;cursor:pointer;opacity:.7}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -408,7 +428,6 @@ form.f{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
   <div id="status" class="note" hidden></div>
   <div id="tools"></div>
   <main id="view"></main>
-  <p class="foot">Kartendaten, Kartenbilder und Preise kommen von TCGdex (Setliste Stand 30.10.2026), Typsymbole von PokeAPI. Deine Sammlung bleibt ausschließlich auf diesem Gerät. Pokémon und Pokémon-Sammelkarten sind Marken von Nintendo, Creatures und GAME FREAK.</p>
 </div>
 <div class="tabbar"><nav aria-label="Hauptnavigation">
   <a class="tab" href="#regal" data-tab="regal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="5" height="16" rx="1"/><rect x="9.5" y="4" width="5" height="16" rx="1"/><path d="M15.6 5.4l3.6-1 3 14.8-3.6 1z"/></svg>Alben</a>
@@ -433,7 +452,7 @@ form.f{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
   <button class="v-x" type="button" id="v-close" aria-label="3D-Ansicht schließen">×</button>
   <div class="v-stage" id="v-stage"><div class="c3d" id="c3d"><div class="side front"><img id="v-front" alt=""><div class="holo" id="v-holo"></div><div class="glare"></div></div><div class="side backs" id="v-back"></div></div></div>
   <div class="v-bar"><button class="btn" type="button" id="v-flip">Umdrehen</button><button class="btn" type="button" id="v-tilt" aria-pressed="false">Neigung</button></div>
-  <p class="v-hint">Ziehen zum Drehen · Doppeltippen oder schnell wischen zum Umdrehen</p>
+  <p class="v-hint" id="v-hint">Ziehen zum Drehen · Doppeltippen oder schnell wischen zum Umdrehen</p>
 </div>
 <div class="toast" id="toast" role="status" hidden></div>
 <div class="album" id="album" role="dialog" aria-modal="true" aria-label="Album" hidden>
@@ -446,9 +465,17 @@ form.f{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
   <div class="grab" aria-hidden="true"><span></span></div>
   <div class="sheet-scroll"><div class="dlg">
     <div class="dlg-x"><button class="x" type="button" data-sheet-close aria-label="Schließen">×</button></div>
-    <div><h2 class="sh-t" id="p-title">Album anlegen</h2><p class="dmeta">Wähle ein Set. Jede Karte bekommt ihre Tasche, sortiert nach Kartennummer.</p></div>
+    <h2 class="sh-t" id="p-title">Album anlegen</h2>
     <input class="field" id="p-q" type="search" placeholder="Set suchen, z. B. Stellarkrone oder SCR" autocomplete="off">
     <div class="plist" id="p-list"></div>
+  </div></div>
+</section>
+<section class="sheet" id="logsheet" role="dialog" aria-modal="true" aria-labelledby="l-title" hidden>
+  <div class="grab" aria-hidden="true"><span></span></div>
+  <div class="sheet-scroll"><div class="dlg">
+    <div class="dlg-x"><button class="x" type="button" data-sheet-close aria-label="Schließen">×</button></div>
+    <h2 class="sh-t" id="l-title">Änderungen</h2>
+    <div id="l-body"></div>
   </div></div>
 </section>
 <section class="sheet" id="filt" role="dialog" aria-modal="true" aria-labelledby="f-title" hidden>
@@ -475,6 +502,7 @@ const CONDS = ["Mint","Near Mint","Excellent","Good","Light Played","Played","Po
 
 /* ---------- Änderungsprotokoll ---------- */
 const CHANGELOG = [
+  {v:"1.11", d:"2026-11-02", items:["Darstellung wählbar: Automatisch, Hell oder Dunkel","Mehr-Tab neu im Stil der iPhone-Einstellungen: Darstellung, Sammlung, Sicherung, Tipps, Über die App; Änderungen als Bottom Sheet","Erklärtexte aus den Ansichten in den Bereich „Tipps“ verschoben, Quellenhinweis nur noch unter Mehr","Preis-Box: Varianten-Chips brechen um, alle Varianten ohne Scrollen sichtbar"]},
   {v:"1.10", d:"2026-11-02", items:["Album: Flackern beim Blättern behoben – Seiten werden nur einmal gebaut, Nachbarseiten vorgeladen","Preis-Box aufgeräumt: aktueller Preis und Höchststand nebeneinander, eine Infozeile, Varianten-Chips ohne Preis","3D-Kartenansicht: Tap aufs Kartenbild, Drehen per Finger oder Neigung, Umdrehen, Glanzeffekt; Rückseite aus rueckseite.jpg oder eigenes Design","Schnellere Updates: Prüfung beim Start und beim Zurückkehren, Banner „Neue Version verfügbar“","Hinweis „Aktualisiert auf Version …“ nach einem Update","Set-Kopf schrumpft beim Scrollen fließend zu einer Zeile mit Ring, Logo, Fortschritt und Wert","Nur noch ein Album-Knopf in der Filterzeile","Kopfzeile und Set-Leiste bleiben beim Scrollen jetzt zuverlässig oben stehen"]},
   {v:"1.9", d:"2026-11-02", items:["Set-Ansicht als einfaches Kartenraster, dazu Knopf „Album öffnen“","Album-Modus bildschirmfüllend: Blättern per Wischen mit 3D-Umblättern, Seitenregler, Tap auf eine Tasche öffnet die Karte","Querformat: Doppelseite wie ein aufgeschlagener Ordner, Bedienelemente blenden sich aus","Handy im Set quer kippen öffnet automatisch das Album, zurückkippen schließt es auf der aktuellen Seite"]},
   {v:"1.8", d:"2026-10-30", items:["Alle Overlays als einheitliches Bottom Sheet: Karte, Pokédex, Album anlegen, Filter","Karten-Sheet öffnet bis unter „Bei Cardmarket suchen“, Weiterscrollen öffnet es fließend ganz","Preis-Box mit Varianten-Chips: Preis und Höchststand je Variante","Pokédex zeigt das offizielle Pokémon-Artwork, fehlende als Silhouette","Set-Album: Set-Logo, Fortschrittsring mit Grundset, Master-Set und Wert; Kopf schrumpft beim Scrollen zu einer Leiste","Filter im Set-Album nach Kategorie, Typ, Variante und Seltenheit – Variante kombiniert mit Gesammelt/Fehlend","Suche mit ×-Knopf zum Leeren","Album anlegen mit Set-Logos; Pokédex-Ordner aus dem Alben-Tab entfernt"]},
@@ -805,7 +833,7 @@ function jumpTo(key){
 function renderDex(){
   $("#bar-title").textContent = "Pokédex";
   const m = dexOwned(), all = [...m.values()].flat();
-  $("#head").innerHTML = `<h1>Pokédex</h1><p class="sub">Eine Tasche pro Pokémon. Karten aus deinen Set-Alben landen automatisch hier.</p>
+  $("#head").innerHTML = `<h1>Pokédex</h1>
     <div class="stats"><div class="grow"><div class="stat"><small>Gesammelt</small><b>${m.size} / ${TOTAL}</b></div><span class="bar-p"><i style="width:${(m.size/TOTAL*100).toFixed(2)}%"></i></span></div>
     <div class="stat"><small>Karten</small><b>${sum(all,qtyOf)}</b></div><div class="stat"><small>Wert</small><b>${eur(sum(all,valOf))}</b></div></div>`;
   $("#tools").innerHTML = `${segHTML()}<div class="gens">${GENS.map(([g,a,b])=>{ let c=0; for(let i=a;i<=b;i++) if(m.has(i)) c++; return `<button class="gen" type="button" data-jump="${a}"><span>${g}</span><em>${c}/${b-a+1}</em><span class="bar-p"><i style="width:${(c/(b-a+1)*100).toFixed(1)}%"></i></span></button>`; }).join("")}</div>${filter==="all"?pagerHTML(Math.ceil(TOTAL/9)):""}`;
@@ -901,7 +929,7 @@ function openFilter(s){ filtSet = s; renderFilter(); filtSheet.open("half"); }
 function renderFilter(){
   const s = filtSet; if(!s) return;
   const o = setFilterOptions(s);
-  $("#f-body").innerHTML = FGROUPS.filter(([g])=>o[g].length>1).map(([g,lbl])=>`<div class="fgroup"><h3>${lbl}</h3><div class="fopts">${o[g].map(([v,l,ic])=>`<button class="fopt" type="button" data-fopt="${g}|${esc(v)}" aria-pressed="${filt[g].has(v)}">${ic||""}${esc(l)}</button>`).join("")}</div></div>`).join("") + (filt.var.size ? `<p class="hint">Mit Variante beziehen sich „Gesammelt“ und „Fehlend“ auf diese Variante – ideal fürs Master-Set.</p>` : "");
+  $("#f-body").innerHTML = FGROUPS.filter(([g])=>o[g].length>1).map(([g,lbl])=>`<div class="fgroup"><h3>${lbl}</h3><div class="fopts">${o[g].map(([v,l,ic])=>`<button class="fopt" type="button" data-fopt="${g}|${esc(v)}" aria-pressed="${filt[g].has(v)}">${ic||""}${esc(l)}</button>`).join("")}</div></div>`).join("");
 }
 $("#f-body").addEventListener("click", e=>{ const b = e.target.closest("[data-fopt]"); if(!b) return; const [g,v] = b.dataset.fopt.split("|"); filt[g].has(v) ? filt[g].delete(v) : filt[g].add(v); renderFilter(); render(); });
 $("#f-reset").addEventListener("click", ()=>{ FGROUPS.forEach(([g])=>filt[g].clear()); renderFilter(); render(); });
@@ -910,7 +938,7 @@ $("#f-done").addEventListener("click", ()=>filtSheet.close());
 /* ---------- Suche ---------- */
 function renderSearch(){
   $("#bar-title").textContent = "Suche";
-  $("#head").innerHTML = `<h1>Suche</h1><p class="sub">Karten und Pokémon in allen Sets, z. B. „Glurak“, „Pikachu ex“ oder „Pyapabeere“.</p>`;
+  $("#head").innerHTML = `<h1>Suche</h1>`;
   if(!$("#q")){
     $("#tools").innerHTML = `<div class="qwrap"><input class="field" id="q" type="text" inputmode="search" placeholder="Name eingeben" autocomplete="off" autocorrect="off" enterkeyhint="search" value="${esc(searchQ)}"><button class="qclr" type="button" id="q-clr" aria-label="Suche leeren" ${searchQ?"":"hidden"}>×</button></div>`;
     $("#q").addEventListener("input", e=>{ searchQ = e.target.value; $("#q-clr").hidden = !searchQ; renderResults(); });
@@ -942,27 +970,58 @@ function renderResults(){
 }
 
 /* ---------- Mehr ---------- */
+function applyTheme(){
+  const th = LS.raw("pk-theme") || "auto", root = document.documentElement;
+  if(th==="light" || th==="dark") root.setAttribute("data-theme", th); else root.removeAttribute("data-theme");
+  const dark = th==="dark" || (th==="auto" && matchMedia("(prefers-color-scheme: dark)").matches);
+  document.querySelectorAll('meta[name="theme-color"]').forEach(m=>m.setAttribute("content", dark ? "#0e121b" : "#e8ebf1"));
+}
+matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", applyTheme);
+const TIPS = [
+  "Pokédex: eine Tasche pro Pokémon. Karten, die du in Set-Alben zählst, landen automatisch hier.",
+  "Suche: findet Karten und Pokémon in allen Sets, auch mit englischem Namen, z. B. „Glurak“ oder „Charizard“.",
+  "Album anlegen: Jede Karte des Sets bekommt eine Tasche, sortiert nach Kartennummer.",
+  "Filter: Mit einer gewählten Variante beziehen sich „Gesammelt“ und „Fehlend“ auf genau diese Variante – ideal fürs Master-Set.",
+  "Album: Handy quer kippen öffnet die Doppelseite, Wischen blättert um.",
+  "3D-Ansicht: Ziehen zum Drehen, Doppeltippen oder schnell wischen zum Umdrehen. Eine eigene Rückseite legst du als rueckseite.jpg ins Repository.",
+  "Mit + gezählte Karten bekommen Standard-Sprache und -Zustand. Abweichungen trägst du in den Details einer Variante ein."
+];
 function renderMore(){
   $("#bar-title").textContent = "Mehr";
   LS.put("pk-seen", APP_VERSION);
   const last = LS.raw("pk-lastbackup");
   const days = last ? Math.floor((Date.now()-new Date(last))/864e5) : null;
+  const th = LS.raw("pk-theme") || "auto";
+  const pd = cards.map(c=>c.priceDate||"").filter(Boolean).sort().pop();
+  const hasSet = cards.some(c=>c.setId);
   $("#head").innerHTML = `<h1>Mehr</h1>`;
   $("#tools").innerHTML = "";
-  $("#view").innerHTML = `<div class="stack">
-    <section class="card-s"><h2>Standard beim Hochzählen</h2><p class="hint">Mit + gezählte Karten bekommen diese Sprache und diesen Zustand. Abweichungen trägst du in den Details einer Variante ein.</p>
-      <form class="f" onsubmit="return false"><div class="fld"><label for="set-lang">Sprache</label><select id="set-lang">${LANGS.map(l=>`<option${l===settings.lang?" selected":""}>${l}</option>`).join("")}</select></div>
-      <div class="fld"><label for="set-cond">Zustand</label><select id="set-cond">${CONDS.map(l=>`<option${l===settings.cond?" selected":""}>${l}</option>`).join("")}</select></div></form></section>
-    <section class="card-s"><h2>Werte</h2><p class="hint">Holt für alle deine Karten den aktuellen Cardmarket-Preis je Variante.</p>
-      <div class="row">${cards.some(c=>c.setId)?`<button class="btn" type="button" id="upd-all">Alle Werte aktualisieren</button>`:`<span class="hint">Noch keine Karten aus Sets eingetragen.</span>`}</div></section>
-    <section class="card-s"><h2>Sicherung</h2><p class="hint" id="bk-msg">${cards.length ? (last ? `Letzte Sicherung am ${deDate(last)}${days>30?" – Zeit für eine neue.":"."}` : "Noch keine Sicherung. Deine Sammlung liegt nur auf diesem Gerät – exportiere ab und zu eine Datei, z. B. in iCloud Drive.") : "Deine Sammlung liegt nur auf diesem Gerät."}</p>
-      <div class="row"><button class="btn" type="button" id="exp">Sicherung exportieren</button><label class="btn" for="imp">Sicherung importieren</label><input type="file" id="imp" accept="application/json,.json" hidden></div></section>
-    <section class="card-s ver"><h2>Version ${esc(APP_VERSION)}</h2>${CHANGELOG.map(e=>`<div><b>Version ${esc(e.v)}</b><small>${deDate(e.d)}</small><ul>${e.items.map(i=>`<li>${esc(i)}</li>`).join("")}</ul></div>`).join("")}</section></div>`;
+  $("#view").innerHTML = `
+    <section class="set-sec"><h2>Darstellung</h2><div class="group"><div class="srow seg-row"><div class="seg" role="group" aria-label="Darstellung">${[["auto","Automatisch"],["light","Hell"],["dark","Dunkel"]].map(([k,l])=>`<button type="button" data-theme-opt="${k}" aria-pressed="${th===k}">${l}</button>`).join("")}</div></div></div></section>
+    <section class="set-sec"><h2>Sammlung</h2><div class="group">
+      <label class="srow" for="set-lang"><span class="lbl">Standard-Sprache</span><select id="set-lang">${LANGS.map(l=>`<option${l===settings.lang?" selected":""}>${l}</option>`).join("")}</select><span class="chev">›</span></label>
+      <label class="srow" for="set-cond"><span class="lbl">Standard-Zustand</span><select id="set-cond">${CONDS.map(l=>`<option${l===settings.cond?" selected":""}>${l}</option>`).join("")}</select><span class="chev">›</span></label>
+      <button class="srow act" type="button" id="upd-all" ${hasSet?"":"disabled"}><span class="lbl">Werte aktualisieren</span><span class="val">${pd?`Stand ${deDate(pd)}`:""}</span></button>
+    </div><p class="sfoot" id="val-msg">${hasSet?"Holt den aktuellen Cardmarket-Trend je Variante für alle deine Karten.":"Noch keine Karten aus Sets eingetragen."}</p></section>
+    <section class="set-sec"><h2>Sicherung</h2><div class="group">
+      <button class="srow act" type="button" id="exp"><span class="lbl">Sicherung exportieren</span></button>
+      <label class="srow act" for="imp"><span class="lbl">Sicherung importieren</span></label><input type="file" id="imp" accept="application/json,.json" hidden>
+    </div><p class="sfoot" id="bk-msg">${cards.length ? (last ? `Letzte Sicherung am ${deDate(last)}${days>30?" – Zeit für eine neue.":"."}` : "Noch keine Sicherung. Deine Sammlung liegt nur auf diesem Gerät.") : "Deine Sammlung liegt nur auf diesem Gerät."}</p></section>
+    <section class="set-sec"><h2>Tipps</h2><div class="group"><ul class="tips">${TIPS.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div></section>
+    <section class="set-sec"><h2>Über die App</h2><div class="group">
+      <button class="srow" type="button" id="open-log"><span class="lbl">Version</span><span class="val">${esc(APP_VERSION)}</span><span class="chev">›</span></button>
+    </div><p class="sfoot">Kartendaten, Kartenbilder und Preise: TCGdex (Setliste Stand 30.10.2026). Pokémon-Artwork und Typsymbole: PokeAPI. Deine Sammlung bleibt ausschließlich auf diesem Gerät. Pokémon und Pokémon-Sammelkarten sind Marken von Nintendo, Creatures und GAME FREAK.</p></section>`;
+  document.querySelectorAll("[data-theme-opt]").forEach(b=>b.addEventListener("click",()=>{ const k = b.dataset.themeOpt; LS.put("pk-theme", k); applyTheme(); render(); }));
   $("#set-lang").addEventListener("change", e=>{ settings.lang = e.target.value; LS.set("pk-settings", settings); });
   $("#set-cond").addEventListener("change", e=>{ settings.cond = e.target.value; LS.set("pk-settings", settings); });
   $("#exp").addEventListener("click", exportBackup);
   $("#upd-all")?.addEventListener("click", () => updatePrices(null));
   $("#imp").addEventListener("change", importBackup);
+  $("#open-log").addEventListener("click", openLog);
+}
+function openLog(){
+  $("#l-body").innerHTML = CHANGELOG.map(e=>`<div class="logv"><div><b>Version ${esc(e.v)}</b><small>${deDate(e.d)}</small></div><ul>${e.items.map(i=>`<li>${esc(i)}</li>`).join("")}</ul></div>`).join("");
+  logSheet.open("full");
 }
 
 /* ---------- Kartendialog ---------- */
@@ -1055,6 +1114,7 @@ const openSheet = () => cardSheet.open("half");
 const closeSheet = () => cardSheet.close();
 Object.defineProperty($("#dlg"), "open", {get:()=>cardSheet.state!=="closed"});
 const pickSheet = makeSheet($("#pick"));
+const logSheet = makeSheet($("#logsheet"));
 const filtSheet = makeSheet($("#filt"));
 function openCtx(c){ ctx=c; openDet = new Set(); showMore=false; confirmDel=null; priceVar=null; $("#d-img").dataset.key=""; renderDialog(); if(cardSheet.state==="closed") openSheet(); else { sScroll.scrollTop = 0; cardSheet.set("half"); } }
 
@@ -1187,7 +1247,7 @@ function renderDexDialog(){
 
 /* ---------- Preise aktualisieren ---------- */
 async function updatePrices(s){
-  const btn = $(s ? "#upd-prices" : "#upd-all"), out = () => $(s ? "#upd-msg" : "#bk-msg");
+  const btn = $(s ? "#upd-prices" : "#upd-all"), out = () => $(s ? "#upd-msg" : "#val-msg");
   const keys = [...new Set(cards.filter(c => c.setId && SET.has(c.setId) && (!s || c.setId === s.id)).map(c => c.setId + "|" + c.num))];
   if(btn) btn.disabled = true;
   let done = 0, failed = 0, stand = "";
@@ -1433,6 +1493,7 @@ function openViewer(){
   const back = $("#v-back");
   if(backImgOk) back.innerHTML = `<img src="rueckseite.jpg" alt="">`;
   else { back.innerHTML = design; if(backImgOk===null){ const t = new Image(); t.onload = ()=>{ backImgOk = true; if(V.open) back.innerHTML = `<img src="rueckseite.jpg" alt="">`; }; t.onerror = ()=>{ backImgOk = false; }; t.src = "rueckseite.jpg"; } }
+  $("#v-hint").hidden = !!LS.raw("pk-3dhint"); LS.put("pk-3dhint","1");
   V.base = 0; V.rx = -8; V.ry = 14; V.open = true;
   vEl.hidden = false; vApply(); requestAnimationFrame(()=>{ vEl.classList.add("on"); V.rx = 0; V.ry = 0; vApply(true); });
 }
@@ -1486,6 +1547,7 @@ function toast(html, ms){
   requestAnimationFrame(()=>el.classList.add("on"));
   clearTimeout(toastT); if(ms) toastT = setTimeout(hideToast, ms);
   el.querySelector("[data-tclose]")?.addEventListener("click", hideToast);
+  el.querySelector("#t-log")?.addEventListener("click", ()=>{ hideToast(); openLog(); });
 }
 function hideToast(){ const el = $("#toast"); el.classList.remove("on"); setTimeout(()=>{ if(!el.classList.contains("on")) el.hidden = true; }, 300); }
 let lastCheck = 0, offered = null;
@@ -1510,13 +1572,14 @@ async function doUpdate(){
 }
 function updatedNotice(){
   const prev = LS.raw("pk-lastver");
-  if(prev && prev !== APP_VERSION) setTimeout(()=>toast(`<span>Aktualisiert auf Version ${esc(APP_VERSION)}</span><a class="btn" href="#mehr">Änderungen</a><button class="tx" type="button" data-tclose aria-label="Schließen">×</button>`, 5000), 600);
+  if(prev && prev !== APP_VERSION) setTimeout(()=>toast(`<span>Aktualisiert auf Version ${esc(APP_VERSION)}</span><button class="btn" type="button" id="t-log">Änderungen</button><button class="tx" type="button" data-tclose aria-label="Schließen">×</button>`, 5000), 600);
   LS.put("pk-lastver", APP_VERSION);
 }
 document.addEventListener("visibilitychange", ()=>{ if(document.visibilityState==="visible") checkUpdate(); });
 
 /* ---------- Start ---------- */
 function init(){
+  applyTheme();
   albums = LS.get("pk-albums", []);
   settings = {...settings, ...LS.get("pk-settings", {})};
   const raw = LS.get("pk-cards", []);
