@@ -1,7 +1,14 @@
 # Kartenalbum – Änderungen
 
-## Version 1.9.1 · 02.11.2026
-- Album: Flackern beim Blättern behoben – Seiten werden nur einmal gebaut, Nachbarseiten vorgeladen, Umblätter-Seite liegt sauber über der Doppelseite
+## Version 1.10 · 02.11.2026
+- Album: Flackern beim Blättern behoben – Seiten werden nur einmal gebaut, Nachbarseiten vorgeladen
+- Preis-Box aufgeräumt: aktueller Preis und Höchststand nebeneinander, eine Infozeile, Varianten-Chips ohne Preis
+- 3D-Kartenansicht: Tap aufs Kartenbild, Drehen per Finger oder Neigung, Umdrehen, Glanzeffekt; Rückseite aus rueckseite.jpg oder eigenes Design
+- Schnellere Updates: Prüfung beim Start und beim Zurückkehren, Banner „Neue Version verfügbar“
+- Hinweis „Aktualisiert auf Version …“ nach einem Update
+- Set-Kopf schrumpft beim Scrollen fließend zu einer Zeile mit Ring, Logo, Fortschritt und Wert
+- Nur noch ein Album-Knopf in der Filterzeile
+- Kopfzeile und Set-Leiste bleiben beim Scrollen jetzt zuverlässig oben stehen
 
 ## Version 1.9 · 02.11.2026
 - Set-Ansicht als einfaches Kartenraster, dazu Knopf „Album öffnen“

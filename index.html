@@ -46,8 +46,8 @@
   --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 18px rgba(0,0,0,.25);
   color-scheme:dark}
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;background:var(--bg);overflow-x:hidden}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.45;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%;background:var(--bg);overflow-x:hidden;overflow-x:clip}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.45;overflow-x:hidden;overflow-x:clip;-webkit-tap-highlight-color:transparent}
 [hidden]{display:none!important}
 img{max-width:100%}
 a{color:inherit}
@@ -219,10 +219,17 @@ dialog::backdrop{background:rgba(10,14,24,.55)}
 .kv b{font-family:var(--f-num);font-variant-numeric:tabular-nums}
 .stick{position:sticky;top:calc(env(safe-area-inset-top,0px) + 49px);z-index:15;background:var(--bg);margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding-inline:max(16px,env(safe-area-inset-left,0px));padding-block:2px 10px}
 .stick.shrunk{box-shadow:0 6px 10px -8px rgba(0,0,0,.35)}
-.mini{display:none;align-items:center;gap:10px;padding-top:8px;font-size:13px}
-.stick.shrunk .mini{display:flex}
-.mini b{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
-.mini span{font:600 12.5px var(--f-num);color:var(--muted);white-space:nowrap;margin-left:auto}
+.sethead{transform-origin:50% 0;will-change:transform,opacity}
+.mini{display:flex;align-items:center;gap:10px;height:0;opacity:0;overflow:hidden;font-size:13px}
+.mini .ring{width:30px;height:30px}
+.mini .ring text{display:none}
+.mlogo{height:26px;display:grid;place-items:center;min-width:0;flex:0 1 auto}
+.mlogo img{max-height:26px;max-width:130px;object-fit:contain}
+.mlogo .logo-t{display:none;font:700 14px var(--f-body);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mlogo:not(:has(img)) .logo-t{display:block}
+.mv{margin-left:auto;font:600 13px var(--f-num);color:var(--muted);white-space:nowrap}
+.mv b{color:var(--ink)}
+.fbtn.alb{gap:6px}
 .segrow{display:flex;gap:8px;align-items:stretch;margin-top:10px}
 .segrow .seg{flex:1;margin-top:0}
 .fbtn{border:1px solid var(--line);background:var(--page);border-radius:10px;padding:0 12px;font:600 14px var(--f-body);display:inline-flex;align-items:center;gap:6px;cursor:pointer;min-height:44px}
@@ -290,6 +297,29 @@ dialog::backdrop{background:rgba(10,14,24,.55)}
 .x{pointer-events:auto;border:0;background:var(--pocket);color:var(--ink);width:38px;height:38px;border-radius:50%;font-size:20px;cursor:pointer;box-shadow:var(--shadow)}
 .big{display:block;width:min(100%,250px);aspect-ratio:63/88;margin:0 auto;border-radius:12px;object-fit:cover;background:var(--pocket);box-shadow:var(--shadow)}
 .big.noimg{display:none}
+.bigwrap{position:relative;width:min(100%,250px);margin:0 auto}
+.bigwrap .big{width:100%;cursor:zoom-in}
+.b3d{position:absolute;right:8px;bottom:8px;border:0;border-radius:999px;background:rgba(10,14,24,.72);color:#fff;font:700 12px var(--f-num);padding:6px 10px;cursor:pointer}
+/* 3D-Ansicht */
+.viewer{position:fixed;inset:0;z-index:70;background:rgba(6,8,13,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:calc(env(safe-area-inset-top,0px) + 12px) 16px calc(env(safe-area-inset-bottom,0px) + 16px);touch-action:none;-webkit-user-select:none;user-select:none;opacity:0;transition:opacity .2s}
+.viewer.on{opacity:1}
+.v-x{position:absolute;right:max(14px,env(safe-area-inset-right,0px));top:calc(env(safe-area-inset-top,0px) + 12px);width:42px;height:42px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;font-size:22px;cursor:pointer}
+.v-stage{touch-action:none;perspective:1100px;width:min(78vw,calc((100dvh - 180px) * 63 / 88),420px);aspect-ratio:63/88}
+.c3d{position:relative;width:100%;height:100%;transform-style:preserve-3d;-webkit-transform-style:preserve-3d;will-change:transform}
+.c3d.spring{transition:transform .5s cubic-bezier(.2,.9,.3,1.2)}
+.c3d .side{position:absolute;inset:0;border-radius:4.5%/3.3%;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;box-shadow:0 20px 50px rgba(0,0,0,.55);background:#222}
+.c3d .side img{width:100%;height:100%;object-fit:cover;display:block}
+.c3d .backs{transform:rotateY(180deg)}
+.glare{position:absolute;inset:0;pointer-events:none;mix-blend-mode:soft-light;background:radial-gradient(circle at var(--gx,50%) var(--gy,30%),rgba(255,255,255,.75),rgba(255,255,255,0) 55%)}
+.holo{position:absolute;inset:0;pointer-events:none;mix-blend-mode:color-dodge;opacity:.35;background:linear-gradient(var(--ga,115deg),transparent 20%,rgba(255,0,120,.5) 32%,rgba(255,220,0,.5) 42%,rgba(0,255,170,.5) 52%,rgba(0,140,255,.5) 62%,transparent 75%);background-size:220% 220%;background-position:var(--hp,50%) 50%}
+.bdesign{position:absolute;inset:0;display:grid;align-content:center;justify-items:center;gap:12px;padding:12%;text-align:center;color:#fff;background:radial-gradient(circle at 50% 35%,#2b3550,#0f1320 70%);border:6px solid #c9a227;border-radius:inherit}
+.bdesign img{max-width:85%;max-height:22%;object-fit:contain}
+.bdesign b{font:800 clamp(18px,5vw,26px)/1.15 var(--f-display)}
+.bdesign span{font:600 13px var(--f-num);opacity:.85}
+.v-bar{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.v-bar .btn{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2);color:#fff}
+.v-bar .btn[aria-pressed="true"]{background:#fff;color:#111}
+.v-hint{color:rgba(255,255,255,.6);font-size:12.5px;margin:0}
 .dlg h2{margin:0;font-family:var(--f-display);font-stretch:112%;font-weight:800;font-size:24px;line-height:1.1;padding-right:46px}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
 .chip{display:inline-flex;align-items:center;gap:5px;font:600 12px/1.2 var(--f-body);padding:5px 10px;border-radius:999px;background:var(--pocket);color:var(--ink);border:1px solid var(--line);white-space:nowrap}
@@ -303,11 +333,13 @@ dialog::backdrop{background:rgba(10,14,24,.55)}
 .dmeta{margin:8px 0 0;font-size:13px;color:var(--muted)}
 .dlinks{margin-top:10px}
 .price{border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;gap:8px;font-size:13px;color:var(--muted)}
-.pmain{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.pmain{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:12px}
+.pmain>div{display:grid;gap:3px;min-width:0}
+.pinfo{font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:8px}
 .pmain b{display:block;font-family:var(--f-num);color:var(--ink);font-variant-numeric:tabular-nums}
-.pmain .now b{font-weight:700;font-size:32px;line-height:1.05}
+.pmain .now b{font-weight:700;font-size:32px;line-height:1.05;white-space:nowrap}
 .pmain .ath{text-align:right}
-.pmain .ath b{font-weight:700;font-size:17px}
+.pmain .ath b{font-weight:700;font-size:20px;line-height:1.3;white-space:nowrap}
 .pmain small{font-size:11px;text-transform:uppercase;letter-spacing:.06em}
 .pmain em{font-style:normal;font-size:12px}
 .sec-h{margin:0;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
@@ -361,6 +393,11 @@ form.f{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .card-s ul{margin:4px 0 0;padding-left:18px;display:grid;gap:4px;font-size:14px}
 .ver small{font:600 12px var(--f-num);color:var(--muted);margin-left:6px}
 .foot{margin-top:28px;font-size:12px;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:calc(var(--tabh) + env(safe-area-inset-bottom,0px) + 12px);z-index:60;transform:translate(-50%,140%);opacity:0;transition:transform .35s cubic-bezier(.2,.9,.3,1.1),opacity .25s;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border-radius:14px;padding:8px 8px 8px 14px;box-shadow:0 10px 30px rgba(0,0,0,.3);font:600 14px var(--f-body);width:max-content;max-width:calc(100vw - 32px)}
+.toast.on{transform:translate(-50%,0);opacity:1}
+.toast .btn{min-height:36px;padding:6px 12px}
+.toast a.btn{background:transparent;color:var(--bg);border-color:color-mix(in srgb,var(--bg) 40%,transparent)}
+.toast .tx{border:0;background:none;color:inherit;font-size:20px;width:32px;height:32px;cursor:pointer;opacity:.7}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -385,13 +422,20 @@ form.f{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
   <div class="grab" aria-hidden="true"><span></span></div>
   <div class="sheet-scroll" id="sheet-scroll"><div class="dlg">
     <div class="dlg-x"><button class="x" type="button" data-sheet-close aria-label="Schließen">×</button></div>
-    <img class="big noimg" id="d-img" alt="">
+    <div class="bigwrap"><img class="big noimg" id="d-img" alt=""><button class="b3d" type="button" id="d-3d" aria-label="Karte in 3D ansehen" hidden>3D</button></div>
     <div><h2 id="d-title"></h2><div class="chips" id="d-chips"></div><p class="dmeta" id="d-meta"></p><div class="dlinks" id="d-links"></div></div>
     <div class="price" id="d-price" hidden></div>
     <div id="d-body"></div>
   </div></div>
 </section>
 <div class="edge-hint" id="edge-hint"></div>
+<div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="Karte in 3D" hidden>
+  <button class="v-x" type="button" id="v-close" aria-label="3D-Ansicht schließen">×</button>
+  <div class="v-stage" id="v-stage"><div class="c3d" id="c3d"><div class="side front"><img id="v-front" alt=""><div class="holo" id="v-holo"></div><div class="glare"></div></div><div class="side backs" id="v-back"></div></div></div>
+  <div class="v-bar"><button class="btn" type="button" id="v-flip">Umdrehen</button><button class="btn" type="button" id="v-tilt" aria-pressed="false">Neigung</button></div>
+  <p class="v-hint">Ziehen zum Drehen · Doppeltippen oder schnell wischen zum Umdrehen</p>
+</div>
+<div class="toast" id="toast" role="status" hidden></div>
 <div class="album" id="album" role="dialog" aria-modal="true" aria-label="Album" hidden>
   <div class="al-top"><button class="al-x" type="button" id="al-close" aria-label="Album schließen">×</button><span class="al-title" id="al-title"></span><span class="al-pg" id="al-pg"></span></div>
   <div class="al-stage" id="al-stage"></div>
@@ -431,7 +475,7 @@ const CONDS = ["Mint","Near Mint","Excellent","Good","Light Played","Played","Po
 
 /* ---------- Änderungsprotokoll ---------- */
 const CHANGELOG = [
-  {v:"1.9.1", d:"2026-11-02", items:["Album: Flackern beim Blättern behoben – Seiten werden nur einmal gebaut, Nachbarseiten vorgeladen, Umblätter-Seite liegt sauber über der Doppelseite"]},
+  {v:"1.10", d:"2026-11-02", items:["Album: Flackern beim Blättern behoben – Seiten werden nur einmal gebaut, Nachbarseiten vorgeladen","Preis-Box aufgeräumt: aktueller Preis und Höchststand nebeneinander, eine Infozeile, Varianten-Chips ohne Preis","3D-Kartenansicht: Tap aufs Kartenbild, Drehen per Finger oder Neigung, Umdrehen, Glanzeffekt; Rückseite aus rueckseite.jpg oder eigenes Design","Schnellere Updates: Prüfung beim Start und beim Zurückkehren, Banner „Neue Version verfügbar“","Hinweis „Aktualisiert auf Version …“ nach einem Update","Set-Kopf schrumpft beim Scrollen fließend zu einer Zeile mit Ring, Logo, Fortschritt und Wert","Nur noch ein Album-Knopf in der Filterzeile","Kopfzeile und Set-Leiste bleiben beim Scrollen jetzt zuverlässig oben stehen"]},
   {v:"1.9", d:"2026-11-02", items:["Set-Ansicht als einfaches Kartenraster, dazu Knopf „Album öffnen“","Album-Modus bildschirmfüllend: Blättern per Wischen mit 3D-Umblättern, Seitenregler, Tap auf eine Tasche öffnet die Karte","Querformat: Doppelseite wie ein aufgeschlagener Ordner, Bedienelemente blenden sich aus","Handy im Set quer kippen öffnet automatisch das Album, zurückkippen schließt es auf der aktuellen Seite"]},
   {v:"1.8", d:"2026-10-30", items:["Alle Overlays als einheitliches Bottom Sheet: Karte, Pokédex, Album anlegen, Filter","Karten-Sheet öffnet bis unter „Bei Cardmarket suchen“, Weiterscrollen öffnet es fließend ganz","Preis-Box mit Varianten-Chips: Preis und Höchststand je Variante","Pokédex zeigt das offizielle Pokémon-Artwork, fehlende als Silhouette","Set-Album: Set-Logo, Fortschrittsring mit Grundset, Master-Set und Wert; Kopf schrumpft beim Scrollen zu einer Leiste","Filter im Set-Album nach Kategorie, Typ, Variante und Seltenheit – Variante kombiniert mit Gesammelt/Fehlend","Suche mit ×-Knopf zum Leeren","Album anlegen mit Set-Logos; Pokédex-Ordner aus dem Alben-Tab entfernt"]},
   {v:"1.7", d:"2026-10-30", items:["Kartenansicht als Bottom Sheet: fährt von unten hoch, halb und ganz offen, Schließen per Wischen nach unten","Zurück-Wischgeste vom linken Bildschirmrand im Set-Album","Zurück zum Ursprung: aus Pokédex oder Suche geöffnete Sets führen mit „‹ Pokédex“ bzw. „‹ Suche“ an dieselbe Stelle zurück","Größerer, klar erkennbarer Zurück-Knopf","Suche: Kartenbilder in Farbe, Set-Name und Nummer, gruppiert nach Set, Besitz als Haken mit Anzahl","Alben mit Set-Covern: offizielles Set-Logo, Fächer der wertvollsten Karten, Set-Symbol, Fortschritt und Wert"]},
@@ -805,9 +849,9 @@ function missingState(s, c, owned){
   if(!filt.var.size) return !owned.has(c[0]);
   return cardVariants(c).filter(v=>filt.var.has(v)).some(v=>!bucketsOf(s.id, c[0], v).length);
 }
-function ringSVG(p){
+function ringSVG(p, mini){
   const r = 34, C = 2*Math.PI*r, f = p.baseTotal ? p.base/p.baseTotal : 0, fm = p.allTotal ? p.all/p.allTotal : 0;
-  return `<svg class="ring" viewBox="0 0 82 82" role="img" aria-label="${Math.round(f*100)} Prozent vom Grundset"><circle cx="41" cy="41" r="${r}" fill="none" stroke="var(--pocket)" stroke-width="8"/><circle cx="41" cy="41" r="${r}" fill="none" stroke="color-mix(in srgb,var(--accent) 35%,transparent)" stroke-width="8" stroke-dasharray="${(fm*C).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 41 41)"/><circle cx="41" cy="41" r="${r}" fill="none" stroke="var(--accent)" stroke-width="8" stroke-linecap="round" stroke-dasharray="${(f*C).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 41 41)"/><text x="41" y="46" text-anchor="middle">${Math.round(f*100)}%</text></svg>`;
+  return `<svg class="ring" viewBox="0 0 82 82" ${mini?'aria-hidden="true"':`role="img" aria-label="${Math.round(f*100)} Prozent vom Grundset"`}><circle cx="41" cy="41" r="${r}" fill="none" stroke="var(--pocket)" stroke-width="8"/><circle cx="41" cy="41" r="${r}" fill="none" stroke="color-mix(in srgb,var(--accent) 35%,transparent)" stroke-width="8" stroke-dasharray="${(fm*C).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 41 41)"/><circle cx="41" cy="41" r="${r}" fill="none" stroke="var(--accent)" stroke-width="8" stroke-linecap="round" stroke-dasharray="${(f*C).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 41 41)"/><text x="41" y="46" text-anchor="middle">${Math.round(f*100)}%</text></svg>`;
 }
 function renderSet(s){
   $("#bar-title").textContent = "";
@@ -815,13 +859,12 @@ function renderSet(s){
   const hasAlbum = albums.some(a=>a.setId===s.id), fc = filtCount();
   $("#head").innerHTML = `<div class="sethead" id="sethead"><div class="slogo"><img src="${logoUrl(s,"de")}" data-alt="${logoUrl(s,"en")}" alt="${esc(s.de)}" onerror="logoErr(this)"><b class="logo-t">${esc(s.de)}</b></div>
     <div class="ringrow">${ringSVG(p)}<div class="kvs"><div class="kv"><span>Grundset</span><b>${p.base} / ${p.baseTotal}</b></div>${p.allTotal>p.baseTotal?`<div class="kv"><span>Master-Set</span><b>${p.all} / ${p.allTotal}</b></div>`:""}<div class="kv"><span>Wert</span><b>${eur(value)}</b></div></div></div>
-    <p class="sub">${esc(s.abbr)} · ${esc(s.serie)} · ${deDate(s.rel)} · ${s.promo?`${s.cards.length} Promokarten`:`${s.off} Karten + ${s.cards.length - p.baseTotal} Secret`}</p>
-    <button class="btn primary open-alb" type="button" id="open-album">${BOOK_SVG}Album öffnen</button></div>`;
+    <p class="sub">${esc(s.abbr)} · ${esc(s.serie)} · ${deDate(s.rel)} · ${s.promo?`${s.cards.length} Promokarten`:`${s.off} Karten + ${s.cards.length - p.baseTotal} Secret`}</p></div>`;
   const opts = setFilterOptions(s);
   const chips = FGROUPS.flatMap(([g])=>[...filt[g]].map(v=>{ const o = opts[g].find(x=>x[0]===v); return `<button class="chip" type="button" data-funset="${g}|${esc(v)}" aria-label="Filter ${esc(o?o[1]:v)} entfernen">${o&&o[2]?o[2]:""}${esc(o?o[1]:v)} ✕</button>`; })).join("");
   const filtered = fc>0;
-  $("#tools").innerHTML = `<div class="stick" id="stick"><div class="mini"><b>${esc(s.de)}</b><span>${p.base}/${p.baseTotal} · ${eur(value)}</span></div>
-    <div class="segrow">${segHTML().replace('class="seg"','class="seg" style="margin-top:0"')}<button class="fbtn${fc?" on":""}" type="button" id="open-filter" aria-label="Filter${fc?`, ${fc} aktiv`:""}">${FILTER_SVG}${fc?fc:""}</button><button class="fbtn alb" type="button" id="open-album2" aria-label="Album öffnen">${BOOK_SVG}</button></div>
+  $("#tools").innerHTML = `<div class="stick" id="stick"><div class="mini" id="mini">${ringSVG(p, true)}<span class="mlogo"><img src="${logoUrl(s,"de")}" data-alt="${logoUrl(s,"en")}" alt="${esc(s.de)}" onerror="logoErr(this)"><b class="logo-t">${esc(s.de)}</b></span><span class="mv"><b>${p.base}/${p.baseTotal}</b> · ${eur(value)}</span></div>
+    <div class="segrow">${segHTML().replace('class="seg"','class="seg" style="margin-top:0"')}<button class="fbtn${fc?" on":""}" type="button" id="open-filter" aria-label="Filter${fc?`, ${fc} aktiv`:""}">${FILTER_SVG}${fc?fc:""}</button><button class="fbtn alb" type="button" id="open-album" aria-label="Album öffnen">${BOOK_SVG}<span>Album</span></button></div>
     ${fc?`<div class="fchips">${chips}<button class="chip" type="button" id="f-clear">Alle zurücksetzen</button></div>`:""}</div>
 `;
   let html;
@@ -834,7 +877,6 @@ function renderSet(s){
   $("#view").innerHTML = html;
   $("#open-filter").addEventListener("click", ()=>openFilter(s));
   $("#open-album").addEventListener("click", ()=>openAlbum(s, firstVisiblePage(s), false));
-  $("#open-album2").addEventListener("click", ()=>openAlbum(s, firstVisiblePage(s), false));
   $("#f-clear")?.addEventListener("click", ()=>{ FGROUPS.forEach(([g])=>filt[g].clear()); render(); });
   document.querySelectorAll("[data-funset]").forEach(b=>b.addEventListener("click",()=>{ const [g,v] = b.dataset.funset.split("|"); filt[g].delete(v); render(); }));
   $("#upd-prices")?.addEventListener("click", () => updatePrices(s));
@@ -844,10 +886,16 @@ function renderSet(s){
   updateShrink();
 }
 function updateShrink(){
-  const st = $("#stick"), hd = $("#sethead"); if(!st || !hd) return;
-  st.classList.toggle("shrunk", hd.getBoundingClientRect().bottom < 60);
+  const st = $("#stick"), hd = $("#sethead"), mini = $("#mini"); if(!st || !hd || !mini) return;
+  const barB = (document.querySelector(".bar")?.getBoundingClientRect().bottom) || 50;
+  const r = hd.getBoundingClientRect(), h = r.height || 1;
+  const t = Math.max(0, Math.min(1, (barB + 10 - r.top) / h));
+  if(!reduced()){ hd.style.opacity = String(Math.max(0, 1 - t*1.4)); hd.style.transform = `translateY(${(t*h*0.35).toFixed(1)}px) scale(${(1 - t*0.18).toFixed(3)})`; }
+  const m = Math.max(0, Math.min(1, (t - 0.55) / 0.35));
+  mini.style.height = (m*44).toFixed(1) + "px"; mini.style.opacity = String(m);
+  st.classList.toggle("shrunk", m > 0.98);
 }
-window.addEventListener("scroll", ()=>{ if(view.name==="set") updateShrink(); }, {passive:true});
+let shR = 0; window.addEventListener("scroll", ()=>{ if(view.name!=="set" || shR) return; shR = requestAnimationFrame(()=>{ shR = 0; updateShrink(); }); }, {passive:true});
 let filtSet = null;
 function openFilter(s){ filtSet = s; renderFilter(); filtSheet.open("half"); }
 function renderFilter(){
@@ -1021,19 +1069,19 @@ function renderDialog(){
   $("#d-links").innerHTML = `<a class="btn" href="${cmLink(c)}" target="_blank" rel="noopener">Bei Cardmarket suchen ↗</a>`;
   const key = s.id+"|"+c[0], im = $("#d-img");
   if(im.dataset.key !== key){
-    im.dataset.key = key; im.className = "big"; im.removeAttribute("src");
+    im.dataset.key = key; im.className = "big"; im.removeAttribute("src"); $("#d-3d").hidden = true;
     const req = ++infoReq;
     $("#d-price").innerHTML = "Preis wird geladen …"; $("#d-price").hidden = false;
     cardInfo(s, c[0], mine[0]?.lang === "Englisch").then(info => {
       if(req !== infoReq || !ctx) return;
       lastInfo.set(key, info);
-      if(info.image){ im.onerror = () => im.classList.add("noimg"); im.src = info.image + "/high.webp"; } else im.classList.add("noimg");
+      if(info.image){ im.onerror = () => { im.classList.add("noimg"); $("#d-3d").hidden = true; }; im.onload = () => { $("#d-3d").hidden = false; }; im.src = info.image + "/high.webp"; } else im.classList.add("noimg");
       recordVariants(key, info); renderPrice();
       if(applyPrices(s.id, c[0], info)) render(); else renderVariants();
       if(cardSheet.state==="half") cardSheet.set("half");
     }).catch(() => {
       if(req !== infoReq) return;
-      im.onerror = () => im.classList.add("noimg"); im.src = imgUrl(s, c[0], "en", "high");
+      im.onerror = () => im.classList.add("noimg"); im.onload = () => { $("#d-3d").hidden = false; }; im.src = imgUrl(s, c[0], "en", "high");
       $("#d-price").textContent = "Preis konnte nicht geladen werden. Prüfe die Internetverbindung.";
     });
   }
@@ -1056,10 +1104,10 @@ function renderPrice(){
     priceVar = ownedV[0] || keys.find(v=>info.vprice[v]) || keys[0];
   }
   const h = priceHist()[key+"|"+priceVar];
-  box.innerHTML = `${keys.length>1?`<div class="pchips" role="group" aria-label="Variante für den Preis">${keys.map(v=>`<button class="pchip" type="button" data-pvar="${esc(v)}" aria-pressed="${v===priceVar}">${esc(vLabel(v))}<small>${info.vprice[v]?eur(info.vprice[v]):"–"}</small></button>`).join("")}</div>`:""}
-    <div class="pmain"><div class="now"><small>Aktueller Preis · ${esc(vLabel(priceVar))}</small><b>${fmtPrice(info.vprice[priceVar])}</b></div>
-    <div class="ath"><small>Höchststand</small><b>${fmtPrice(h?.max)}</b>${h?`<em>am ${deDate(h.d)} · erfasst seit ${deDate(h.since)}</em>`:""}</div></div>
-    <span>Cardmarket-Trend · Stand ${deDate(info.price?.updated)}</span>`;
+  box.innerHTML = `${keys.length>1?`<div class="pchips" role="group" aria-label="Variante für den Preis">${keys.map(v=>`<button class="pchip" type="button" data-pvar="${esc(v)}" aria-pressed="${v===priceVar}">${esc(vLabel(v))}</button>`).join("")}</div>`:""}
+    <div class="pmain"><div class="now"><small>Aktueller Preis${keys.length>1?"":` · ${esc(vLabel(priceVar))}`}</small><b>${fmtPrice(info.vprice[priceVar])}</b></div>
+    <div class="ath"><small>Höchststand</small><b>${fmtPrice(h?.max)}</b></div></div>
+    <div class="pinfo">${h?`Höchststand am ${deDate(h.d)} · erfasst seit ${deDate(h.since)} · `:""}Cardmarket-Trend, Stand ${deDate(info.price?.updated)}</div>`;
   box.hidden = false;
 }
 $("#d-price").addEventListener("click", e=>{ const b = e.target.closest("[data-pvar]"); if(!b) return; priceVar = b.dataset.pvar; renderPrice(); });
@@ -1101,6 +1149,7 @@ $("#d-body").addEventListener("click", e=>{
 /* Pokédex-Dialog: alle Karten eines Pokémon, Tap öffnet das Set */
 function renderDexDialog(){
   const n = ctx.dex, mine = cards.filter(e=>+e.dex===n && qtyOf(e)), q = sum(mine,qtyOf);
+  $("#d-3d").hidden = true;
   const im = $("#d-img"); if(im.dataset.key !== "dex"+n){ im.dataset.key = "dex"+n; im.className = "big art"; im.onerror = () => im.classList.add("noimg"); im.src = artUrl(n); } $("#d-price").hidden = true; $("#d-links").innerHTML = "";
   $("#d-title").textContent = NAMES[n-1];
   $("#d-chips").innerHTML = `<span class="chip num">#${pad4(n)}</span>${q?`<span class="chip have">${q}× im Album</span>`:`<span class="chip none">nicht im Album</span>`}`;
@@ -1361,6 +1410,111 @@ window.addEventListener("resize", ()=>{ clearTimeout(rzT); rzT = setTimeout(()=>
   }
 }, 160); });
 
+/* ---------- 3D-Ansicht ---------- */
+const V = {open:false, base:0, rx:0, ry:0, drag:null, tilt:false, lastTap:0};
+const vEl = $("#viewer"), c3d = $("#c3d");
+let backImgOk = null;
+function vApply(spring){
+  c3d.classList.toggle("spring", !!spring);
+  c3d.style.transform = `rotateX(${V.rx.toFixed(1)}deg) rotateY(${(V.base + V.ry).toFixed(1)}deg)`;
+  const gx = 50 + V.ry*1.6, gy = 30 - V.rx*1.6;
+  vEl.style.setProperty("--gx", gx+"%"); vEl.style.setProperty("--gy", gy+"%");
+  vEl.style.setProperty("--hp", (50 + V.ry*2.2 + V.rx)+"%"); vEl.style.setProperty("--ga", (115 + V.ry)+"deg");
+}
+function openViewer(){
+  if(!ctx || ctx.kind!=="set") return;
+  const s = SET.get(ctx.setId), c = cardAt(ctx.setId, ctx.num), im = $("#d-img");
+  $("#v-front").src = im.currentSrc || im.src;
+  const v = priceVar || cardVariants(c)[0] || "normal", type = v.split("/")[0];
+  const strong = type==="holo" || type==="reverse" || ["RR","UR","IR","SIR","HR","SR","SUR","MHR","MAR","BWR","ACE","RAD"].includes(c[3]);
+  $("#v-holo").style.display = strong ? "" : "none";
+  const q = sum(cards.filter(e=>e.setId===s.id && e.num===c[0]), qtyOf);
+  const design = `<div class="bdesign"><img src="${logoUrl(s,"de")}" data-alt="${logoUrl(s,"en")}" alt="" onerror="logoErr(this)"><b>${esc(cName(c))}</b><span>${esc(s.abbr)} ${esc(numDisp(s,c[0]))} · ${esc((RAR[c[3]]||[c[3]])[0])}</span><span>${q ? `${q}× in deinem Album` : "noch nicht in deinem Album"}</span></div>`;
+  const back = $("#v-back");
+  if(backImgOk) back.innerHTML = `<img src="rueckseite.jpg" alt="">`;
+  else { back.innerHTML = design; if(backImgOk===null){ const t = new Image(); t.onload = ()=>{ backImgOk = true; if(V.open) back.innerHTML = `<img src="rueckseite.jpg" alt="">`; }; t.onerror = ()=>{ backImgOk = false; }; t.src = "rueckseite.jpg"; } }
+  V.base = 0; V.rx = -8; V.ry = 14; V.open = true;
+  vEl.hidden = false; vApply(); requestAnimationFrame(()=>{ vEl.classList.add("on"); V.rx = 0; V.ry = 0; vApply(true); });
+}
+function closeViewer(){ if(!V.open) return; V.open = false; setTilt(false); vEl.classList.remove("on"); setTimeout(()=>{ if(!V.open) vEl.hidden = true; }, 200); }
+function vFlip(){ V.base += 180; V.rx = 0; V.ry = 0; vApply(true); }
+$("#d-img").addEventListener("click", ()=>{ if(ctx?.kind==="set" && !$("#d-img").classList.contains("noimg")) openViewer(); });
+$("#d-3d").addEventListener("click", openViewer);
+$("#v-close").addEventListener("click", closeViewer);
+$("#v-flip").addEventListener("click", vFlip);
+document.addEventListener("keydown", e=>{ if(V.open && e.key==="Escape") closeViewer(); }, true);
+vEl.addEventListener("click", e=>{ if(e.target===vEl) closeViewer(); });
+const stageEl = $("#v-stage");
+stageEl.addEventListener("pointerdown", e=>{
+  if(V.drag) return;
+  V.drag = {x:e.clientX, y:e.clientY, t:Date.now(), ry0:V.ry, rx0:V.rx, moved:false}; try{ stageEl.setPointerCapture(e.pointerId); }catch{}
+});
+stageEl.addEventListener("pointermove", e=>{
+  if(!V.drag) return;
+  const dx = e.clientX - V.drag.x, dy = e.clientY - V.drag.y;
+  if(Math.abs(dx) + Math.abs(dy) > 8) V.drag.moved = true;
+  V.ry = V.drag.ry0 + dx*0.45; V.rx = Math.max(-35, Math.min(35, V.drag.rx0 - dy*0.35)); vApply(false);
+});
+const vEnd = e=>{
+  if(!V.drag) return;
+  const dx = e.clientX - V.drag.x, dt = Math.max(1, Date.now() - V.drag.t), vel = dx/dt, moved = V.drag.moved; V.drag = null;
+  if(!moved){
+    const now = Date.now();
+    if(now - V.lastTap < 320){ V.lastTap = 0; vFlip(); return; }
+    V.lastTap = now; V.rx = 0; V.ry = 0; if(!V.tilt) vApply(true); return;
+  }
+  if(Math.abs(V.ry) > 90 || (Math.abs(vel) > 0.9 && Math.abs(dx) > 40)){ V.base += 180 * Math.sign(V.ry || vel); }
+  V.rx = 0; V.ry = 0; if(!V.tilt) vApply(true);
+};
+stageEl.addEventListener("pointerup", vEnd); stageEl.addEventListener("pointercancel", ()=>{ if(!V.drag) return; V.drag = null; V.rx = 0; V.ry = 0; if(!V.tilt) vApply(true); });
+function onOrient(e){ if(!V.open || V.drag) return; V.ry = Math.max(-30, Math.min(30, e.gamma||0)); V.rx = Math.max(-30, Math.min(30, (45 - (e.beta||45)))); vApply(false); }
+async function setTilt(on){
+  if(on){
+    try{ if(typeof DeviceOrientationEvent!=="undefined" && typeof DeviceOrientationEvent.requestPermission==="function"){ const r = await DeviceOrientationEvent.requestPermission(); if(r!=="granted") on = false; } }catch{ on = false; }
+  }
+  V.tilt = on; $("#v-tilt").setAttribute("aria-pressed", String(on));
+  window.removeEventListener("deviceorientation", onOrient);
+  if(on) window.addEventListener("deviceorientation", onOrient); else { V.rx = 0; V.ry = 0; if(V.open) vApply(true); }
+}
+$("#v-tilt").addEventListener("click", ()=>setTilt(!V.tilt));
+
+/* ---------- Updates: prüfen, anbieten, bestätigen ---------- */
+const newer = (a,b) => { const x = a.split(".").map(Number), y = b.split(".").map(Number); for(let i=0;i<Math.max(x.length,y.length);i++){ const d = (x[i]||0)-(y[i]||0); if(d) return d>0; } return false; };
+let toastT = 0;
+function toast(html, ms){
+  const el = $("#toast"); el.innerHTML = html; el.hidden = false;
+  requestAnimationFrame(()=>el.classList.add("on"));
+  clearTimeout(toastT); if(ms) toastT = setTimeout(hideToast, ms);
+  el.querySelector("[data-tclose]")?.addEventListener("click", hideToast);
+}
+function hideToast(){ const el = $("#toast"); el.classList.remove("on"); setTimeout(()=>{ if(!el.classList.contains("on")) el.hidden = true; }, 300); }
+let lastCheck = 0, offered = null;
+async function checkUpdate(){
+  if(location.protocol!=="https:" || Date.now() - lastCheck < 60000) return;
+  lastCheck = Date.now();
+  try{
+    const r = await fetch("index.html?u=" + Date.now(), {cache:"no-store"}); if(!r.ok) return;
+    const m = (await r.text()).match(/\{v:"([\d.]+)"/);
+    if(m && newer(m[1], APP_VERSION) && offered!==m[1]){
+      offered = m[1];
+      toast(`<span>Version ${esc(m[1])} verfügbar</span><button class="btn primary" type="button" id="t-upd">Aktualisieren</button><button class="tx" type="button" data-tclose aria-label="Später">×</button>`);
+      $("#t-upd").addEventListener("click", doUpdate);
+    }
+  }catch{}
+}
+async function doUpdate(){
+  $("#t-upd").disabled = true; $("#t-upd").textContent = "Lädt …";
+  try{ const reg = await navigator.serviceWorker?.getRegistration(); await reg?.update(); }catch{}
+  try{ const ks = await caches.keys(); await Promise.all(ks.filter(k=>k.startsWith("kartenalbum-")).map(k=>caches.delete(k))); }catch{}
+  location.reload();
+}
+function updatedNotice(){
+  const prev = LS.raw("pk-lastver");
+  if(prev && prev !== APP_VERSION) setTimeout(()=>toast(`<span>Aktualisiert auf Version ${esc(APP_VERSION)}</span><a class="btn" href="#mehr">Änderungen</a><button class="tx" type="button" data-tclose aria-label="Schließen">×</button>`, 5000), 600);
+  LS.put("pk-lastver", APP_VERSION);
+}
+document.addEventListener("visibilitychange", ()=>{ if(document.visibilityState==="visible") checkUpdate(); });
+
 /* ---------- Start ---------- */
 function init(){
   albums = LS.get("pk-albums", []);
@@ -1374,6 +1528,8 @@ function init(){
   if(!LS.works()) setStatus("Dieser Browser blockiert das Speichern (z. B. privater Modus). Öffne das Album normal oder vom Home-Bildschirm.");
   try{ navigator.storage?.persist?.(); }catch{}
   if("serviceWorker" in navigator && location.protocol==="https:") navigator.serviceWorker.register("sw.js").catch(()=>{});
+  updatedNotice();
+  setTimeout(checkUpdate, 1500);
 }
 init();
 </script>
