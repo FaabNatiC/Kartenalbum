@@ -236,6 +236,43 @@ dialog::backdrop{background:rgba(10,14,24,.55)}
 .fopt{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:8px 12px;font:600 13px var(--f-body);cursor:pointer;display:inline-flex;align-items:center;gap:6px;min-height:38px}
 .fopt[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
 .cnt{font:600 13px var(--f-num);color:var(--muted);margin-top:12px}
+.open-alb{margin-top:2px}
+.open-alb svg,.fbtn.alb svg{width:19px;height:19px}
+/* Album-Modus */
+:root{--desk:#c9cfda}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--desk:#06080d}}
+:root[data-theme="dark"]{--desk:#06080d}
+.album{position:fixed;inset:0;z-index:45;background:var(--desk);display:flex;flex-direction:column;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px);touch-action:none;-webkit-user-select:none;user-select:none}
+.al-top,.al-bot{display:flex;align-items:center;gap:10px;padding:8px 12px;transition:opacity .3s;z-index:3}
+.al-top{justify-content:space-between}
+.al-x{width:40px;height:40px;border-radius:50%;border:0;background:var(--page);color:var(--ink);font-size:21px;cursor:pointer;box-shadow:var(--shadow)}
+.al-title{font:700 15px var(--f-body);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1;text-align:center}
+.al-pg{font:600 13px var(--f-num);color:var(--muted);white-space:nowrap;min-width:40px;text-align:right}
+.al-stage{flex:1 1 auto;position:relative;display:flex;align-items:center;justify-content:center;perspective:2400px;overflow:hidden;min-height:0}
+.al-nav{width:44px;height:40px;border-radius:10px;border:1px solid var(--line);background:var(--page);display:grid;place-items:center;cursor:pointer;flex:0 0 auto}
+.al-nav svg{width:20px;height:20px}
+.al-bot input{flex:1;min-width:0;accent-color:var(--accent)}
+.album.land .al-top,.album.land .al-bot{position:absolute;left:env(safe-area-inset-left,0px);right:env(safe-area-inset-right,0px);background:color-mix(in srgb,var(--desk) 82%,transparent)}
+.album.land .al-top{top:env(safe-area-inset-top,0px)}
+.album.land .al-bot{bottom:env(safe-area-inset-bottom,0px)}
+.album.idle .al-top,.album.idle .al-bot{opacity:0;pointer-events:none}
+.spread{display:flex;position:relative;transform-style:preserve-3d}
+.apage{width:var(--pw);height:var(--ph);background:var(--page);padding:10px 10px 10px 20px;position:relative;box-shadow:0 4px 18px rgba(0,0,0,.25);border-radius:4px 12px 12px 4px;flex:0 0 auto}
+.apage::before{content:"";position:absolute;left:7px;top:14%;bottom:14%;width:5px;background:radial-gradient(circle,var(--line) 2.5px,transparent 3px) 0 0/5px 33.3%}
+.spread.two .apage:first-child{border-radius:12px 4px 4px 12px;padding:10px 20px 10px 10px}
+.spread.two .apage:first-child::before{left:auto;right:7px}
+.spread.two .apage:first-child{box-shadow:-4px 4px 18px rgba(0,0,0,.25),inset -10px 0 14px -10px rgba(0,0,0,.25)}
+.spread.two .apage:last-child{box-shadow:4px 4px 18px rgba(0,0,0,.25),inset 10px 0 14px -10px rgba(0,0,0,.25)}
+.apage h3{margin:0 0 4px;height:16px;display:flex;justify-content:space-between;font:600 10.5px var(--f-num);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.apage .pockets{grid-template-columns:repeat(3,var(--cw));gap:var(--g)}
+.apage .slot{width:var(--cw)}
+.apage .slot .tag{font-size:9px}
+.apage.blank{background:color-mix(in srgb,var(--page) 85%,var(--desk))}
+.pk-empty{display:block;width:var(--cw);aspect-ratio:63/88;border-radius:6px;border:1px dashed var(--pocket-edge);opacity:.5}
+.leaf{position:absolute;top:0;width:var(--pw);height:var(--ph);transform-style:preserve-3d;z-index:5;pointer-events:none}
+.leaf .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.leaf .face .apage{box-shadow:0 6px 24px rgba(0,0,0,.35)}
+.leaf .back{transform:rotateY(180deg)}
 /* Suche leeren */
 .qwrap{position:relative;margin-top:14px}
 .qwrap .field{padding-right:46px}
@@ -356,6 +393,11 @@ form.f{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
   </div></div>
 </section>
 <div class="edge-hint" id="edge-hint"></div>
+<div class="album" id="album" role="dialog" aria-modal="true" aria-label="Album" hidden>
+  <div class="al-top"><button class="al-x" type="button" id="al-close" aria-label="Album schließen">×</button><span class="al-title" id="al-title"></span><span class="al-pg" id="al-pg"></span></div>
+  <div class="al-stage" id="al-stage"></div>
+  <div class="al-bot"><button class="al-nav" type="button" id="al-prev" aria-label="Zurückblättern"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><input type="range" id="al-range" min="1" max="1" value="1" step="1" aria-label="Seite wählen"><button class="al-nav" type="button" id="al-next" aria-label="Weiterblättern"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button></div>
+</div>
 
 <section class="sheet" id="pick" role="dialog" aria-modal="true" aria-labelledby="p-title" hidden>
   <div class="grab" aria-hidden="true"><span></span></div>
@@ -390,6 +432,7 @@ const CONDS = ["Mint","Near Mint","Excellent","Good","Light Played","Played","Po
 
 /* ---------- Änderungsprotokoll ---------- */
 const CHANGELOG = [
+  {v:"1.9", d:"2026-11-02", items:["Set-Ansicht als einfaches Kartenraster, dazu Knopf „Album öffnen“","Album-Modus bildschirmfüllend: Blättern per Wischen mit 3D-Umblättern, Seitenregler, Tap auf eine Tasche öffnet die Karte","Querformat: Doppelseite wie ein aufgeschlagener Ordner, Bedienelemente blenden sich aus","Handy im Set quer kippen öffnet automatisch das Album, zurückkippen schließt es auf der aktuellen Seite"]},
   {v:"1.8", d:"2026-10-30", items:["Alle Overlays als einheitliches Bottom Sheet: Karte, Pokédex, Album anlegen, Filter","Karten-Sheet öffnet bis unter „Bei Cardmarket suchen“, Weiterscrollen öffnet es fließend ganz","Preis-Box mit Varianten-Chips: Preis und Höchststand je Variante","Pokédex zeigt das offizielle Pokémon-Artwork, fehlende als Silhouette","Set-Album: Set-Logo, Fortschrittsring mit Grundset, Master-Set und Wert; Kopf schrumpft beim Scrollen zu einer Leiste","Filter im Set-Album nach Kategorie, Typ, Variante und Seltenheit – Variante kombiniert mit Gesammelt/Fehlend","Suche mit ×-Knopf zum Leeren","Album anlegen mit Set-Logos; Pokédex-Ordner aus dem Alben-Tab entfernt"]},
   {v:"1.7", d:"2026-10-30", items:["Kartenansicht als Bottom Sheet: fährt von unten hoch, halb und ganz offen, Schließen per Wischen nach unten","Zurück-Wischgeste vom linken Bildschirmrand im Set-Album","Zurück zum Ursprung: aus Pokédex oder Suche geöffnete Sets führen mit „‹ Pokédex“ bzw. „‹ Suche“ an dieselbe Stelle zurück","Größerer, klar erkennbarer Zurück-Knopf","Suche: Kartenbilder in Farbe, Set-Name und Nummer, gruppiert nach Set, Besitz als Haken mit Anzahl","Alben mit Set-Covern: offizielles Set-Logo, Fächer der wertvollsten Karten, Set-Symbol, Fortschritt und Wert"]},
   {v:"1.6", d:"2026-10-30", items:["Neue Navigation: Tab-Leiste unten mit Alben, Pokédex, Suche und Mehr, Kopfzeile mit Zurück-Knopf","Neuer Tab Suche: findet Karten und Pokémon über alle Sets","Varianten-Zähler: pro Karte alle offiziellen Varianten (Normal, Holo, Reverse, Ball-Reverse …) mit Anzahl, aufklappbar nach Sprache und Zustand","Preis pro Variante von Cardmarket, Sammlungswert = Anzahl × Variantenpreis","Seiten blättern im Ordner, größere Filter","Standard-Sprache und -Zustand unter Mehr einstellbar; bestehende Einträge werden automatisch übernommen"]},
@@ -614,6 +657,7 @@ function route(){
   if(!(view.name==="set" && filtSet && filtSet.id===view.set.id && restoreFilt)) filt = {cat:new Set(), type:new Set(), var:new Set(), rar:new Set()};
   if(backTo && !(view.name==="set" && view.set.id===backTo.setId)) backTo = null;
   if(!pendingOpen) sheets.forEach(x=>x.close());
+  if(album.open && !(view.name==="set" && view.set.id===album.set.id)) closeAlbum(false);
   $("#tools").innerHTML = "";
   render();
   const r = restore; restore = null;
@@ -638,6 +682,7 @@ function render(){
   else renderShelf();
   if(ctx && $("#dlg").open) renderDialog();
   if(pickSheet.state!=="closed") renderPicker();
+  if(album.open && !album.busy) alRender();
   updatePager();
 }
 
@@ -730,6 +775,7 @@ function renderDex(){
 
 /* ---------- Set-Album ---------- */
 let filt = {cat:new Set(), type:new Set(), var:new Set(), rar:new Set()};
+const BOOK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5.5C5.5 4 8.5 4 12 6c3.5-2 6.5-2 9-.5v13c-2.5-1.5-5.5-1.5-9 .5-3.5-2-6.5-2-9-.5z"/><path d="M12 6v13"/></svg>';
 const FILTER_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>';
 const RAR_ORDER = ["C","U","R","RH","RR","V","VMAX","VSTAR","ACE","RAD","AR","UR","IR","SR","SRV","SRVMAX","SIR","SUR","BWR","HR","MAR","MHR","PIK","FUR","RGB","CC","SEC","FA","PR",""];
 const filtCount = () => filt.cat.size + filt.type.size + filt.var.size + filt.rar.size;
@@ -769,17 +815,17 @@ function renderSet(s){
   const hasAlbum = albums.some(a=>a.setId===s.id), fc = filtCount();
   $("#head").innerHTML = `<div class="sethead" id="sethead"><div class="slogo"><img src="${logoUrl(s,"de")}" data-alt="${logoUrl(s,"en")}" alt="${esc(s.de)}" onerror="logoErr(this)"><b class="logo-t">${esc(s.de)}</b></div>
     <div class="ringrow">${ringSVG(p)}<div class="kvs"><div class="kv"><span>Grundset</span><b>${p.base} / ${p.baseTotal}</b></div>${p.allTotal>p.baseTotal?`<div class="kv"><span>Master-Set</span><b>${p.all} / ${p.allTotal}</b></div>`:""}<div class="kv"><span>Wert</span><b>${eur(value)}</b></div></div></div>
-    <p class="sub">${esc(s.abbr)} · ${esc(s.serie)} · ${deDate(s.rel)} · ${s.promo?`${s.cards.length} Promokarten`:`${s.off} Karten + ${s.cards.length - p.baseTotal} Secret`}</p></div>`;
+    <p class="sub">${esc(s.abbr)} · ${esc(s.serie)} · ${deDate(s.rel)} · ${s.promo?`${s.cards.length} Promokarten`:`${s.off} Karten + ${s.cards.length - p.baseTotal} Secret`}</p>
+    <button class="btn primary open-alb" type="button" id="open-album">${BOOK_SVG}Album öffnen</button></div>`;
   const opts = setFilterOptions(s);
   const chips = FGROUPS.flatMap(([g])=>[...filt[g]].map(v=>{ const o = opts[g].find(x=>x[0]===v); return `<button class="chip" type="button" data-funset="${g}|${esc(v)}" aria-label="Filter ${esc(o?o[1]:v)} entfernen">${o&&o[2]?o[2]:""}${esc(o?o[1]:v)} ✕</button>`; })).join("");
   const filtered = fc>0;
   $("#tools").innerHTML = `<div class="stick" id="stick"><div class="mini"><b>${esc(s.de)}</b><span>${p.base}/${p.baseTotal} · ${eur(value)}</span></div>
-    <div class="segrow">${segHTML().replace('class="seg"','class="seg" style="margin-top:0"')}<button class="fbtn${fc?" on":""}" type="button" id="open-filter" aria-label="Filter${fc?`, ${fc} aktiv`:""}">${FILTER_SVG}${fc?fc:""}</button></div>
+    <div class="segrow">${segHTML().replace('class="seg"','class="seg" style="margin-top:0"')}<button class="fbtn${fc?" on":""}" type="button" id="open-filter" aria-label="Filter${fc?`, ${fc} aktiv`:""}">${FILTER_SVG}${fc?fc:""}</button><button class="fbtn alb" type="button" id="open-album2" aria-label="Album öffnen">${BOOK_SVG}</button></div>
     ${fc?`<div class="fchips">${chips}<button class="chip" type="button" id="f-clear">Alle zurücksetzen</button></div>`:""}</div>
-    ${filter==="all" && !filtered ? pagerHTML(Math.ceil(s.cards.length/9)) : ""}`;
+`;
   let html;
-  if(filter==="all" && !filtered) html = pages(s.cards, c=>slotSet(s,c,owned.get(c[0])), ch=>`${esc(ch[0][0])}–${esc(ch[ch.length-1][0])}`);
-  else {
+  {
     const f = s.cards.filter(c=>cardPasses(s,c) && (filter==="all" || (filter==="owned" ? ownState(s,c,owned) : missingState(s,c,owned))));
     html = `<p class="cnt">${f.length} ${f.length===1?"Karte":"Karten"}</p>` + (f.length ? `<div class="flat">${f.map(c=>slotSet(s,c,owned.get(c[0]))).join("")}</div>` : `<p class="empty">${filtered?"Keine Karte passt zu diesen Filtern.":filter==="owned"?"Noch keine Karte aus diesem Set. Tippe auf eine Tasche.":"Set komplett – keine Lücken mehr."}</p>`);
   }
@@ -787,6 +833,8 @@ function renderSet(s){
   html += `<div class="row" style="margin-top:22px">${list.length?`<button class="btn" type="button" id="upd-prices">Werte aktualisieren</button>`:""}${canDel?(confirmAlbumDel?`<button class="btn danger" type="button" id="alb-del-yes">Album wirklich entfernen</button><button class="btn" type="button" id="alb-del-no">Behalten</button>`:`<button class="btn" type="button" id="alb-del">Leeres Album entfernen</button>`):""}<span class="hint" id="upd-msg"></span></div>`;
   $("#view").innerHTML = html;
   $("#open-filter").addEventListener("click", ()=>openFilter(s));
+  $("#open-album").addEventListener("click", ()=>openAlbum(s, firstVisiblePage(s), false));
+  $("#open-album2").addEventListener("click", ()=>openAlbum(s, firstVisiblePage(s), false));
   $("#f-clear")?.addEventListener("click", ()=>{ FGROUPS.forEach(([g])=>filt[g].clear()); render(); });
   document.querySelectorAll("[data-funset]").forEach(b=>b.addEventListener("click",()=>{ const [g,v] = b.dataset.funset.split("|"); filt[g].delete(v); render(); }));
   $("#upd-prices")?.addEventListener("click", () => updatePrices(s));
@@ -907,7 +955,7 @@ function makeSheet(el, opt = {}){
   S.close = () => {
     if(S.state==="closed") return;
     S.set("closed");
-    if(!anySheet()){ scrim.classList.remove("on"); document.body.classList.remove("locked"); }
+    if(!anySheet()){ scrim.classList.remove("on"); if(!album.open) document.body.classList.remove("locked"); }
     S.onClose?.();
     setTimeout(()=>{ if(S.state==="closed"){ el.hidden = true; if(!anySheet()) scrim.hidden = true; } }, 330);
   };
@@ -1148,7 +1196,7 @@ $("#p-list").addEventListener("click", e=>{
   const wrap = document.querySelector(".wrap"), hint = $("#edge-hint");
   let sw = null;
   document.addEventListener("touchstart", e=>{
-    if(view.name!=="set" || anySheet()) return;
+    if(view.name!=="set" || anySheet() || album.open) return;
     const t = e.touches[0];
     if(t.clientX > 28) return;
     sw = {x0:t.clientX, y0:t.clientY, dx:0, live:false};
@@ -1169,6 +1217,127 @@ $("#p-list").addEventListener("click", e=>{
     if(go_) goBack();
   });
 })();
+
+/* ---------- Album-Modus: echtes Blättern ---------- */
+const album = {open:false, set:null, owned:null, page:0, auto:false, busy:false, idleT:0};
+const alEl = $("#album"), alStage = $("#al-stage");
+const isLand = () => window.innerWidth > window.innerHeight;
+const isTouch = () => matchMedia("(pointer: coarse)").matches;
+const per = () => isLand() ? 2 : 1;
+const pageCount = () => Math.ceil(album.set.cards.length / 9);
+function firstVisiblePage(s){
+  const top = 120;
+  for(const el of document.querySelectorAll("#view .slot[data-num]")){
+    if(el.getBoundingClientRect().bottom > top){ const i = s.idx.get(el.dataset.num); return i==null ? 0 : Math.floor(i/9); }
+  }
+  return 0;
+}
+function aPageHTML(i){
+  const s = album.set, ch = s.cards.slice(i*9, i*9+9);
+  if(!ch.length) return `<section class="apage blank" aria-hidden="true"></section>`;
+  const fill = Array.from({length: 9-ch.length}, ()=>`<span class="pk-empty"></span>`).join("");
+  return `<section class="apage" aria-label="Seite ${i+1}"><h3><span>Seite ${i+1}</span><span>${esc(ch[0][0])}–${esc(ch[ch.length-1][0])}</span></h3><div class="pockets">${ch.map(c=>slotSet(s,c,album.owned.get(c[0]),true)).join("")}${fill}</div></section>`;
+}
+function spreadHTML(p){ return per()===2 ? aPageHTML(p) + aPageHTML(p+1) : aPageHTML(p); }
+function alLayout(){
+  const land = isLand(); alEl.classList.toggle("land", land);
+  const W = alStage.clientWidth - (land ? 16 : 24), H = alStage.clientHeight - (land ? 12 : 16);
+  const n = per(), g = land ? 5 : 7, padX = 30, padY = 20, hd = 20;
+  let cw = Math.min((W/n - padX - 2*g)/3, ((H - padY - hd - 2*g)/3) * 63/88);
+  cw = Math.max(40, Math.floor(cw));
+  const chh = cw*88/63;
+  alEl.style.setProperty("--cw", cw+"px"); alEl.style.setProperty("--g", g+"px");
+  alEl.style.setProperty("--pw", (3*cw + 2*g + padX)+"px"); alEl.style.setProperty("--ph", Math.ceil(3*chh + 2*g + padY + hd)+"px");
+}
+function alInfo(){
+  const n = pageCount(), p = album.page, two = per()===2;
+  $("#al-pg").textContent = two ? `${p+1}${p+2<=n?"–"+(p+2):""} / ${n}` : `${p+1} / ${n}`;
+  const r = $("#al-range"); r.max = Math.ceil(n/per()); r.value = Math.floor(p/per())+1;
+  $("#al-prev").disabled = p<=0; $("#al-next").disabled = p+per() >= n;
+}
+function alRender(){
+  album.owned = setOwned(album.set);
+  alStage.innerHTML = `<div class="spread${per()===2?" two":""}">${spreadHTML(album.page)}</div>`;
+  alInfo();
+}
+function wake(){
+  alEl.classList.remove("idle"); clearTimeout(album.idleT);
+  if(isLand()) album.idleT = setTimeout(()=>{ if(album.open && isLand()) alEl.classList.add("idle"); }, 2600);
+}
+function openAlbum(s, page, auto){
+  album.set = s; album.auto = !!auto; album.open = true;
+  album.page = Math.max(0, Math.min(page, pageCount()-1)); album.page -= album.page % per();
+  alEl.hidden = false; document.body.classList.add("locked");
+  $("#al-title").textContent = s.de;
+  alLayout(); alRender(); wake();
+}
+function closeAlbum(scroll = true){
+  if(!album.open) return;
+  album.open = false; alEl.hidden = true; clearTimeout(album.idleT);
+  if(!anySheet()) document.body.classList.remove("locked");
+  if(scroll && view.name==="set"){
+    const c = album.set.cards[album.page*9];
+    const el = c && document.getElementById("slot-"+c[0]);
+    if(el){ const y = el.getBoundingClientRect().top + window.scrollY - 130; window.scrollTo(0, Math.max(0,y)); }
+  }
+}
+function turn(dir){
+  if(album.busy) return;
+  const n = pageCount(), k = per(), from = album.page, to = from + dir*k;
+  if(to < 0 || to >= n) return;
+  const can = typeof Element.prototype.animate === "function" && !reduced();
+  if(!can){ album.page = to; alRender(); return; }
+  album.busy = true;
+  const two = k===2;
+  let under, leafPos, origin, front, back, a0, a1;
+  if(!two){
+    if(dir>0){ under = aPageHTML(to); front = aPageHTML(from); back = `<section class="apage blank"></section>`; a0 = 0; a1 = -180; }
+    else { under = aPageHTML(from); front = aPageHTML(to); back = `<section class="apage blank"></section>`; a0 = -180; a1 = 0; }
+    leafPos = "left:0"; origin = "left center";
+  } else if(dir>0){
+    under = aPageHTML(from) + aPageHTML(to+1); front = aPageHTML(from+1); back = aPageHTML(to);
+    leafPos = "left:var(--pw)"; origin = "left center"; a0 = 0; a1 = -180;
+  } else {
+    under = aPageHTML(to) + aPageHTML(from+1); front = aPageHTML(from); back = aPageHTML(to+1);
+    leafPos = "left:0"; origin = "right center"; a0 = 0; a1 = 180;
+  }
+  alStage.innerHTML = `<div class="spread${two?" two":""}">${under}<div class="leaf" style="${leafPos};transform-origin:${origin}"><div class="face">${front}</div><div class="face back">${back}</div></div></div>`;
+  if(two){ const fp = alStage.querySelector(".leaf .face:not(.back) .apage"), bp = alStage.querySelector(".leaf .back .apage");
+    if(dir>0){ fp.style.borderRadius="4px 12px 12px 4px"; bp.style.borderRadius="12px 4px 4px 12px"; bp.style.padding="10px 20px 10px 10px"; }
+    else { fp.style.borderRadius="12px 4px 4px 12px"; fp.style.padding="10px 20px 10px 10px"; bp.style.borderRadius="4px 12px 12px 4px"; } }
+  const leaf = alStage.querySelector(".leaf");
+  const anim = leaf.animate([{transform:`rotateY(${a0}deg)`},{transform:`rotateY(${a1}deg)`}], {duration:480, easing:"cubic-bezier(.45,.05,.3,1)", fill:"forwards"});
+  const done = () => { album.page = to; album.busy = false; alRender(); };
+  anim.onfinish = done; anim.oncancel = done;
+  album.page = to; alInfo(); album.page = from;
+}
+$("#al-close").addEventListener("click", ()=>closeAlbum(true));
+$("#al-prev").addEventListener("click", ()=>{ turn(-1); wake(); });
+$("#al-next").addEventListener("click", ()=>{ turn(1); wake(); });
+$("#al-range").addEventListener("input", e=>{ album.page = (+e.target.value - 1) * per(); alRender(); wake(); });
+document.addEventListener("keydown", e=>{ if(!album.open || anySheet()) return; if(e.key==="ArrowRight") turn(1); else if(e.key==="ArrowLeft") turn(-1); else if(e.key==="Escape") closeAlbum(true); });
+let asw = null;
+alStage.addEventListener("touchstart", e=>{ const t = e.touches[0]; asw = {x:t.clientX, y:t.clientY}; },{passive:true});
+alStage.addEventListener("touchend", e=>{
+  if(!asw) return; const t = e.changedTouches[0], dx = t.clientX - asw.x, dy = t.clientY - asw.y; asw = null;
+  if(Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)*1.2){ e.preventDefault(); turn(dx < 0 ? 1 : -1); }
+});
+alStage.addEventListener("click", e=>{
+  const sl = e.target.closest(".slot[data-set]");
+  if(sl){ openCtx({kind:"set", setId:sl.dataset.set, num:sl.dataset.num}); return; }
+  if(isLand()){ if(alEl.classList.contains("idle")) wake(); else { clearTimeout(album.idleT); alEl.classList.add("idle"); } }
+});
+alEl.addEventListener("touchstart", e=>{ if(e.target.closest(".al-top,.al-bot")) wake(); },{passive:true});
+let lastLand = isLand(), rzT = 0;
+window.addEventListener("resize", ()=>{ clearTimeout(rzT); rzT = setTimeout(()=>{
+  const land = isLand(), changed = land !== lastLand; lastLand = land;
+  if(album.open){
+    if(changed && !land && album.auto){ closeAlbum(true); return; }
+    album.page -= album.page % per(); alLayout(); alRender(); wake();
+  } else if(changed && land && isTouch() && view.name==="set" && !anySheet()){
+    openAlbum(view.set, firstVisiblePage(view.set), true);
+  }
+}, 160); });
 
 /* ---------- Start ---------- */
 function init(){

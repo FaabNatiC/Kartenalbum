@@ -1,5 +1,11 @@
 # Kartenalbum – Änderungen
 
+## Version 1.9 · 02.11.2026
+- Set-Ansicht als einfaches Kartenraster, dazu Knopf „Album öffnen“
+- Album-Modus bildschirmfüllend: Blättern per Wischen mit 3D-Umblättern, Seitenregler, Tap auf eine Tasche öffnet die Karte
+- Querformat: Doppelseite wie ein aufgeschlagener Ordner, Bedienelemente blenden sich aus
+- Handy im Set quer kippen öffnet automatisch das Album, zurückkippen schließt es auf der aktuellen Seite
+
 ## Version 1.8 · 30.10.2026
 - Alle Overlays als einheitliches Bottom Sheet: Karte, Pokédex, Album anlegen, Filter
 - Karten-Sheet öffnet bis unter „Bei Cardmarket suchen“, Weiterscrollen öffnet es fließend ganz
