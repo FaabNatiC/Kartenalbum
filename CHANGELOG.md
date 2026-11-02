@@ -1,5 +1,15 @@
 # Kartenalbum – Änderungen
 
+## Version 1.14 · 02.11.2026
+- Aktualisieren lädt erst neu, wenn die neue Version komplett geladen ist – keine leere App mehr
+- Fehlen die Setdaten beim Start, lädt die App einmal neu und zeigt sonst einen Hinweis
+- Set-Kopfzeile behält beim Scrollen ihre Farbe, nur eine dünne Trennlinie erscheint
+- Zurück aus der Album-Vorschau führt wieder in die Set-Liste („Alle Sets“)
+- Typ-Icons vollständig und einheitlich
+- Typ „Farblos“ heißt jetzt „Normal“
+- Set-Filter mit Region und Generation
+- Höchstwert genauer: berücksichtigt auch die Cardmarket-Durchschnitte der letzten 30 Tage
+
 ## Version 1.13 · 02.11.2026
 - Ältere Serien ergänzt: Sonne & Mond, XY, Schwarz & Weiß, HeartGold & SoulSilver, Platin, Diamant & Perl, EX, POP, e-Card, Neo, Gym, Basis und McDonald’s – insgesamt 181 Sets
 - Pokédex-Filter zeigt die Generation mit an, z. B. „Kanto · Gen 1“

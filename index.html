@@ -57,9 +57,8 @@ button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{ou
 
 /* Kopfzeile + Tab-Leiste */
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
-body.scrolled::before{background:var(--bar)}
-.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:transparent;border-bottom:1px solid transparent;margin-top:env(safe-area-inset-top,0px);transition:background .2s,border-color .2s}
-body.scrolled .bar{background:var(--bar);-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px);border-bottom-color:var(--line)}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid transparent;margin-top:env(safe-area-inset-top,0px);transition:border-color .2s}
+body.scrolled .bar{border-bottom-color:var(--line)}
 body.nobar .bar{display:none}
 body.nobar .wrap{padding-top:calc(env(safe-area-inset-top,0px) + 18px)}
 .bar-in{max-width:1180px;margin:0 auto;min-height:56px;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:8px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:6px}
@@ -252,6 +251,8 @@ dialog::backdrop{background:rgba(10,14,24,.55)}
 .fopt{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:8px 12px;font:600 13px var(--f-body);cursor:pointer;display:inline-flex;align-items:center;gap:6px;min-height:38px}
 .fopt[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
 .cnt{font:600 13px var(--f-num);color:var(--muted);margin-top:12px}
+.loadfail{position:fixed;inset:0;z-index:100;background:var(--bg);display:grid;place-content:center;gap:10px;text-align:center;padding:24px}
+.loadfail b{font:700 19px var(--f-body)}.loadfail span{color:var(--muted)}.loadfail .btn{justify-self:center;margin-top:6px}
 .recent-sec{margin-top:18px}
 .rec-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:8px}
 .rec-h h2{margin:0;font:700 17px var(--f-body)}
@@ -358,7 +359,7 @@ dialog::backdrop{background:rgba(10,14,24,.55)}
 .chip.have{background:color-mix(in srgb,var(--accent) 14%,transparent);border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
 .chip.none{color:var(--muted)}
 .chip.link{cursor:pointer;min-height:34px}
-.ticon{display:inline-block;width:15px;height:16px;border-radius:4px;background-repeat:no-repeat;background-position:0 0;background-size:auto 16px;flex:0 0 auto}
+.ticon{display:inline-block;width:16px;height:16px;border-radius:4px;background-repeat:no-repeat;background-position:0 50%;background-size:auto 16.2px;flex:0 0 auto;vertical-align:-3px}
 .dmeta{margin:8px 0 0;font-size:13px;color:var(--muted)}
 .dlinks{margin-top:10px}
 .price{border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;gap:8px;font-size:13px;color:var(--muted)}
@@ -525,6 +526,12 @@ form.f{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 </section>
 
 <script src="data.js"></script>
+<script>(function(){ var k="pk-dataretry";
+  if(typeof SETS!=="undefined" && typeof NAMES!=="undefined" && typeof VARIANTS!=="undefined"){ try{ sessionStorage.removeItem(k); }catch(e){} return; }
+  var n=0; try{ n=+(sessionStorage.getItem(k)||0); sessionStorage.setItem(k, n+1); }catch(e){ n=1; }
+  if(n<1){ location.reload(); return; }
+  document.body.insertAdjacentHTML("beforeend",'<div class="loadfail" role="alert"><b>Daten konnten nicht geladen werden</b><span>Deine Sammlung ist sicher auf dem Gerät gespeichert.</span><button class="btn primary" type="button" onclick="try{sessionStorage.removeItem(\'pk-dataretry\')}catch(e){};location.reload()">Neu laden</button></div>');
+})();</script>
 <script>
 // NAMES, SETS, VARIANTS kommen aus data.js
 const TOTAL = NAMES.length;
@@ -533,13 +540,14 @@ let dexReg = new Set();
 const inRegions = n => !dexReg.size || REGIONS.some(([k,,a,b])=>dexReg.has(k) && n>=a && n<=b);
 const FREE_RAR = ["Häufig ●","Nicht so häufig ◆","Selten ★","Holo Selten ★","Doppelselten ★★","Ultra Rare","Illustration Rare","Special Illustration Rare","Hyper Rare","Promo","Andere"];
 const RAR = {C:["Häufig","●"],U:["Nicht so häufig","◆"],R:["Selten","★"],RR:["Double Rare","★★"],UR:["Ultra Rare","★★"],IR:["Illustration Rare","IR"],SIR:["Special Illustration Rare","SIR"],HR:["Hyper Rare","HR"],ACE:["ACE SPEC","ACE"],SR:["Shiny Rare","SR"],SUR:["Shiny Ultra Rare","SUR"],BWR:["Black White Rare","BWR"],PR:["Promo","PR"],RH:["Holo Selten","★H"],V:["V","V"],VMAX:["VMAX","VMAX"],VSTAR:["VSTAR","VSTAR"],AR:["Amazing Rare","AR"],RAD:["Radiant Rare","RAD"],SEC:["Secret Rare","SEC"],FA:["Full Art Trainer","FA"],PIK:["Pikachu Rare","PIK"],FUR:["Futuristic Rare","FUR"],RGB:["RGB Rare","RGB"],MAR:["Mega Attack Rare","MAR"],MHR:["Mega Hyper Rare","MHR"],CC:["Classic Collection","CC"],SRV:["Shiny Rare V","SRV"],SRVMAX:["Shiny Rare VMAX","SRV"],LEG:["LEGEND","LEG"],LVX:["Holo LV.X","LV.X"],"":["–",""]};
-const TYPES = {Grass:["Pflanze","#4f9a43","#fff"],Fire:["Feuer","#d9572b","#fff"],Water:["Wasser","#2f84cf","#fff"],Lightning:["Elektro","#f0c93a","#2b2205"],Psychic:["Psycho","#9a55b3","#fff"],Fighting:["Kampf","#b06235","#fff"],Darkness:["Finsternis","#344150","#fff"],Metal:["Metall","#8d99a5","#14181d"],Dragon:["Drache","#a88a26","#fff"],Colorless:["Farblos","#c8c2b4","#2a2722"],Fairy:["Fee","#db78ab","#fff"]};
+const TYPES = {Grass:["Pflanze","#4f9a43","#fff"],Fire:["Feuer","#d9572b","#fff"],Water:["Wasser","#2f84cf","#fff"],Lightning:["Elektro","#f0c93a","#2b2205"],Psychic:["Psycho","#9a55b3","#fff"],Fighting:["Kampf","#b06235","#fff"],Darkness:["Finsternis","#344150","#fff"],Metal:["Metall","#8d99a5","#14181d"],Dragon:["Drache","#a88a26","#fff"],Colorless:["Normal","#c8c2b4","#2a2722"],Fairy:["Fee","#db78ab","#fff"]};
 const CAT = {P:"Pokémon",T:"Trainer",E:"Energie"};
 const LANGS = ["Deutsch","Englisch","Japanisch","Andere"];
 const CONDS = ["Mint","Near Mint","Excellent","Good","Light Played","Played","Poor"];
 
 /* ---------- Änderungsprotokoll ---------- */
 const CHANGELOG = [
+  {v:"1.14", d:"2026-11-02", items:["Aktualisieren lädt erst neu, wenn die neue Version komplett geladen ist – keine leere App mehr","Fehlen die Setdaten beim Start, lädt die App einmal neu und zeigt sonst einen Hinweis","Set-Kopfzeile behält beim Scrollen ihre Farbe, nur eine dünne Trennlinie erscheint","Zurück aus der Album-Vorschau führt wieder in die Set-Liste („Alle Sets“)","Typ-Icons vollständig und einheitlich","Typ „Farblos“ heißt jetzt „Normal“","Set-Filter mit Region und Generation","Höchstwert genauer: berücksichtigt auch die Cardmarket-Durchschnitte der letzten 30 Tage"]},
   {v:"1.13", d:"2026-11-02", items:["Ältere Serien ergänzt: Sonne & Mond, XY, Schwarz & Weiß, HeartGold & SoulSilver, Platin, Diamant & Perl, EX, POP, e-Card, Neo, Gym, Basis und McDonald’s – insgesamt 181 Sets","Pokédex-Filter zeigt die Generation mit an, z. B. „Kanto · Gen 1“","Doppelte Überschrift entfernt: Kopfzeile nur noch im Set","Kopfbereich im Set luftiger: Statusleiste in App-Farbe, Kopfzeile erst beim Scrollen mit Hintergrund","Suche zeigt vor dem Tippen „Zuletzt angesehen“","3D-Knopf erscheint nicht mehr beim Pokémon-Artwork","Freies Eintragen von Karten entfernt – ältere Sets haben jetzt eigene Setlisten"]},
   {v:"1.12", d:"2026-11-02", items:["Suche: Tippen auf einen Namensvorschlag vervollständigt nur den Namen","Pokédex ohne Seiten, mit Region-Filter von Kanto bis Paldea inklusive Hisui","Albumcover im Ordner-Stil: farbiger Rücken mit Ringen, Fortschritt in Set-Farbe","Album anlegen mit Vorschau: Set erst ansehen, dann mit „Album anlegen“ übernehmen","Album-Menü über „•••“ im Set oder langes Drücken auf ein Cover: Werte aktualisieren, Album entfernen (auch mit Karten, nach Rückfrage)","Pokédex-Sheet öffnet sich auf dieselbe Höhe wie die Kartenansicht"]},
   {v:"1.11", d:"2026-11-02", items:["Darstellung wählbar: Automatisch, Hell oder Dunkel","Mehr-Tab neu im Stil der iPhone-Einstellungen: Darstellung, Sammlung, Sicherung, Tipps, Über die App; Änderungen als Bottom Sheet","Erklärtexte aus den Ansichten in den Bereich „Tipps“ verschoben, Quellenhinweis nur noch unter Mehr","Preis-Box: Varianten-Chips brechen um, alle Varianten ohne Scrollen sichtbar"]},
@@ -682,7 +690,8 @@ function cardInfo(s, num, preferEn){
     const vd = Array.isArray(src.variants_detailed) ? src.variants_detailed : [];
     const base = src.pricing?.cardmarket || null;
     const normalId = vd.find(x=>x?.type==="normal")?.thirdParty?.cardmarket;
-    const vprice = {}, vavg = {};
+    const vprice = {}, vavg = {}, vpeak = {};
+    const peakOf = (o, holo) => Math.max(0, ...["avg1","avg7","avg30"].map(k=>(holo ? o?.[k+"-holo"] : o?.[k]) || 0));
     keys.forEach((key, i) => {
       const d = vd.length === keys.length ? vd[i] : null;
       const pc = d?.pricing?.cardmarket || null;
@@ -691,9 +700,11 @@ function cardInfo(s, num, preferEn){
       if(pc){ v = rev && (!normalId || d.thirdParty?.cardmarket === normalId) && pc["trend-holo"] ? pc["trend-holo"] : (pc.trend || pc.avg || 0); }
       let a30 = pc ? (rev && (!normalId || d.thirdParty?.cardmarket === normalId) && pc["avg30-holo"] ? pc["avg30-holo"] : (pc.avg30 || 0)) : 0;
       if(!v && base){ v = rev ? (base["trend-holo"] || 0) : (vMain(key) ? (base.trend || base.avg || 0) : 0); a30 = rev ? (base["avg30-holo"] || 0) : (vMain(key) ? (base.avg30 || 0) : 0); }
-      vprice[key] = v; vavg[key] = a30;
+      const holoSrc = rev && (!normalId || d?.thirdParty?.cardmarket === normalId) && pc?.["trend-holo"];
+      const pk = pc && (pc.trend || pc.avg || pc["trend-holo"]) ? peakOf(pc, !!holoSrc) : (base ? (rev ? peakOf(base, true) : vMain(key) ? peakOf(base, false) : 0) : 0);
+      vprice[key] = v; vavg[key] = a30; vpeak[key] = v ? pk : 0;
     });
-    return { image: a?.image || b?.image || null, price: base, vprice, vavg };
+    return { image: a?.image || b?.image || null, price: base, vprice, vavg, vpeak };
   })();
   infoCache.set(k, p); p.catch(() => infoCache.delete(k));
   return p;
@@ -714,9 +725,11 @@ function priceHist(){ try{ return JSON.parse(LS.raw("pk-pricehist")||"{}"); }cat
 function recordPrice(key, p){
   if(!p) return null;
   const h = priceHist(), today = (p.updated || new Date().toISOString()).slice(0,10), cur = h[key];
-  const cands = [p.trend]; if(!cur && p.avg30) cands.push(p.avg30);
+  const cands = [p.trend, p.peak || 0]; if(!cur && p.avg30) cands.push(p.avg30);
   if(!p.trend && !cur) return null;
-  const best = cur ? {...cur} : {max:0, d:today, since:today};
+  // erster Abruf: die 30-Tage-Durchschnitte decken die letzten 30 Tage mit ab
+  const since = p.peak || p.avg30 ? new Date(new Date(today).getTime() - 30*864e5).toISOString().slice(0,10) : today;
+  const best = cur ? {...cur} : {max:0, d:today, since};
   for(const v of cands) if(v && v > best.max){ best.max = v; best.d = today; }
   h[key] = best; LS.put("pk-pricehist", JSON.stringify(h));
   return best;
@@ -748,7 +761,7 @@ function stepVariant(setId, num, v, delta){
 /* ---------- Routing ---------- */
 let view = {name:"regal"}, filter = "all", searchQ = "", pendingOpen = null, confirmAlbumDel = false;
 let backTo = null, restore = null, restoreFilt = false;
-const VIEW_LBL = {regal:"Alben", dex:"Pokédex", suche:"Suche", mehr:"Mehr"};
+const VIEW_LBL = {regal:"Alben", dex:"Pokédex", suche:"Suche", mehr:"Mehr", picker:"Alle Sets"};
 function jumpToSet(setId, num){
   backTo = {setId, hash: location.hash.slice(1) || "regal", view: view.name, y: window.scrollY, reopen: ctx ? {...ctx} : null};
   pendingOpen = {kind:"set", setId, num};
@@ -756,7 +769,7 @@ function jumpToSet(setId, num){
 }
 function goBack(){
   if(view.name!=="set") return;
-  if(backTo && backTo.setId===view.set.id){ const b = backTo; backTo = null; restore = {y:b.y, reopen:b.reopen}; go(b.hash); }
+  if(backTo && backTo.setId===view.set.id){ const b = backTo; backTo = null; restore = {y:b.y, reopen:b.reopen, picker:b.picker}; go(b.hash); }
   else go("regal");
 }
 let ctx = null, infoReq = 0, openDet = new Set(), showMore = false, confirmDel = null;
@@ -768,7 +781,7 @@ function route(){
   else if(h.startsWith("set-") && SLUG.has(h.slice(4))) view={name:"set", set:SLUG.get(h.slice(4))};
   else view={name:"regal"};
   filter="all"; confirmAlbumDel=false;
-  if(!(view.name==="set" && filtSet && filtSet.id===view.set.id && restoreFilt)) filt = {cat:new Set(), type:new Set(), var:new Set(), rar:new Set()};
+  if(!(view.name==="set" && filtSet && filtSet.id===view.set.id && restoreFilt)) filt = {cat:new Set(), type:new Set(), reg:new Set(), var:new Set(), rar:new Set()};
   if(backTo && !(view.name==="set" && view.set.id===backTo.setId)) backTo = null;
   if(!pendingOpen) sheets.forEach(x=>x.close());
   if(album.open && !(view.name==="set" && view.set.id===album.set.id)) closeAlbum(false);
@@ -777,6 +790,7 @@ function route(){
   const r = restore; restore = null;
   window.scrollTo(0, r ? r.y : 0);
   if(r && r.reopen) openCtx(r.reopen);
+  if(r && r.picker) openPicker(r.picker);
   if(pendingOpen && view.name==="set" && view.set.id===pendingOpen.setId){ const p = pendingOpen; pendingOpen = null; openCtx(p); }
 }
 const go = h => { if(location.hash.slice(1)===h) route(); else location.hash = h; };
@@ -898,11 +912,11 @@ function renderDex(){
 }
 
 /* ---------- Set-Album ---------- */
-let filt = {cat:new Set(), type:new Set(), var:new Set(), rar:new Set()};
+let filt = {cat:new Set(), type:new Set(), reg:new Set(), var:new Set(), rar:new Set()};
 const BOOK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5.5C5.5 4 8.5 4 12 6c3.5-2 6.5-2 9-.5v13c-2.5-1.5-5.5-1.5-9 .5-3.5-2-6.5-2-9-.5z"/><path d="M12 6v13"/></svg>';
 const FILTER_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>';
 const RAR_ORDER = ["C","U","R","RH","LVX","LEG","RR","V","VMAX","VSTAR","ACE","RAD","AR","UR","IR","SR","SRV","SRVMAX","SIR","SUR","BWR","HR","MAR","MHR","PIK","FUR","RGB","CC","SEC","FA","PR",""];
-const filtCount = () => filt.cat.size + filt.type.size + filt.var.size + filt.rar.size;
+const filtCount = () => filt.cat.size + filt.type.size + filt.reg.size + filt.var.size + filt.rar.size;
 function setFilterOptions(s){
   const cats = new Set(), types = new Set(), vars = new Set(), rars = new Set();
   for(const c of s.cards){ cats.add(c[4]); if(c[5]) types.add(c[5]); rars.add(c[3]); for(const v of cardVariants(c)) if(vMain(v)) vars.add(v); }
@@ -910,14 +924,16 @@ function setFilterOptions(s){
     cat: ["P","T","E"].filter(x=>cats.has(x)).map(x=>[x, CAT[x]]),
     type: Object.keys(TYPES).filter(x=>types.has(x)).map(x=>[x, TYPES[x][0], typeIcon(x)]),
     var: [...vars].sort((a,b)=>["normal","holo","reverse"].indexOf(a.split("/")[0]) - ["normal","holo","reverse"].indexOf(b.split("/")[0]) || a.localeCompare(b)).map(x=>[x, vLabel(x)]),
-    rar: RAR_ORDER.filter(x=>rars.has(x) && x!=="").map(x=>[x, (RAR[x]||[x])[0]])
+    rar: RAR_ORDER.filter(x=>rars.has(x) && x!=="").map(x=>[x, (RAR[x]||[x])[0]]),
+    reg: REGIONS.map(([k,l,a,b,g])=>[k, `${l} · Gen ${g}`, "", s.cards.filter(c=>c[7]>=a && c[7]<=b).length]).filter(x=>x[3])
   };
 }
-const FGROUPS = [["cat","Kategorie"],["type","Typ"],["var","Variante"],["rar","Seltenheit"]];
+const FGROUPS = [["cat","Kategorie"],["type","Typ"],["reg","Region"],["var","Variante"],["rar","Seltenheit"]];
 function cardPasses(s, c){
   if(filt.cat.size && !filt.cat.has(c[4])) return false;
   if(filt.type.size && !filt.type.has(c[5])) return false;
   if(filt.rar.size && !filt.rar.has(c[3])) return false;
+  if(filt.reg.size && !REGIONS.some(([k,,a,b])=>filt.reg.has(k) && c[7]>=a && c[7]<=b)) return false;
   if(filt.var.size && !cardVariants(c).some(v=>filt.var.has(v))) return false;
   return true;
 }
@@ -959,7 +975,7 @@ function renderSet(s){
   $("#open-album").addEventListener("click", ()=>openAlbum(s, firstVisiblePage(s), false));
   $("#f-clear")?.addEventListener("click", ()=>{ FGROUPS.forEach(([g])=>filt[g].clear()); render(); });
   document.querySelectorAll("[data-funset]").forEach(b=>b.addEventListener("click",()=>{ const [g,v] = b.dataset.funset.split("|"); filt[g].delete(v); render(); }));
-  $("#pv-add")?.addEventListener("click", ()=>{ if(!albums.some(a=>a.setId===s.id)){ albums.push({id:slugOf(s.id), setId:s.id, created:new Date().toISOString()}); LS.set("pk-albums", albums); } render(); toast(`<span>Album „${esc(s.de)}“ angelegt</span><button class="tx" type="button" data-tclose aria-label="Schließen">×</button>`, 3000); });
+  $("#pv-add")?.addEventListener("click", ()=>{ if(backTo?.view==="picker") backTo = null; if(!albums.some(a=>a.setId===s.id)){ albums.push({id:slugOf(s.id), setId:s.id, created:new Date().toISOString()}); LS.set("pk-albums", albums); } render(); toast(`<span>Album „${esc(s.de)}“ angelegt</span><button class="tx" type="button" data-tclose aria-label="Schließen">×</button>`, 3000); });
   updateShrink();
 }
 function updateShrink(){
@@ -984,9 +1000,9 @@ function renderFilter(){
     return;
   }
   const o = setFilterOptions(s);
-  $("#f-body").innerHTML = FGROUPS.filter(([g])=>o[g].length>1).map(([g,lbl])=>`<div class="fgroup"><h3>${lbl}</h3><div class="fopts">${o[g].map(([v,l,ic])=>`<button class="fopt" type="button" data-fopt="${g}|${esc(v)}" aria-pressed="${filt[g].has(v)}">${ic||""}${esc(l)}</button>`).join("")}</div></div>`).join("");
+  $("#f-body").innerHTML = FGROUPS.filter(([g])=>o[g].length>1).map(([g,lbl])=>`<div class="fgroup"><h3>${lbl}</h3><div class="fopts">${o[g].map(([v,l,ic,n])=>`<button class="fopt" type="button" data-fopt="${g}|${esc(v)}" aria-pressed="${filt[g].has(v)}">${ic||""}${esc(l)}${n!=null?`<small class="fcnt">${n}</small>`:""}</button>`).join("")}</div></div>`).join("");
 }
-$("#f-body").addEventListener("click", e=>{ const b = e.target.closest("[data-fopt]"); if(!b) return; const [g,v] = b.dataset.fopt.split("|"); const S = g==="reg" ? dexReg : filt[g]; S.has(v) ? S.delete(v) : S.add(v); renderFilter(); render(); });
+$("#f-body").addEventListener("click", e=>{ const b = e.target.closest("[data-fopt]"); if(!b) return; const [g,v] = b.dataset.fopt.split("|"); const S = !filtSet && g==="reg" ? dexReg : filt[g]; S.has(v) ? S.delete(v) : S.add(v); renderFilter(); render(); });
 $("#f-reset").addEventListener("click", ()=>{ if(filtSet) FGROUPS.forEach(([g])=>filt[g].clear()); else dexReg.clear(); renderFilter(); render(); });
 $("#f-done").addEventListener("click", ()=>filtSheet.close());
 
@@ -1259,7 +1275,7 @@ function renderDialog(){
 let priceVar = null;
 function recordVariants(key, info){
   const upd = info.price?.updated;
-  for(const v of Object.keys(info.vprice)) if(info.vprice[v]) recordPrice(key+"|"+v, {trend:info.vprice[v], avg30:info.vavg?.[v]||0, updated:upd});
+  for(const v of Object.keys(info.vprice)) if(info.vprice[v]) recordPrice(key+"|"+v, {trend:info.vprice[v], avg30:info.vavg?.[v]||0, peak:info.vpeak?.[v]||0, updated:upd});
 }
 function renderPrice(){
   const box = $("#d-price");
@@ -1275,8 +1291,8 @@ function renderPrice(){
   const h = priceHist()[key+"|"+priceVar];
   box.innerHTML = `${keys.length>1?`<div class="pchips" role="group" aria-label="Variante für den Preis">${keys.map(v=>`<button class="pchip" type="button" data-pvar="${esc(v)}" aria-pressed="${v===priceVar}">${esc(vLabel(v))}</button>`).join("")}</div>`:""}
     <div class="pmain"><div class="now"><small>Aktueller Preis${keys.length>1?"":` · ${esc(vLabel(priceVar))}`}</small><b>${fmtPrice(info.vprice[priceVar])}</b></div>
-    <div class="ath"><small>Höchststand</small><b>${fmtPrice(h?.max)}</b></div></div>
-    <div class="pinfo">${h?`Höchststand am ${deDate(h.d)} · erfasst seit ${deDate(h.since)} · `:""}Cardmarket-Trend, Stand ${deDate(info.price?.updated)}</div>`;
+    <div class="ath"><small>${h?`Höchstwert seit ${deDate(h.since)}`:"Höchstwert"}</small><b>${fmtPrice(h?.max)}</b></div></div>
+    <div class="pinfo">${h?`Höchstwert erfasst am ${deDate(h.d)} · `:""}Cardmarket-Trend, Stand ${deDate(info.price?.updated)}</div>`;
   box.hidden = false;
 }
 $("#d-price").addEventListener("click", e=>{ const b = e.target.closest("[data-pvar]"); if(!b) return; priceVar = b.dataset.pvar; renderPrice(); });
@@ -1387,7 +1403,7 @@ async function importBackup(e){
 }
 
 /* ---------- Album anlegen ---------- */
-function openPicker(){ $("#p-q").value=""; renderPicker(); pickSheet.open("full"); }
+function openPicker(st){ $("#p-q").value = st?.q || ""; renderPicker(); pickSheet.open("full"); if(st) requestAnimationFrame(()=>{ pickSheet.sc.scrollTop = st.y || 0; }); }
 function renderPicker(){
   const q = $("#p-q").value.trim().toLowerCase(), have = new Set(shelfSets().map(s=>s.id)), groups = new Map();
   for(const s of SETS){ if(q && !(`${s.de} ${s.en} ${s.abbr} ${s.id}`.toLowerCase().includes(q))) continue; if(!groups.has(s.serie)) groups.set(s.serie,[]); groups.get(s.serie).push(s); }
@@ -1396,6 +1412,7 @@ function renderPicker(){
 $("#p-q").addEventListener("input", renderPicker);
 $("#p-list").addEventListener("click", e=>{
   const b = e.target.closest("[data-pset]"); if(!b || b.disabled) return;
+  backTo = {setId:b.dataset.pset, hash:"regal", view:"picker", y:window.scrollY, reopen:null, picker:{q:$("#p-q").value, y:pickSheet.sc.scrollTop}};
   pickSheet.close(); go("set-"+slugOf(b.dataset.pset));
 });
 
@@ -1666,8 +1683,15 @@ async function checkUpdate(){
 }
 async function doUpdate(){
   $("#t-upd").disabled = true; $("#t-upd").textContent = "Lädt …";
-  try{ const reg = await navigator.serviceWorker?.getRegistration(); await reg?.update(); }catch{}
-  try{ const ks = await caches.keys(); await Promise.all(ks.filter(k=>k.startsWith("kartenalbum-")).map(k=>caches.delete(k))); }catch{}
+  // erst neu laden, wenn die neue Version komplett auf dem Gerät liegt (max. 8 s)
+  try{
+    const reg = await navigator.serviceWorker?.getRegistration();
+    if(reg){
+      await reg.update();
+      const sw = reg.installing || reg.waiting;
+      if(sw) await new Promise(res=>{ const t = setTimeout(res, 8000); const chk = ()=>{ if(sw.state==="activated" || sw.state==="redundant"){ clearTimeout(t); res(); } }; sw.addEventListener("statechange", chk); chk(); });
+    }
+  }catch{}
   location.reload();
 }
 function updatedNotice(){
