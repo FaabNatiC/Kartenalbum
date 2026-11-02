@@ -248,7 +248,7 @@ dialog::backdrop{background:rgba(10,14,24,.55)}
 .al-x{width:40px;height:40px;border-radius:50%;border:0;background:var(--page);color:var(--ink);font-size:21px;cursor:pointer;box-shadow:var(--shadow)}
 .al-title{font:700 15px var(--f-body);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1;text-align:center}
 .al-pg{font:600 13px var(--f-num);color:var(--muted);white-space:nowrap;min-width:40px;text-align:right}
-.al-stage{flex:1 1 auto;position:relative;display:flex;align-items:center;justify-content:center;perspective:2400px;overflow:hidden;min-height:0}
+.al-stage{flex:1 1 auto;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;min-height:0}
 .al-nav{width:44px;height:40px;border-radius:10px;border:1px solid var(--line);background:var(--page);display:grid;place-items:center;cursor:pointer;flex:0 0 auto}
 .al-nav svg{width:20px;height:20px}
 .al-bot input{flex:1;min-width:0;accent-color:var(--accent)}
@@ -256,23 +256,22 @@ dialog::backdrop{background:rgba(10,14,24,.55)}
 .album.land .al-top{top:env(safe-area-inset-top,0px)}
 .album.land .al-bot{bottom:env(safe-area-inset-bottom,0px)}
 .album.idle .al-top,.album.idle .al-bot{opacity:0;pointer-events:none}
-.spread{display:flex;position:relative;transform-style:preserve-3d}
+.spread{display:flex;position:relative;perspective:2400px}
 .apage{width:var(--pw);height:var(--ph);background:var(--page);padding:10px 10px 10px 20px;position:relative;box-shadow:0 4px 18px rgba(0,0,0,.25);border-radius:4px 12px 12px 4px;flex:0 0 auto}
 .apage::before{content:"";position:absolute;left:7px;top:14%;bottom:14%;width:5px;background:radial-gradient(circle,var(--line) 2.5px,transparent 3px) 0 0/5px 33.3%}
-.spread.two .apage:first-child{border-radius:12px 4px 4px 12px;padding:10px 20px 10px 10px}
-.spread.two .apage:first-child::before{left:auto;right:7px}
-.spread.two .apage:first-child{box-shadow:-4px 4px 18px rgba(0,0,0,.25),inset -10px 0 14px -10px rgba(0,0,0,.25)}
-.spread.two .apage:last-child{box-shadow:4px 4px 18px rgba(0,0,0,.25),inset 10px 0 14px -10px rgba(0,0,0,.25)}
+.apage.lp{border-radius:12px 4px 4px 12px;padding:10px 20px 10px 10px;box-shadow:-4px 4px 18px rgba(0,0,0,.25),inset -10px 0 14px -10px rgba(0,0,0,.25)}
+.apage.lp::before{left:auto;right:7px}
+.apage.rp{box-shadow:4px 4px 18px rgba(0,0,0,.25),inset 10px 0 14px -10px rgba(0,0,0,.25)}
 .apage h3{margin:0 0 4px;height:16px;display:flex;justify-content:space-between;font:600 10.5px var(--f-num);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .apage .pockets{grid-template-columns:repeat(3,var(--cw));gap:var(--g)}
 .apage .slot{width:var(--cw)}
 .apage .slot .tag{font-size:9px}
 .apage.blank{background:color-mix(in srgb,var(--page) 85%,var(--desk))}
 .pk-empty{display:block;width:var(--cw);aspect-ratio:63/88;border-radius:6px;border:1px dashed var(--pocket-edge);opacity:.5}
-.leaf{position:absolute;top:0;width:var(--pw);height:var(--ph);transform-style:preserve-3d;z-index:5;pointer-events:none}
-.leaf .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.leaf{position:absolute;top:0;width:var(--pw);height:var(--ph);transform-style:preserve-3d;-webkit-transform-style:preserve-3d;z-index:5;pointer-events:none;will-change:transform}
+.leaf .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:translateZ(0)}
 .leaf .face .apage{box-shadow:0 6px 24px rgba(0,0,0,.35)}
-.leaf .back{transform:rotateY(180deg)}
+.leaf .back{transform:rotateY(180deg) translateZ(0)}
 /* Suche leeren */
 .qwrap{position:relative;margin-top:14px}
 .qwrap .field{padding-right:46px}
@@ -432,6 +431,7 @@ const CONDS = ["Mint","Near Mint","Excellent","Good","Light Played","Played","Po
 
 /* ---------- Änderungsprotokoll ---------- */
 const CHANGELOG = [
+  {v:"1.9.1", d:"2026-11-02", items:["Album: Flackern beim Blättern behoben – Seiten werden nur einmal gebaut, Nachbarseiten vorgeladen, Umblätter-Seite liegt sauber über der Doppelseite"]},
   {v:"1.9", d:"2026-11-02", items:["Set-Ansicht als einfaches Kartenraster, dazu Knopf „Album öffnen“","Album-Modus bildschirmfüllend: Blättern per Wischen mit 3D-Umblättern, Seitenregler, Tap auf eine Tasche öffnet die Karte","Querformat: Doppelseite wie ein aufgeschlagener Ordner, Bedienelemente blenden sich aus","Handy im Set quer kippen öffnet automatisch das Album, zurückkippen schließt es auf der aktuellen Seite"]},
   {v:"1.8", d:"2026-10-30", items:["Alle Overlays als einheitliches Bottom Sheet: Karte, Pokédex, Album anlegen, Filter","Karten-Sheet öffnet bis unter „Bei Cardmarket suchen“, Weiterscrollen öffnet es fließend ganz","Preis-Box mit Varianten-Chips: Preis und Höchststand je Variante","Pokédex zeigt das offizielle Pokémon-Artwork, fehlende als Silhouette","Set-Album: Set-Logo, Fortschrittsring mit Grundset, Master-Set und Wert; Kopf schrumpft beim Scrollen zu einer Leiste","Filter im Set-Album nach Kategorie, Typ, Variante und Seltenheit – Variante kombiniert mit Gesammelt/Fehlend","Suche mit ×-Knopf zum Leeren","Album anlegen mit Set-Logos; Pokédex-Ordner aus dem Alben-Tab entfernt"]},
   {v:"1.7", d:"2026-10-30", items:["Kartenansicht als Bottom Sheet: fährt von unten hoch, halb und ganz offen, Schließen per Wischen nach unten","Zurück-Wischgeste vom linken Bildschirmrand im Set-Album","Zurück zum Ursprung: aus Pokédex oder Suche geöffnete Sets führen mit „‹ Pokédex“ bzw. „‹ Suche“ an dieselbe Stelle zurück","Größerer, klar erkennbarer Zurück-Knopf","Suche: Kartenbilder in Farbe, Set-Name und Nummer, gruppiert nach Set, Besitz als Haken mit Anzahl","Alben mit Set-Covern: offizielles Set-Logo, Fächer der wertvollsten Karten, Set-Symbol, Fortschritt und Wert"]},
@@ -682,7 +682,7 @@ function render(){
   else renderShelf();
   if(ctx && $("#dlg").open) renderDialog();
   if(pickSheet.state!=="closed") renderPicker();
-  if(album.open && !album.busy) alRender();
+  if(album.open && !album.busy) alRender(true);
   updatePager();
 }
 
@@ -1238,7 +1238,22 @@ function aPageHTML(i){
   const fill = Array.from({length: 9-ch.length}, ()=>`<span class="pk-empty"></span>`).join("");
   return `<section class="apage" aria-label="Seite ${i+1}"><h3><span>Seite ${i+1}</span><span>${esc(ch[0][0])}–${esc(ch[ch.length-1][0])}</span></h3><div class="pockets">${ch.map(c=>slotSet(s,c,album.owned.get(c[0]),true)).join("")}${fill}</div></section>`;
 }
-function spreadHTML(p){ return per()===2 ? aPageHTML(p) + aPageHTML(p+1) : aPageHTML(p); }
+const pageCache = new Map();
+function getPage(i){
+  let el = pageCache.get(i);
+  if(el) return el;
+  const tmp = document.createElement("div"); tmp.innerHTML = aPageHTML(i);
+  el = tmp.firstElementChild;
+  el.querySelectorAll("img").forEach(im=>{ im.loading = "eager"; });
+  pageCache.set(i, el);
+  return el;
+}
+function preload(){
+  const k = per(), n = pageCount();
+  for(let i = album.page - 2*k; i < album.page + 3*k; i++) if(i>=0 && i<n) getPage(i);
+}
+function role(el, r){ el.classList.toggle("lp", r==="l"); el.classList.toggle("rp", r==="r"); return el; }
+function blankPage(){ const d = document.createElement("section"); d.className = "apage blank"; return d; }
 function alLayout(){
   const land = isLand(); alEl.classList.toggle("land", land);
   const W = alStage.clientWidth - (land ? 16 : 24), H = alStage.clientHeight - (land ? 12 : 16);
@@ -1255,10 +1270,14 @@ function alInfo(){
   const r = $("#al-range"); r.max = Math.ceil(n/per()); r.value = Math.floor(p/per())+1;
   $("#al-prev").disabled = p<=0; $("#al-next").disabled = p+per() >= n;
 }
-function alRender(){
-  album.owned = setOwned(album.set);
-  alStage.innerHTML = `<div class="spread${per()===2?" two":""}">${spreadHTML(album.page)}</div>`;
-  alInfo();
+function alRender(rebuild){
+  if(rebuild || !album.owned){ album.owned = setOwned(album.set); pageCache.clear(); }
+  const two = per()===2, sp = document.createElement("div");
+  sp.className = "spread" + (two ? " two" : "");
+  if(two) sp.append(role(getPage(album.page),"l"), role(getPage(album.page+1),"r"));
+  else sp.append(role(getPage(album.page),""));
+  alStage.replaceChildren(sp);
+  alInfo(); preload();
 }
 function wake(){
   alEl.classList.remove("idle"); clearTimeout(album.idleT);
@@ -1269,7 +1288,7 @@ function openAlbum(s, page, auto){
   album.page = Math.max(0, Math.min(page, pageCount()-1)); album.page -= album.page % per();
   alEl.hidden = false; document.body.classList.add("locked");
   $("#al-title").textContent = s.de;
-  alLayout(); alRender(); wake();
+  alLayout(); alRender(true); wake();
 }
 function closeAlbum(scroll = true){
   if(!album.open) return;
@@ -1288,28 +1307,31 @@ function turn(dir){
   const can = typeof Element.prototype.animate === "function" && !reduced();
   if(!can){ album.page = to; alRender(); return; }
   album.busy = true;
-  const two = k===2;
-  let under, leafPos, origin, front, back, a0, a1;
+  const two = k===2, sp = alStage.querySelector(".spread");
+  const leaf = document.createElement("div"); leaf.className = "leaf";
+  const fF = document.createElement("div"); fF.className = "face";
+  const fB = document.createElement("div"); fB.className = "face back";
+  leaf.append(fF, fB);
+  let under, front, back, a0, a1;
   if(!two){
-    if(dir>0){ under = aPageHTML(to); front = aPageHTML(from); back = `<section class="apage blank"></section>`; a0 = 0; a1 = -180; }
-    else { under = aPageHTML(from); front = aPageHTML(to); back = `<section class="apage blank"></section>`; a0 = -180; a1 = 0; }
-    leafPos = "left:0"; origin = "left center";
+    if(dir>0){ under = [role(getPage(to),"")]; front = role(getPage(from),""); a0 = 0; a1 = -180; }
+    else { under = [role(getPage(from),"")]; front = role(getPage(to),""); a0 = -180; a1 = 0; }
+    back = blankPage(); leaf.style.left = "0"; leaf.style.transformOrigin = "left center";
   } else if(dir>0){
-    under = aPageHTML(from) + aPageHTML(to+1); front = aPageHTML(from+1); back = aPageHTML(to);
-    leafPos = "left:var(--pw)"; origin = "left center"; a0 = 0; a1 = -180;
+    under = [role(getPage(from),"l"), role(getPage(to+1),"r")]; front = role(getPage(from+1),"r"); back = role(getPage(to),"l");
+    leaf.style.left = "var(--pw)"; leaf.style.transformOrigin = "left center"; a0 = 0; a1 = -180;
   } else {
-    under = aPageHTML(to) + aPageHTML(from+1); front = aPageHTML(from); back = aPageHTML(to+1);
-    leafPos = "left:0"; origin = "right center"; a0 = 0; a1 = 180;
+    under = [role(getPage(to),"l"), role(getPage(from+1),"r")]; front = role(getPage(from),"l"); back = role(getPage(to+1),"r");
+    leaf.style.left = "0"; leaf.style.transformOrigin = "right center"; a0 = 0; a1 = 180;
   }
-  alStage.innerHTML = `<div class="spread${two?" two":""}">${under}<div class="leaf" style="${leafPos};transform-origin:${origin}"><div class="face">${front}</div><div class="face back">${back}</div></div></div>`;
-  if(two){ const fp = alStage.querySelector(".leaf .face:not(.back) .apage"), bp = alStage.querySelector(".leaf .back .apage");
-    if(dir>0){ fp.style.borderRadius="4px 12px 12px 4px"; bp.style.borderRadius="12px 4px 4px 12px"; bp.style.padding="10px 20px 10px 10px"; }
-    else { fp.style.borderRadius="12px 4px 4px 12px"; fp.style.padding="10px 20px 10px 10px"; bp.style.borderRadius="4px 12px 12px 4px"; } }
-  const leaf = alStage.querySelector(".leaf");
+  leaf.style.transform = `rotateY(${a0}deg)`;
+  sp.replaceChildren(...under);
+  fF.append(front); fB.append(back);
+  sp.append(leaf);
   const anim = leaf.animate([{transform:`rotateY(${a0}deg)`},{transform:`rotateY(${a1}deg)`}], {duration:480, easing:"cubic-bezier(.45,.05,.3,1)", fill:"forwards"});
-  const done = () => { album.page = to; album.busy = false; alRender(); };
+  const done = () => { if(!album.busy) return; album.page = to; album.busy = false; alRender(); };
   anim.onfinish = done; anim.oncancel = done;
-  album.page = to; alInfo(); album.page = from;
+  album.page = to; alInfo(); preload(); album.page = from;
 }
 $("#al-close").addEventListener("click", ()=>closeAlbum(true));
 $("#al-prev").addEventListener("click", ()=>{ turn(-1); wake(); });

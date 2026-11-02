@@ -1,5 +1,8 @@
 # Kartenalbum – Änderungen
 
+## Version 1.9.1 · 02.11.2026
+- Album: Flackern beim Blättern behoben – Seiten werden nur einmal gebaut, Nachbarseiten vorgeladen, Umblätter-Seite liegt sauber über der Doppelseite
+
 ## Version 1.9 · 02.11.2026
 - Set-Ansicht als einfaches Kartenraster, dazu Knopf „Album öffnen“
 - Album-Modus bildschirmfüllend: Blättern per Wischen mit 3D-Umblättern, Seitenregler, Tap auf eine Tasche öffnet die Karte
