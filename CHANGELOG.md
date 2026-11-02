@@ -1,5 +1,13 @@
 # Kartenalbum – Änderungen
 
+## Version 1.12 · 02.11.2026
+- Suche: Tippen auf einen Namensvorschlag vervollständigt nur den Namen
+- Pokédex ohne Seiten, mit Region-Filter von Kanto bis Paldea inklusive Hisui
+- Albumcover im Ordner-Stil: farbiger Rücken mit Ringen, Fortschritt in Set-Farbe
+- Album anlegen mit Vorschau: Set erst ansehen, dann mit „Album anlegen“ übernehmen
+- Album-Menü über „•••“ im Set oder langes Drücken auf ein Cover: Werte aktualisieren, Album entfernen (auch mit Karten, nach Rückfrage)
+- Pokédex-Sheet öffnet sich auf dieselbe Höhe wie die Kartenansicht
+
 ## Version 1.11 · 02.11.2026
 - Darstellung wählbar: Automatisch, Hell oder Dunkel
 - Mehr-Tab neu im Stil der iPhone-Einstellungen: Darstellung, Sammlung, Sicherung, Tipps, Über die App; Änderungen als Bottom Sheet

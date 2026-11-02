@@ -112,8 +112,12 @@ h1 span{color:var(--accent)}
 
 /* Regal */
 .shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,158px),1fr));gap:12px;margin-top:20px}
-.cover.set,.cover.dexc{grid-template-rows:auto auto auto auto;min-height:0;padding:12px 12px 12px 20px;gap:8px}
-.cover.set::before,.cover.dexc::before{width:8px}
+.cover.set{grid-template-rows:auto auto auto auto;min-height:0;padding:12px 12px 12px 32px;gap:8px;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+.cover.set::before{width:22px;box-shadow:inset -3px 0 4px rgba(0,0,0,.18)}
+.cover .ring2{position:absolute;left:5px;width:12px;height:12px;border-radius:50%;background:color-mix(in srgb,var(--spine) 55%,#000);border:2.5px solid color-mix(in srgb,var(--spine) 35%,#fff);z-index:1}
+.cover .ring2.r1{top:28%}.cover .ring2.r2{top:64%}
+.cover.set .bar-p i{background:var(--spine)}
+.cover.set .bar-p i.m{background:color-mix(in srgb,var(--spine) 35%,transparent)}
 .fan{position:relative;height:118px;margin:2px 0 4px}
 .fc{position:absolute;bottom:0;left:50%;width:62px;aspect-ratio:63/88;border-radius:5px;overflow:hidden;background:var(--pocket);box-shadow:0 3px 10px rgba(0,0,0,.28);transform-origin:50% 100%}
 .fc img{width:100%;height:100%;object-fit:cover;display:block}
@@ -244,6 +248,20 @@ dialog::backdrop{background:rgba(10,14,24,.55)}
 .fopt{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:8px 12px;font:600 13px var(--f-body);cursor:pointer;display:inline-flex;align-items:center;gap:6px;min-height:38px}
 .fopt[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
 .cnt{font:600 13px var(--f-num);color:var(--muted);margin-top:12px}
+.pv-space{height:70px}
+.pvbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--tabh) + env(safe-area-inset-bottom,0px) + 10px);z-index:22;display:flex;align-items:center;gap:12px;width:min(560px,calc(100vw - 24px));background:var(--page);border:1px solid var(--line);border-radius:14px;padding:8px 8px 8px 14px;box-shadow:0 10px 30px rgba(0,0,0,.25);font-size:13.5px;color:var(--muted)}
+.pvbar span{flex:1;min-width:0}
+.pvbar b{color:var(--ink)}
+.bar-more{justify-self:end;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--page);color:var(--ink);font:700 16px/1 var(--f-body);letter-spacing:1px;cursor:pointer;box-shadow:var(--shadow);margin-block:4px}
+.menu-row{display:flex;align-items:center;gap:12px;width:100%;min-height:52px;padding:8px 14px;border:0;border-top:1px solid var(--line);background:none;color:var(--ink);font:500 15.5px var(--f-body);text-align:left;cursor:pointer}
+.menu-row:first-child{border-top:0}
+.menu-row.red{color:var(--accent)}
+.menu-row:disabled{opacity:.45;cursor:default}
+.menu-row small{margin-left:auto;color:var(--muted);font:500 13px var(--f-body)}
+.danger-box{display:grid;gap:12px;border:1px solid color-mix(in srgb,var(--accent) 50%,transparent);background:color-mix(in srgb,var(--accent) 8%,transparent);border-radius:12px;padding:14px}
+.danger-box p{margin:0;font-size:14.5px}
+.btn.red{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.fcnt{font:600 11px var(--f-num);opacity:.7;margin-left:2px}
 .open-alb{margin-top:2px}
 .open-alb svg,.fbtn.alb svg{width:19px;height:19px}
 /* Album-Modus */
@@ -422,7 +440,7 @@ form.f{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 </style>
 </head>
 <body>
-<header class="bar"><div class="bar-in"><span id="bar-left"></span><span class="bar-title" id="bar-title">Alben</span><span></span></div></header>
+<header class="bar"><div class="bar-in"><span id="bar-left"></span><span class="bar-title" id="bar-title">Alben</span><span id="bar-right" style="justify-self:end"></span></div></header>
 <div class="wrap">
   <div id="head"></div>
   <div id="status" class="note" hidden></div>
@@ -478,6 +496,14 @@ form.f{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
     <div id="l-body"></div>
   </div></div>
 </section>
+<section class="sheet" id="menusheet" role="dialog" aria-modal="true" aria-labelledby="m-title" hidden>
+  <div class="grab" aria-hidden="true"><span></span></div>
+  <div class="sheet-scroll"><div class="dlg">
+    <div class="dlg-x"><button class="x" type="button" data-sheet-close aria-label="Schließen">×</button></div>
+    <h2 class="sh-t" id="m-title"></h2>
+    <div id="m-body"></div>
+  </div></div>
+</section>
 <section class="sheet" id="filt" role="dialog" aria-modal="true" aria-labelledby="f-title" hidden>
   <div class="grab" aria-hidden="true"><span></span></div>
   <div class="sheet-scroll"><div class="dlg">
@@ -492,7 +518,9 @@ form.f{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 <script>
 // NAMES, SETS, VARIANTS kommen aus data.js
 const TOTAL = NAMES.length;
-const GENS = [["Gen I",1,151],["Gen II",152,251],["Gen III",252,386],["Gen IV",387,493],["Gen V",494,649],["Gen VI",650,721],["Gen VII",722,809],["Gen VIII",810,905],["Gen IX",906,1025]];
+const REGIONS = [["kanto","Kanto",1,151],["johto","Johto",152,251],["hoenn","Hoenn",252,386],["sinnoh","Sinnoh",387,493],["einall","Einall",494,649],["kalos","Kalos",650,721],["alola","Alola",722,809],["galar","Galar",810,898],["hisui","Hisui",899,905],["paldea","Paldea",906,1025]];
+let dexReg = new Set();
+const inRegions = n => !dexReg.size || REGIONS.some(([k,,a,b])=>dexReg.has(k) && n>=a && n<=b);
 const FREE_RAR = ["Häufig ●","Nicht so häufig ◆","Selten ★","Holo Selten ★","Doppelselten ★★","Ultra Rare","Illustration Rare","Special Illustration Rare","Hyper Rare","Promo","Andere"];
 const RAR = {C:["Häufig","●"],U:["Nicht so häufig","◆"],R:["Selten","★"],RR:["Double Rare","★★"],UR:["Ultra Rare","★★"],IR:["Illustration Rare","IR"],SIR:["Special Illustration Rare","SIR"],HR:["Hyper Rare","HR"],ACE:["ACE SPEC","ACE"],SR:["Shiny Rare","SR"],SUR:["Shiny Ultra Rare","SUR"],BWR:["Black White Rare","BWR"],PR:["Promo","PR"],RH:["Holo Selten","★H"],V:["V","V"],VMAX:["VMAX","VMAX"],VSTAR:["VSTAR","VSTAR"],AR:["Amazing Rare","AR"],RAD:["Radiant Rare","RAD"],SEC:["Secret Rare","SEC"],FA:["Full Art Trainer","FA"],PIK:["Pikachu Rare","PIK"],FUR:["Futuristic Rare","FUR"],RGB:["RGB Rare","RGB"],MAR:["Mega Attack Rare","MAR"],MHR:["Mega Hyper Rare","MHR"],CC:["Classic Collection","CC"],SRV:["Shiny Rare V","SRV"],SRVMAX:["Shiny Rare VMAX","SRV"],"":["–",""]};
 const TYPES = {Grass:["Pflanze","#4f9a43","#fff"],Fire:["Feuer","#d9572b","#fff"],Water:["Wasser","#2f84cf","#fff"],Lightning:["Elektro","#f0c93a","#2b2205"],Psychic:["Psycho","#9a55b3","#fff"],Fighting:["Kampf","#b06235","#fff"],Darkness:["Finsternis","#344150","#fff"],Metal:["Metall","#8d99a5","#14181d"],Dragon:["Drache","#a88a26","#fff"],Colorless:["Farblos","#c8c2b4","#2a2722"],Fairy:["Fee","#db78ab","#fff"]};
@@ -502,6 +530,7 @@ const CONDS = ["Mint","Near Mint","Excellent","Good","Light Played","Played","Po
 
 /* ---------- Änderungsprotokoll ---------- */
 const CHANGELOG = [
+  {v:"1.12", d:"2026-11-02", items:["Suche: Tippen auf einen Namensvorschlag vervollständigt nur den Namen","Pokédex ohne Seiten, mit Region-Filter von Kanto bis Paldea inklusive Hisui","Albumcover im Ordner-Stil: farbiger Rücken mit Ringen, Fortschritt in Set-Farbe","Album anlegen mit Vorschau: Set erst ansehen, dann mit „Album anlegen“ übernehmen","Album-Menü über „•••“ im Set oder langes Drücken auf ein Cover: Werte aktualisieren, Album entfernen (auch mit Karten, nach Rückfrage)","Pokédex-Sheet öffnet sich auf dieselbe Höhe wie die Kartenansicht"]},
   {v:"1.11", d:"2026-11-02", items:["Darstellung wählbar: Automatisch, Hell oder Dunkel","Mehr-Tab neu im Stil der iPhone-Einstellungen: Darstellung, Sammlung, Sicherung, Tipps, Über die App; Änderungen als Bottom Sheet","Erklärtexte aus den Ansichten in den Bereich „Tipps“ verschoben, Quellenhinweis nur noch unter Mehr","Preis-Box: Varianten-Chips brechen um, alle Varianten ohne Scrollen sichtbar"]},
   {v:"1.10", d:"2026-11-02", items:["Album: Flackern beim Blättern behoben – Seiten werden nur einmal gebaut, Nachbarseiten vorgeladen","Preis-Box aufgeräumt: aktueller Preis und Höchststand nebeneinander, eine Infozeile, Varianten-Chips ohne Preis","3D-Kartenansicht: Tap aufs Kartenbild, Drehen per Finger oder Neigung, Umdrehen, Glanzeffekt; Rückseite aus rueckseite.jpg oder eigenes Design","Schnellere Updates: Prüfung beim Start und beim Zurückkehren, Banner „Neue Version verfügbar“","Hinweis „Aktualisiert auf Version …“ nach einem Update","Set-Kopf schrumpft beim Scrollen fließend zu einer Zeile mit Ring, Logo, Fortschritt und Wert","Nur noch ein Album-Knopf in der Filterzeile","Kopfzeile und Set-Leiste bleiben beim Scrollen jetzt zuverlässig oben stehen"]},
   {v:"1.9", d:"2026-11-02", items:["Set-Ansicht als einfaches Kartenraster, dazu Knopf „Album öffnen“","Album-Modus bildschirmfüllend: Blättern per Wischen mit 3D-Umblättern, Seitenregler, Tap auf eine Tasche öffnet die Karte","Querformat: Doppelseite wie ein aufgeschlagener Ordner, Bedienelemente blenden sich aus","Handy im Set quer kippen öffnet automatisch das Album, zurückkippen schließt es auf der aktuellen Seite"]},
@@ -747,6 +776,9 @@ function render(){
   const backLbl = view.name==="set" ? (backTo && backTo.setId===view.set.id ? VIEW_LBL[backTo.view] || "Zurück" : "Alben") : "";
   $("#bar-left").innerHTML = backLbl ? `<button class="bar-back" type="button" id="back-btn">${SVG_L}${esc(backLbl)}</button>` : "";
   $("#back-btn")?.addEventListener("click", goBack);
+  const showMore = view.name==="set" && (albums.some(a=>a.setId===view.set.id) || cards.some(c=>c.setId===view.set.id && qtyOf(c)));
+  $("#bar-right").innerHTML = showMore ? `<button class="bar-more" type="button" id="more-btn" aria-label="Album-Optionen">•••</button>` : "";
+  $("#more-btn")?.addEventListener("click", ()=>openAlbumMenu(view.set));
   if(view.name==="dex") renderDex();
   else if(view.name==="set") renderSet(view.set);
   else if(view.name==="suche") renderSearch();
@@ -754,6 +786,7 @@ function render(){
   else renderShelf();
   if(ctx && $("#dlg").open) renderDialog();
   if(pickSheet.state!=="closed") renderPicker();
+  if(menuSheet.state!=="closed") renderAlbumMenu();
   if(album.open && !album.busy) alRender(true);
   updatePager();
 }
@@ -783,10 +816,10 @@ function coverHTML(s){
     .sort((a,b)=> b.val-a.val || b.sc-a.sc).slice(0,3);
   const ghosts = s.cards.filter(c=>!owned.has(c[0])).map(c=>({num:c[0], sc:RSCORE[c[3]]||0, own:false})).sort((a,b)=>b.sc-a.sc).slice(0, 3-ownedTop.length);
   const fan = fanOrder([...ownedTop, ...ghosts]);
-  return `<a class="cover set" href="#set-${s.slug}" style="--spine:${spineColor(s)}" aria-label="${esc(s.de)}, ${p.base} von ${p.baseTotal} Karten">
+  return `<a class="cover set" href="#set-${s.slug}" data-cover="${esc(s.id)}" style="--spine:${spineColor(s)}" aria-label="${esc(s.de)}, ${p.base} von ${p.baseTotal} Karten"><span class="ring2 r1" aria-hidden="true"></span><span class="ring2 r2" aria-hidden="true"></span>
     <div class="fan">${fan.map((f,i)=>`<span class="fc f${i}${f.own?"":" ghost"}">${cimg(s, f.num, "low", "fimg", f.lang)}</span>`).join("")}</div>
     <div class="logo"><img src="${logoUrl(s,"de")}" data-alt="${logoUrl(s,"en")}" alt="${esc(s.de)}" loading="lazy" onerror="logoErr(this)"><b class="logo-t">${esc(s.de)}</b></div>
-    <div class="cmeta"><img class="sym" src="${symUrl(s)}" alt="" loading="lazy" onerror="this.remove()"><span>${p.base} / ${p.baseTotal}${p.allTotal>p.baseTotal?` · M ${p.all}`:""}</span><span class="v">${eur(sum(list,valOf))}</span></div>
+    <div class="cmeta"><img class="sym" src="${symUrl(s)}" alt="" loading="lazy" onerror="this.remove()"><span>${p.base} / ${p.baseTotal}</span><span class="v">${eur(sum(list,valOf))}</span></div>
     <span class="bar-p"><i class="m" style="width:${(p.all/p.allTotal*100).toFixed(1)}%"></i><i style="width:${(p.base/p.allTotal*100).toFixed(1)}%"></i></span></a>`;
 }
 
@@ -836,13 +869,17 @@ function renderDex(){
   $("#head").innerHTML = `<h1>Pokédex</h1>
     <div class="stats"><div class="grow"><div class="stat"><small>Gesammelt</small><b>${m.size} / ${TOTAL}</b></div><span class="bar-p"><i style="width:${(m.size/TOTAL*100).toFixed(2)}%"></i></span></div>
     <div class="stat"><small>Karten</small><b>${sum(all,qtyOf)}</b></div><div class="stat"><small>Wert</small><b>${eur(sum(all,valOf))}</b></div></div>`;
-  $("#tools").innerHTML = `${segHTML()}<div class="gens">${GENS.map(([g,a,b])=>{ let c=0; for(let i=a;i<=b;i++) if(m.has(i)) c++; return `<button class="gen" type="button" data-jump="${a}"><span>${g}</span><em>${c}/${b-a+1}</em><span class="bar-p"><i style="width:${(c/(b-a+1)*100).toFixed(1)}%"></i></span></button>`; }).join("")}</div>${filter==="all"?pagerHTML(Math.ceil(TOTAL/9)):""}`;
-  const nums = Array.from({length:TOTAL},(_,i)=>i+1);
-  if(filter==="all") $("#view").innerHTML = pages(nums, n=>slotDex(n,m.get(n)), ch=>`#${pad4(ch[0])}–#${pad4(ch[ch.length-1])}`);
-  else {
-    const f = nums.filter(n=>(filter==="owned")===m.has(n));
-    $("#view").innerHTML = f.length ? `<div class="flat">${f.map(n=>slotDex(n,m.get(n))).join("")}</div>` : `<p class="empty">${filter==="owned"?"Noch keine Pokémon-Karte eingetragen.":"Keine Lücken mehr – der Pokédex ist komplett."}</p>`;
-  }
+  const fc = dexReg.size;
+  const chips = REGIONS.filter(([k])=>dexReg.has(k)).map(([k,l])=>`<button class="chip" type="button" data-dreg="${k}" aria-label="Region ${l} entfernen">${l} ✕</button>`).join("");
+  $("#tools").innerHTML = `<div class="segrow">${segHTML().replace('class="seg"','class="seg" style="margin-top:0"')}<button class="fbtn${fc?" on":""}" type="button" id="open-dfilter" aria-label="Region filtern${fc?`, ${fc} aktiv`:""}">${FILTER_SVG}${fc?fc:""}</button></div>
+    ${fc?`<div class="fchips">${chips}<button class="chip" type="button" id="d-clear">Alle zurücksetzen</button></div>`:""}`;
+  const nums = Array.from({length:TOTAL},(_,i)=>i+1).filter(inRegions);
+  const f = nums.filter(n=>filter==="all" || (filter==="owned")===m.has(n));
+  const got = nums.filter(n=>m.has(n)).length;
+  $("#view").innerHTML = `<p class="cnt">${f.length} Pokémon${filter==="all"?` · ${got} gesammelt`:""}</p>` + (f.length ? `<div class="flat">${f.map(n=>slotDex(n,m.get(n))).join("")}</div>` : `<p class="empty">${filter==="owned"?"Noch keine Pokémon-Karte in dieser Auswahl.":"Keine Lücken mehr in dieser Auswahl."}</p>`);
+  $("#open-dfilter").addEventListener("click", ()=>openFilter(null));
+  $("#d-clear")?.addEventListener("click", ()=>{ dexReg.clear(); render(); });
+  document.querySelectorAll("[data-dreg]").forEach(b=>b.addEventListener("click",()=>{ dexReg.delete(b.dataset.dreg); render(); }));
 }
 
 /* ---------- Set-Album ---------- */
@@ -900,17 +937,14 @@ function renderSet(s){
     const f = s.cards.filter(c=>cardPasses(s,c) && (filter==="all" || (filter==="owned" ? ownState(s,c,owned) : missingState(s,c,owned))));
     html = `<p class="cnt">${f.length} ${f.length===1?"Karte":"Karten"}</p>` + (f.length ? `<div class="flat">${f.map(c=>slotSet(s,c,owned.get(c[0]))).join("")}</div>` : `<p class="empty">${filtered?"Keine Karte passt zu diesen Filtern.":filter==="owned"?"Noch keine Karte aus diesem Set. Tippe auf eine Tasche.":"Set komplett – keine Lücken mehr."}</p>`);
   }
-  const canDel = hasAlbum && !list.length;
-  html += `<div class="row" style="margin-top:22px">${list.length?`<button class="btn" type="button" id="upd-prices">Werte aktualisieren</button>`:""}${canDel?(confirmAlbumDel?`<button class="btn danger" type="button" id="alb-del-yes">Album wirklich entfernen</button><button class="btn" type="button" id="alb-del-no">Behalten</button>`:`<button class="btn" type="button" id="alb-del">Leeres Album entfernen</button>`):""}<span class="hint" id="upd-msg"></span></div>`;
+  const preview = !hasAlbum && !list.length;
+  if(preview) html += `<div class="pv-space"></div><div class="pvbar" role="region" aria-label="Vorschau"><span><b>Vorschau</b> · noch nicht in deinen Alben</span><button class="btn primary" type="button" id="pv-add">Album anlegen</button></div>`;
   $("#view").innerHTML = html;
   $("#open-filter").addEventListener("click", ()=>openFilter(s));
   $("#open-album").addEventListener("click", ()=>openAlbum(s, firstVisiblePage(s), false));
   $("#f-clear")?.addEventListener("click", ()=>{ FGROUPS.forEach(([g])=>filt[g].clear()); render(); });
   document.querySelectorAll("[data-funset]").forEach(b=>b.addEventListener("click",()=>{ const [g,v] = b.dataset.funset.split("|"); filt[g].delete(v); render(); }));
-  $("#upd-prices")?.addEventListener("click", () => updatePrices(s));
-  $("#alb-del")?.addEventListener("click",()=>{ confirmAlbumDel=true; render(); });
-  $("#alb-del-no")?.addEventListener("click",()=>{ confirmAlbumDel=false; render(); });
-  $("#alb-del-yes")?.addEventListener("click",()=>{ albums = albums.filter(a=>a.setId!==s.id); LS.set("pk-albums",albums); go("regal"); });
+  $("#pv-add")?.addEventListener("click", ()=>{ if(!albums.some(a=>a.setId===s.id)){ albums.push({id:slugOf(s.id), setId:s.id, created:new Date().toISOString()}); LS.set("pk-albums", albums); } render(); toast(`<span>Album „${esc(s.de)}“ angelegt</span><button class="tx" type="button" data-tclose aria-label="Schließen">×</button>`, 3000); });
   updateShrink();
 }
 function updateShrink(){
@@ -925,15 +959,55 @@ function updateShrink(){
 }
 let shR = 0; window.addEventListener("scroll", ()=>{ if(view.name!=="set" || shR) return; shR = requestAnimationFrame(()=>{ shR = 0; updateShrink(); }); }, {passive:true});
 let filtSet = null;
-function openFilter(s){ filtSet = s; renderFilter(); filtSheet.open("half"); }
+function openFilter(s){ filtSet = s; $("#f-title").textContent = s ? "Filter" : "Region"; renderFilter(); filtSheet.open("half"); }
 function renderFilter(){
-  const s = filtSet; if(!s) return;
+  const s = filtSet;
+  if(!s){
+    const m = dexOwned();
+    $("#f-body").innerHTML = `<div class="fgroup"><h3>Region</h3><div class="fopts">${REGIONS.map(([k,l,a,b])=>{ let c=0; for(let i=a;i<=b;i++) if(m.has(i)) c++; return `<button class="fopt" type="button" data-fopt="reg|${k}" aria-pressed="${dexReg.has(k)}">${l}<small class="fcnt">${c}/${b-a+1}</small></button>`; }).join("")}</div></div>`;
+    return;
+  }
   const o = setFilterOptions(s);
   $("#f-body").innerHTML = FGROUPS.filter(([g])=>o[g].length>1).map(([g,lbl])=>`<div class="fgroup"><h3>${lbl}</h3><div class="fopts">${o[g].map(([v,l,ic])=>`<button class="fopt" type="button" data-fopt="${g}|${esc(v)}" aria-pressed="${filt[g].has(v)}">${ic||""}${esc(l)}</button>`).join("")}</div></div>`).join("");
 }
-$("#f-body").addEventListener("click", e=>{ const b = e.target.closest("[data-fopt]"); if(!b) return; const [g,v] = b.dataset.fopt.split("|"); filt[g].has(v) ? filt[g].delete(v) : filt[g].add(v); renderFilter(); render(); });
-$("#f-reset").addEventListener("click", ()=>{ FGROUPS.forEach(([g])=>filt[g].clear()); renderFilter(); render(); });
+$("#f-body").addEventListener("click", e=>{ const b = e.target.closest("[data-fopt]"); if(!b) return; const [g,v] = b.dataset.fopt.split("|"); const S = g==="reg" ? dexReg : filt[g]; S.has(v) ? S.delete(v) : S.add(v); renderFilter(); render(); });
+$("#f-reset").addEventListener("click", ()=>{ if(filtSet) FGROUPS.forEach(([g])=>filt[g].clear()); else dexReg.clear(); renderFilter(); render(); });
 $("#f-done").addEventListener("click", ()=>filtSheet.close());
+
+/* ---------- Album-Menü ---------- */
+let menuSet = null, menuConfirm = false;
+function openAlbumMenu(s){ menuSet = s; menuConfirm = false; renderAlbumMenu(); menuSheet.open("half"); }
+function renderAlbumMenu(){
+  const s = menuSet; if(!s) return;
+  const mine = cards.filter(c=>c.setId===s.id && qtyOf(c)), n = sum(mine,qtyOf), v = sum(mine,valOf);
+  $("#m-title").textContent = s.de;
+  const pd = mine.map(c=>c.priceDate||"").filter(Boolean).sort().pop();
+  $("#m-body").innerHTML = menuConfirm
+    ? `<div class="danger-box"><p><b>Album „${esc(s.de)}“ entfernen?</b></p><p>${n ? `Dabei werden auch <b>${n} ${n===1?"Karte":"Karten"} im Wert von ${eur(v)}</b> aus deiner Sammlung gelöscht. Das lässt sich nicht rückgängig machen – exportiere vorher eine Sicherung unter Mehr, wenn du sie behalten willst.` : "Das Album ist leer, es gehen keine Karten verloren."}</p>
+       <div class="row" style="justify-content:flex-end"><button class="btn" type="button" id="m-cancel">Abbrechen</button><button class="btn red" type="button" id="m-del">${n?"Album und Karten löschen":"Album entfernen"}</button></div></div>`
+    : `<div class="group"><button class="menu-row" type="button" id="m-open">Album öffnen</button><button class="menu-row" type="button" id="upd-prices" ${n?"":"disabled"}>Werte aktualisieren<small id="upd-msg">${pd?`Stand ${deDate(pd)}`:""}</small></button><button class="menu-row red" type="button" id="m-ask">Album entfernen<small>${n?`${n} ${n===1?"Karte":"Karten"} · ${eur(v)}`:"leer"}</small></button></div>`;
+  $("#m-open")?.addEventListener("click", ()=>{ menuSheet.close(); if(view.name==="set" && view.set.id===s.id) openAlbum(s, firstVisiblePage(s), false); else go("set-"+s.slug); });
+  $("#upd-prices")?.addEventListener("click", ()=>updatePrices(s));
+  $("#m-ask")?.addEventListener("click", ()=>{ menuConfirm = true; renderAlbumMenu(); menuSheet.set("half"); });
+  $("#m-cancel")?.addEventListener("click", ()=>{ menuConfirm = false; renderAlbumMenu(); });
+  $("#m-del")?.addEventListener("click", ()=>{
+    cards = cards.filter(c=>c.setId!==s.id); albums = albums.filter(a=>a.setId!==s.id);
+    saveCards(); LS.set("pk-albums", albums); menuSheet.close();
+    toast(`<span>Album „${esc(s.de)}“ entfernt</span><button class="tx" type="button" data-tclose aria-label="Schließen">×</button>`, 3000);
+    if(view.name==="set") go("regal"); else render();
+  });
+}
+/* langes Drücken auf ein Cover */
+(function(){
+  let lp = null, fired = false;
+  const start = e=>{ const c = e.target.closest("[data-cover]"); if(!c) return; fired = false; const x = e.clientX, y = e.clientY; lp = {x, y, t:setTimeout(()=>{ fired = true; lp = null; try{ navigator.vibrate?.(10); }catch{} openAlbumMenu(SET.get(c.dataset.cover)); }, 480)}; };
+  const cancel = ()=>{ if(lp){ clearTimeout(lp.t); lp = null; } };
+  $("#view").addEventListener("pointerdown", start);
+  $("#view").addEventListener("pointermove", e=>{ if(lp && Math.abs(e.clientX-lp.x)+Math.abs(e.clientY-lp.y) > 10) cancel(); });
+  $("#view").addEventListener("pointerup", cancel); $("#view").addEventListener("pointercancel", cancel);
+  $("#view").addEventListener("click", e=>{ if(fired && e.target.closest("[data-cover]")){ e.preventDefault(); e.stopPropagation(); fired = false; } }, true);
+  $("#view").addEventListener("contextmenu", e=>{ const c = e.target.closest("[data-cover]"); if(c){ e.preventDefault(); cancel(); openAlbumMenu(SET.get(c.dataset.cover)); } });
+})();
 
 /* ---------- Suche ---------- */
 function renderSearch(){
@@ -964,7 +1038,8 @@ function renderResults(){
     if(shown < 150){ groups.push([s, hit]); shown += hit.length; }
   }
   const ownedBy = new Map(); for(const e of cards) if(e.setId && qtyOf(e)){ const k=e.setId+"|"+e.num; if(!ownedBy.has(k)) ownedBy.set(k,[]); ownedBy.get(k).push(e); }
-  $("#view").innerHTML = `${dexHits.length?`<div class="dexhits">${dexHits.map(([n,i])=>`<button class="chip link" type="button" data-dexopen="${i}">#${pad4(i)} ${esc(n)}</button>`).join("")}</div>`:""}
+  const exact = NAMES.some(n=>n.toLowerCase()===q);
+  $("#view").innerHTML = `${dexHits.length && !exact?`<div class="dexhits">${dexHits.map(([n,i])=>`<button class="chip link" type="button" data-dexfill="${esc(n)}">#${pad4(i)} ${esc(n)}</button>`).join("")}</div>`:""}
     ${groups.length?`<p class="hint" style="margin-top:14px">${total} Karten in ${groups.length}${shown<total?"+":""} Sets</p>
     ${groups.map(([s,hit])=>`<section class="sgrp"><h3>${esc(s.de)} <small>${esc(s.abbr)} · ${deDate(s.rel)}</small></h3><div class="flat" style="margin-top:0">${hit.map(c=>resSlot(s,c,ownedBy.get(s.id+"|"+c[0]))).join("")}</div></section>`).join("")}`:`<p class="empty">Keine Karte gefunden.</p>`}`;
 }
@@ -1026,7 +1101,8 @@ function openLog(){
 
 /* ---------- Kartendialog ---------- */
 $("#view").addEventListener("click", e=>{
-  const dx = e.target.closest("[data-dexopen]"); if(dx){ openCtx({kind:"dex", dex:+dx.dataset.dexopen}); return; }
+  const df = e.target.closest("[data-dexfill]");
+  if(df){ const q = $("#q"); searchQ = df.dataset.dexfill; if(q){ q.value = searchQ; q.blur(); $("#q-clr").hidden = false; } renderResults(); window.scrollTo(0,0); return; }
   const sl = e.target.closest(".slot"); if(!sl) return;
   if(sl.dataset.dex) openCtx({kind:"dex", dex:+sl.dataset.dex});
   else if(sl.dataset.set) openCtx({kind:"set", setId:sl.dataset.set, num:sl.dataset.num});
@@ -1043,7 +1119,7 @@ function makeSheet(el, opt = {}){
   const S = {el, sc, state:"closed", onClose: opt.onClose};
   sheets.push(S);
   const H = () => el.getBoundingClientRect().height || window.innerHeight;
-  const halfY = () => { const h = H(); let y = opt.half ? opt.half(S, h) : h - (sc.scrollHeight + 34); return Math.round(Math.max(0, Math.min(h * 0.62, y))); };
+  const halfY = () => { const h = H(); const content = (sc.firstElementChild?.offsetHeight || sc.scrollHeight) + 26 + 24; let y = opt.half ? opt.half(S, h) : h - content; return Math.round(Math.max(0, Math.min(h * 0.62, y))); };
   S.y = 0;
   S.set = st => {
     let y = st==="full" ? 0 : st==="half" ? halfY() : null;
@@ -1107,7 +1183,15 @@ document.addEventListener("keydown", e=>{ if(e.key==="Escape") topSheet()?.close
 /* Karten-Sheet: halbe Stufe endet unter „Bei Cardmarket suchen“ */
 const cardSheet = makeSheet($("#dlg"), {
   onClose: () => { ctx = null; },
-  half: (S, h) => { const l = $("#d-links"), ref = (l && l.offsetHeight ? l : $("#d-chips")); const r = ref.getBoundingClientRect(), top = S.el.getBoundingClientRect().top; return h - (r.bottom - top + 18); }
+  half: (S, h) => {
+    if(ctx?.kind==="dex"){
+      if(S.setHalfVis) return h - S.setHalfVis;
+      const w = Math.min(250, S.el.clientWidth - 32), hd = $("#d-title").parentElement.offsetHeight;
+      return h - (26 + w*88/63 + 16 + hd + 50 + 18);
+    }
+    const l = $("#d-links"), ref = (l && l.offsetHeight ? l : $("#d-chips")); const r = ref.getBoundingClientRect(), top = S.el.getBoundingClientRect().top;
+    const vis = r.bottom - top + 18; S.setHalfVis = vis; return h - vis;
+  }
 });
 const sScroll = $("#sheet-scroll");
 const openSheet = () => cardSheet.open("half");
@@ -1115,6 +1199,7 @@ const closeSheet = () => cardSheet.close();
 Object.defineProperty($("#dlg"), "open", {get:()=>cardSheet.state!=="closed"});
 const pickSheet = makeSheet($("#pick"));
 const logSheet = makeSheet($("#logsheet"));
+const menuSheet = makeSheet($("#menusheet"));
 const filtSheet = makeSheet($("#filt"));
 function openCtx(c){ ctx=c; openDet = new Set(); showMore=false; confirmDel=null; priceVar=null; $("#d-img").dataset.key=""; renderDialog(); if(cardSheet.state==="closed") openSheet(); else { sScroll.scrollTop = 0; cardSheet.set("half"); } }
 
@@ -1295,9 +1380,7 @@ function renderPicker(){
 $("#p-q").addEventListener("input", renderPicker);
 $("#p-list").addEventListener("click", e=>{
   const b = e.target.closest("[data-pset]"); if(!b || b.disabled) return;
-  const id = b.dataset.pset;
-  if(!albums.some(a=>a.setId===id)){ albums.push({id:slugOf(id), setId:id, created:new Date().toISOString()}); LS.set("pk-albums", albums); }
-  pickSheet.close(); go("set-"+slugOf(id));
+  pickSheet.close(); go("set-"+slugOf(b.dataset.pset));
 });
 
 /* ---------- Zurück-Wischgeste vom linken Rand ---------- */
