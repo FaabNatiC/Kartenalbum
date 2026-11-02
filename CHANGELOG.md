@@ -1,5 +1,14 @@
 # Kartenalbum – Änderungen
 
+## Version 1.13 · 02.11.2026
+- Ältere Serien ergänzt: Sonne & Mond, XY, Schwarz & Weiß, HeartGold & SoulSilver, Platin, Diamant & Perl, EX, POP, e-Card, Neo, Gym, Basis und McDonald’s – insgesamt 181 Sets
+- Pokédex-Filter zeigt die Generation mit an, z. B. „Kanto · Gen 1“
+- Doppelte Überschrift entfernt: Kopfzeile nur noch im Set
+- Kopfbereich im Set luftiger: Statusleiste in App-Farbe, Kopfzeile erst beim Scrollen mit Hintergrund
+- Suche zeigt vor dem Tippen „Zuletzt angesehen“
+- 3D-Knopf erscheint nicht mehr beim Pokémon-Artwork
+- Freies Eintragen von Karten entfernt – ältere Sets haben jetzt eigene Setlisten
+
 ## Version 1.12 · 02.11.2026
 - Suche: Tippen auf einen Namensvorschlag vervollständigt nur den Namen
 - Pokédex ohne Seiten, mit Region-Filter von Kanto bis Paldea inklusive Hisui
