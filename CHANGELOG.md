@@ -1,5 +1,15 @@
 # Kartenalbum – Änderungen
 
+## Version 1.24 · 04.11.2026
+- Neuer Bereich „Portfolio“: Wertkurve mit Zeitraum, Aufteilung nach Set, Sprache, Seltenheit und Typ, Gewinner & Verlierer, alle Karten nach Wert
+- Set-Details im Portfolio: Setwert und Verlauf, Kosten bis komplett, Aufteilung, Gewinner & Verlierer
+- Preise der eigenen Karten werden einmal täglich automatisch aktualisiert
+- Alben als kompakte Liste mit Set-Logo – Umschalter oben rechts
+- Cardmarket-Knopf führt direkt zur richtigen Karte
+- Karten-Sheet öffnet bis unter die Preise, auf kleinen iPhones mit kleinerem Bild
+- Suche zeigt nur noch zuletzt gesuchte Karten
+- Flaggen und Set-Infos im Album kleiner, mehr Abstand zu Top 3
+
 ## Version 1.23 · 04.11.2026
 - Zoomen mit zwei Fingern und Doppeltippen deaktiviert – kein automatisches Heranzoomen mehr bei Eingabefeldern
 - Fix: Tab-Leiste verrutschte und Kopfzeile verschwand beim Scrollen

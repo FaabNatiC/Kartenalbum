@@ -4,11 +4,12 @@ Private Web-App für meine Pokémon-Sammelkarten – als digitales Album fürs i
 
 **App öffnen:** https://faabnatic.github.io/Kartenalbum/
 
-Aktuelle Version: **1.23** · Änderungen je Version stehen in [`CHANGELOG.md`](CHANGELOG.md).
+Aktuelle Version: **1.24** · Änderungen je Version stehen in [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Funktionen
 
 **Sammeln**
+- **Alben als Cover oder Liste** – große Cover-Ansicht oder kompakte Liste mit Set-Logo
 - **Set-Alben** – deutsche/englische Sets vom Basis-Set (1999) bis Mega-Entwicklung (181 Sets) und japanische Sets ab Sonne & Mond (91 Sets)
 - **Album-Sprache** – Deutsch, Englisch oder Gemischt; dasselbe Set auch als zwei getrennte Alben, erkennbar an der Flagge. Englische Alben zeigen englische Karten- und Set-Namen, japanische Sets den japanischen Namen – der deutsche steht jeweils klein darunter
 - **Kamera-Scan** – Bereich „Scannen“: erkennt Set-Kürzel und Kartennummer, Serien-Scan mit Liste zum Bestätigen, Nummer auch eintippbar (Texterkennung wird beim ersten Scan geladen)
@@ -21,11 +22,12 @@ Aktuelle Version: **1.23** · Änderungen je Version stehen in [`CHANGELOG.md`](
 - **Album-Modus** – Blättern mit 3D-Seitenwechsel, Doppelseite im Querformat und am Rechner
 - **3D-Kartenansicht** – Karte drehen, mit Glanzeffekt (am iPhone auch per Neigung)
 - **Pokédex** – alle 1025 Pokémon, Filter nach Region und Generation
-- **Suche** – Karten nach Name über alle Sets (deutsch, englisch, japanisch), „Zuletzt angesehen“
+- **Suche** – Karten nach Name über alle Sets (deutsch, englisch, japanisch), „Zuletzt gesucht“
 
 **Werte & Statistik**
-- **Preise** – aktueller Cardmarket-Trend je Variante und eigener Höchstwert
-- **Wertentwicklung** – Verlauf des Sammlungswerts und Top 10 der wertvollsten Karten
+- **Preise** – aktueller Cardmarket-Trend je Variante und eigener Höchstwert, täglich automatisch aktualisiert; Cardmarket-Knopf führt direkt zur Karte
+- **Portfolio** – Wertkurve mit Zeitraum, Aufteilung nach Set, Sprache, Seltenheit und Typ, Gewinner & Verlierer, alle Karten nach Wert
+- **Set-Details** – Setwert und Verlauf, Kosten bis komplett, Aufteilung, Gewinner & Verlierer je Set
 - **Erfolge** – 19 Meilensteine, z. B. erstes Set komplett oder 100 Karten
 
 **Allgemein**

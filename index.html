@@ -518,10 +518,73 @@ a:focus:not(:focus-visible),button:focus:not(:focus-visible),label:focus:not(:fo
 
 html,body{touch-action:pan-x pan-y}
 .flag{display:inline-block;width:20px;height:14px;border-radius:3px;box-shadow:0 0 0 1px rgba(0,0,0,.18),0 1px 3px rgba(0,0,0,.25);vertical-align:-2px;flex:none;overflow:hidden}
-.hc .flag{width:17px;height:12px;box-shadow:0 0 0 1px rgba(255,255,255,.35)}
-.lbadge .flag{width:24px;height:17px}
+.hc .flag{width:12px;height:8px;border-radius:2px;box-shadow:0 0 0 1px rgba(255,255,255,.35)}
+.lbadge .flag{width:16px;height:11px;border-radius:2px}
 .lopt b .flag,.menu-row small .flag{margin-right:6px}
 @media (pointer:coarse){input,select,textarea,.field,.fsel select,.srow select,.dnote textarea{font-size:16px!important}}
+.shead{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.vtog{display:flex;background:var(--pocket);border-radius:10px;padding:3px;flex:none;margin-top:4px}
+.vtog button{border:0;background:none;color:var(--muted);width:36px;height:32px;border-radius:8px;display:grid;place-items:center;cursor:pointer}
+.vtog button svg{width:18px;height:18px}
+.vtog button[aria-pressed="true"]{background:var(--page);color:var(--ink);box-shadow:var(--shadow)}
+.alist{display:grid;gap:8px;margin-top:18px}
+.arow{display:flex;align-items:center;background:var(--page);border-radius:6px 12px 12px 6px;box-shadow:inset 5px 0 0 var(--spine),var(--shadow);min-height:64px}
+.arow-main{flex:1;min-width:0;display:flex;align-items:center;gap:12px;padding:8px 4px 8px 16px;color:var(--ink);text-decoration:none}
+.alogo{flex:none;width:64px;height:32px;display:grid;place-items:center}
+.alogo img{max-width:100%;max-height:100%;object-fit:contain}
+.alogo .logo-t,.pslogo .logo-t{display:none;font:800 13px var(--f-display);color:var(--spine);text-align:center}
+.alogo:not(:has(img)) .logo-t,.pslogo:not(:has(img)) .logo-t{display:block}
+.atx{flex:1;min-width:0;display:grid;gap:2px}
+.atx b{font-size:14.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.atx small{font:600 12px var(--f-num);color:var(--muted)}
+.abar{position:relative;height:4px;border-radius:2px;background:var(--pocket);overflow:hidden;margin-top:3px}
+.abar i{position:absolute;left:0;top:0;bottom:0;background:var(--accent);border-radius:2px}.abar i.m{opacity:.35}
+.arow .flag{width:16px;height:11px;border-radius:2px}
+.arow-more{flex:none;border:0;background:none;color:var(--muted);font:800 14px var(--f-body);letter-spacing:1px;width:44px;align-self:stretch;cursor:pointer}
+.arow.add{justify-content:center;gap:8px;border:2px dashed var(--line);box-shadow:none;background:none;color:var(--muted);font:600 15px var(--f-body);cursor:pointer;min-height:56px;border-radius:12px}
+.arow.add b{font-size:20px}
+.pf{display:grid;gap:14px;margin-top:6px}
+.pfhead{display:grid;gap:2px;margin-top:10px}
+.pftot{font:800 34px var(--f-num);letter-spacing:-.02em}
+.pfdiff{margin:0;font:600 14px var(--f-body);color:var(--muted)}.pfdiff.up{color:#2f8a4e}.pfdiff.down{color:var(--accent)}
+.pfst{margin:2px 0 0}.pfalb{justify-self:start;margin-top:4px}
+.pfseg{margin-top:0}
+.pfseg button{font-size:13px;min-height:34px}
+.pfseg .flag{width:14px;height:10px;border-radius:2px;margin-right:2px}
+.pfsec{display:grid;gap:10px;background:var(--page);border-radius:14px;padding:14px;box-shadow:var(--shadow)}
+.pfsec h2{margin:0;font:700 16px var(--f-body)}
+.pfbars{display:grid;gap:4px}
+.pfbar{display:grid;grid-template-columns:1fr auto;column-gap:8px;row-gap:4px;align-items:center;border:0;background:none;padding:6px 0;text-align:left;color:var(--ink);font:inherit;width:100%}
+button.pfbar{cursor:pointer}
+.pfbl{display:flex;justify-content:space-between;gap:8px;font-size:13.5px;min-width:0}
+.pfbl span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:flex;align-items:center;gap:6px}
+.pfbl b{font:600 13px var(--f-num);white-space:nowrap}
+.pfbb{grid-column:1;height:6px;border-radius:3px;background:var(--pocket);overflow:hidden}
+.pfbb i{display:block;height:100%;background:var(--spine,var(--accent));border-radius:3px}
+.pfbar .chev{grid-row:1 / span 2;grid-column:2;color:var(--muted);font-size:20px}
+.pfbar .flag{width:16px;height:11px;border-radius:2px}
+.pfnote{margin:0;font-size:12px}
+.pfmovs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pfmov{display:grid;gap:4px;align-content:start;min-width:0}
+.pfmov h4{margin:0 0 2px;font:700 13px var(--f-body);color:var(--muted)}
+.pfmov button{display:flex;align-items:center;gap:6px;border:0;background:var(--bg);border-radius:10px;padding:7px 8px;text-align:left;color:var(--ink);font:inherit;cursor:pointer;min-width:0}
+.pfmov .mn{flex:1;min-width:0;display:grid}
+.pfmov .mn b{font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pfmov .mn small{font-size:11px;color:var(--muted)}
+.pfmov .mp{display:grid;text-align:right;font:700 13px var(--f-num)}.pfmov .mp small{font:600 11px var(--f-num);color:var(--muted)}
+.mp.up{color:#2f8a4e}.mp.down{color:var(--accent)}
+.pffilt{display:flex;gap:8px}
+.pfrank button{background:var(--bg)}
+.pfrank .flag{width:16px;height:11px;border-radius:2px}
+.pfmore{justify-self:center}
+.pfcost{display:grid;gap:6px}.pfcost .kv{flex-wrap:wrap}
+.pshead{display:flex;align-items:center;gap:14px}
+.pslogo{flex:none;width:96px;height:52px;display:grid;place-items:center}.pslogo img{max-width:100%;max-height:100%;object-fit:contain}
+.psh1{font-size:clamp(22px,5vw,30px)}
+.pshead .hint{margin:4px 0 0}
+.tabbar::before{content:"";position:absolute;left:0;top:-1px;height:2px;width:var(--ap,0%);background:var(--accent);opacity:0;transition:width .3s,opacity .3s}
+body.aprun .tabbar::before{opacity:1}
+@media (min-width:900px){.pf{max-width:820px}.alist{grid-template-columns:1fr 1fr;gap:10px 14px}.tabbar::before{display:none}.pfmovs{gap:14px}}
 .lbadge{position:absolute;right:10px;top:10px;z-index:3;display:block;line-height:0;padding:0!important;background:none!important;font:700 11px var(--f-num);letter-spacing:.04em;background:var(--ink);color:var(--bg);border-radius:6px;padding:2px 6px}
 .sub .lpill,.lpill{display:inline-block;color:var(--bg);font-family:var(--f-body);font:700 11.5px var(--f-body);background:var(--ink);color:var(--bg);border-radius:6px;padding:1px 7px;margin-right:4px;vertical-align:1px}
 .lang-opts{display:grid;gap:8px}
@@ -585,8 +648,9 @@ button.tab{border:0;background:none;padding:0;cursor:pointer;width:100%;font:600
 .tcmv:disabled{opacity:.35}
 .hchips{display:flex;flex-wrap:nowrap;gap:5px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding-inline:max(16px,env(safe-area-inset-left,0px))}
 .hchips::-webkit-scrollbar{display:none}
+.sethead .hchips{margin-bottom:12px}
 .hchips>:first-child{margin-left:auto}.hchips>:last-child{margin-right:auto}
-.hc{flex:none;white-space:nowrap;display:inline-flex;align-items:center;gap:4px;font:600 12px var(--f-body);padding:3px 7px;letter-spacing:-.01em;border-radius:99px;background:var(--page);color:var(--muted);border:1px solid var(--line)}
+.hc{flex:none;white-space:nowrap;display:inline-flex;align-items:center;gap:3px;font:600 11px var(--f-body);padding:2px 6px;letter-spacing:-.01em;border-radius:99px;background:var(--page);color:var(--muted);border:1px solid var(--line)}
 .hc.l{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .top3{display:grid;gap:8px;width:min(100%,420px)}
 .t3h{display:flex;align-items:center;justify-content:space-between}
@@ -688,10 +752,11 @@ button.tab{border:0;background:none;padding:0;cursor:pointer;width:100%;font:600
   <a class="tab" href="#regal" data-tab="regal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="5" height="16" rx="1"/><rect x="9.5" y="4" width="5" height="16" rx="1"/><path d="M15.6 5.4l3.6-1 3 14.8-3.6 1z"/></svg>Alben</a>
   <a class="tab" href="#dex" data-tab="dex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></svg>Pokédex</a>
   <a class="tab" href="#suche" data-tab="suche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L20.5 20.5"/></svg>Suche<kbd class="kbd">/</kbd></a>
+  <a class="tab" href="#portfolio" data-tab="portfolio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20h18"/><path d="M4 16l5-5 4 3 7-8"/><path d="M15 6h5v5"/></svg>Portfolio</a>
   <a class="tab" href="#wunsch" data-tab="wunsch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.3-8.9-8.6C1.7 8.3 3.6 5 6.9 5c2 0 3.3 1.1 5.1 3 1.8-1.9 3.1-3 5.1-3 3.3 0 5.2 3.3 3.8 6.4C19 15.7 12 20 12 20z"/></svg>Wunschliste</a>
   <button class="tab" type="button" data-tab="scan" data-scan><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="3.2"/></svg>Scannen</button>
   <a class="tab" href="#mehr" data-tab="mehr"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>Mehr</a>
-</nav><button class="side-sum" type="button" id="side-sum" aria-label="Wertentwicklung öffnen"></button></div>
+</nav><button class="side-sum" type="button" id="side-sum" aria-label="Portfolio öffnen"></button></div>
 
 <div class="scrim" id="scrim" hidden></div>
 <section class="sheet" id="dlg" role="dialog" aria-modal="true" aria-labelledby="d-title" hidden>
@@ -803,6 +868,7 @@ const CONDS = ["Mint","Near Mint","Excellent","Good","Light Played","Played","Po
 
 /* ---------- Änderungsprotokoll ---------- */
 const CHANGELOG = [
+  {v:"1.24", d:"2026-11-04", items:["Neuer Bereich „Portfolio“: Wertkurve mit Zeitraum, Aufteilung nach Set, Sprache, Seltenheit und Typ, Gewinner & Verlierer, alle Karten nach Wert","Set-Details im Portfolio: Setwert und Verlauf, Kosten bis komplett, Aufteilung, Gewinner & Verlierer","Preise der eigenen Karten werden einmal täglich automatisch aktualisiert","Alben als kompakte Liste mit Set-Logo – Umschalter oben rechts","Cardmarket-Knopf führt direkt zur richtigen Karte","Karten-Sheet öffnet bis unter die Preise, auf kleinen iPhones mit kleinerem Bild","Suche zeigt nur noch zuletzt gesuchte Karten","Flaggen und Set-Infos im Album kleiner, mehr Abstand zu Top 3"]},
   {v:"1.23", d:"2026-11-04", items:["Zoomen mit zwei Fingern und Doppeltippen deaktiviert – kein automatisches Heranzoomen mehr bei Eingabefeldern","Fix: Tab-Leiste verrutschte und Kopfzeile verschwand beim Scrollen","Alben, Pokédex und Mehr sind in der Tab-Leiste immer dabei","Flaggen statt Sprachkürzel – jetzt auch für deutsche Alben","Erscheinungsdatum steht in den Set-Zahlen, Set-Infos in einer Zeile","Am Rechner: „Scannen“ in der Seitenleiste richtig ausgerichtet"]},
   {v:"1.22", d:"2026-11-04", items:["Tab-Leiste anpassbar: 3 bis 5 Bereiche plus Mehr, Reihenfolge per Pfeil, ausgeblendete Bereiche unter Mehr – Auswahl beim ersten Start","„Scannen“ als eigener Bereich in der Tab-Leiste","Album-Kopf aufgeräumt: Infos als Chips, Filter als Auswahl „Alle ▾“ in einer Zeile","Top 3 im Album: deine wertvollsten Karten oder die des ganzen Sets","Sets ohne Logo bekommen ein Schrift-Logo","McDonald’s-Karten mit Bildern von pokemontcg.io, sonst Pokémon-Artwork als Ersatz"]},
   {v:"1.21", d:"2026-11-04", items:["Karten per Kamera erkennen: Kamera-Knopf oben, Serien-Scan mit Liste zum Bestätigen, Nummer auch eintippbar","Im Set-Album sucht der Scan zuerst in diesem Set, sonst über das Set-Kürzel","Englische Alben: englische Karten- und Set-Namen, der deutsche Name klein darunter – auch in Wunschliste und Suche","Filterleiste im Set am iPhone in zwei Zeilen","Text bei „Sammlung zurücksetzen“ korrigiert"]},
@@ -885,7 +951,8 @@ const cardAt = (setId,num) => { const s = SET.get(setId); if(!s) return null; co
 const cName = c => c[1] || c[2];
 const isSecret = (s,c) => !s.promo && /^\d+$/.test(c[0]) && +c[0] > s.off;
 const numDisp = (s,n) => s.promo || !/^\d+$/.test(n) ? n : `${n}/${String(s.off).padStart(Math.max(3,n.length),"0")}`;
-const cmLink = c => "https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=" + encodeURIComponent(c[2]);
+const cmSearch = (s, c) => "https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=" + encodeURIComponent(c[2] + (s && s.abbr && !s.ja ? " " + s.abbr + " " + c[0] : ""));
+const cmLink = (s, c, id) => id ? "https://www.cardmarket.com/de/Pokemon/Products?idProduct=" + id : cmSearch(s, c);
 
 /* ---------- Varianten ---------- */
 const cardVariants = c => { const l = String(c?.[8] ?? "").split(".").filter(x=>x!=="").map(i=>VARIANTS[+i]).filter(Boolean); return l.length ? l : ["normal"]; };
@@ -999,7 +1066,7 @@ function cardInfo(s, num, preferEn){
     const vd = Array.isArray(src.variants_detailed) ? src.variants_detailed : [];
     const base = src.pricing?.cardmarket || null;
     const normalId = vd.find(x=>x?.type==="normal")?.thirdParty?.cardmarket;
-    const vprice = {}, vavg = {}, vpeak = {};
+    const vprice = {}, vavg = {}, vpeak = {}, vcm = {};
     const peakOf = (o, holo) => Math.max(0, ...["avg1","avg7","avg30"].map(k=>(holo ? o?.[k+"-holo"] : o?.[k]) || 0));
     keys.forEach((key, i) => {
       const d = vd.length === keys.length ? vd[i] : null;
@@ -1011,9 +1078,9 @@ function cardInfo(s, num, preferEn){
       if(!v && base){ v = rev ? (base["trend-holo"] || 0) : (vMain(key) ? (base.trend || base.avg || 0) : 0); a30 = rev ? (base["avg30-holo"] || 0) : (vMain(key) ? (base.avg30 || 0) : 0); }
       const holoSrc = rev && (!normalId || d?.thirdParty?.cardmarket === normalId) && pc?.["trend-holo"];
       const pk = pc && (pc.trend || pc.avg || pc["trend-holo"]) ? peakOf(pc, !!holoSrc) : (base ? (rev ? peakOf(base, true) : vMain(key) ? peakOf(base, false) : 0) : 0);
-      vprice[key] = v; vavg[key] = a30; vpeak[key] = v ? pk : 0;
+      vprice[key] = v; vavg[key] = a30; vpeak[key] = v ? pk : 0; vcm[key] = (d?.thirdParty?.cardmarket || pc?.idProduct || base?.idProduct || 0);
     });
-    return { image: a?.image || b?.image || null, price: base, vprice, vavg, vpeak };
+    return { image: a?.image || b?.image || null, price: base, vprice, vavg, vpeak, vcm, cm: base?.idProduct || normalId || 0 };
   })();
   infoCache.set(k, p); p.catch(() => infoCache.delete(k));
   return p;
@@ -1023,9 +1090,9 @@ function applyPrices(setId, num, info){
   const day = (info.price?.updated || new Date().toISOString()).slice(0,10);
   cards = cards.map(c => {
     if(c.setId!==setId || c.num!==num) return c;
-    const v = Math.round((info.vprice[c.v] || 0)*100)/100;
-    if(!v || v===c.val) return c;
-    changed = true; return {...c, val:v, priceDate:day};
+    const v = Math.round((info.vprice[c.v] || 0)*100)/100, a30 = Math.round((info.vavg?.[c.v] || 0)*100)/100;
+    if(!v || (v===c.val && a30===(c.a30||0))) return c;
+    changed = true; return {...c, val:v, a30, priceDate:day};
   });
   if(changed) saveCards();
   return changed;
@@ -1052,7 +1119,7 @@ function changeQty(setId, num, v, lang, cond, delta){
   if(i<0){
     if(delta<=0) return;
     const info = lastInfo.get(setId+"|"+num);
-    cards.push({id:rid(), setId, num, dex:c[7]||0, v, lang, cond, qty:delta, val: info ? Math.round((info.vprice[v]||0)*100)/100 : 0, priceDate: info?.price?.updated?.slice(0,10) || ""});
+    cards.push({id:rid(), setId, num, dex:c[7]||0, v, lang, cond, qty:delta, val: info ? Math.round((info.vprice[v]||0)*100)/100 : 0, a30: info ? Math.round((info.vavg?.[v]||0)*100)/100 : 0, priceDate: info?.price?.updated?.slice(0,10) || ""});
   } else {
     const q = qtyOf(cards[i]) + delta;
     if(q<=0) cards.splice(i,1); else cards[i] = {...cards[i], qty:q};
@@ -1072,13 +1139,14 @@ function stepVariant(setId, num, v, delta){
 /* ---------- Routing ---------- */
 let view = {name:"regal"}, filter = "all", searchQ = "", pendingOpen = null, confirmAlbumDel = false;
 let backTo = null, restore = null, restoreFilt = false, setQ = "", sqOpen = false;
-const VIEW_LBL = {regal:"Alben", dex:"Pokédex", suche:"Suche", wunsch:"Wunschliste", mehr:"Mehr", picker:"Alle Sets"};
+const VIEW_LBL = {regal:"Alben", dex:"Pokédex", suche:"Suche", wunsch:"Wunschliste", mehr:"Mehr", picker:"Alle Sets", portfolio:"Portfolio", pset:"Portfolio"};
 function jumpToSet(setId, num){
   backTo = {setId, hash: location.hash.slice(1) || "regal", view: view.name, y: window.scrollY, reopen: ctx ? {...ctx} : null};
   pendingOpen = {kind:"set", setId, num};
   const al = albums.find(a=>a.setId===setId); closeSheet(); go(albumHash(SET.get(setId), al?.lang || null));
 }
 function goBack(){
+  if(view.name==="pset"){ go("portfolio"); return; }
   if(view.name!=="set") return;
   if(backTo && backTo.setId===view.set.id){ const b = backTo; backTo = null; restore = {y:b.y, reopen:b.reopen, picker:b.picker}; go(b.hash); }
   else go("regal");
@@ -1104,6 +1172,8 @@ function route(){
   else if(h==="suche") view={name:"suche"};
   else if(h==="mehr" || h==="info" || h==="neu") view={name:"mehr"};
   else if(h==="wunsch") view={name:"wunsch"};
+  else if(h==="portfolio") view={name:"portfolio"};
+  else if(h.startsWith("portfolio-") && SLUG.has(h.slice(10))){ const ps = SLUG.get(h.slice(10)); if(!view || view.name!=="pset" || view.set!==ps) psLang = "all"; view={name:"pset", set:ps}; }
   else if(h.startsWith("set-") && SLUG.has(h.slice(4).split("~")[0])){ const [sl, lg] = h.slice(4).split("~"); view={name:"set", set:SLUG.get(sl), lang: LANGNAME[lg] ? lg : null}; }
   else view={name:"regal"};
   filter="all"; confirmAlbumDel=false; setQ = ""; sqOpen = false;
@@ -1122,16 +1192,16 @@ function route(){
 const go = h => { if(location.hash.slice(1)===h) route(); else location.hash = h; };
 
 function render(){
-  const tab = view.name==="set" ? "regal" : view.name;
+  const tab = view.name==="set" ? "regal" : view.name==="pset" ? "portfolio" : view.name;
   recordValue(); setTimeout(checkAch, 0);
-  const ss = $("#side-sum"); if(ss){ const n = sum(cards,qtyOf); ss.innerHTML = `<small>Sammlung</small><b>${n.toLocaleString("de-DE")} ${n===1?"Karte":"Karten"}</b><span>${eur(sum(cards,valOf))} <i class="sgo">Verlauf ›</i></span>`; }
-  document.body.classList.toggle("nobar", view.name!=="set");
+  const ss = $("#side-sum"); if(ss){ const n = sum(cards,qtyOf); ss.innerHTML = `<small>Sammlung</small><b>${n.toLocaleString("de-DE")} ${n===1?"Karte":"Karten"}</b><span>${eur(sum(cards,valOf))} <i class="sgo">Portfolio ›</i></span>`; }
+  document.body.classList.toggle("nobar", view.name!=="set" && view.name!=="pset");
   applyTabs();
   document.body.classList.toggle("scrolled", view.name==="set" && window.scrollY > 6);
   document.querySelectorAll(".tab").forEach(a=>{ if(a.dataset.tab===tab) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
   const mt = document.querySelector('.tab[data-tab="mehr"]'); mt.querySelector(".dot")?.remove();
   if(LS.raw("pk-seen") !== APP_VERSION && view.name!=="mehr") mt.insertAdjacentHTML("beforeend",'<span class="dot"></span>');
-  const backLbl = view.name==="set" ? (backTo && backTo.setId===view.set.id ? VIEW_LBL[backTo.view] || "Zurück" : "Alben") : "";
+  const backLbl = view.name==="set" ? (backTo && backTo.setId===view.set.id ? VIEW_LBL[backTo.view] || "Zurück" : "Alben") : view.name==="pset" ? "Portfolio" : "";
   $("#bar-left").innerHTML = backLbl ? `<button class="bar-back" type="button" id="back-btn">${SVG_L}${esc(backLbl)}</button>` : "";
   $("#back-btn")?.addEventListener("click", goBack);
   const showMore = view.name==="set" && (albums.some(a=>a.setId===view.set.id) || cards.some(c=>c.setId===view.set.id && qtyOf(c)));
@@ -1142,6 +1212,8 @@ function render(){
   else if(view.name==="suche") renderSearch();
   else if(view.name==="mehr") renderMore();
   else if(view.name==="wunsch") renderWish();
+  else if(view.name==="portfolio") renderPortfolio();
+  else if(view.name==="pset") renderPSet(view.set);
   else renderShelf();
   if(ctx && $("#dlg").open) renderDialog();
   if(pickSheet.state!=="closed") renderPicker();
@@ -1153,13 +1225,16 @@ function render(){
 /* ---------- Alben ---------- */
 function renderShelf(){
   $("#bar-title").textContent = "Alben";
-  $("#head").innerHTML = `<h1>Pokémon <span>Kartenalbum</span></h1>
-    <div class="stats"><div class="stat"><small>Karten</small><b>${sum(cards,qtyOf)}</b></div><button class="stat statbtn" type="button" id="open-stats" aria-label="Wertentwicklung öffnen"><small>Sammlungswert ›</small><b>${eur(sum(cards,valOf))}</b></button><div class="stat"><small>Alben</small><b>${shelfAlbums().length}</b></div></div>`;
+  const lv = settings.shelf==="list";
+  $("#head").innerHTML = `<div class="shead"><h1>Pokémon <span>Kartenalbum</span></h1><div class="vtog" role="group" aria-label="Ansicht"><button type="button" data-shelf="grid" aria-pressed="${!lv}" aria-label="Raster">${ICON_GRID}</button><button type="button" data-shelf="list" aria-pressed="${lv}" aria-label="Liste">${ICON_LIST}</button></div></div>
+    <div class="stats"><div class="stat"><small>Karten</small><b>${sum(cards,qtyOf)}</b></div><button class="stat statbtn" type="button" id="open-stats" aria-label="Portfolio öffnen"><small>Sammlungswert ›</small><b>${eur(sum(cards,valOf))}</b></button><div class="stat"><small>Alben</small><b>${shelfAlbums().length}</b></div></div>`;
   $("#tools").innerHTML = "";
-  let html = `<div class="shelf">`;
-  for(const {s, lang} of shelfAlbums()) html += coverHTML(s, lang);
-  html += `<button class="cover add" type="button" id="add-album"><b>+</b><span>Album anlegen</span></button></div>`;
+  let html;
+  if(lv){ html = `<div class="alist">${shelfAlbums().map(({s, lang})=>rowHTML(s, lang)).join("")}<button class="arow add" type="button" id="add-album"><b>+</b><span>Album anlegen</span></button></div>`; }
+  else { html = `<div class="shelf">`; for(const {s, lang} of shelfAlbums()) html += coverHTML(s, lang); html += `<button class="cover add" type="button" id="add-album"><b>+</b><span>Album anlegen</span></button></div>`; }
   $("#view").innerHTML = html;
+  $("#head").querySelectorAll("[data-shelf]").forEach(b=>b.addEventListener("click", ()=>{ settings.shelf = b.dataset.shelf; LS.set("pk-settings", settings); render(); }));
+  $("#view").querySelectorAll("[data-amenu]").forEach(b=>b.addEventListener("click", ()=>{ const [sid, lg] = b.dataset.amenu.split("~"); openAlbumMenu(SET.get(sid), lg || null); }));
   $("#add-album").addEventListener("click", openPicker);
 }
 
@@ -1181,6 +1256,17 @@ function coverHTML(s, lang){
     <div class="logo"><img src="${logoUrl(s,ll)}" data-alt="${logoUrl(s,ll==="de"?"en":"de")}" alt="${esc(lang==="en"?s.en:s.de)}" loading="lazy" onerror="logoErr(this)"><b class="logo-t">${esc(lang==="en"?s.en:s.de)}<small>${s.jn && s.jn!==s.de ? esc(s.jn) + " · " : ""}${esc(s.abbr)}</small></b></div>
     <div class="cmeta"><img class="sym" src="${symUrl(s)}" alt="" loading="lazy" onerror="this.remove()"><span>${p.base} / ${p.baseTotal}</span><span class="v">${eur(sum(list,valOf))}</span></div>
     <span class="bar-p"><i class="m" style="width:${(p.all/p.allTotal*100).toFixed(1)}%"></i><i style="width:${(p.base/p.allTotal*100).toFixed(1)}%"></i></span></a>`;
+}
+
+const ICON_GRID = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>';
+const ICON_LIST = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1.2" fill="currentColor"/><circle cx="4.5" cy="12" r="1.2" fill="currentColor"/><circle cx="4.5" cy="18" r="1.2" fill="currentColor"/></svg>';
+function logoBox(s, lang, cls){
+  const ll = lang==="en" ? "en" : "de", t = lang==="en" && s.en ? s.en : s.de;
+  return `<span class="${cls}"><img src="${logoUrl(s,ll)}" data-alt="${logoUrl(s,ll==="de"?"en":"de")}" alt="" loading="lazy" onerror="logoErr(this)"><b class="logo-t">${esc(s.abbr)}</b></span>`;
+}
+function rowHTML(s, lang){
+  const owned = setOwned(s, lang), p = setProgress(s, owned), v = sum([...owned.values()].flat(), valOf), t = lang==="en" && s.en ? s.en : s.de;
+  return `<div class="arow" style="--spine:${spineColor(s)}"><a class="arow-main" href="#${albumHash(s, lang)}" aria-label="${esc(t)}, ${p.base} von ${p.baseTotal} Karten">${logoBox(s, lang, "alogo")}<span class="atx"><b>${esc(t)}</b><small>${esc(s.abbr)} · ${p.base}/${p.baseTotal} · ${eur(v)}</small><span class="abar"><i class="m" style="width:${(p.all/p.allTotal*100).toFixed(1)}%"></i><i style="width:${(p.base/p.allTotal*100).toFixed(1)}%"></i></span></span>${flag(lang || (s.ja ? "ja" : ""))}</a><button class="arow-more" type="button" data-amenu="${esc(s.id)}~${lang||""}" aria-label="Album-Optionen">•••</button></div>`;
 }
 
 /* ---------- Taschen ---------- */
@@ -1458,6 +1544,11 @@ function recordValue(){
   if(!cards.length && !Object.keys(valHist).length) return;
   const d = localDay(), v = Math.round(sum(cards,valOf)*100)/100;
   if(valHist[d] !== v){ valHist[d] = v; LS.set("pk-valhist", valHist); }
+  const per = {}; for(const c of cards){ const x = valOf(c); if(!x || !c.setId) continue; const o = per[c.setId] ||= {}; o[c.lang||"?"] = Math.round(((o[c.lang||"?"]||0) + x)*100)/100; }
+  const sv = LS.get("pk-setval", {}); let ch = false;
+  for(const [sid, o] of Object.entries(per)){ const h = sv[sid] ||= {}; if(JSON.stringify(h[d]) !== JSON.stringify(o)){ h[d] = o; ch = true; } }
+  for(const [sid, h] of Object.entries(sv)) if(!per[sid] && h[d]){ delete h[d]; ch = true; }
+  if(ch){ const cut = new Date(Date.now() - 400*864e5).toISOString().slice(0,10); for(const h of Object.values(sv)) for(const k of Object.keys(h)) if(k < cut) delete h[k]; LS.put("pk-setval", JSON.stringify(sv)); }
 }
 function chartSVG(pts){
   const W = 600, H = 200, pl = 8, pr = 8, pt = 14, pb = 26;
@@ -1736,8 +1827,8 @@ document.addEventListener("click", e=>{ const b = e.target.closest("[data-scan]"
 document.addEventListener("keydown", e=>{ if(SC.open && e.key==="Escape"){ e.stopImmediatePropagation(); closeScanner(); } }, true);
 
 /* ---------- Tab-Leiste ---------- */
-const TAB_ALL = ["regal","dex","suche","wunsch","scan"];
-const TAB_LBL = {regal:"Alben", dex:"Pokédex", suche:"Suche", wunsch:"Wunschliste", scan:"Scannen"};
+const TAB_ALL = ["regal","dex","suche","wunsch","portfolio","scan"];
+const TAB_LBL = {regal:"Alben", dex:"Pokédex", suche:"Suche", wunsch:"Wunschliste", portfolio:"Portfolio", scan:"Scannen"};
 const DEF_TABS = ["regal","dex","suche","wunsch"];
 const TAB_LOCK = ["regal","dex"];
 const curTabs = () => { let t = (settings.tabs||DEF_TABS).filter(x=>TAB_ALL.includes(x)); TAB_LOCK.forEach((x,i)=>{ if(!t.includes(x)) t.splice(Math.min(i,t.length), 0, x); }); if(t.length>5) t = [...t.filter(x=>TAB_LOCK.includes(x)), ...t.filter(x=>!TAB_LOCK.includes(x))].slice(0,5); return t.length>=3 ? t : DEF_TABS; };
@@ -1773,14 +1864,14 @@ const todayISO = () => localDay();
 function setPrices(s){ return LS.get("pk-setprices", {})[s.id] || null; }
 async function loadSetPrices(s, lang){
   if(spLoading) return; spLoading = {id:s.id, done:0, total:s.cards.length};
-  const res = {}, queue = s.cards.map(c=>c[0]);
+  const res = {}, mins = {}, queue = s.cards.map(c=>c[0]);
   const prog = () => { const el = $("#t3-prog"); if(el) el.textContent = `Preise werden geladen … ${spLoading.done} / ${spLoading.total}`; };
-  const worker = async () => { while(queue.length){ const num = queue.shift(); try{ const info = await cardInfo(s, num, lang==="en"); const v = Math.max(0, ...Object.values(info.vprice||{}).map(x=>+x||0)); if(v>0) res[num] = Math.round(v*100)/100; }catch{} spLoading.done++; prog(); } };
+  const worker = async () => { while(queue.length){ const num = queue.shift(); try{ const info = await cardInfo(s, num, lang==="en"); const vs = Object.values(info.vprice||{}).map(x=>+x||0).filter(x=>x>0); if(vs.length){ res[num] = Math.round(Math.max(...vs)*100)/100; mins[num] = Math.round(Math.min(...vs)*100)/100; } }catch{} spLoading.done++; prog(); } };
   prog();
   try{ await Promise.all([worker(), worker(), worker(), worker()]); }
   finally{
-    const all = LS.get("pk-setprices", {}); if(Object.keys(res).length) all[s.id] = {d: todayISO(), p: res}; LS.put("pk-setprices", JSON.stringify(all));
-    spLoading = null; if(view.name==="set" && view.set===s) render();
+    const all = LS.get("pk-setprices", {}); if(Object.keys(res).length) all[s.id] = {d: todayISO(), p: res, m: mins}; LS.put("pk-setprices", JSON.stringify(all));
+    spLoading = null; if((view.name==="set" || view.name==="pset") && view.set===s) render();
   }
 }
 function top3HTML(s, lang, owned){
@@ -1836,7 +1927,7 @@ function openReset(step){
     $("#rs-go").addEventListener("click", ()=>{
       cards = []; albums = []; wish = {}; notes = {}; ach = {}; valHist = {};
       saveCards(); LS.set("pk-albums", albums); LS.set("pk-wish", wish); LS.set("pk-notes", notes); LS.set("pk-ach", ach); LS.set("pk-valhist", valHist);
-      ["pk-recent","pk-wishopen","pk-pricehist","pk-lastbackup"].forEach(k=>{ try{ localStorage.removeItem(k); }catch{} });
+      ["pk-searched","pk-wishopen","pk-pricehist","pk-lastbackup","pk-setval","pk-autoprice"].forEach(k=>{ try{ localStorage.removeItem(k); }catch{} });
       wishSheet.close(); go("regal"); render();
       toast(`<span>Sammlung zurückgesetzt</span><button class="tx" type="button" data-tclose aria-label="Schließen">×</button>`, 3500);
     });
@@ -1885,10 +1976,10 @@ function resSlot(s, c, list){
 function renderResults(){
   const q = searchQ.trim().toLowerCase();
   if(q.length < 2){
-    const rec = LS.get("pk-recent", []).map(k=>k.split("|")).filter(([sid,num])=>cardAt(sid,num));
+    const rec = LS.get("pk-searched", []).map(k=>k.split("|")).filter(([sid,num])=>cardAt(sid,num));
     const ownedBy = new Map(); for(const e of cards) if(e.setId && qtyOf(e)){ const k=e.setId+"|"+e.num; if(!ownedBy.has(k)) ownedBy.set(k,[]); ownedBy.get(k).push(e); }
-    $("#view").innerHTML = rec.length ? `<section class="recent-sec"><div class="rec-h"><h2>Zuletzt angesehen</h2><button class="lnk" type="button" id="rec-clear">Leeren</button></div><div class="recent">${rec.map(([sid,num])=>resSlot(SET.get(sid), cardAt(sid,num), ownedBy.get(sid+"|"+num))).join("")}</div></section>` : `<p class="empty">Name eingeben, z. B. Glurak.</p>`;
-    $("#rec-clear")?.addEventListener("click", ()=>{ LS.set("pk-recent", []); renderResults(); });
+    $("#view").innerHTML = rec.length ? `<section class="recent-sec"><div class="rec-h"><h2>Zuletzt gesucht</h2><button class="lnk" type="button" id="rec-clear">Leeren</button></div><div class="recent">${rec.map(([sid,num])=>resSlot(SET.get(sid), cardAt(sid,num), ownedBy.get(sid+"|"+num))).join("")}</div></section>` : `<p class="empty">Name eingeben, z. B. Glurak.</p>`;
+    $("#rec-clear")?.addEventListener("click", ()=>{ LS.set("pk-searched", []); renderResults(); });
     return;
   }
   const dexHits = NAMES.map((n,i)=>[n,i+1]).filter(([n])=>n.toLowerCase().includes(q)).slice(0,12);
@@ -1976,7 +2067,7 @@ $("#view").addEventListener("click", e=>{
   if(df){ const q = $("#q"); searchQ = df.dataset.dexfill; if(q){ q.value = searchQ; q.blur(); $("#q-clr").hidden = false; } renderResults(); window.scrollTo(0,0); return; }
   const sl = e.target.closest(".slot"); if(!sl) return;
   if(sl.dataset.dex) openCtx({kind:"dex", dex:+sl.dataset.dex});
-  else if(sl.dataset.set) openCtx({kind:"set", setId:sl.dataset.set, num:sl.dataset.num});
+  else if(sl.dataset.set){ const c = {kind:"set", setId:sl.dataset.set, num:sl.dataset.num}; if(view.name==="suche") rememberRecent(c); openCtx(c); }
 });
 document.querySelectorAll("[data-close]").forEach(b=>b.addEventListener("click",()=>b.closest("dialog").close()));
 document.querySelectorAll("dialog").forEach(d=>d.addEventListener("click", e=>{ if(e.target===d) d.close(); }));
@@ -2073,8 +2164,11 @@ const cardSheet = makeSheet($("#dlg"), {
       const w = Math.min(250, S.el.clientWidth - 32), hd = $("#d-title").parentElement.offsetHeight;
       return h - (26 + w*88/63 + 16 + hd + 50 + 18);
     }
-    const l = $("#d-links"), ref = (l && l.offsetHeight ? l : $("#d-chips")); const r = ref.getBoundingClientRect(), top = S.el.getBoundingClientRect().top;
-    const vis = r.bottom - top + 18; S.setHalfVis = vis; return h - vis;
+    const bw = $("#d-img").closest(".bigwrap"); bw.style.width = "";
+    const measure = () => { const pr = $("#d-price"), l = $("#d-links"); const ref = pr && !pr.hidden && pr.offsetHeight ? pr : (l && l.offsetHeight ? l : $("#d-chips")); return ref.getBoundingClientRect().bottom - S.el.getBoundingClientRect().top + 14; };
+    let vis = measure(); const room = h - Math.max(70, h*0.1);
+    if(vis > room && !$("#d-img").classList.contains("noimg")){ const w = bw.offsetWidth, nw = Math.max(150, w - (vis - room)*63/88); if(nw < w){ bw.style.width = nw + "px"; vis = measure(); } }
+    S.setHalfVis = vis; return h - vis;
   }
 });
 const sScroll = $("#sheet-scroll");
@@ -2085,11 +2179,12 @@ const pickSheet = makeSheet($("#pick"));
 const logSheet = makeSheet($("#logsheet"));
 const statSheet = makeSheet($("#statsheet"));
 const wishSheet = makeSheet($("#wishsheet"));
-document.addEventListener("click", e=>{ if(e.target.closest("#open-stats,#side-sum")) openStats(); });
+document.addEventListener("click", e=>{ if(e.target.closest("#open-stats,#side-sum")) go("portfolio"); });
 const menuSheet = makeSheet($("#menusheet"));
 const filtSheet = makeSheet($("#filt"));
-function rememberRecent(c){ if(c.kind!=="set") return; const k = c.setId+"|"+c.num; const l = LS.get("pk-recent", []).filter(x=>x!==k); l.unshift(k); LS.set("pk-recent", l.slice(0,12)); }
-function openCtx(c){ rememberRecent(c); ctx=c; markSel(c); openDet = new Set(); showMore=false; confirmDel=null; priceVar=null; $("#d-img").dataset.key=""; renderDialog(); if(cardSheet.state==="closed") openSheet(); else { sScroll.scrollTop = 0; cardSheet.set("half"); } }
+function rememberRecent(c){ if(c.kind!=="set") return; const k = c.setId+"|"+c.num; const l = LS.get("pk-searched", []).filter(x=>x!==k); l.unshift(k); LS.set("pk-searched", l.slice(0,12)); }
+try{ localStorage.removeItem("pk-recent"); }catch{}
+function openCtx(c){ ctx=c; markSel(c); openDet = new Set(); showMore=false; confirmDel=null; priceVar=null; $("#d-img").dataset.key=""; renderDialog(); if(cardSheet.state==="closed") openSheet(); else { sScroll.scrollTop = 0; cardSheet.set("half"); } }
 
 function renderDialog(){
   if(ctx.kind==="dex") return renderDexDialog();
@@ -2102,7 +2197,7 @@ function renderDialog(){
   const gtx = gradeTxt(notes[s.id+"|"+c[0]]); if(gtx) $("#d-chips").insertAdjacentHTML("beforeend", `<span class="chip grade">${esc(gtx)}</span>`);
   $("#d-meta").textContent = [s.de, c[7] ? `Pokédex #${pad4(c[7])}` : "", q ? `Wert ${eur(sum(mine,valOf))}` : ""].filter(Boolean).join(" · ");
   const wk = wishKey(s.id, c[0]), ww = wish[wk];
-  $("#d-links").innerHTML = `<a class="btn" href="${cmLink(c)}" target="_blank" rel="noopener">Bei Cardmarket suchen ↗</a><button class="btn wishbtn" type="button" id="d-wish" aria-pressed="${!!ww}">${ww?HEART_SVG:HEART_O}${ww?`Wunschliste · ${prioLbl(ww.p)}`:"Wunschliste"}</button>`;
+  $("#d-links").innerHTML = `<a class="btn" id="d-cm" href="${cmLink(s, c, cmIdFor(s, c))}" target="_blank" rel="noopener">Bei Cardmarket ansehen ↗</a><button class="btn wishbtn" type="button" id="d-wish" aria-pressed="${!!ww}">${ww?HEART_SVG:HEART_O}${ww?`Wunschliste · ${prioLbl(ww.p)}`:"Wunschliste"}</button>`;
   $("#d-wish").addEventListener("click", ()=>openPrio(s.id, c[0]));
   renderNote(s, c);
   const key = s.id+"|"+c[0], im = $("#d-img");
@@ -2126,6 +2221,7 @@ function renderDialog(){
   renderVariants();
 }
 let priceVar = null;
+function cmIdFor(s, c){ const info = lastInfo.get(s.id+"|"+c[0]); if(!info) return 0; return (priceVar && info.vcm?.[priceVar]) || info.cm || 0; }
 function recordVariants(key, info){
   const upd = info.price?.updated;
   for(const v of Object.keys(info.vprice)) if(info.vprice[v]) recordPrice(key+"|"+v, {trend:info.vprice[v], avg30:info.vavg?.[v]||0, peak:info.vpeak?.[v]||0, updated:upd});
@@ -2141,6 +2237,7 @@ function renderPrice(){
     const ownedV = keys.filter(v=>bucketsOf(s.id, c[0], v).length).sort((a,b)=>(info.vprice[b]||0)-(info.vprice[a]||0));
     priceVar = ownedV[0] || keys.find(v=>info.vprice[v]) || keys[0];
   }
+  const cmA = $("#d-cm"); if(cmA) cmA.href = cmLink(s, c, cmIdFor(s, c));
   const h = priceHist()[key+"|"+priceVar];
   box.innerHTML = `${keys.length>1?`<div class="pchips" role="group" aria-label="Variante für den Preis">${keys.map(v=>`<button class="pchip" type="button" data-pvar="${esc(v)}" aria-pressed="${v===priceVar}">${esc(vLabel(v))}</button>`).join("")}</div>`:""}
     <div class="pmain"><div class="now"><small>Aktueller Preis${keys.length>1?"":` · ${esc(vLabel(priceVar))}`}</small><b>${fmtPrice(info.vprice[priceVar])}</b></div>
@@ -2226,6 +2323,134 @@ async function updatePrices(s){
   await Promise.all([worker(), worker(), worker(), worker()]);
   render();
   if(out()) out().textContent = `${keys.length - failed} Karten aktualisiert${stand ? `, Stand ${deDate(stand)}` : ""}${failed ? ` · ${failed} ohne Antwort` : ""}.`;
+}
+
+/* ---------- Tägliche Preisaktualisierung ---------- */
+const AP = {run:false, done:0, total:0};
+async function autoPrices(force){
+  if(AP.run || !navigator.onLine) return;
+  if(!force && LS.raw("pk-autoprice") === localDay()) return;
+  const keys = [...new Set(cards.filter(c => c.setId && SET.has(c.setId) && qtyOf(c)).map(c => c.setId + "|" + c.num))];
+  if(!keys.length) return;
+  Object.assign(AP, {run:true, done:0, total:keys.length}); apProg();
+  const queue = keys.slice(); let ok = 0;
+  const worker = async () => { while(queue.length){ const k = queue.shift(); const [sid, num] = k.split("|"); try{ const s = SET.get(sid), en = cards.some(c=>c.setId===sid && c.num===num && c.lang==="Englisch") && !cards.some(c=>c.setId===sid && c.num===num && c.lang==="Deutsch"); const i = await cardInfo(s, num, en); lastInfo.set(k,i); applyPrices(sid, num, i); recordVariants(k, i); ok++; }catch{} AP.done++; if(AP.done % 10 === 0 || AP.done === AP.total) apProg(); } };
+  try{ await Promise.all([worker(), worker(), worker()]); }
+  finally{ AP.run = false; if(ok) LS.put("pk-autoprice", localDay()); apProg(); render(); }
+}
+function apProg(){
+  document.body.classList.toggle("aprun", AP.run);
+  document.documentElement.style.setProperty("--ap", AP.total ? (AP.done/AP.total*100).toFixed(1)+"%" : "0%");
+  const el = $("#pf-prog"); if(el) el.textContent = AP.run ? `Preise werden aktualisiert … ${AP.done} / ${AP.total}` : pfStand();
+}
+function pfStand(){ const pd = cards.map(c=>c.priceDate||"").filter(Boolean).sort().pop(); return pd ? `Preise vom ${deDate(pd)}` : "Noch keine Preise geladen"; }
+
+/* ---------- Portfolio ---------- */
+let pfDim = "set", pfSet = "", pfLang = "", pfShow = 30, psLang = "all", psDim = "rar", psShow = 30;
+const LANGFLAG = {Deutsch:"de", Englisch:"en", Japanisch:"ja"};
+function pfEntries(list){
+  const m = new Map();
+  for(const e of list){ if(!e.setId || !qtyOf(e) || !SET.has(e.setId)) continue; const k = e.setId+"|"+e.num+"|"+e.v+"|"+(e.lang||""); const o = m.get(k);
+    if(o){ o.qty += qtyOf(e); o.val = Math.max(o.val, +e.val||0); o.a30 = Math.max(o.a30, +e.a30||0); }
+    else m.set(k, {setId:e.setId, num:e.num, v:e.v, lang:e.lang||"", qty:qtyOf(e), val:+e.val||0, a30:+e.a30||0}); }
+  return [...m.values()];
+}
+function pfRangeHead(total, pts){
+  const first = pts[0]?.[1] ?? total, diff = total - first, pct = first ? diff/first*100 : 0;
+  const lbl = {7:"7 Tagen",30:"30 Tagen",365:"1 Jahr"}[statRange] || "gesamt";
+  return pts.length>1 ? `<p class="pfdiff ${diff>=0?"up":"down"}">${diff>=0?"+":"−"}${eur(Math.abs(diff))} · ${diff>=0?"+":"−"}${Math.abs(pct).toLocaleString("de-DE",{maximumFractionDigits:1})} % ${statRange?"in "+lbl:"gesamt"}</p>` : `<p class="pfdiff">Der Verlauf füllt sich mit jedem Tag, an dem du die App öffnest.</p>`;
+}
+const rangeSeg = () => `<div class="seg pfseg" role="group" aria-label="Zeitraum">${[[7,"7T"],[30,"30T"],[365,"1J"],[0,"Alles"]].map(([d,l])=>`<button type="button" data-srange="${d}" aria-pressed="${statRange===d}">${l}</button>`).join("")}</div>`;
+const cutDay = () => statRange ? new Date(Date.now() - statRange*864e5).toISOString().slice(0,10) : "";
+function barsHTML(rows, total, attr){
+  if(!rows.length) return `<p class="hint">Noch keine Karten mit Preis.</p>`;
+  const mx = Math.max(...rows.map(r=>r.v));
+  return `<div class="pfbars">${rows.map(r=>{ const inner = `<span class="pfbl"><span>${r.f||""}${esc(r.l)}</span><b>${eur(r.v)} · ${total ? Math.round(r.v/total*100) : 0} %</b></span><span class="pfbb"><i style="width:${mx ? (r.v/mx*100).toFixed(1) : 0}%"></i></span>`;
+    return r.k && attr ? `<button class="pfbar" type="button" ${attr}="${esc(r.k)}">${inner}<span class="chev">›</span></button>` : `<div class="pfbar">${inner}</div>`; }).join("")}</div>`;
+}
+function groupBy(list, keyFn){ const m = new Map(); for(const e of list){ const v = e.val*e.qty; if(!v) continue; const [k, l, f] = keyFn(e); const o = m.get(k) || {k, l, f, v:0}; o.v += v; m.set(k, o); } return [...m.values()].sort((a,b)=>b.v-a.v); }
+function moversHTML(list){
+  const ms = list.filter(e=>e.val>0 && e.a30>0 && Math.max(e.val, e.a30)>=0.5).map(e=>({...e, pct:(e.val-e.a30)/e.a30*100}));
+  const up = ms.filter(e=>e.pct>=1).sort((a,b)=>b.pct-a.pct).slice(0,5), dn = ms.filter(e=>e.pct<=-1).sort((a,b)=>a.pct-b.pct).slice(0,5);
+  if(!up.length && !dn.length) return `<p class="hint">Noch keine Vergleichswerte – sie kommen mit der nächsten Preisaktualisierung.</p>`;
+  const col = (t, l) => `<div class="pfmov"><h4>${t}</h4>${l.length ? l.map(e=>{ const s = SET.get(e.setId), c = cardAt(e.setId, e.num); return c ? `<button type="button" data-pfc="${esc(e.setId)}|${esc(e.num)}"><span class="mn"><b>${esc(cardTitleFor(s,c))}</b><small>${esc(s.abbr)} ${esc(numDisp(s,c[0]))}</small></span><span class="mp ${e.pct>=0?"up":"down"}">${e.pct>=0?"+":"−"}${Math.abs(Math.round(e.pct))} %<small>${eur(e.val)}</small></span></button>` : ""; }).join("") : `<p class="hint">–</p>`}</div>`;
+  return `<div class="pfmovs">${col("Gewinner", up)}${col("Verlierer", dn)}</div><p class="hint pfnote">Trendpreis im Vergleich zum 30-Tage-Durchschnitt bei Cardmarket.</p>`;
+}
+function rankHTML(list, show, moreId){
+  const r = list.filter(e=>e.val>0).sort((a,b)=>b.val-a.val);
+  if(!r.length) return `<p class="hint">Noch keine Karten mit Preis.</p>`;
+  return `<ol class="toplist pfrank">${r.slice(0, show).map((e,i)=>{ const s = SET.get(e.setId), c = cardAt(e.setId, e.num); if(!c) return ""; return `<li><button type="button" data-pfc="${esc(e.setId)}|${esc(e.num)}"><span class="tr">${i+1}</span><span class="tn"><b>${esc(cardTitleFor(s,c))}</b><small>${esc(s.abbr)} ${esc(numDisp(s,c[0]))} · ${esc(vLabel(e.v))}${e.qty>1?` · ${e.qty}×`:""}</small></span>${flag(LANGFLAG[e.lang])}<span class="tp">${eur(e.val)}</span></button></li>`; }).join("")}</ol>${r.length>show?`<button class="btn pfmore" type="button" id="${moreId}">Weitere ${Math.min(30, r.length-show)} zeigen</button>`:""}`;
+}
+function bindPf(){
+  $("#view").querySelectorAll("[data-srange]").forEach(b=>b.addEventListener("click", ()=>{ statRange = +b.dataset.srange; render(); }));
+  $("#view").querySelectorAll("[data-pfc]").forEach(b=>b.addEventListener("click", ()=>{ const [setId, num] = b.dataset.pfc.split("|"); openCtx({kind:"set", setId, num}); }));
+}
+function renderPortfolio(){
+  $("#bar-title").textContent = "Portfolio";
+  recordValue();
+  const all = pfEntries(cards), total = sum(cards, valOf);
+  const pts = Object.entries(valHist).sort((a,b)=>a[0]<b[0]?-1:1).filter(([d])=>d >= cutDay());
+  $("#head").innerHTML = `<h1>Portfolio</h1><div class="pfhead"><b class="pftot">${eur(total)}</b>${pfRangeHead(total, pts)}<p class="hint pfst"><span id="pf-prog">${AP.run ? `Preise werden aktualisiert … ${AP.done} / ${AP.total}` : pfStand()}</span>${AP.run ? "" : ` · <button class="lnk" type="button" id="pf-upd">Jetzt aktualisieren</button>`}</p></div>`;
+  $("#tools").innerHTML = "";
+  const dims = [["set","Set"],["lang","Sprache"],["rar","Seltenheit"],["type","Typ"]];
+  const rows = groupBy(all, e=>{ const s = SET.get(e.setId), c = cardAt(e.setId, e.num);
+    if(pfDim==="set") return [e.setId, setTitle(s)];
+    if(pfDim==="lang") return [e.lang||"?", e.lang||"Unbekannt", flag(LANGFLAG[e.lang])];
+    if(pfDim==="rar") return [c?.[3]||"?", RAR[c?.[3]]?.[0] || c?.[3] || "Ohne Angabe"];
+    return c?.[4]==="P" ? [c[5]||"P", TYPES[c[5]]?.[0] || "Pokémon"] : [c?.[4]||"?", CAT[c?.[4]] || "Sonstige"]; });
+  const setsWithVal = [...new Set(all.filter(e=>e.val>0).map(e=>e.setId))].map(id=>SET.get(id)).sort((a,b)=>(b.rel||"").localeCompare(a.rel||""));
+  const langs = [...new Set(all.map(e=>e.lang).filter(Boolean))];
+  const rl = all.filter(e=>(!pfSet || e.setId===pfSet) && (!pfLang || e.lang===pfLang));
+  $("#view").innerHTML = `<div class="pf">
+    ${rangeSeg()}${pts.length>1 ? chartSVG(pts) : ""}
+    <section class="pfsec"><h2>Aufteilung</h2><div class="seg pfseg" role="group" aria-label="Aufteilung nach">${dims.map(([k,l])=>`<button type="button" data-pfdim="${k}" aria-pressed="${pfDim===k}">${l}</button>`).join("")}</div>${barsHTML(rows, total, pfDim==="set" ? "data-pfset" : "")}${pfDim==="set"&&rows.length?`<p class="hint pfnote">Tippe auf ein Set für Details.</p>`:""}</section>
+    <section class="pfsec"><h2>Gewinner &amp; Verlierer</h2>${moversHTML(all)}</section>
+    <section class="pfsec"><h2>Alle Karten nach Wert</h2><div class="pffilt"><label class="fsel"><span class="sr">Set</span><select id="pf-fset"><option value="">Alle Sets</option>${setsWithVal.map(x=>`<option value="${esc(x.id)}"${pfSet===x.id?" selected":""}>${esc(setTitle(x))}</option>`).join("")}</select></label><label class="fsel"><span class="sr">Sprache</span><select id="pf-flang"><option value="">Alle Sprachen</option>${langs.map(l=>`<option${pfLang===l?" selected":""}>${esc(l)}</option>`).join("")}</select></label></div>${rankHTML(rl, pfShow, "pf-more")}</section></div>`;
+  bindPf();
+  $("#pf-upd")?.addEventListener("click", ()=>autoPrices(true));
+  $("#view").querySelectorAll("[data-pfdim]").forEach(b=>b.addEventListener("click", ()=>{ pfDim = b.dataset.pfdim; render(); }));
+  $("#view").querySelectorAll("[data-pfset]").forEach(b=>b.addEventListener("click", ()=>go("portfolio-" + SET.get(b.dataset.pfset).slug)));
+  $("#pf-fset").addEventListener("change", e=>{ pfSet = e.target.value; pfShow = 30; render(); });
+  $("#pf-flang").addEventListener("change", e=>{ pfLang = e.target.value; pfShow = 30; render(); });
+  $("#pf-more")?.addEventListener("click", ()=>{ pfShow += 30; const y = window.scrollY; render(); window.scrollTo(0, y); });
+}
+function renderPSet(s){
+  const allE = pfEntries(cards.filter(c=>c.setId===s.id)), langs = [...new Set(allE.map(e=>e.lang).filter(Boolean))];
+  if(psLang!=="all" && !langs.includes(psLang)) psLang = "all";
+  const list = allE.filter(e=>psLang==="all" || e.lang===psLang), total = sum(list, e=>e.val*e.qty);
+  const lcode = psLang==="all" ? null : Object.keys(LANGNAME).find(k=>LANGNAME[k]===psLang) || null;
+  $("#bar-title").textContent = "";
+  const sv = LS.get("pk-setval", {})[s.id] || {};
+  const pts = Object.entries(sv).sort((a,b)=>a[0]<b[0]?-1:1).map(([d,o])=>[d, Math.round((psLang==="all" ? Object.values(o).reduce((a,b)=>a+b,0) : (o[psLang]||0))*100)/100]).filter(([d])=>d >= cutDay());
+  const al = albums.find(a=>a.setId===s.id && (!lcode || a.lang===lcode)) || albums.find(a=>a.setId===s.id);
+  const owned = new Map(); for(const c of cards) if(c.setId===s.id && qtyOf(c) && (psLang==="all" || c.lang===psLang)) owned.set(c.num, true);
+  const sp = setPrices(s); let costHTML;
+  if(spLoading && spLoading.id===s.id) costHTML = `<p class="hint" id="t3-prog">Preise werden geladen … ${spLoading.done} / ${spLoading.total}</p>`;
+  else if(!sp) costHTML = `<button class="btn" type="button" id="ps-load">Preise aller ${s.cards.length} Karten laden</button><p class="hint pfnote">Einmalig nötig, danach täglich aktuell.</p>`;
+  else {
+    const price = num => sp.m?.[num] ?? sp.p[num];
+    const calc = only => { let n = 0, sum2 = 0, np = 0; for(const c of s.cards){ if(owned.has(c[0]) || (only && isSecret(s,c))) continue; n++; const v = price(c[0]); if(v) sum2 += v; else np++; } return {n, sum:sum2, np}; };
+    const b = calc(true), m = calc(false);
+    const line = (t, x) => `<div class="kv"><span>${t}</span><b>${x.n ? `${x.n} fehlen · ca. ${eur(x.sum)}` : "komplett ✓"}</b></div>${x.np ? `<p class="hint pfnote">${x.np} ${x.np===1?"Karte":"Karten"} ohne Preis nicht eingerechnet</p>` : ""}`;
+    costHTML = `<div class="kvs pfcost">${line("Grundset", b)}${s.cards.length > b.n + [...owned.keys()].length || m.n !== b.n ? line("Master-Set", m) : ""}</div><p class="hint pfnote">Günstigste Variante je Karte, Trendpreis vom ${deDate(sp.d)}.</p>`;
+    if(sp.d !== todayISO() && !spLoading) setTimeout(()=>loadSetPrices(s, lcode), 1500);
+  }
+  const dimRows = groupBy(list, e=>{ if(psDim==="var") return [e.v, vLabel(e.v)]; const c = cardAt(e.setId, e.num); return [c?.[3]||"?", RAR[c?.[3]]?.[0] || c?.[3] || "Ohne Angabe"]; });
+  $("#head").innerHTML = `<div class="pshead" style="--spine:${spineColor(s)}">${logoBox(s, lcode, "pslogo")}<div><h1 class="psh1">${esc(setTitle(s))}</h1><p class="hint">${esc(s.abbr)} · ${esc(s.serie||"")}</p></div></div>
+    ${langs.length>1 ? `<div class="seg pfseg" role="group" aria-label="Sprache"><button type="button" data-pslang="all" aria-pressed="${psLang==="all"}">Alle</button>${langs.map(l=>`<button type="button" data-pslang="${esc(l)}" aria-pressed="${psLang===l}">${flag(LANGFLAG[l])} ${esc(l)}</button>`).join("")}</div>` : ""}
+    <div class="pfhead"><b class="pftot">${eur(total)}</b>${pfRangeHead(total, pts)}${al ? `<a class="lnk pfalb" href="#${albumHash(s, al.lang||null)}">Zum Album ›</a>` : ""}</div>`;
+  $("#tools").innerHTML = "";
+  $("#view").innerHTML = `<div class="pf">
+    ${rangeSeg()}${pts.length>1 ? chartSVG(pts) : `<p class="hint">Der Verlauf dieses Sets beginnt mit Version 1.24 und wächst täglich.</p>`}
+    <section class="pfsec"><h2>Kosten bis komplett</h2>${costHTML}</section>
+    <section class="pfsec"><h2>Aufteilung</h2><div class="seg pfseg" role="group" aria-label="Aufteilung nach"><button type="button" data-psdim="rar" aria-pressed="${psDim==="rar"}">Seltenheit</button><button type="button" data-psdim="var" aria-pressed="${psDim==="var"}">Variante</button></div>${barsHTML(dimRows, total, "")}</section>
+    <section class="pfsec"><h2>Gewinner &amp; Verlierer</h2>${moversHTML(list)}</section>
+    <section class="pfsec"><h2>Karten nach Wert</h2>${rankHTML(list, psShow, "ps-more")}</section></div>`;
+  bindPf();
+  $("#head").querySelectorAll("[data-pslang]").forEach(b=>b.addEventListener("click", ()=>{ psLang = b.dataset.pslang; render(); }));
+  $("#view").querySelectorAll("[data-psdim]").forEach(b=>b.addEventListener("click", ()=>{ psDim = b.dataset.psdim; render(); }));
+  $("#ps-load")?.addEventListener("click", ()=>{ loadSetPrices(s, lcode); render(); });
+  $("#ps-more")?.addEventListener("click", ()=>{ psShow += 30; const y = window.scrollY; render(); window.scrollTo(0, y); });
 }
 
 /* ---------- Sicherung ---------- */
@@ -2832,6 +3057,7 @@ function needJA(){
   const ids = [...LS.get("pk-albums", []).map(a=>a?.setId), ...LS.get("pk-cards", []).map(c=>c?.setId), ...Object.keys(LS.get("pk-wish", {})).map(k=>k.split("|")[0])];
   return ids.some(id=>id && !SET.has(id));
 }
+{ setTimeout(()=>autoPrices(false), 5000); window.addEventListener("online", ()=>autoPrices(false)); document.addEventListener("visibilitychange", ()=>{ if(!document.hidden) setTimeout(()=>autoPrices(false), 3000); }); }
 { const nj = needJA(); init(); if(nj) loadJA().then(()=>route()).catch(()=>setStatus("Japanische Setlisten konnten nicht geladen werden – bitte später erneut öffnen.")); }
 </script>
 </body>
