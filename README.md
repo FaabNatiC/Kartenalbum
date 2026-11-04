@@ -1,19 +1,35 @@
 # Kartenalbum
 
-Private Web-App für meine Pokémon-Sammelkarten – als digitales Album fürs iPhone.
+Private Web-App für meine Pokémon-Sammelkarten – als digitales Album fürs iPhone und den Browser.
 
 **App öffnen:** https://faabnatic.github.io/Kartenalbum/
 
+Aktuelle Version: **1.20** · Änderungen je Version stehen in [`CHANGELOG.md`](CHANGELOG.md).
+
 ## Funktionen
 
-- **Set-Alben** – ein Album pro Set, vom Basis-Set (1999) bis Mega-Entwicklung (181 Sets)
-- **Varianten zählen** – Normal, Holo, Reverse, Sonder-Reverse, 1. Edition usw., je Sprache und Zustand
-- **Album-Modus** – Blättern mit 3D-Seitenwechsel, Doppelseite im Querformat
-- **3D-Kartenansicht** – Karte drehen, mit Glanzeffekt und Neigungssensor
+**Sammeln**
+- **Set-Alben** – deutsche/englische Sets vom Basis-Set (1999) bis Mega-Entwicklung (181 Sets) und japanische Sets ab Sonne & Mond (91 Sets)
+- **Album-Sprache** – Deutsch, Englisch oder Gemischt; dasselbe Set auch als zwei getrennte Alben
+- **Varianten zählen** – Normal, Holo, Reverse, Poké-Ball-/Meisterball-Reverse, 1. Edition usw., je Sprache und Zustand
+- **Filter im Set** – Alle · Gesammelt · Fehlend · Doppelt, dazu Kategorie, Typ, Region, Variante, Seltenheit und Suche nach Name oder Nummer
+- **Wunschliste** – eigener Tab, Priorität Niedrig/Normal/Hoch, nach Sets gruppiert, Preis und Summe, als Text teilbar; gezählte Karten verschwinden automatisch
+- **Notiz & Grading** – pro Karte, z. B. „PSA 9“
+
+**Ansehen**
+- **Album-Modus** – Blättern mit 3D-Seitenwechsel, Doppelseite im Querformat und am Rechner
+- **3D-Kartenansicht** – Karte drehen, mit Glanzeffekt (am iPhone auch per Neigung)
 - **Pokédex** – alle 1025 Pokémon, Filter nach Region und Generation
-- **Suche** – Karten nach Name über alle Sets, „Zuletzt angesehen“
-- **Filter im Set** – Kategorie, Typ, Region, Variante, Seltenheit
+- **Suche** – Karten nach Name über alle Sets (deutsch, englisch, japanisch), „Zuletzt angesehen“
+
+**Werte & Statistik**
 - **Preise** – aktueller Cardmarket-Trend je Variante und eigener Höchstwert
+- **Wertentwicklung** – Verlauf des Sammlungswerts und Top 10 der wertvollsten Karten
+- **Erfolge** – 19 Meilensteine, z. B. erstes Set komplett oder 100 Karten
+
+**Allgemein**
+- **Konto & Abgleich** – Anmeldung mit E-Mail/Passwort oder Google; Sammlung live auf allen Geräten
+- **Browser-Version** – eigenes Layout ab 900 px mit Seitenleiste, Karten-Panel und Tastatur (← → · Esc · /)
 - **Hell/Dunkel** – automatisch oder fest eingestellt
 - **Offline nutzbar** – App und bereits angesehene Kartenbilder werden zwischengespeichert
 
@@ -23,29 +39,39 @@ Private Web-App für meine Pokémon-Sammelkarten – als digitales Album fürs i
 2. Teilen-Symbol → **Zum Home-Bildschirm**
 3. App künftig über das Symbol starten
 
-Neue Versionen meldet die App selbst („Version x verfügbar · Aktualisieren“).
+Neue Versionen meldet die App selbst („Version x verfügbar · Aktualisieren“). Ein neues App-Symbol erscheint erst, wenn die App vom Home-Bildschirm entfernt und neu hinzugefügt wird.
 
-## Daten & Sicherung
+## Daten, Konto & Sicherung
 
-Die Sammlung liegt **nur auf dem Gerät** (Browser-Speicher), nicht auf einem Server.
-Unter **Mehr → Sicherung exportieren** entsteht eine JSON-Datei, die sich über **Sicherung importieren** wiederherstellen lässt.
-Regelmäßig exportieren – beim Löschen der Website-Daten in Safari ist die Sammlung sonst weg.
+- **Ohne Anmeldung** liegt die Sammlung nur auf dem Gerät (Browser-Speicher).
+- **Mit Konto** (Mehr → Konto & Abgleich) wird sie zusätzlich in Firebase (Google, Rechenzentrum Frankfurt) gespeichert und zwischen allen Geräten abgeglichen. Nur freigegebene E-Mail-Adressen dürfen speichern; jede Person sieht nur ihre eigene Sammlung.
+- **Sicherung:** Mehr → Sicherung exportieren erzeugt eine JSON-Datei, die sich über Sicherung importieren wiederherstellen lässt – auch mit Konto sinnvoll.
+- **Zurücksetzen:** Mehr → Sammlung zurücksetzen löscht alles außer den Einstellungen (bei Anmeldung auf allen Geräten).
+
+### Firebase-Einrichtung (einmalig)
+
+- Authentication: Anmeldemethoden „E-Mail-Adresse/Passwort“ und „Google“, autorisierte Domain `faabnatic.github.io`
+- Firestore-Datenbank (`europe-west3`), Regeln mit Freigabeliste der erlaubten E-Mail-Adressen
+- Die Web-Konfiguration steht in `index.html` (`FIREBASE_CONFIG`) – diese Werte sind nicht geheim; geschützt werden die Daten über die Firestore-Regeln.
 
 ## Dateien
 
 | Datei | Inhalt |
 |---|---|
 | `index.html` | Die komplette App (HTML, CSS, JavaScript) |
-| `data.js` | Setlisten, Pokémon-Namen und Varianten |
+| `data.js` | Deutsche/englische Setlisten, Pokémon-Namen und Varianten |
+| `data-ja.js` | Japanische Setlisten – wird nur bei Bedarf nachgeladen |
 | `sw.js` | Service Worker für Offline-Nutzung und Updates |
 | `manifest.webmanifest` | App-Name und Symbole für den Home-Bildschirm |
-| `icon-*.png` | App-Symbole |
+| `icon-180.png`, `icon-192.png`, `icon-512.png` | App-Symbole |
 | `CHANGELOG.md` | Änderungen je Version |
+| `README.md` | Diese Übersicht |
 
 ## Datenquellen
 
 - Kartenbilder, Setdaten und Cardmarket-Preise: [TCGdex](https://tcgdex.dev)
 - Pokémon-Artworks und Typ-Symbole: [PokeAPI](https://pokeapi.co)
+- Anmeldung und Abgleich: [Firebase](https://firebase.google.com)
 
 Bilder und Preise werden live im Browser geladen und nicht in diesem Repository gespeichert.
 

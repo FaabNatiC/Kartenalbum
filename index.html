@@ -532,6 +532,11 @@ a:focus:not(:focus-visible),button:focus:not(:focus-visible),label:focus:not(:fo
 .wgrp.open .wchev{transform:rotate(90deg)}
 .wgrp{margin-top:10px}
 
+.dsub{margin:2px 0 0;font:600 15px var(--f-body);color:var(--muted)}
+.sub.jn{margin-top:0;font-size:13px}
+.prow small.jn{display:block;color:var(--muted)}
+.sqwrap{margin-top:8px}
+
 /* ---------- Desktop / großer Bildschirm (ab 900 px) ---------- */
 .side-brand,.side-sum,.kbd,.pnav{display:none}
 @media (hover:hover) and (pointer:fine){
@@ -614,7 +619,7 @@ a:focus:not(:focus-visible),button:focus:not(:focus-visible),label:focus:not(:fo
   <div class="sheet-scroll" id="sheet-scroll"><div class="dlg">
     <div class="dlg-x"><span class="pnav"><button class="x" type="button" id="d-prev" aria-label="Vorherige Karte"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><button class="x" type="button" id="d-next" aria-label="Nächste Karte"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button><small>← → · Esc</small></span><button class="x" type="button" data-sheet-close aria-label="Schließen">×</button></div>
     <div class="bigwrap"><img class="big noimg" id="d-img" alt=""><button class="b3d" type="button" id="d-3d" aria-label="Karte in 3D ansehen" hidden>3D</button></div>
-    <div><h2 id="d-title"></h2><div class="chips" id="d-chips"></div><p class="dmeta" id="d-meta"></p><div class="dlinks" id="d-links"></div></div>
+    <div><h2 id="d-title"></h2><p class="dsub" id="d-sub" hidden></p><div class="chips" id="d-chips"></div><p class="dmeta" id="d-meta"></p><div class="dlinks" id="d-links"></div></div>
     <div class="price" id="d-price" hidden></div>
     <div id="d-body"></div>
     <div class="dnote" id="d-note" hidden></div>
@@ -708,6 +713,7 @@ const CONDS = ["Mint","Near Mint","Excellent","Good","Light Played","Played","Po
 
 /* ---------- Änderungsprotokoll ---------- */
 const CHANGELOG = [
+  {v:"1.20", d:"2026-11-04", items:["Japanische Sets mit englischem Namen (z. B. Paradise Dragona), der japanische steht klein darunter – beide suchbar","Japanische Karten: deutscher Pokémon-Name klein unter dem japanischen, jetzt für alle Pokémon-Karten","Suche im Album: Lupe in der Leiste filtert nach Name oder Nummer","„Sammlung zurücksetzen“ unter Mehr – mit Angebot zur Sicherung und Bestätigung per LÖSCHEN"]},
   {v:"1.19", d:"2026-11-04", items:["Japanische Sets ab Sonne & Mond (91 Sets, über 10.000 Karten) mit japanischen Kartenbildern","Beim Album anlegen: Umschalter „Deutsch / Englisch · Japanisch“","Pokémon in japanischen Sets mit deutschem Namen, Karten zählen automatisch als „Japanisch“","Album-Sprache wählbar: Deutsch, Englisch oder Gemischt – dasselbe Set geht auch als zwei getrennte Alben","Sprache eines Albums später über ••• änderbar","Wunschliste: Sets standardmäßig zugeklappt"]},
   {v:"1.18", d:"2026-11-04", items:["Wunschliste: Priorität Niedrig, Normal oder Hoch per kurzem Auswahl-Sheet","Wunschliste nach Sets gruppiert, Sets mit höchster Priorität zuerst","Knopf „Wunschliste leeren“ mit Sicherheitsabfrage","Neuer Filter „Doppelt“ im Set","Notiz und Grading (PSA, BGS, CGC, TAG) pro Karte im Karten-Sheet","Erfolge unter Mehr mit Hinweis beim Freischalten","Notizen und Erfolge werden über das Konto abgeglichen"]},
   {v:"1.17", d:"2026-11-04", items:["Neuer Tab „Wunschliste“: Karten im Karten-Sheet per Herz merken, Priorität hoch/normal, aktueller Preis und Summe, als Text teilen","Karten verschwinden automatisch von der Wunschliste, sobald du sie zählst","Wertentwicklung: Tipp auf den Sammlungswert zeigt den Verlauf und die 10 wertvollsten Karten","Wunschliste und Wertverlauf werden über das Konto abgeglichen","Neues App-Icon","Kein Fokus-Rahmen mehr nach Klick in der Seitenleiste"]},
@@ -954,7 +960,7 @@ function stepVariant(setId, num, v, delta){
 
 /* ---------- Routing ---------- */
 let view = {name:"regal"}, filter = "all", searchQ = "", pendingOpen = null, confirmAlbumDel = false;
-let backTo = null, restore = null, restoreFilt = false;
+let backTo = null, restore = null, restoreFilt = false, setQ = "", sqOpen = false;
 const VIEW_LBL = {regal:"Alben", dex:"Pokédex", suche:"Suche", wunsch:"Wunschliste", mehr:"Mehr", picker:"Alle Sets"};
 function jumpToSet(setId, num){
   backTo = {setId, hash: location.hash.slice(1) || "regal", view: view.name, y: window.scrollY, reopen: ctx ? {...ctx} : null};
@@ -975,7 +981,7 @@ function route(){
   else if(h==="wunsch") view={name:"wunsch"};
   else if(h.startsWith("set-") && SLUG.has(h.slice(4).split("~")[0])){ const [sl, lg] = h.slice(4).split("~"); view={name:"set", set:SLUG.get(sl), lang: LANGNAME[lg] ? lg : null}; }
   else view={name:"regal"};
-  filter="all"; confirmAlbumDel=false;
+  filter="all"; confirmAlbumDel=false; setQ = ""; sqOpen = false;
   if(!(view.name==="set" && filtSet && filtSet.id===view.set.id && restoreFilt)) filt = {cat:new Set(), type:new Set(), reg:new Set(), var:new Set(), rar:new Set()};
   if(backTo && !(view.name==="set" && view.set.id===backTo.setId)) backTo = null;
   if(!pendingOpen) sheets.forEach(x=>x.close());
@@ -1154,24 +1160,29 @@ function renderSet(s){
   const hasAlbum = albums.some(a=>a.setId===s.id && (a.lang||null)===(view.lang||null)), fc = filtCount(), vl = view.lang==="en" ? "en" : "de";
   $("#head").innerHTML = `<div class="sethead" id="sethead"><div class="slogo"><img src="${logoUrl(s,vl)}" data-alt="${logoUrl(s,vl==="de"?"en":"de")}" alt="${esc(s.de)}" onerror="logoErr(this)"><b class="logo-t">${esc(s.de)}</b></div>
     <div class="ringrow">${ringSVG(p)}<div class="kvs"><div class="kv"><span>Grundset</span><b>${p.base} / ${p.baseTotal}</b></div>${p.allTotal>p.baseTotal?`<div class="kv"><span>Master-Set</span><b>${p.all} / ${p.allTotal}</b></div>`:""}<div class="kv"><span>Wert</span><b>${eur(value)}</b></div></div></div>
-    <p class="sub">${view.lang ? `<b class="lpill">${LANGNAME[view.lang]}</b> ` : s.ja ? `<b class="lpill">Japanisch</b> ` : ""}${esc(s.abbr)} · ${esc(s.serie)} · ${deDate(s.rel)} · ${s.promo?`${s.cards.length} Promokarten`:`${s.off} Karten + ${s.cards.length - p.baseTotal} Secret`}</p></div>`;
+    ${s.jn && s.jn!==s.de ? `<p class="sub jn">${esc(s.jn)}</p>` : ""}<p class="sub">${view.lang ? `<b class="lpill">${LANGNAME[view.lang]}</b> ` : s.ja ? `<b class="lpill">Japanisch</b> ` : ""}${esc(s.abbr)} · ${esc(s.serie)} · ${deDate(s.rel)} · ${s.promo?`${s.cards.length} Promokarten`:`${s.off} Karten + ${s.cards.length - p.baseTotal} Secret`}</p></div>`;
   const opts = setFilterOptions(s);
   const chips = FGROUPS.flatMap(([g])=>[...filt[g]].map(v=>{ const o = opts[g].find(x=>x[0]===v); return `<button class="chip" type="button" data-funset="${g}|${esc(v)}" aria-label="Filter ${esc(o?o[1]:v)} entfernen">${o&&o[2]?o[2]:""}${esc(o?o[1]:v)} ✕</button>`; })).join("");
   const filtered = fc>0;
   $("#tools").innerHTML = `<div class="stick" id="stick"><div class="mini" id="mini">${ringSVG(p, true)}<span class="mlogo"><img src="${logoUrl(s,"de")}" data-alt="${logoUrl(s,"en")}" alt="${esc(s.de)}" onerror="logoErr(this)"><b class="logo-t">${esc(s.de)}</b></span><span class="mv"><b>${p.base}/${p.baseTotal}</b> · ${eur(value)}</span></div>
-    <div class="segrow">${segHTML(true).replace('class="seg"','class="seg" style="margin-top:0"')}<button class="fbtn${fc?" on":""}" type="button" id="open-filter" aria-label="Filter${fc?`, ${fc} aktiv`:""}">${FILTER_SVG}${fc?fc:""}</button><button class="fbtn alb" type="button" id="open-album" aria-label="Album öffnen">${BOOK_SVG}<span class="albt">Album</span></button></div>
+    <div class="segrow">${segHTML(true).replace('class="seg"','class="seg" style="margin-top:0"')}<button class="fbtn${fc?" on":""}" type="button" id="open-filter" aria-label="Filter${fc?`, ${fc} aktiv`:""}">${FILTER_SVG}${fc?fc:""}</button><button class="fbtn${setQ?" on":""}" type="button" id="open-sq" aria-label="Im Set suchen" aria-expanded="${sqOpen||!!setQ}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></button><button class="fbtn alb" type="button" id="open-album" aria-label="Album öffnen">${BOOK_SVG}<span class="albt">Album</span></button></div>
+    ${sqOpen||setQ?`<div class="sqwrap"><input class="field" id="sq" type="search" placeholder="Pokémon oder Nummer im Set suchen" autocomplete="off" autocorrect="off" enterkeyhint="search" value="${esc(setQ)}"></div>`:""}
     ${fc?`<div class="fchips">${chips}<button class="chip" type="button" id="f-clear">Alle zurücksetzen</button></div>`:""}</div>
 `;
   let html;
   {
     const dupState = c => sum((owned.get(c[0])||[]).filter(e=>!filt.var.size || filt.var.has(e.v)), qtyOf) >= 2;
-    const f = s.cards.filter(c=>cardPasses(s,c) && (filter==="all" || (filter==="dup" ? dupState(c) : filter==="owned" ? ownState(s,c,owned) : missingState(s,c,owned))));
+    const sq = setQ.trim().toLowerCase(), sqn = sq.replace(/^0+/,"");
+    const qPass = c => !sq || (c[1]||"").toLowerCase().includes(sq) || (c[2]||"").toLowerCase().includes(sq) || c[0].toLowerCase()===sq || (sqn && c[0].replace(/^0+/,"")===sqn);
+    const f = s.cards.filter(c=>cardPasses(s,c) && qPass(c) && (filter==="all" || (filter==="dup" ? dupState(c) : filter==="owned" ? ownState(s,c,owned) : missingState(s,c,owned))));
     html = `<p class="cnt">${f.length} ${f.length===1?"Karte":"Karten"}</p>` + (f.length ? `<div class="flat">${f.map(c=>slotSet(s,c,owned.get(c[0]))).join("")}</div>` : `<p class="empty">${filtered?"Keine Karte passt zu diesen Filtern.":filter==="owned"?"Noch keine Karte aus diesem Set. Tippe auf eine Tasche.":"Set komplett – keine Lücken mehr."}</p>`);
   }
   const preview = !hasAlbum && (!list.length || albums.some(a=>a.setId===s.id));
   if(preview) html += `<div class="pv-space"></div><div class="pvbar" role="region" aria-label="Vorschau"><span><b>Vorschau</b> · noch nicht in deinen Alben</span><button class="btn primary" type="button" id="pv-add">Album anlegen</button></div>`;
   $("#view").innerHTML = html;
   $("#open-filter").addEventListener("click", ()=>openFilter(s));
+  $("#open-sq").addEventListener("click", ()=>{ if(sqOpen && !setQ){ sqOpen = false; render(); return; } sqOpen = true; render(); setTimeout(()=>$("#sq")?.focus(), 0); });
+  $("#sq")?.addEventListener("input", e=>{ setQ = e.target.value; const pos = e.target.selectionStart; render(); const q = $("#sq"); if(q){ q.focus(); try{ q.setSelectionRange(pos, pos); }catch{} } });
   $("#open-album").addEventListener("click", ()=>openAlbum(s, firstVisiblePage(s), false));
   $("#f-clear")?.addEventListener("click", ()=>{ FGROUPS.forEach(([g])=>filt[g].clear()); render(); });
   document.querySelectorAll("[data-funset]").forEach(b=>b.addEventListener("click",()=>{ const [g,v] = b.dataset.funset.split("|"); filt[g].delete(v); render(); }));
@@ -1465,6 +1476,32 @@ function achHTML(){
     return `<div class="srow ach${done?" done":""}"><span class="amedal" aria-hidden="true">${done?"★":"☆"}</span><span class="lbl"><b>${esc(name)}</b><small>${esc(desc)}</small></span><span class="val">${done?deDate(ach[id]):goal>1?`${Math.min(v,goal).toLocaleString("de-DE")} / ${goal.toLocaleString("de-DE")}`:"offen"}</span></div>`; }).join("")}</div></section>`;
 }
 
+/* ---------- Sammlung zurücksetzen ---------- */
+function openReset(step){
+  const n = sum(cards,qtyOf);
+  $("#ws-title").textContent = "Sammlung zurücksetzen";
+  if(step===1){
+    $("#ws-body").innerHTML = `<p style="margin:0">Damit werden <b>${n.toLocaleString("de-DE")} ${n===1?"Karte":"Karten"}</b> im Wert von <b>${eur(sum(cards,valOf))}</b>, alle Alben, die Wunschliste, Notizen, Erfolge und der Wertverlauf gelöscht${Sync.user?.emailVerified ? " – auch in deinem Konto und auf allen Geräten" : ""}.</p>
+      <p style="margin:0"><b>Vorher eine Sicherung exportieren?</b> Mit der Datei kannst du alles später wiederherstellen.</p>
+      <div class="acct-btns" style="margin:0"><button class="btn primary" type="button" id="rs-exp">Sicherung exportieren</button><button class="btn" type="button" id="rs-skip">Ohne Sicherung weiter</button></div>`;
+    $("#rs-exp").addEventListener("click", async()=>{ try{ await exportBackup(); }catch{} openReset(2); });
+    $("#rs-skip").addEventListener("click", ()=>openReset(2));
+  } else {
+    $("#ws-body").innerHTML = `<p style="margin:0">Das lässt sich nicht rückgängig machen. Tippe zur Bestätigung <b>LÖSCHEN</b> ein.</p>
+      <label class="sr" for="rs-in">Bestätigung</label><input class="field" id="rs-in" type="text" autocomplete="off" autocapitalize="characters" placeholder="LÖSCHEN">
+      <div class="row" style="justify-content:space-between"><button class="btn" type="button" id="rs-cancel">Abbrechen</button><button class="btn danger" type="button" id="rs-go" disabled>Endgültig zurücksetzen</button></div>`;
+    $("#rs-in").addEventListener("input", e=>{ $("#rs-go").disabled = e.target.value.trim().toUpperCase() !== "LÖSCHEN"; });
+    $("#rs-cancel").addEventListener("click", ()=>wishSheet.close());
+    $("#rs-go").addEventListener("click", ()=>{
+      cards = []; albums = []; wish = {}; notes = {}; ach = {}; valHist = {};
+      saveCards(); LS.set("pk-albums", albums); LS.set("pk-wish", wish); LS.set("pk-notes", notes); LS.set("pk-ach", ach); LS.set("pk-valhist", valHist);
+      ["pk-recent","pk-wishopen","pk-pricehist","pk-lastbackup"].forEach(k=>{ try{ localStorage.removeItem(k); }catch{} });
+      wishSheet.close(); go("regal"); render();
+      toast(`<span>Sammlung zurückgesetzt</span><button class="tx" type="button" data-tclose aria-label="Schließen">×</button>`, 3500);
+    });
+  }
+  if(wishSheet.state==="closed") wishSheet.open("half"); else wishSheet.set("half");
+}
 /* ---------- Sprache eines Albums ---------- */
 function createAlbum(s, lang){
   if(backTo?.view==="picker") backTo = null;
@@ -1570,6 +1607,7 @@ function renderMore(){
     </div><p class="sfoot" id="bk-msg">${Sync.user?.emailVerified ? (last ? `Letzte Sicherung am ${deDate(last)}. Zusätzlich wird deine Sammlung über dein Konto abgeglichen.` : "Deine Sammlung wird über dein Konto abgeglichen. Eine Sicherungsdatei ist trotzdem eine gute Idee.") : cards.length ? (last ? `Letzte Sicherung am ${deDate(last)}${days>30?" – Zeit für eine neue.":"."}` : "Noch keine Sicherung. Deine Sammlung liegt nur auf diesem Gerät.") : "Deine Sammlung liegt nur auf diesem Gerät."}</p></section>
     ${achHTML()}
     <section class="set-sec"><h2>Tipps</h2><div class="group"><ul class="tips">${TIPS.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div></section>
+    <section class="set-sec"><h2>Zurücksetzen</h2><div class="group"><button class="srow act" type="button" id="reset-all"><span class="lbl">Sammlung zurücksetzen</span></button></div><p class="sfoot">Löscht Karten, Alben, Wunschliste, Notizen, Erfolge und Wertverlauf${'${Sync.user?.emailVerified ? " – auch in deinem Konto auf allen Geräten" : ""}'}. Einstellungen bleiben.</p></section>
     <section class="set-sec"><h2>Über die App</h2><div class="group">
       <button class="srow" type="button" id="open-log"><span class="lbl">Version</span><span class="val">${esc(APP_VERSION)}</span><span class="chev">›</span></button>
     </div><p class="sfoot">Kartendaten, Kartenbilder und Preise: TCGdex (Setlisten Stand 02.11.2026, Basis-Set bis Mega-Entwicklung). Pokémon-Artwork und Typsymbole: PokeAPI. Ohne Anmeldung bleibt deine Sammlung ausschließlich auf diesem Gerät, mit Konto wird sie zusätzlich in Firebase (Google, EU) gespeichert. Pokémon und Pokémon-Sammelkarten sind Marken von Nintendo, Creatures und GAME FREAK.</p></section>`;
@@ -1580,6 +1618,7 @@ function renderMore(){
   $("#upd-all")?.addEventListener("click", () => updatePrices(null));
   $("#imp").addEventListener("change", importBackup);
   $("#open-log").addEventListener("click", openLog);
+  $("#reset-all").addEventListener("click", ()=>openReset(1));
   bindKonto();
 }
 function openLog(){
@@ -1712,7 +1751,8 @@ function renderDialog(){
   if(ctx.kind==="dex") return renderDexDialog();
   const s = SET.get(ctx.setId), c = cardAt(ctx.setId, ctx.num), t = TYPES[c[5]], rar = RAR[c[3]]||[c[3]];
   const mine = cards.filter(e=>e.setId===s.id && e.num===c[0] && qtyOf(e)), q = sum(mine,qtyOf);
-  $("#d-title").textContent = cName(c);
+  $("#d-title").textContent = s.ja ? c[2] : cName(c);
+  $("#d-sub").textContent = s.ja && c[1] ? c[1] : ""; $("#d-sub").hidden = !(s.ja && c[1]);
   const typeChip = c[4]==="P" && t ? `<span class="chip type" style="--tb:${t[1]};--ti:${t[2]}">${typeIcon(c[5])}${esc(t[0])}</span>` : `<span class="chip">${esc(CAT[c[4]]||"")}</span>`;
   $("#d-chips").innerHTML = `<span class="chip num">${esc(s.abbr)} ${esc(numDisp(s,c[0]))}</span>${rar[0]&&rar[0]!=="–"?`<span class="chip rare">${esc(/★/.test(rar[1]||"") ? rar[1]+" " : "")}${esc(rar[0])}</span>`:""}${typeChip}${q?`<span class="chip have">${q}× im Album</span>`:`<span class="chip none">nicht im Album</span>`}`;
   const gtx = gradeTxt(notes[s.id+"|"+c[0]]); if(gtx) $("#d-chips").insertAdjacentHTML("beforeend", `<span class="chip grade">${esc(gtx)}</span>`);
@@ -1804,7 +1844,7 @@ $("#d-body").addEventListener("click", e=>{
 function renderDexDialog(){
   const n = ctx.dex, mine = cards.filter(e=>+e.dex===n && qtyOf(e)), q = sum(mine,qtyOf);
   $("#d-3d").hidden = true;
-  const im = $("#d-img"); if(im.dataset.key !== "dex"+n){ im.dataset.key = "dex"+n; im.className = "big art"; im.onload = null; im.onerror = () => im.classList.add("noimg"); im.src = artUrl(n); } $("#d-price").hidden = true; $("#d-links").innerHTML = ""; $("#d-note").hidden = true; $("#d-note").dataset.key = "";
+  const im = $("#d-img"); if(im.dataset.key !== "dex"+n){ im.dataset.key = "dex"+n; im.className = "big art"; im.onload = null; im.onerror = () => im.classList.add("noimg"); im.src = artUrl(n); } $("#d-price").hidden = true; $("#d-links").innerHTML = ""; $("#d-sub").hidden = true; $("#d-note").hidden = true; $("#d-note").dataset.key = "";
   $("#d-title").textContent = NAMES[n-1];
   $("#d-chips").innerHTML = `<span class="chip num">#${pad4(n)}</span>${q?`<span class="chip have">${q}× im Album</span>`:`<span class="chip none">nicht im Album</span>`}`;
   $("#d-meta").textContent = `${(DEXCARDS.get(n)||[]).length} Karten in der Setliste` + (q ? ` · Wert ${eur(sum(mine,valOf))}` : "");
@@ -1886,8 +1926,8 @@ function renderPicker(){
   if(pickLang==="ja" && !jaReady){ $("#p-list").innerHTML = `<p class="hint">Japanische Sets werden geladen …</p>`; loadJA().then(renderPicker).catch(e=>{ $("#p-list").innerHTML = `<p class="hint">${esc(e.message)}</p>`; }); return; }
   const langsOf = id => sa.filter(x=>x.s.id===id).map(x=>x.lang||"mix");
   const have = new Set(SETS.filter(s=>{ const l = langsOf(s.id); return s.ja ? l.length>0 : (l.includes("mix") || (l.includes("de") && l.includes("en"))); }).map(s=>s.id));
-  for(const s of SETS){ if(!!s.ja !== (pickLang==="ja")) continue; if(q && !(`${s.de} ${s.en} ${s.abbr} ${s.id}`.toLowerCase().includes(q))) continue; if(!groups.has(s.serie)) groups.set(s.serie,[]); groups.get(s.serie).push(s); }
-  $("#p-list").innerHTML = groups.size ? [...groups].map(([g,list])=>`<div><h5>${esc(g)}</h5><div class="grp">${list.map(s=>`<button class="prow" type="button" data-pset="${esc(s.id)}" ${have.has(s.id)?"disabled":""}><span class="plogo"><img src="${logoUrl(s,"de")}" data-alt="${logoUrl(s,"en")}" alt="" loading="lazy" onerror="logoErr(this)"><span class="ab">${esc(s.abbr||s.id.toUpperCase())}</span></span><span><b>${esc(s.de)}</b><small>${esc(s.abbr||"")}${s.abbr?" · ":""}${deDate(s.rel)} · ${s.cards.length} Karten</small></span><em>${have.has(s.id)?"im Regal":"Anlegen"}</em></button>`).join("")}</div></div>`).join("") : `<p class="empty">Kein Set gefunden.</p>`;
+  for(const s of SETS){ if(!!s.ja !== (pickLang==="ja")) continue; if(q && !(`${s.de} ${s.en} ${s.jn||""} ${s.abbr} ${s.id}`.toLowerCase().includes(q))) continue; if(!groups.has(s.serie)) groups.set(s.serie,[]); groups.get(s.serie).push(s); }
+  $("#p-list").innerHTML = groups.size ? [...groups].map(([g,list])=>`<div><h5>${esc(g)}</h5><div class="grp">${list.map(s=>`<button class="prow" type="button" data-pset="${esc(s.id)}" ${have.has(s.id)?"disabled":""}><span class="plogo"><img src="${logoUrl(s,"de")}" data-alt="${logoUrl(s,"en")}" alt="" loading="lazy" onerror="logoErr(this)"><span class="ab">${esc(s.abbr||s.id.toUpperCase())}</span></span><span><b>${esc(s.de)}</b>${s.jn && s.jn!==s.de ? `<small class="jn">${esc(s.jn)}</small>` : ""}<small>${esc(s.abbr||"")}${s.abbr?" · ":""}${deDate(s.rel)} · ${s.cards.length} Karten</small></span><em>${have.has(s.id)?"im Regal":"Anlegen"}</em></button>`).join("")}</div></div>`).join("") : `<p class="empty">Kein Set gefunden.</p>`;
 }
 $("#p-q").addEventListener("input", renderPicker);
 $("#p-list").addEventListener("click", e=>{
@@ -2282,7 +2322,7 @@ function startAuth(){
       if(u && u.emailVerified) beginSync();
       refreshMore();
     });
-  }).catch(()=>{ Sync.started = false; setSync("error", "Anmeldedienst konnte nicht geladen werden – keine Verbindung?"); refreshMore(); });
+  }).catch(()=>{ Sync.failed = true; setSync("error", "Anmeldedienst konnte nicht geladen werden – keine Verbindung? Öffne Mehr später erneut."); refreshMore(); });
 }
 function refreshMore(){ if(view.name==="mehr" && !document.activeElement?.closest?.("#acct-f")) render(); }
 function stopListen(){ Sync.unsub.forEach(f=>{ try{ f(); }catch{} }); Sync.unsub = []; }
@@ -2394,7 +2434,7 @@ function kontoHTML(){
 }
 function bindKonto(){
   if(!FIREBASE_CONFIG) return;
-  if(!Sync.fb){ startAuth(); return; }
+  if(!Sync.fb){ if(!Sync.failed) startAuth(); return; }
   const {Au, auth} = Sync.fb, msg = t => { const m = $("#ac-msg"); if(m) m.textContent = t; };
   const creds = () => [$("#ac-mail").value.trim(), $("#ac-pw").value];
   const busyBtn = async (b, fn) => { b.disabled = true; try{ await fn(); }catch(e){ msg(authMsg(e)); } finally { b.disabled = false; } };
@@ -2421,7 +2461,7 @@ function bindKonto(){
   $("#ac-sync")?.addEventListener("click", ()=>beginSync());
   $("#ac-out")?.addEventListener("click", async()=>{ stopListen(); clearTimeout(Sync.pushT); try{ await Au.signOut(auth); }catch{} });
 }
-window.addEventListener("online", ()=>{ if(Sync.user?.emailVerified) beginSync(); });
+window.addEventListener("online", ()=>{ if(Sync.failed){ Sync.failed = false; Sync.started = false; if(view.name==="mehr" || LS.raw("pk-syncuid")) startAuth(); } if(Sync.user?.emailVerified) beginSync(); });
 document.addEventListener("visibilitychange", ()=>{ if(document.visibilityState==="visible" && Sync.user?.emailVerified) syncDirty(); });
 
 /* ---------- Start ---------- */

@@ -1,5 +1,11 @@
 # Kartenalbum – Änderungen
 
+## Version 1.20 · 04.11.2026
+- Japanische Sets mit englischem Namen (z. B. Paradise Dragona), der japanische steht klein darunter – beide suchbar
+- Japanische Karten: deutscher Pokémon-Name klein unter dem japanischen, jetzt für alle Pokémon-Karten
+- Suche im Album: Lupe in der Leiste filtert nach Name oder Nummer
+- „Sammlung zurücksetzen“ unter Mehr – mit Angebot zur Sicherung und Bestätigung per LÖSCHEN
+
 ## Version 1.19 · 04.11.2026
 - Japanische Sets ab Sonne & Mond (91 Sets, über 10.000 Karten) mit japanischen Kartenbildern
 - Beim Album anlegen: Umschalter „Deutsch / Englisch · Japanisch“
