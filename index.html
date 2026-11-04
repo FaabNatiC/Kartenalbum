@@ -491,6 +491,30 @@ a:focus:not(:focus-visible),button:focus:not(:focus-visible),label:focus:not(:fo
 .toplist .tp{font:700 14px var(--f-num)}
 .tab{font-size:10.5px}
 
+.prio-opts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.prio-opts .btn{min-height:48px;justify-content:center}
+.prio-opts .btn.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.ghost-danger{border-color:transparent;background:none;color:var(--accent)}
+.btn.danger{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.wprio.p1{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.wprio.p-1{color:var(--muted);border-style:dashed}
+.wgrp{margin-top:18px}
+.wgrp h3{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin:0 2px;font:700 16px var(--f-body)}
+.wgrp h3 small{font:600 12.5px var(--f-num);color:var(--muted)}
+.wgrp .wlist{margin-top:8px}
+.wclear{margin-top:22px;display:flex;justify-content:center}
+.dnote{display:grid;gap:8px}
+.dnote .dh{margin:4px 0 0;font:600 12px var(--f-body);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.grade-row{display:grid;grid-template-columns:1fr 110px;gap:8px}
+.dnote textarea{resize:vertical;min-height:58px;font:15px var(--f-body)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.chip.grade{background:#1a2030;color:#fff;border-color:#1a2030;font-family:var(--f-num)}
+.ach{cursor:default;align-items:center}
+.ach .lbl{display:grid;gap:1px}.ach .lbl b{font-weight:600}.ach .lbl small{color:var(--muted);font-size:12.5px}
+.amedal{font-size:20px;color:var(--line);width:22px;text-align:center}
+.ach.done .amedal{color:#d9a400}
+.ach:not(.done) .lbl b{color:var(--muted)}
+
 /* ---------- Desktop / großer Bildschirm (ab 900 px) ---------- */
 .side-brand,.side-sum,.kbd,.pnav{display:none}
 @media (hover:hover) and (pointer:fine){
@@ -576,6 +600,7 @@ a:focus:not(:focus-visible),button:focus:not(:focus-visible),label:focus:not(:fo
     <div><h2 id="d-title"></h2><div class="chips" id="d-chips"></div><p class="dmeta" id="d-meta"></p><div class="dlinks" id="d-links"></div></div>
     <div class="price" id="d-price" hidden></div>
     <div id="d-body"></div>
+    <div class="dnote" id="d-note" hidden></div>
   </div></div>
 </section>
 <div class="edge-hint" id="edge-hint"></div>
@@ -599,6 +624,14 @@ a:focus:not(:focus-visible),button:focus:not(:focus-visible),label:focus:not(:fo
     <h2 class="sh-t" id="p-title">Album anlegen</h2>
     <input class="field" id="p-q" type="search" placeholder="Set suchen, z. B. Stellarkrone oder SCR" autocomplete="off">
     <div class="plist" id="p-list"></div>
+  </div></div>
+</section>
+<section class="sheet" id="wishsheet" role="dialog" aria-modal="true" aria-labelledby="ws-title" hidden>
+  <div class="grab" aria-hidden="true"><span></span></div>
+  <div class="sheet-scroll"><div class="dlg">
+    <div class="dlg-x"><button class="x" type="button" data-sheet-close aria-label="Schließen">×</button></div>
+    <h2 class="sh-t" id="ws-title">Wunschliste</h2>
+    <div id="ws-body" style="display:grid;gap:14px"></div>
   </div></div>
 </section>
 <section class="sheet" id="statsheet" role="dialog" aria-modal="true" aria-labelledby="st-title" hidden>
@@ -657,6 +690,7 @@ const CONDS = ["Mint","Near Mint","Excellent","Good","Light Played","Played","Po
 
 /* ---------- Änderungsprotokoll ---------- */
 const CHANGELOG = [
+  {v:"1.18", d:"2026-11-04", items:["Wunschliste: Priorität Niedrig, Normal oder Hoch per kurzem Auswahl-Sheet","Wunschliste nach Sets gruppiert, Sets mit höchster Priorität zuerst","Knopf „Wunschliste leeren“ mit Sicherheitsabfrage","Neuer Filter „Doppelt“ im Set","Notiz und Grading (PSA, BGS, CGC, TAG) pro Karte im Karten-Sheet","Erfolge unter Mehr mit Hinweis beim Freischalten","Notizen und Erfolge werden über das Konto abgeglichen"]},
   {v:"1.17", d:"2026-11-04", items:["Neuer Tab „Wunschliste“: Karten im Karten-Sheet per Herz merken, Priorität hoch/normal, aktueller Preis und Summe, als Text teilen","Karten verschwinden automatisch von der Wunschliste, sobald du sie zählst","Wertentwicklung: Tipp auf den Sammlungswert zeigt den Verlauf und die 10 wertvollsten Karten","Wunschliste und Wertverlauf werden über das Konto abgeglichen","Neues App-Icon","Kein Fokus-Rahmen mehr nach Klick in der Seitenleiste"]},
   {v:"1.16", d:"2026-11-04", items:["Konto mit E-Mail und Passwort oder Google (Firebase) unter Mehr → Konto & Abgleich","Automatischer Abgleich: Karten, Alben und Einstellungen live auf allen Geräten","Eigene Sammlung pro Person, nur freigegebene E-Mail-Adressen dürfen speichern","Erste Anmeldung führt die bisherige Sammlung auf dem Gerät mit der Cloud zusammen","Offline zählen wie bisher, Abgleich sobald wieder Verbindung besteht","Album am Rechner vollständig sichtbar – Leisten liegen nicht mehr über den Seiten"]},
   {v:"1.15", d:"2026-11-04", items:["Browser-Version für Chrome, Edge, Firefox und Safari: ab 900 px Breite eigenes Layout","Seitenleiste links mit Navigation und Sammlungs-Übersicht","Breiteres Raster mit mehr Spalten, Set-Kopf nebeneinander","Karten-Detail als Seitenpanel rechts – Raster bleibt sichtbar","Tastatur: ← → nächste Karte bzw. Seite, Esc schließt, / öffnet die Suche","Album am Rechner als Doppelseite, Blättern per Klick auf den Seitenrand","3D-Ansicht am Rechner mit Maus, ohne Neigungsknopf","Hover-Effekte auf Karten und Alben"]},
@@ -733,7 +767,7 @@ const LS = {
   works(){ try{ localStorage.setItem("pk-test","1"); localStorage.removeItem("pk-test"); return true; }catch{ return false; } },
   raw(k){ try{ return localStorage.getItem(k); }catch{ return null; } }, put(k,v){ try{ localStorage.setItem(k,v); }catch{} }
 };
-let cards = [], albums = [], settings = {lang:"Deutsch", cond:"Near Mint"}, wish = {}, valHist = {};
+let cards = [], albums = [], settings = {lang:"Deutsch", cond:"Near Mint"}, wish = {}, valHist = {}, notes = {}, ach = {};
 const rid = () => "l"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
 const saveCards = () => LS.set("pk-cards", cards);
 function setStatus(t){ const el=$("#status"); el.textContent=t||""; el.hidden=!t; }
@@ -912,7 +946,7 @@ const go = h => { if(location.hash.slice(1)===h) route(); else location.hash = h
 
 function render(){
   const tab = view.name==="set" ? "regal" : view.name;
-  recordValue();
+  recordValue(); setTimeout(checkAch, 0);
   const ss = $("#side-sum"); if(ss){ const n = sum(cards,qtyOf); ss.innerHTML = `<small>Sammlung</small><b>${n.toLocaleString("de-DE")} ${n===1?"Karte":"Karten"}</b><span>${eur(sum(cards,valOf))} <i class="sgo">Verlauf ›</i></span>`; }
   document.body.classList.toggle("nobar", view.name!=="set");
   document.body.classList.toggle("scrolled", view.name==="set" && window.scrollY > 6);
@@ -992,7 +1026,7 @@ function pages(items, slotFn, labelFn){
   }
   return html + "</div>";
 }
-function segHTML(){ return `<div class="seg" role="group" aria-label="Filter">${[["all","Alle"],["owned","Gesammelt"],["missing","Fehlend"]].map(([k,l])=>`<button type="button" data-filter="${k}" aria-pressed="${filter===k}">${l}</button>`).join("")}</div>`; }
+function segHTML(dup){ return `<div class="seg" role="group" aria-label="Filter">${[["all","Alle"],["owned","Gesammelt"],["missing","Fehlend"],...(dup?[["dup","Doppelt"]]:[])].map(([k,l])=>`<button type="button" data-filter="${k}" aria-pressed="${filter===k}">${l}</button>`).join("")}</div>`; }
 function pagerHTML(n){ return n>1 ? `<div class="pager"><button class="pg" type="button" data-pg="-1" aria-label="Vorherige Seite">${SVG_L}</button><span id="pg-lbl">Seite 1 von ${n}</span><button class="pg" type="button" data-pg="1" aria-label="Nächste Seite">${SVG_R}</button></div>` : ""; }
 $("#tools").addEventListener("click", e=>{
   const f = e.target.closest("[data-filter]"); if(f){ filter=f.dataset.filter; render(); return; }
@@ -1078,12 +1112,13 @@ function renderSet(s){
   const chips = FGROUPS.flatMap(([g])=>[...filt[g]].map(v=>{ const o = opts[g].find(x=>x[0]===v); return `<button class="chip" type="button" data-funset="${g}|${esc(v)}" aria-label="Filter ${esc(o?o[1]:v)} entfernen">${o&&o[2]?o[2]:""}${esc(o?o[1]:v)} ✕</button>`; })).join("");
   const filtered = fc>0;
   $("#tools").innerHTML = `<div class="stick" id="stick"><div class="mini" id="mini">${ringSVG(p, true)}<span class="mlogo"><img src="${logoUrl(s,"de")}" data-alt="${logoUrl(s,"en")}" alt="${esc(s.de)}" onerror="logoErr(this)"><b class="logo-t">${esc(s.de)}</b></span><span class="mv"><b>${p.base}/${p.baseTotal}</b> · ${eur(value)}</span></div>
-    <div class="segrow">${segHTML().replace('class="seg"','class="seg" style="margin-top:0"')}<button class="fbtn${fc?" on":""}" type="button" id="open-filter" aria-label="Filter${fc?`, ${fc} aktiv`:""}">${FILTER_SVG}${fc?fc:""}</button><button class="fbtn alb" type="button" id="open-album" aria-label="Album öffnen">${BOOK_SVG}<span>Album</span></button></div>
+    <div class="segrow">${segHTML(true).replace('class="seg"','class="seg" style="margin-top:0"')}<button class="fbtn${fc?" on":""}" type="button" id="open-filter" aria-label="Filter${fc?`, ${fc} aktiv`:""}">${FILTER_SVG}${fc?fc:""}</button><button class="fbtn alb" type="button" id="open-album" aria-label="Album öffnen">${BOOK_SVG}<span>Album</span></button></div>
     ${fc?`<div class="fchips">${chips}<button class="chip" type="button" id="f-clear">Alle zurücksetzen</button></div>`:""}</div>
 `;
   let html;
   {
-    const f = s.cards.filter(c=>cardPasses(s,c) && (filter==="all" || (filter==="owned" ? ownState(s,c,owned) : missingState(s,c,owned))));
+    const dupState = c => sum((owned.get(c[0])||[]).filter(e=>!filt.var.size || filt.var.has(e.v)), qtyOf) >= 2;
+    const f = s.cards.filter(c=>cardPasses(s,c) && (filter==="all" || (filter==="dup" ? dupState(c) : filter==="owned" ? ownState(s,c,owned) : missingState(s,c,owned))));
     html = `<p class="cnt">${f.length} ${f.length===1?"Karte":"Karten"}</p>` + (f.length ? `<div class="flat">${f.map(c=>slotSet(s,c,owned.get(c[0]))).join("")}</div>` : `<p class="empty">${filtered?"Keine Karte passt zu diesen Filtern.":filter==="owned"?"Noch keine Karte aus diesem Set. Tippe auf eine Tasche.":"Set komplett – keine Lücken mehr."}</p>`);
   }
   const preview = !hasAlbum && !list.length;
@@ -1191,30 +1226,37 @@ async function refreshWishPrices(){
 }
 function wishList(){
   return Object.entries(wish).map(([k,w])=>{ const [sid, num] = k.split("|"); const s = SET.get(sid), c = cardAt(sid, num); return s && c ? {k, w, s, c} : null; })
-    .filter(Boolean).sort((a,b)=>(b.w.p||0)-(a.w.p||0) || (b.w.t||0)-(a.w.t||0));
+    .filter(Boolean).sort((a,b)=>(b.w.p||0)-(a.w.p||0) || (a.s.idx.get(a.c[0]) - b.s.idx.get(b.c[0])));
+}
+function wishGroups(){
+  const m = new Map(); for(const x of wishList()){ if(!m.has(x.s.id)) m.set(x.s.id, []); m.get(x.s.id).push(x); }
+  return [...m.values()].map(items=>({s:items[0].s, items, top:Math.max(...items.map(x=>x.w.p||0)), sum:sum(items,x=>x.w.pr||0)}))
+    .sort((a,b)=>b.top-a.top || (b.s.rel||"").localeCompare(a.s.rel||""));
 }
 function renderWish(){
   $("#bar-title").textContent = "Wunschliste";
   const list = wishList(), total = sum(list, x=>x.w.pr||0), missing = list.filter(x=>x.w.pr==null).length;
   $("#head").innerHTML = `<h1>Wunschliste</h1>${list.length?`<div class="stats"><div class="stat"><small>Karten</small><b>${list.length}</b></div><div class="stat"><small>Summe</small><b>${eur(total)}</b></div></div>`:""}`;
   $("#tools").innerHTML = list.length ? `<div class="row wish-tools"><button class="btn" type="button" id="wish-share">Als Text teilen</button>${missing?`<span class="hint">Preise werden geladen …</span>`:`<span class="hint">Preise: günstigste Variante, Cardmarket-Trend</span>`}</div>` : "";
-  $("#view").innerHTML = list.length ? `<div class="wlist">${list.map(({k,w,s,c})=>`<div class="wrow">
+  const row = ({k,w,s,c}) => `<div class="wrow">
       <button class="wcard" type="button" data-wopen="${esc(k)}" aria-label="${esc(cName(c))} öffnen">${cimg(s,c[0],"low","cimg")}</button>
       <button class="winfo" type="button" data-wopen="${esc(k)}"><b>${esc(cName(c))}</b><span>${esc(s.de)} · ${esc(s.abbr)} ${esc(numDisp(s,c[0]))}</span><span class="wpr">${w.pr==null?"Preis wird geladen …":w.pr?`ab ${eur(w.pr)}`:"kein Preis verfügbar"}</span></button>
-      <button class="wprio" type="button" data-wprio="${esc(k)}" aria-pressed="${!!w.p}" aria-label="Priorität hoch">${w.p?"Hoch":"Normal"}</button>
+      <button class="wprio p${w.p||0}" type="button" data-wprio="${esc(k)}" aria-label="Priorität ${prioLbl(w.p)} ändern">${prioLbl(w.p)}</button>
       <button class="wdel" type="button" data-wdel="${esc(k)}" aria-label="Von der Wunschliste entfernen">×</button>
-    </div>`).join("")}</div>` : `<p class="empty">Noch keine Karten auf der Wunschliste. Öffne eine Karte und tippe auf „Wunschliste“.</p>`;
+    </div>`;
+  $("#view").innerHTML = list.length ? wishGroups().map(g=>`<section class="wgrp"><h3><span>${esc(g.s.de)} <small>${esc(g.s.abbr)}</small></span><small>${g.items.length} ${g.items.length===1?"Karte":"Karten"} · ${eur(g.sum)}</small></h3><div class="wlist">${g.items.map(row).join("")}</div></section>`).join("")
+    + `<div class="wclear"><button class="btn" type="button" id="wish-clear">Wunschliste leeren</button></div>` : `<p class="empty">Noch keine Karten auf der Wunschliste. Öffne eine Karte und tippe auf „Wunschliste“.</p>`;
   $("#view").querySelectorAll("[data-wopen]").forEach(b=>b.addEventListener("click", ()=>{ const [setId, num] = b.dataset.wopen.split("|"); openCtx({kind:"set", setId, num}); }));
-  $("#view").querySelectorAll("[data-wprio]").forEach(b=>b.addEventListener("click", ()=>{ const k = b.dataset.wprio; if(!wish[k]) return; wish[k] = {...wish[k], p: wish[k].p ? 0 : 1}; saveWish(); renderWish(); }));
+  $("#view").querySelectorAll("[data-wprio]").forEach(b=>b.addEventListener("click", ()=>{ const [setId, num] = b.dataset.wprio.split("|"); openPrio(setId, num); }));
+  $("#wish-clear")?.addEventListener("click", openWishClear);
   $("#view").querySelectorAll("[data-wdel]").forEach(b=>b.addEventListener("click", ()=>{ delete wish[b.dataset.wdel]; saveWish(); renderWish(); }));
   $("#wish-share")?.addEventListener("click", shareWish);
   if(missing || list.some(x=>x.w.prd !== new Date().toISOString().slice(0,10))) refreshWishPrices();
 }
 async function shareWish(){
-  const list = wishList(), line = x => `• ${cName(x.c)} – ${x.s.de} ${x.s.abbr} ${numDisp(x.s,x.c[0])}${x.w.pr?` – ab ${eur(x.w.pr)}`:""}`;
-  const hi = list.filter(x=>x.w.p), no = list.filter(x=>!x.w.p);
+  const list = wishList(), line = x => `• ${numDisp(x.s,x.c[0])} ${cName(x.c)}${x.w.p ? ` (${prioLbl(x.w.p).toLowerCase()})` : ""}${x.w.pr?` – ab ${eur(x.w.pr)}`:""}`;
   const d = new Date(), p = n => String(n).padStart(2,"0");
-  const text = [`Meine Pokémon-Wunschliste (${p(d.getDate())}.${p(d.getMonth()+1)}.${d.getFullYear()})`, "", ...(hi.length?["Priorität hoch:", ...hi.map(line), ""]:[]), ...(no.length?[hi.length?"Weitere:":"Karten:", ...no.map(line), ""]:[]), `Summe: ${eur(sum(list,x=>x.w.pr||0))}`].join("\n");
+  const text = [`Meine Pokémon-Wunschliste (${p(d.getDate())}.${p(d.getMonth()+1)}.${d.getFullYear()})`, "", ...wishGroups().flatMap(g=>[`${g.s.de} (${g.s.abbr}):`, ...g.items.map(line), ""]), `Summe: ${eur(sum(list,x=>x.w.pr||0))}`].join("\n");
   try{ if(navigator.share){ await navigator.share({text}); return; } }catch(e){ if(e?.name==="AbortError") return; }
   try{ await navigator.clipboard.writeText(text); toast(`<span>Wunschliste kopiert</span><button class="tx" type="button" data-tclose aria-label="Schließen">×</button>`, 2500); }catch{ toast(`<span>Teilen nicht möglich</span><button class="tx" type="button" data-tclose aria-label="Schließen">×</button>`, 2500); }
 }
@@ -1259,6 +1301,116 @@ function renderStats(){
     ${top.length ? `<ol class="toplist">${top.map((e,i)=>{ const s = SET.get(e.setId), c = cardAt(e.setId, e.num); if(!s||!c) return ""; return `<li><button type="button" data-top="${esc(e.setId)}|${esc(e.num)}"><span class="tr">${i+1}</span><span class="tn"><b>${esc(cName(c))}</b><small>${esc(s.abbr)} ${esc(numDisp(s,c[0]))} · ${esc(vLabel(e.v))}</small></span><span class="tp">${eur(+e.val)}</span></button></li>`; }).join("")}</ol>` : `<p class="hint">Noch keine Karten mit Preis. Öffne eine Karte oder tippe unter Mehr auf „Werte aktualisieren“.</p>`}`;
   $("#st-body").querySelectorAll("[data-srange]").forEach(b=>b.addEventListener("click", ()=>{ statRange = +b.dataset.srange; renderStats(); }));
   $("#st-body").querySelectorAll("[data-top]").forEach(b=>b.addEventListener("click", ()=>{ const [setId, num] = b.dataset.top.split("|"); openCtx({kind:"set", setId, num}); }));
+}
+
+/* ---------- Priorität, Notizen, Erfolge ---------- */
+const PRIO = [[1,"Hoch"],[0,"Normal"],[-1,"Niedrig"]];
+const prioLbl = p => (PRIO.find(x=>x[0]===(p||0))||PRIO[1])[1];
+let wsMode = null;
+function openPrio(setId, num){
+  const c = cardAt(setId, num); if(!c) return;
+  wsMode = {kind:"prio", setId, num};
+  const k = wishKey(setId, num), w = wish[k];
+  $("#ws-title").textContent = w ? "Priorität ändern" : "Auf die Wunschliste";
+  $("#ws-body").innerHTML = `<p class="hint" style="margin:0">${esc(cName(c))} · ${esc(SET.get(setId).abbr)} ${esc(numDisp(SET.get(setId), num))}</p>
+    <div class="prio-opts">${PRIO.map(([v,l])=>`<button class="btn prio-o${w && (w.p||0)===v ? " on":""}" type="button" data-prio="${v}" aria-pressed="${!!w && (w.p||0)===v}">${l}</button>`).join("")}</div>
+    ${w ? `<button class="btn ghost-danger" type="button" id="ws-del">Von der Wunschliste entfernen</button>` : ""}`;
+  $("#ws-body").querySelectorAll("[data-prio]").forEach(b=>b.addEventListener("click", ()=>{
+    wish[k] = {...(wish[k]||{}), p:+b.dataset.prio, t: wish[k]?.t || Date.now()}; saveWish(); wishSheet.close(); afterWish();
+  }));
+  $("#ws-del")?.addEventListener("click", ()=>{ delete wish[k]; saveWish(); wishSheet.close(); afterWish(); });
+  wishSheet.open("half");
+}
+function openWishClear(){
+  const n = Object.keys(wish).length; if(!n) return;
+  wsMode = {kind:"clear"};
+  $("#ws-title").textContent = "Wunschliste leeren";
+  $("#ws-body").innerHTML = `<p style="margin:0">Alle ${n} ${n===1?"Karte":"Karten"} von der Wunschliste entfernen? Das lässt sich nicht rückgängig machen.</p>
+    <div class="row" style="justify-content:space-between"><button class="btn" type="button" data-sheet-cancel>Abbrechen</button><button class="btn danger" type="button" id="ws-clear">Leeren</button></div>`;
+  $("#ws-body").querySelector("[data-sheet-cancel]").addEventListener("click", ()=>wishSheet.close());
+  $("#ws-clear").addEventListener("click", ()=>{ wish = {}; saveWish(); wishSheet.close(); afterWish(); });
+  wishSheet.open("half");
+}
+function afterWish(){ if(ctx && cardSheet.state!=="closed"){ try{ renderDialog(); }catch{} } render(); }
+
+const GRADERS = ["PSA","BGS","CGC","TAG","Andere"];
+const GRADES = ["10","9.5","9","8.5","8","7.5","7","6","5","4","3","2","1"];
+function saveNotes(){ LS.set("pk-notes", notes); }
+function gradeTxt(n){ return n?.g ? `${n.g}${n.gn ? " "+n.gn.replace(".",",") : ""}` : ""; }
+function renderNote(s, c){
+  const box = $("#d-note"); if(!box) return;
+  const k = s.id+"|"+c[0], n = notes[k] || {};
+  if(box.dataset.key === k && box.contains(document.activeElement)) return;
+  box.dataset.key = k; box.hidden = false;
+  box.innerHTML = `<h3 class="dh">Notiz &amp; Grading</h3>
+    <div class="grade-row"><label class="sr" for="nt-g">Grading-Firma</label><select class="field" id="nt-g"><option value="">Nicht gegradet</option>${GRADERS.map(g=>`<option${n.g===g?" selected":""}>${g}</option>`).join("")}</select>
+    <label class="sr" for="nt-n">Note</label><select class="field" id="nt-n" ${n.g?"":"disabled"}><option value="">Note</option>${GRADES.map(g=>`<option value="${g}"${n.gn===g?" selected":""}>${g.replace(".",",")}</option>`).join("")}</select></div>
+    <label class="sr" for="nt-t">Notiz</label><textarea class="field" id="nt-t" rows="2" placeholder="z. B. Gekauft auf der Börse, Geschenk von …">${esc(n.n||"")}</textarea>`;
+  const save = () => {
+    const g = $("#nt-g").value, gn = g ? $("#nt-n").value : "", t = $("#nt-t").value.trim();
+    $("#nt-n").disabled = !g;
+    if(!g && !t) delete notes[k]; else notes[k] = {g, gn, n:t};
+    saveNotes();
+    const chip = $("#d-chips .chip.grade"); const gt = gradeTxt(notes[k]);
+    if(chip && !gt) chip.remove(); else if(chip) chip.textContent = gt; else if(gt) $("#d-chips").insertAdjacentHTML("beforeend", `<span class="chip grade">${esc(gt)}</span>`);
+  };
+  $("#nt-g").addEventListener("change", save); $("#nt-n").addEventListener("change", save);
+  let tt = 0; $("#nt-t").addEventListener("input", ()=>{ clearTimeout(tt); tt = setTimeout(save, 600); }); $("#nt-t").addEventListener("blur", save);
+}
+
+const ACH = [
+  ["first","Erste Karte","Die erste Karte gezählt", st=>[st.qty,1]],
+  ["c10","Kleiner Stapel","10 Karten gesammelt", st=>[st.qty,10]],
+  ["c100","Ordnerfüller","100 Karten gesammelt", st=>[st.qty,100]],
+  ["c500","Sammler","500 Karten gesammelt", st=>[st.qty,500]],
+  ["c1000","Großsammler","1.000 Karten gesammelt", st=>[st.qty,1000]],
+  ["dex100","Forscher","100 verschiedene Pokémon", st=>[st.dex,100]],
+  ["dex500","Pokédex-Profi","500 verschiedene Pokémon", st=>[st.dex,500]],
+  ["region","Regionsmeister","Eine Region im Pokédex komplett", st=>[st.regions,1]],
+  ["set1","Set komplett","Erstes Set komplett (ohne Secrets)", st=>[st.setsDone,1]],
+  ["set3","Dreifach komplett","Drei Sets komplett", st=>[st.setsDone,3]],
+  ["master","Master-Set","Ein Set inklusive aller Secrets komplett", st=>[st.master,1]],
+  ["ir","Kunstkenner","Erste Illustration Rare", st=>[st.rar.has("IR")?1:0,1]],
+  ["sir","Meisterwerk","Erste Special Illustration Rare", st=>[st.rar.has("SIR")?1:0,1]],
+  ["hr","Goldrausch","Erste Hyper Rare", st=>[st.rar.has("HR")||st.rar.has("MHR")?1:0,1]],
+  ["types","Typenvielfalt","Von jedem Typ mindestens ein Pokémon", st=>[st.types,st.typesAll]],
+  ["ed1","Erste Stunde","Erste Karte einer 1. Edition", st=>[st.ed1?1:0,1]],
+  ["v50","Schatzfund","Eine Karte mit über 50 € Wert", st=>[st.maxVal>=50?1:0,1]],
+  ["w100","Kleines Vermögen","Sammlungswert über 100 €", st=>[Math.floor(st.value),100]],
+  ["w1000","Großes Vermögen","Sammlungswert über 1.000 €", st=>[Math.floor(st.value),1000]]
+];
+function achStats(){
+  const st = {qty:0, value:0, maxVal:0, rar:new Set(), ed1:false, setsDone:0, master:0};
+  const dex = new Set(), types = new Set(), setIds = new Set();
+  for(const e of cards){
+    const q = qtyOf(e); if(!q) continue;
+    st.qty += q; st.value += valOf(e); st.maxVal = Math.max(st.maxVal, +e.val||0);
+    if(+e.dex) dex.add(+e.dex);
+    if(e.v && e.v.includes("s:1st-edition")) st.ed1 = true;
+    if(e.setId){ setIds.add(e.setId); const c = cardAt(e.setId, e.num); if(c){ st.rar.add(c[3]); if(c[4]==="P" && c[5]) types.add(c[5]); if(c[7]) dex.add(c[7]); } }
+  }
+  for(const id of setIds){ const s = SET.get(id); if(!s) continue; const p = setProgress(s, setOwned(s)); if(p.base >= p.baseTotal && p.baseTotal) st.setsDone++; if(p.all >= p.allTotal && p.allTotal) st.master++; }
+  st.dex = dex.size; st.regions = REGIONS.filter(([,,a,b])=>{ for(let i=a;i<=b;i++) if(!dex.has(i)) return false; return true; }).length;
+  const allTypes = Object.keys(TYPES); st.types = allTypes.filter(t=>types.has(t)).length; st.typesAll = allTypes.length;
+  return st;
+}
+let achBusy = false;
+function checkAch(){
+  if(achBusy || !cards.length) return; achBusy = true;
+  try{
+    const st = achStats(), today = localDay(), neu = [];
+    for(const [id, name,, fn] of ACH){ if(ach[id]) continue; const [v, goal] = fn(st); if(v >= goal){ ach[id] = today; neu.push(name); } }
+    if(neu.length){
+      LS.set("pk-ach", ach);
+      toast(`<span>${neu.length===1 ? `Erfolg freigeschaltet: <b>${esc(neu[0])}</b>` : `${neu.length} Erfolge freigeschaltet`}</span><button class="btn" type="button" id="t-ach">Ansehen</button><button class="tx" type="button" data-tclose aria-label="Schließen">×</button>`, 5000);
+      $("#t-ach")?.addEventListener("click", ()=>{ go("mehr"); setTimeout(()=>$("#ach-sec")?.scrollIntoView({block:"start"}), 80); });
+    }
+  } finally { achBusy = false; }
+}
+function achHTML(){
+  const st = achStats(), got = ACH.filter(([id])=>ach[id]).length;
+  return `<section class="set-sec" id="ach-sec"><h2>Erfolge · ${got} von ${ACH.length}</h2><div class="group achs">${ACH.map(([id,name,desc,fn])=>{ const [v,goal] = fn(st), done = !!ach[id];
+    return `<div class="srow ach${done?" done":""}"><span class="amedal" aria-hidden="true">${done?"★":"☆"}</span><span class="lbl"><b>${esc(name)}</b><small>${esc(desc)}</small></span><span class="val">${done?deDate(ach[id]):goal>1?`${Math.min(v,goal).toLocaleString("de-DE")} / ${goal.toLocaleString("de-DE")}`:"offen"}</span></div>`; }).join("")}</div></section>`;
 }
 
 /* ---------- Suche ---------- */
@@ -1342,6 +1494,7 @@ function renderMore(){
       <button class="srow act" type="button" id="exp"><span class="lbl">Sicherung exportieren</span></button>
       <label class="srow act" for="imp"><span class="lbl">Sicherung importieren</span></label><input type="file" id="imp" accept="application/json,.json" hidden>
     </div><p class="sfoot" id="bk-msg">${Sync.user?.emailVerified ? (last ? `Letzte Sicherung am ${deDate(last)}. Zusätzlich wird deine Sammlung über dein Konto abgeglichen.` : "Deine Sammlung wird über dein Konto abgeglichen. Eine Sicherungsdatei ist trotzdem eine gute Idee.") : cards.length ? (last ? `Letzte Sicherung am ${deDate(last)}${days>30?" – Zeit für eine neue.":"."}` : "Noch keine Sicherung. Deine Sammlung liegt nur auf diesem Gerät.") : "Deine Sammlung liegt nur auf diesem Gerät."}</p></section>
+    ${achHTML()}
     <section class="set-sec"><h2>Tipps</h2><div class="group"><ul class="tips">${TIPS.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div></section>
     <section class="set-sec"><h2>Über die App</h2><div class="group">
       <button class="srow" type="button" id="open-log"><span class="lbl">Version</span><span class="val">${esc(APP_VERSION)}</span><span class="chev">›</span></button>
@@ -1474,6 +1627,7 @@ Object.defineProperty($("#dlg"), "open", {get:()=>cardSheet.state!=="closed"});
 const pickSheet = makeSheet($("#pick"));
 const logSheet = makeSheet($("#logsheet"));
 const statSheet = makeSheet($("#statsheet"));
+const wishSheet = makeSheet($("#wishsheet"));
 document.addEventListener("click", e=>{ if(e.target.closest("#open-stats,#side-sum")) openStats(); });
 const menuSheet = makeSheet($("#menusheet"));
 const filtSheet = makeSheet($("#filt"));
@@ -1487,11 +1641,12 @@ function renderDialog(){
   $("#d-title").textContent = cName(c);
   const typeChip = c[4]==="P" && t ? `<span class="chip type" style="--tb:${t[1]};--ti:${t[2]}">${typeIcon(c[5])}${esc(t[0])}</span>` : `<span class="chip">${esc(CAT[c[4]]||"")}</span>`;
   $("#d-chips").innerHTML = `<span class="chip num">${esc(s.abbr)} ${esc(numDisp(s,c[0]))}</span>${rar[0]&&rar[0]!=="–"?`<span class="chip rare">${esc(/★/.test(rar[1]||"") ? rar[1]+" " : "")}${esc(rar[0])}</span>`:""}${typeChip}${q?`<span class="chip have">${q}× im Album</span>`:`<span class="chip none">nicht im Album</span>`}`;
+  const gtx = gradeTxt(notes[s.id+"|"+c[0]]); if(gtx) $("#d-chips").insertAdjacentHTML("beforeend", `<span class="chip grade">${esc(gtx)}</span>`);
   $("#d-meta").textContent = [s.de, c[7] ? `Pokédex #${pad4(c[7])}` : "", q ? `Wert ${eur(sum(mine,valOf))}` : ""].filter(Boolean).join(" · ");
   const wk = wishKey(s.id, c[0]), ww = wish[wk];
-  $("#d-links").innerHTML = `<a class="btn" href="${cmLink(c)}" target="_blank" rel="noopener">Bei Cardmarket suchen ↗</a><button class="btn wishbtn" type="button" id="d-wish" aria-pressed="${!!ww}">${ww?HEART_SVG:HEART_O}${ww?"Auf der Wunschliste":"Wunschliste"}</button>${ww?`<button class="btn wishbtn" type="button" id="d-wprio" aria-pressed="${!!ww.p}">${ww.p?"Priorität hoch":"Priorität normal"}</button>`:""}`;
-  $("#d-wish").addEventListener("click", ()=>{ toggleWish(s.id, c[0]); renderDialog(); if(view.name==="wunsch" || view.name==="set") render(); });
-  $("#d-wprio")?.addEventListener("click", ()=>{ if(!wish[wk]) return; wish[wk] = {...wish[wk], p: wish[wk].p ? 0 : 1}; saveWish(); renderDialog(); if(view.name==="wunsch") render(); });
+  $("#d-links").innerHTML = `<a class="btn" href="${cmLink(c)}" target="_blank" rel="noopener">Bei Cardmarket suchen ↗</a><button class="btn wishbtn" type="button" id="d-wish" aria-pressed="${!!ww}">${ww?HEART_SVG:HEART_O}${ww?`Wunschliste · ${prioLbl(ww.p)}`:"Wunschliste"}</button>`;
+  $("#d-wish").addEventListener("click", ()=>openPrio(s.id, c[0]));
+  renderNote(s, c);
   const key = s.id+"|"+c[0], im = $("#d-img");
   if(im.dataset.key !== key){
     im.dataset.key = key; im.className = "big"; im.removeAttribute("src"); $("#d-3d").hidden = true;
@@ -1575,7 +1730,7 @@ $("#d-body").addEventListener("click", e=>{
 function renderDexDialog(){
   const n = ctx.dex, mine = cards.filter(e=>+e.dex===n && qtyOf(e)), q = sum(mine,qtyOf);
   $("#d-3d").hidden = true;
-  const im = $("#d-img"); if(im.dataset.key !== "dex"+n){ im.dataset.key = "dex"+n; im.className = "big art"; im.onload = null; im.onerror = () => im.classList.add("noimg"); im.src = artUrl(n); } $("#d-price").hidden = true; $("#d-links").innerHTML = "";
+  const im = $("#d-img"); if(im.dataset.key !== "dex"+n){ im.dataset.key = "dex"+n; im.className = "big art"; im.onload = null; im.onerror = () => im.classList.add("noimg"); im.src = artUrl(n); } $("#d-price").hidden = true; $("#d-links").innerHTML = ""; $("#d-note").hidden = true; $("#d-note").dataset.key = "";
   $("#d-title").textContent = NAMES[n-1];
   $("#d-chips").innerHTML = `<span class="chip num">#${pad4(n)}</span>${q?`<span class="chip have">${q}× im Album</span>`:`<span class="chip none">nicht im Album</span>`}`;
   $("#d-meta").textContent = `${(DEXCARDS.get(n)||[]).length} Karten in der Setliste` + (q ? ` · Wert ${eur(sum(mine,valOf))}` : "");
@@ -1618,7 +1773,7 @@ async function updatePrices(s){
 /* ---------- Sicherung ---------- */
 async function exportBackup(){
   const iso = new Date().toISOString();
-  const data = JSON.stringify({app:"kartenalbum", version:2, exported:iso, cards, albums, settings, wish, valHist}, null, 1);
+  const data = JSON.stringify({app:"kartenalbum", version:2, exported:iso, cards, albums, settings, wish, valHist, notes, ach}, null, 1);
   const name = `kartenalbum-${deDate(iso)}.json`;
   const file = new File([data], name, {type:"application/json"});
   try{
@@ -1639,7 +1794,9 @@ async function importBackup(e){
     if(d.settings) settings = {...settings, ...d.settings};
     if(d.wish) wish = {...d.wish, ...wish};
     if(d.valHist) valHist = {...d.valHist, ...valHist};
-    LS.set("pk-wish", wish); LS.set("pk-valhist", valHist);
+    if(d.notes) notes = {...d.notes, ...notes};
+    if(d.ach) ach = {...d.ach, ...ach};
+    LS.set("pk-wish", wish); LS.set("pk-valhist", valHist); LS.set("pk-notes", notes); LS.set("pk-ach", ach);
     saveCards(); LS.set("pk-albums",albums); LS.set("pk-settings",settings); render();
     $("#bk-msg").textContent = `Import vom ${deDate(d.exported)}: ${sum(cards,qtyOf)-before} Karten hinzugekommen.`;
   }catch(err){ $("#bk-msg").textContent = "Import fehlgeschlagen: " + (err?.message||err); }
@@ -1987,7 +2144,7 @@ const FIREBASE_CONFIG = {
   appId: "1:907792237018:web:814fd32dea220b448d80e3"
 };
 const FB_VER = "10.14.1";
-const SYNC_KEYS = new Set(["pk-cards","pk-albums","pk-settings","pk-wish","pk-valhist"]);
+const SYNC_KEYS = new Set(["pk-cards","pk-albums","pk-settings","pk-wish","pk-valhist","pk-notes","pk-ach"]);
 const Sync = {fb:null, loading:null, started:false, user:null, status:"off", msg:"", unsub:[], pushT:0, applying:false, busy:false};
 const DEV = (()=>{ let d = LS.raw("pk-dev"); if(!d){ d = rid(); LS.put("pk-dev", d); } return d; })();
 let synced = LS.get("pk-synchash", {});
@@ -1997,8 +2154,8 @@ const bucketKey = e => e.setId ? [e.setId,e.num,e.v,e.lang,e.cond].join("|") : "
 const sortE = l => l.slice().sort((a,b)=>{ const x = bucketKey(a), y = bucketKey(b); return x<y?-1:x>y?1:0; });
 const hashE = l => hashOf(canon(sortE(l)));
 const plain = x => JSON.parse(JSON.stringify(x));
-const metaOf = () => ({albums: plain(albums), settings: plain(settings), wish: plain(wish), vh: plain(valHist)});
-const hashMeta = m => hashOf(canon({albums:m.albums||[], settings:m.settings||{}, wish:m.wish||{}, vh:m.vh||{}}));
+const metaOf = () => ({albums: plain(albums), settings: plain(settings), wish: plain(wish), vh: plain(valHist), notes: plain(notes), ach: plain(ach)});
+const hashMeta = m => hashOf(canon({albums:m.albums||[], settings:m.settings||{}, wish:m.wish||{}, vh:m.vh||{}, notes:m.notes||{}, ach:m.ach||{}}));
 function groupLocal(){ const m = new Map(); for(const e of cards){ const k = e.setId || "_frei"; if(!m.has(k)) m.set(k,[]); m.get(k).push(e); } return m; }
 function mergeE(a, b){ const m = new Map(); for(const e of [...a, ...b]){ const k = bucketKey(e), o = m.get(k); if(!o || qtyOf(e) > qtyOf(o)) m.set(k, e); } return [...m.values()]; }
 function mergeAlbums(a, b){ const m = new Map(); for(const x of [...(a||[]), ...(b||[])]) if(!m.has(x.setId)) m.set(x.setId, x); return [...m.values()]; }
@@ -2064,17 +2221,17 @@ function applyRemote(remote, rmeta, mode){
   }
   if(mode==="replace") for(const k of local.keys()) if(!remote.has(k)){ out.delete(k); changed = true; }
   if(rmeta || mode==="replace"){
-    const rm = {albums: rmeta?.albums || [], settings: rmeta?.settings || {}, wish: rmeta?.wish || {}, vh: rmeta?.vh || {}};
+    const rm = {albums: rmeta?.albums || [], settings: rmeta?.settings || {}, wish: rmeta?.wish || {}, vh: rmeta?.vh || {}, notes: rmeta?.notes || {}, ach: rmeta?.ach || {}};
     const lm = metaOf(), hl = hashMeta(lm), hr = hashMeta(rm), base = synced._meta;
     if(hl === hr) synced._meta = hr;
-    else if(mode==="replace" || (mode==="sync" && hl===base)){ albums = rm.albums; settings = {...settings, ...rm.settings}; wish = rm.wish; valHist = rm.vh; synced._meta = hr; metaChanged = true; }
-    else if(mode==="merge" || hr!==base){ albums = mergeAlbums(lm.albums, rm.albums); settings = {...rm.settings, ...lm.settings}; wish = {...rm.wish, ...lm.wish}; valHist = {...rm.vh, ...lm.vh}; metaChanged = true; }
+    else if(mode==="replace" || (mode==="sync" && hl===base)){ albums = rm.albums; settings = {...settings, ...rm.settings}; wish = rm.wish; valHist = rm.vh; notes = rm.notes; ach = rm.ach; synced._meta = hr; metaChanged = true; }
+    else if(mode==="merge" || hr!==base){ albums = mergeAlbums(lm.albums, rm.albums); settings = {...rm.settings, ...lm.settings}; wish = {...rm.wish, ...lm.wish}; valHist = {...rm.vh, ...lm.vh}; notes = {...rm.notes, ...lm.notes}; ach = {...lm.ach, ...rm.ach}; metaChanged = true; }
   }
   if(changed) cards = [...out.values()].flat();
   Sync.applying = true;
   try{
     if(changed) saveCards();
-    if(metaChanged){ LS.set("pk-albums", albums); LS.set("pk-settings", settings); LS.set("pk-wish", wish); LS.set("pk-valhist", valHist); }
+    if(metaChanged){ LS.set("pk-albums", albums); LS.set("pk-settings", settings); LS.set("pk-wish", wish); LS.set("pk-valhist", valHist); LS.set("pk-notes", notes); LS.set("pk-ach", ach); }
   } finally { Sync.applying = false; }
   LS.set("pk-synchash", synced);
   if(changed || metaChanged){
@@ -2191,7 +2348,7 @@ function init(){
   applyTheme();
   albums = LS.get("pk-albums", []);
   settings = {...settings, ...LS.get("pk-settings", {})};
-  wish = LS.get("pk-wish", {}); valHist = LS.get("pk-valhist", {});
+  wish = LS.get("pk-wish", {}); valHist = LS.get("pk-valhist", {}); notes = LS.get("pk-notes", {}); ach = LS.get("pk-ach", {});
   const raw = LS.get("pk-cards", []);
   cards = migrate(raw);
   if(JSON.stringify(cards) !== JSON.stringify(raw)) saveCards();

@@ -1,5 +1,14 @@
 # Kartenalbum – Änderungen
 
+## Version 1.18 · 04.11.2026
+- Wunschliste: Priorität Niedrig, Normal oder Hoch per kurzem Auswahl-Sheet
+- Wunschliste nach Sets gruppiert, Sets mit höchster Priorität zuerst
+- Knopf „Wunschliste leeren“ mit Sicherheitsabfrage
+- Neuer Filter „Doppelt“ im Set
+- Notiz und Grading (PSA, BGS, CGC, TAG) pro Karte im Karten-Sheet
+- Erfolge unter Mehr mit Hinweis beim Freischalten
+- Notizen und Erfolge werden über das Konto abgeglichen
+
 ## Version 1.17 · 04.11.2026
 - Neuer Tab „Wunschliste“: Karten im Karten-Sheet per Herz merken, Priorität hoch/normal, aktueller Preis und Summe, als Text teilen
 - Karten verschwinden automatisch von der Wunschliste, sobald du sie zählst
