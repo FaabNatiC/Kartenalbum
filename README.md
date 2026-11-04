@@ -4,13 +4,14 @@ Private Web-App für meine Pokémon-Sammelkarten – als digitales Album fürs i
 
 **App öffnen:** https://faabnatic.github.io/Kartenalbum/
 
-Aktuelle Version: **1.20** · Änderungen je Version stehen in [`CHANGELOG.md`](CHANGELOG.md).
+Aktuelle Version: **1.21** · Änderungen je Version stehen in [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Funktionen
 
 **Sammeln**
 - **Set-Alben** – deutsche/englische Sets vom Basis-Set (1999) bis Mega-Entwicklung (181 Sets) und japanische Sets ab Sonne & Mond (91 Sets)
-- **Album-Sprache** – Deutsch, Englisch oder Gemischt; dasselbe Set auch als zwei getrennte Alben
+- **Album-Sprache** – Deutsch, Englisch oder Gemischt; dasselbe Set auch als zwei getrennte Alben. Englische Alben zeigen englische Karten- und Set-Namen, japanische Sets den japanischen Namen – der deutsche steht jeweils klein darunter
+- **Kamera-Scan** – Kamera-Knopf oben: erkennt Set-Kürzel und Kartennummer, Serien-Scan mit Liste zum Bestätigen, Nummer auch eintippbar (Texterkennung wird beim ersten Scan geladen)
 - **Varianten zählen** – Normal, Holo, Reverse, Poké-Ball-/Meisterball-Reverse, 1. Edition usw., je Sprache und Zustand
 - **Filter im Set** – Alle · Gesammelt · Fehlend · Doppelt, dazu Kategorie, Typ, Region, Variante, Seltenheit und Suche nach Name oder Nummer
 - **Wunschliste** – eigener Tab, Priorität Niedrig/Normal/Hoch, nach Sets gruppiert, Preis und Summe, als Text teilbar; gezählte Karten verschwinden automatisch
@@ -72,6 +73,7 @@ Neue Versionen meldet die App selbst („Version x verfügbar · Aktualisieren�
 - Kartenbilder, Setdaten und Cardmarket-Preise: [TCGdex](https://tcgdex.dev)
 - Pokémon-Artworks und Typ-Symbole: [PokeAPI](https://pokeapi.co)
 - Anmeldung und Abgleich: [Firebase](https://firebase.google.com)
+- Texterkennung beim Kamera-Scan: [Tesseract.js](https://github.com/naptha/tesseract.js) (über jsDelivr)
 
 Bilder und Preise werden live im Browser geladen und nicht in diesem Repository gespeichert.
 

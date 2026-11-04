@@ -1,5 +1,12 @@
 # Kartenalbum – Änderungen
 
+## Version 1.21 · 04.11.2026
+- Karten per Kamera erkennen: Kamera-Knopf oben, Serien-Scan mit Liste zum Bestätigen, Nummer auch eintippbar
+- Im Set-Album sucht der Scan zuerst in diesem Set, sonst über das Set-Kürzel
+- Englische Alben: englische Karten- und Set-Namen, der deutsche Name klein darunter – auch in Wunschliste und Suche
+- Filterleiste im Set am iPhone in zwei Zeilen
+- Text bei „Sammlung zurücksetzen“ korrigiert
+
 ## Version 1.20 · 04.11.2026
 - Japanische Sets mit englischem Namen (z. B. Paradise Dragona), der japanische steht klein darunter – beide suchbar
 - Japanische Karten: deutscher Pokémon-Name klein unter dem japanischen, jetzt für alle Pokémon-Karten
