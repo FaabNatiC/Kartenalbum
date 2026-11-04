@@ -238,7 +238,7 @@ dialog::backdrop{background:rgba(10,14,24,.55)}
 .mv{margin-left:auto;font:600 13px var(--f-num);color:var(--muted);white-space:nowrap}
 .mv b{color:var(--ink)}
 .fbtn.alb{gap:6px}
-@media (max-width:560px){.segrow{flex-wrap:wrap}.segrow>.seg{flex:1 1 100% !important}#open-filter{margin-left:auto}}
+
 .segrow{display:flex;gap:8px;align-items:stretch;margin-top:10px}
 .segrow .seg{flex:1;margin-top:0}
 .fbtn{border:1px solid var(--line);background:var(--page);border-radius:10px;padding:0 12px;font:600 14px var(--f-body);display:inline-flex;align-items:center;gap:6px;cursor:pointer;min-height:44px}
@@ -561,6 +561,49 @@ body:not(.nobar) .scan-btn{display:none}
 .scv{max-width:42%;border:1px solid var(--line);border-radius:8px;background:var(--page);color:var(--ink);font:13px var(--f-body);padding:6px}
 @media (min-width:900px){.scanner{left:var(--side)}.scan-btn{top:30px;right:36px}}
 
+button.tab{border:0;background:none;padding:0;cursor:pointer;width:100%;font:600 11px var(--f-body);color:var(--muted)}
+@media (max-width:899px){.tabbar nav{grid-template-columns:repeat(var(--n,5),minmax(0,1fr))}.tab{order:var(--o,0);min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tab.hid{display:none}}
+@media (min-width:900px){.mob-only{display:none}button.tab{font:600 15px var(--f-body);color:var(--ink);text-align:left}}
+.srico{display:grid;place-items:center;width:22px;color:var(--muted)}.srico svg{width:20px;height:20px}
+.tabcfg{display:grid;gap:8px}
+.tcrow{display:flex;align-items:center;gap:8px;background:var(--bg);border-radius:12px;padding:6px}
+.tctog{flex:1;display:flex;align-items:center;gap:10px;border:0;background:none;color:var(--ink);font:600 15px var(--f-body);text-align:left;padding:6px;cursor:pointer}
+.tctog svg{width:22px;height:22px;color:var(--muted)}
+.tcchk{width:22px;height:22px;border-radius:6px;border:2px solid var(--line);display:grid;place-items:center;font:800 13px var(--f-body);color:var(--accent-ink)}
+.tcrow.on .tcchk,.tcrow.fixed .tcchk{background:var(--accent);border-color:var(--accent)}
+.tcrow:not(.on):not(.fixed) .tctog{color:var(--muted)}
+.tcrow.fixed small{color:var(--muted);font-size:12px;padding-right:8px}
+.tcmv{width:36px;height:36px;border-radius:9px;border:1px solid var(--line);background:var(--page);color:var(--ink);font:700 16px var(--f-body);cursor:pointer}
+.tcmv:disabled{opacity:.35}
+.hchips{display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
+.hc{font:600 12px var(--f-body);padding:3px 9px;border-radius:99px;background:var(--page);color:var(--muted);border:1px solid var(--line)}
+.hc.l{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.top3{display:grid;gap:8px;width:min(100%,420px)}
+.t3h{display:flex;align-items:center;justify-content:space-between}
+.t3h b{font:700 14px var(--f-body)}.t3h>small{color:var(--muted);font-size:12px}
+.t3tog{display:inline-flex;background:var(--pocket);border-radius:7px;padding:2px}
+.t3tog button{border:0;background:none;color:var(--muted);font:600 11px var(--f-body);padding:3px 8px;border-radius:5px;cursor:pointer;min-height:0}
+.t3tog button[aria-pressed="true"]{background:var(--page);color:var(--ink);box-shadow:var(--shadow)}
+.t3row{display:flex;justify-content:center;align-items:flex-end;gap:10px}
+.t3c{display:grid;justify-items:center;gap:3px;border:0;background:none;color:var(--ink);font:inherit;cursor:pointer;padding:0;width:84px}
+.t3c.first{width:102px}
+.t3img{position:relative;display:block;width:100%;aspect-ratio:63/88;border-radius:6px;overflow:hidden;background:var(--pocket);box-shadow:0 6px 14px rgba(0,0,0,.18)}
+.t3img .cimg{width:100%;height:100%;object-fit:cover;filter:none;opacity:1}
+.t3c.miss .t3img .cimg{filter:grayscale(1) brightness(.75)}
+.t3img i{position:absolute;left:4px;top:4px;font:700 11px var(--f-num);font-style:normal;background:var(--ink);color:var(--bg);border-radius:99px;padding:0 6px}
+.t3c b{font:700 13px var(--f-num)}.t3c small{font-size:11px;color:var(--muted);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.t3msg{margin:0;text-align:center}.t3load{justify-self:center}
+.fsel{position:relative;flex:1;min-width:0}
+.fsel select{appearance:none;-webkit-appearance:none;width:100%;height:44px;border:1px solid var(--line);background:var(--page);color:var(--ink);border-radius:10px;padding:0 34px 0 14px;font:600 15px var(--f-body);cursor:pointer}
+.fsel::after{content:"";position:absolute;right:14px;top:50%;width:8px;height:8px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:translateY(-70%) rotate(45deg);pointer-events:none}
+.logo .logo-t,.slogo .logo-t{color:var(--spine,var(--ink));line-height:1.1}
+.logo-t small{display:block;font:600 11px var(--f-num);color:var(--muted);margin-top:3px;font-stretch:100%}
+.slogo .logo-t small{font-size:13px}
+.mlogo .logo-t small{display:none}
+.cimg.artfb{object-fit:contain;padding:22% 10%;background:var(--page);box-sizing:border-box}
+.imgnote{margin:0;text-align:center;font-size:12px;color:var(--muted)}
+.big.art{object-fit:contain;background:var(--pocket);border-radius:12px;padding:12%}
+
 /* ---------- Desktop / großer Bildschirm (ab 900 px) ---------- */
 .side-brand,.side-sum,.kbd,.pnav{display:none}
 @media (hover:hover) and (pointer:fine){
@@ -599,7 +642,8 @@ body:not(.nobar) .scan-btn{display:none}
   .shelf{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:22px}
   .flat{grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:14px}
   .sethead{grid-template-columns:auto auto;justify-content:start;justify-items:start;text-align:left;column-gap:36px;align-items:center}
-  .sethead .sub{grid-column:1 / -1}
+  .sethead .sub,.sethead .hchips,.sethead .top3{grid-column:1 / -1}
+  .sethead .hchips{justify-content:flex-start}
   .segrow{max-width:720px}
   .recent{margin-inline:0;padding-inline:0}
   .pvbar{left:calc(50% + var(--side) / 2)}
@@ -623,7 +667,7 @@ body:not(.nobar) .scan-btn{display:none}
 </head>
 <body>
 <header class="bar"><div class="bar-in"><span id="bar-left"></span><span class="bar-title" id="bar-title">Alben</span><span id="bar-right" style="justify-self:end"></span></div></header>
-<div class="wrap"><button class="scan-btn" type="button" data-scan id="scan-top" aria-label="Karte scannen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="3.2"/></svg></button>
+<div class="wrap">
   <div id="head"></div>
   <div id="status" class="note" hidden></div>
   <div id="tools"></div>
@@ -634,6 +678,7 @@ body:not(.nobar) .scan-btn{display:none}
   <a class="tab" href="#dex" data-tab="dex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></svg>Pokédex</a>
   <a class="tab" href="#suche" data-tab="suche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L20.5 20.5"/></svg>Suche<kbd class="kbd">/</kbd></a>
   <a class="tab" href="#wunsch" data-tab="wunsch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.3-8.9-8.6C1.7 8.3 3.6 5 6.9 5c2 0 3.3 1.1 5.1 3 1.8-1.9 3.1-3 5.1-3 3.3 0 5.2 3.3 3.8 6.4C19 15.7 12 20 12 20z"/></svg>Wunschliste</a>
+  <button class="tab" type="button" data-tab="scan" data-scan><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="3.2"/></svg>Scannen</button>
   <a class="tab" href="#mehr" data-tab="mehr"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>Mehr</a>
 </nav><button class="side-sum" type="button" id="side-sum" aria-label="Wertentwicklung öffnen"></button></div>
 
@@ -642,7 +687,7 @@ body:not(.nobar) .scan-btn{display:none}
   <div class="grab" aria-hidden="true"><span></span></div>
   <div class="sheet-scroll" id="sheet-scroll"><div class="dlg">
     <div class="dlg-x"><span class="pnav"><button class="x" type="button" id="d-prev" aria-label="Vorherige Karte"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><button class="x" type="button" id="d-next" aria-label="Nächste Karte"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button><small>← → · Esc</small></span><button class="x" type="button" data-sheet-close aria-label="Schließen">×</button></div>
-    <div class="bigwrap"><img class="big noimg" id="d-img" alt=""><button class="b3d" type="button" id="d-3d" aria-label="Karte in 3D ansehen" hidden>3D</button></div>
+    <p class="imgnote" id="d-imgnote" hidden>Kein Kartenbild verfügbar – Pokémon-Artwork als Ersatz</p><div class="bigwrap"><img class="big noimg" id="d-img" alt=""><button class="b3d" type="button" id="d-3d" aria-label="Karte in 3D ansehen" hidden>3D</button></div>
     <div><h2 id="d-title"></h2><p class="dsub" id="d-sub" hidden></p><div class="chips" id="d-chips"></div><p class="dmeta" id="d-meta"></p><div class="dlinks" id="d-links"></div></div>
     <div class="price" id="d-price" hidden></div>
     <div id="d-body"></div>
@@ -747,6 +792,7 @@ const CONDS = ["Mint","Near Mint","Excellent","Good","Light Played","Played","Po
 
 /* ---------- Änderungsprotokoll ---------- */
 const CHANGELOG = [
+  {v:"1.22", d:"2026-11-04", items:["Tab-Leiste anpassbar: 3 bis 5 Bereiche plus Mehr, Reihenfolge per Pfeil, ausgeblendete Bereiche unter Mehr – Auswahl beim ersten Start","„Scannen“ als eigener Bereich in der Tab-Leiste","Album-Kopf aufgeräumt: Infos als Chips, Filter als Auswahl „Alle ▾“ in einer Zeile","Top 3 im Album: deine wertvollsten Karten oder die des ganzen Sets","Sets ohne Logo bekommen ein Schrift-Logo","McDonald’s-Karten mit Bildern von pokemontcg.io, sonst Pokémon-Artwork als Ersatz"]},
   {v:"1.21", d:"2026-11-04", items:["Karten per Kamera erkennen: Kamera-Knopf oben, Serien-Scan mit Liste zum Bestätigen, Nummer auch eintippbar","Im Set-Album sucht der Scan zuerst in diesem Set, sonst über das Set-Kürzel","Englische Alben: englische Karten- und Set-Namen, der deutsche Name klein darunter – auch in Wunschliste und Suche","Filterleiste im Set am iPhone in zwei Zeilen","Text bei „Sammlung zurücksetzen“ korrigiert"]},
   {v:"1.20", d:"2026-11-04", items:["Japanische Sets mit englischem Namen (z. B. Paradise Dragona), der japanische steht klein darunter – beide suchbar","Japanische Karten: deutscher Pokémon-Name klein unter dem japanischen, jetzt für alle Pokémon-Karten","Suche im Album: Lupe in der Leiste filtert nach Name oder Nummer","„Sammlung zurücksetzen“ unter Mehr – mit Angebot zur Sicherung und Bestätigung per LÖSCHEN"]},
   {v:"1.19", d:"2026-11-04", items:["Japanische Sets ab Sonne & Mond (91 Sets, über 10.000 Karten) mit japanischen Kartenbildern","Beim Album anlegen: Umschalter „Deutsch / Englisch · Japanisch“","Pokémon in japanischen Sets mit deutschem Namen, Karten zählen automatisch als „Japanisch“","Album-Sprache wählbar: Deutsch, Englisch oder Gemischt – dasselbe Set geht auch als zwei getrennte Alben","Sprache eines Albums später über ••• änderbar","Wunschliste: Sets standardmäßig zugeklappt"]},
@@ -787,9 +833,12 @@ const SVG_L = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
 const SVG_R = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>';
 
 /* ---------- Setdaten ---------- */
+const PTCG_IDS = {"2011bw":"mcd11","2012bw":"mcd12","2014xy":"mcd14","2015xy":"mcd15","2016xy":"mcd16","2017sm":"mcd17","2018sm":"mcd18","2019sm":"mcd19","2021swsh":"mcd21","2022swsh":"mcd22","2023sv":"mcd23","2024sv":"mcd24"};
 const SET = new Map(), SLUG = new Map(), DEXCARDS = new Map();
 const slugOf = id => id.replace(/[^A-Za-z0-9]/g,"-");
 function indexSet(s){
+  if(!s.de) s.de = s.en || s.id; if(!s.en) s.en = s.de;
+  if(typeof PTCG_IDS !== "undefined" && PTCG_IDS[s.id]) s.ptcg = PTCG_IDS[s.id];
   s.slug = slugOf(s.id); s.idx = new Map(s.cards.map((c,i)=>[c[0],i]));
   s.promo = s.ja ? /-P$/.test(s.id) : /p$/.test(s.id);
   SET.set(s.id,s); SLUG.set(s.slug,s);
@@ -899,13 +948,18 @@ const spineColor = s => `hsl(${[...s.id].reduce((a,ch)=>(a*31+ch.charCodeAt(0))%
 /* ---------- Bilder ---------- */
 const imgUrl = (s,num,lang,q) => `https://assets.tcgdex.net/${lang}/${s.sr}/${s.id}/${encodeURIComponent(num)}/${q}.webp`;
 function cimg(s, num, q, cls, lang){
-  if(s.ja) return `<img class="${cls}" src="${imgUrl(s,num,"ja",q)}" alt="" loading="lazy" decoding="async" onload="imgOk(this)" onerror="imgErr(this)">`;
+  const dx = cardAt(s.id, num)?.[7] || "";
+  if(s.ja) return `<img class="${cls}" src="${imgUrl(s,num,"ja",q)}" data-dex="${dx}" alt="" loading="lazy" decoding="async" onload="imgOk(this)" onerror="imgErr(this)">`;
   if(!lang){ const l = viewLangFor(s); if(l) lang = LANGNAME[l]; }
   const first = lang==="Englisch" ? "en" : "de", second = first==="de" ? "en" : "de";
-  return `<img class="${cls}" src="${imgUrl(s,num,first,q)}" data-alt="${imgUrl(s,num,second,q)}" alt="" loading="lazy" decoding="async" onload="imgOk(this)" onerror="imgErr(this)">`;
+  return `<img class="${cls}" src="${imgUrl(s,num,first,q)}" data-alt="${imgUrl(s,num,second,q)}" data-alt2="${s.ptcg ? (s.ptcg && `https://images.pokemontcg.io/${s.ptcg}/${String(num).replace(/^0+/,"")}${q==="high"?"_hires":""}.png`) : ""}" data-dex="${dx}" alt="" loading="lazy" decoding="async" onload="imgOk(this)" onerror="imgErr(this)">`;
 }
 function imgOk(el){ if(el.classList.contains("cimg")) el.parentNode.classList.add("loaded"); }
-function imgErr(el){ if(el.dataset.alt){ const a = el.dataset.alt; el.dataset.alt = ""; el.src = a; return; } el.remove(); }
+function imgErr(el){
+  for(const k of ["alt","alt2"]){ const a = el.dataset[k]; if(a){ el.dataset[k] = ""; el.src = a; return; } }
+  const d = +el.dataset.dex; if(d){ el.dataset.dex = ""; el.classList.add("artfb"); el.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${d}.png`; return; }
+  el.remove();
+}
 const TYPE_ICON = {Grass:12,Fire:10,Water:11,Lightning:13,Psychic:14,Fighting:2,Darkness:17,Metal:9,Dragon:16,Colorless:1,Fairy:18};
 const typeIcon = t => TYPE_ICON[t] ? `<span class="ticon" aria-hidden="true" style="background-image:url(https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-viii/legends-arceus/${TYPE_ICON[t]}.png)"></span>` : "";
 
@@ -1040,7 +1094,7 @@ function render(){
   recordValue(); setTimeout(checkAch, 0);
   const ss = $("#side-sum"); if(ss){ const n = sum(cards,qtyOf); ss.innerHTML = `<small>Sammlung</small><b>${n.toLocaleString("de-DE")} ${n===1?"Karte":"Karten"}</b><span>${eur(sum(cards,valOf))} <i class="sgo">Verlauf ›</i></span>`; }
   document.body.classList.toggle("nobar", view.name!=="set");
-  $("#scan-top").hidden = view.name==="set" || view.name==="mehr";
+  applyTabs();
   document.body.classList.toggle("scrolled", view.name==="set" && window.scrollY > 6);
   document.querySelectorAll(".tab").forEach(a=>{ if(a.dataset.tab===tab) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
   const mt = document.querySelector('.tab[data-tab="mehr"]'); mt.querySelector(".dot")?.remove();
@@ -1049,7 +1103,7 @@ function render(){
   $("#bar-left").innerHTML = backLbl ? `<button class="bar-back" type="button" id="back-btn">${SVG_L}${esc(backLbl)}</button>` : "";
   $("#back-btn")?.addEventListener("click", goBack);
   const showMore = view.name==="set" && (albums.some(a=>a.setId===view.set.id) || cards.some(c=>c.setId===view.set.id && qtyOf(c)));
-  $("#bar-right").innerHTML = view.name==="set" ? `<span class="bar-r"><button class="bar-more" type="button" data-scan aria-label="Karte scannen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:18px;height:18px"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="3.2"/></svg></button>${showMore ? `<button class="bar-more" type="button" id="more-btn" aria-label="Album-Optionen">•••</button>` : ""}</span>` : "";
+  $("#bar-right").innerHTML = view.name==="set" ? `<span class="bar-r">${showMore ? `<button class="bar-more" type="button" id="more-btn" aria-label="Album-Optionen">•••</button>` : ""}</span>` : "";
   $("#more-btn")?.addEventListener("click", ()=>openAlbumMenu(view.set, view.lang));
   if(view.name==="dex") renderDex();
   else if(view.name==="set") renderSet(view.set);
@@ -1092,7 +1146,7 @@ function coverHTML(s, lang){
   const ll = lang==="en" ? "en" : "de", lb = lang ? lang.toUpperCase() : s.ja ? "JP" : "";
   return `<a class="cover set" href="#${albumHash(s, lang)}" data-cover="${esc(s.id)}" data-lang="${lang||""}" style="--spine:${spineColor(s)}" aria-label="${esc(s.de)}, ${p.base} von ${p.baseTotal} Karten"><span class="ring2 r1" aria-hidden="true"></span><span class="ring2 r2" aria-hidden="true"></span>
     ${lb?`<span class="lbadge">${lb}</span>`:""}<div class="fan">${fan.map((f,i)=>`<span class="fc f${i}${f.own?"":" ghost"}">${cimg(s, f.num, "low", "fimg", f.lang || (lang ? LANGNAME[lang] : undefined))}</span>`).join("")}</div>
-    <div class="logo"><img src="${logoUrl(s,ll)}" data-alt="${logoUrl(s,ll==="de"?"en":"de")}" alt="${esc(lang==="en"?s.en:s.de)}" loading="lazy" onerror="logoErr(this)"><b class="logo-t">${esc(lang==="en"?s.en:s.de)}</b></div>
+    <div class="logo"><img src="${logoUrl(s,ll)}" data-alt="${logoUrl(s,ll==="de"?"en":"de")}" alt="${esc(lang==="en"?s.en:s.de)}" loading="lazy" onerror="logoErr(this)"><b class="logo-t">${esc(lang==="en"?s.en:s.de)}<small>${s.jn && s.jn!==s.de ? esc(s.jn) + " · " : ""}${esc(s.abbr)}</small></b></div>
     <div class="cmeta"><img class="sym" src="${symUrl(s)}" alt="" loading="lazy" onerror="this.remove()"><span>${p.base} / ${p.baseTotal}</span><span class="v">${eur(sum(list,valOf))}</span></div>
     <span class="bar-p"><i class="m" style="width:${(p.all/p.allTotal*100).toFixed(1)}%"></i><i style="width:${(p.base/p.allTotal*100).toFixed(1)}%"></i></span></a>`;
 }
@@ -1198,14 +1252,14 @@ function renderSet(s){
   $("#bar-title").textContent = "";
   const owned = setOwned(s, view.lang), p = setProgress(s, owned), list = [...owned.values()].flat(), value = sum(list,valOf);
   const hasAlbum = albums.some(a=>a.setId===s.id && (a.lang||null)===(view.lang||null)), fc = filtCount(), vl = view.lang==="en" ? "en" : "de";
-  $("#head").innerHTML = `<div class="sethead" id="sethead"><div class="slogo"><img src="${logoUrl(s,vl)}" data-alt="${logoUrl(s,vl==="de"?"en":"de")}" alt="${esc(setTitle(s))}" onerror="logoErr(this)"><b class="logo-t">${esc(setTitle(s))}</b></div>
+  $("#head").innerHTML = `<div class="sethead" id="sethead" style="--spine:${spineColor(s)}"><div class="slogo"><img src="${logoUrl(s,vl)}" data-alt="${logoUrl(s,vl==="de"?"en":"de")}" alt="${esc(setTitle(s))}" onerror="logoErr(this)"><b class="logo-t">${esc(setTitle(s))}<small>${s.jn && s.jn!==s.de ? esc(s.jn) + " · " : ""}${esc(s.abbr)}</small></b></div>
     <div class="ringrow">${ringSVG(p)}<div class="kvs"><div class="kv"><span>Grundset</span><b>${p.base} / ${p.baseTotal}</b></div>${p.allTotal>p.baseTotal?`<div class="kv"><span>Master-Set</span><b>${p.all} / ${p.allTotal}</b></div>`:""}<div class="kv"><span>Wert</span><b>${eur(value)}</b></div></div></div>
-    ${s.jn && s.jn!==s.de ? `<p class="sub jn">${esc(s.jn)}</p>` : enPref(s) && s.en && s.en!==s.de ? `<p class="sub jn">${esc(s.de)}</p>` : ""}<p class="sub">${view.lang ? `<b class="lpill">${LANGNAME[view.lang]}</b> ` : s.ja ? `<b class="lpill">Japanisch</b> ` : ""}${esc(s.abbr)} · ${esc(s.serie)} · ${deDate(s.rel)} · ${s.promo?`${s.cards.length} Promokarten`:`${s.off} Karten + ${s.cards.length - p.baseTotal} Secret`}</p></div>`;
+    <div class="hchips">${view.lang ? `<span class="hc l">${LANGNAME[view.lang]}</span>` : s.ja ? `<span class="hc l">Japanisch</span>` : ""}<span class="hc">${esc(s.abbr)}</span><span class="hc">${esc(s.serie)}</span><span class="hc">${deDate(s.rel)}</span><span class="hc">${s.promo ? `${s.cards.length} Promokarten` : s.cards.length - p.baseTotal > 0 ? `${s.off} + ${s.cards.length - p.baseTotal} Secret` : `${s.off} Karten`}</span></div>${hasAlbum ? top3HTML(s, view.lang, owned) : ""}<p class="sub" hidden>${s.promo?`${s.cards.length} Promokarten`:`${s.off} Karten + ${s.cards.length - p.baseTotal} Secret`}</p></div>`;
   const opts = setFilterOptions(s);
   const chips = FGROUPS.flatMap(([g])=>[...filt[g]].map(v=>{ const o = opts[g].find(x=>x[0]===v); return `<button class="chip" type="button" data-funset="${g}|${esc(v)}" aria-label="Filter ${esc(o?o[1]:v)} entfernen">${o&&o[2]?o[2]:""}${esc(o?o[1]:v)} ✕</button>`; })).join("");
   const filtered = fc>0;
   $("#tools").innerHTML = `<div class="stick" id="stick"><div class="mini" id="mini">${ringSVG(p, true)}<span class="mlogo"><img src="${logoUrl(s,"de")}" data-alt="${logoUrl(s,"en")}" alt="${esc(setTitle(s))}" onerror="logoErr(this)"><b class="logo-t">${esc(setTitle(s))}</b></span><span class="mv"><b>${p.base}/${p.baseTotal}</b> · ${eur(value)}</span></div>
-    <div class="segrow">${segHTML(true).replace('class="seg"','class="seg" style="margin-top:0"')}<button class="fbtn${fc?" on":""}" type="button" id="open-filter" aria-label="Filter${fc?`, ${fc} aktiv`:""}">${FILTER_SVG}${fc?fc:""}</button><button class="fbtn${setQ?" on":""}" type="button" id="open-sq" aria-label="Im Set suchen" aria-expanded="${sqOpen||!!setQ}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></button><button class="fbtn alb" type="button" id="open-album" aria-label="Album öffnen">${BOOK_SVG}<span class="albt">Album</span></button></div>
+    <div class="segrow"><label class="fsel"><span class="sr">Anzeige</span><select id="fsel">${[["all","Alle"],["owned","Gesammelt"],["missing","Fehlend"],["dup","Doppelt"]].map(([k,l])=>`<option value="${k}"${filter===k?" selected":""}>${l}</option>`).join("")}</select></label><button class="fbtn${fc?" on":""}" type="button" id="open-filter" aria-label="Filter${fc?`, ${fc} aktiv`:""}">${FILTER_SVG}${fc?fc:""}</button><button class="fbtn${setQ?" on":""}" type="button" id="open-sq" aria-label="Im Set suchen" aria-expanded="${sqOpen||!!setQ}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></button><button class="fbtn alb" type="button" id="open-album" aria-label="Album öffnen">${BOOK_SVG}<span class="albt">Album</span></button></div>
     ${sqOpen||setQ?`<div class="sqwrap"><input class="field" id="sq" type="search" placeholder="Pokémon oder Nummer im Set suchen" autocomplete="off" autocorrect="off" enterkeyhint="search" value="${esc(setQ)}"></div>`:""}
     ${fc?`<div class="fchips">${chips}<button class="chip" type="button" id="f-clear">Alle zurücksetzen</button></div>`:""}</div>
 `;
@@ -1221,6 +1275,8 @@ function renderSet(s){
   if(preview) html += `<div class="pv-space"></div><div class="pvbar" role="region" aria-label="Vorschau"><span><b>Vorschau</b> · noch nicht in deinen Alben</span><button class="btn primary" type="button" id="pv-add">Album anlegen</button></div>`;
   $("#view").innerHTML = html;
   $("#open-filter").addEventListener("click", ()=>openFilter(s));
+  $("#fsel").addEventListener("change", e=>{ filter = e.target.value; render(); });
+  bindTop3(s, view.lang);
   $("#open-sq").addEventListener("click", ()=>{ if(sqOpen && !setQ){ sqOpen = false; render(); return; } sqOpen = true; render(); setTimeout(()=>$("#sq")?.focus(), 0); });
   $("#sq")?.addEventListener("input", e=>{ setQ = e.target.value; const pos = e.target.selectionStart; render(); const q = $("#sq"); if(q){ q.focus(); try{ q.setSelectionRange(pos, pos); }catch{} } });
   $("#open-album").addEventListener("click", ()=>openAlbum(s, firstVisiblePage(s), false));
@@ -1647,6 +1703,86 @@ $("#sc-close").addEventListener("click", closeScanner);
 document.addEventListener("click", e=>{ const b = e.target.closest("[data-scan]"); if(b){ const inSet = view.name==="set"; openScanner(inSet ? view.set : null, inSet ? view.lang : null); } });
 document.addEventListener("keydown", e=>{ if(SC.open && e.key==="Escape"){ e.stopImmediatePropagation(); closeScanner(); } }, true);
 
+/* ---------- Tab-Leiste ---------- */
+const TAB_ALL = ["regal","dex","suche","wunsch","scan"];
+const TAB_LBL = {regal:"Alben", dex:"Pokédex", suche:"Suche", wunsch:"Wunschliste", scan:"Scannen"};
+const DEF_TABS = ["regal","dex","suche","wunsch"];
+const curTabs = () => { const t = (settings.tabs||DEF_TABS).filter(x=>TAB_ALL.includes(x)); return t.length>=3 ? t : DEF_TABS; };
+function applyTabs(){
+  const sel = curTabs(), nav = document.querySelector(".tabbar nav"); if(!nav) return;
+  nav.style.setProperty("--n", sel.length + 1);
+  nav.querySelectorAll(".tab").forEach(a=>{ const t = a.dataset.tab; if(t==="mehr"){ a.style.setProperty("--o", 99); return; } const i = sel.indexOf(t); a.classList.toggle("hid", i<0); a.style.setProperty("--o", i<0 ? 50 : i); });
+}
+function tabIcon(t){ const a = document.querySelector(`.tabbar .tab[data-tab="${t}"] svg`); return a ? a.outerHTML : ""; }
+function openTabs(first){
+  let sel = [...curTabs()];
+  if(first){ settings.tabsSet = true; LS.set("pk-settings", settings); }
+  $("#ws-title").textContent = first ? "Deine Tab-Leiste" : "Tab-Leiste anpassen";
+  const draw = () => {
+    const order = [...sel, ...TAB_ALL.filter(t=>!sel.includes(t))], ok = sel.length>=3 && sel.length<=5;
+    $("#ws-body").innerHTML = `<p class="hint" style="margin:0">${first ? "Wähle, welche Bereiche unten in der Leiste stehen sollen. " : ""}3 bis 5 Bereiche – „Mehr“ ist immer dabei. Ausgeblendete findest du unter Mehr. Am Rechner zeigt die Seitenleiste immer alle.</p>
+      <div class="tabcfg">${order.map(t=>{ const on = sel.includes(t), i = sel.indexOf(t); return `<div class="tcrow${on?" on":""}"><button class="tctog" type="button" data-tt="${t}" aria-pressed="${on}"><span class="tcchk" aria-hidden="true">${on?"✓":""}</span>${tabIcon(t)}<span>${TAB_LBL[t]}</span></button>${on?`<button class="tcmv" type="button" data-tm="${t}|-1" aria-label="${TAB_LBL[t]} nach oben" ${i===0?"disabled":""}>↑</button><button class="tcmv" type="button" data-tm="${t}|1" aria-label="${TAB_LBL[t]} nach unten" ${i===sel.length-1?"disabled":""}>↓</button>`:""}</div>`; }).join("")}
+        <div class="tcrow fixed"><span class="tctog"><span class="tcchk" aria-hidden="true">✓</span>${tabIcon("mehr")}<span>Mehr</span></span><small>immer dabei</small></div></div>
+      <p class="hint" style="margin:0;${ok?"":"color:var(--accent)"}">${sel.length} von 5 gewählt${ok?"":" – bitte 3 bis 5 auswählen"}</p>
+      <button class="btn primary" type="button" id="tc-save" ${ok?"":"disabled"}>Speichern</button>`;
+    $("#ws-body").querySelectorAll("[data-tt]").forEach(b=>b.addEventListener("click", ()=>{ const t = b.dataset.tt; if(sel.includes(t)) sel = sel.filter(x=>x!==t); else if(sel.length<5) sel.push(t); draw(); }));
+    $("#ws-body").querySelectorAll("[data-tm]").forEach(b=>b.addEventListener("click", ()=>{ const [t, d] = b.dataset.tm.split("|"), i = sel.indexOf(t), j = i + (+d); if(j<0 || j>=sel.length) return; [sel[i], sel[j]] = [sel[j], sel[i]]; draw(); }));
+    $("#tc-save").addEventListener("click", ()=>{ settings.tabs = [...sel]; settings.tabsSet = true; LS.set("pk-settings", settings); wishSheet.close(); render(); });
+  };
+  draw();
+  if(wishSheet.state==="closed") wishSheet.open("full"); else wishSheet.set("full");
+}
+
+/* ---------- Top 3 im Album ---------- */
+let top3Mode = null, spLoading = null;
+const todayISO = () => localDay();
+function setPrices(s){ return LS.get("pk-setprices", {})[s.id] || null; }
+async function loadSetPrices(s, lang){
+  if(spLoading) return; spLoading = {id:s.id, done:0, total:s.cards.length};
+  const res = {}, queue = s.cards.map(c=>c[0]);
+  const prog = () => { const el = $("#t3-prog"); if(el) el.textContent = `Preise werden geladen … ${spLoading.done} / ${spLoading.total}`; };
+  const worker = async () => { while(queue.length){ const num = queue.shift(); try{ const info = await cardInfo(s, num, lang==="en"); const v = Math.max(0, ...Object.values(info.vprice||{}).map(x=>+x||0)); if(v>0) res[num] = Math.round(v*100)/100; }catch{} spLoading.done++; prog(); } };
+  prog();
+  try{ await Promise.all([worker(), worker(), worker(), worker()]); }
+  finally{
+    const all = LS.get("pk-setprices", {}); if(Object.keys(res).length) all[s.id] = {d: todayISO(), p: res}; LS.put("pk-setprices", JSON.stringify(all));
+    spLoading = null; if(view.name==="set" && view.set===s) render();
+  }
+}
+function top3HTML(s, lang, owned){
+  const mineMap = new Map(); for(const [num, l] of owned){ const v = Math.max(0, ...l.map(e=>+e.val||0)); if(v>0) mineMap.set(num, v); }
+  const mine = [...mineMap].sort((a,b)=>b[1]-a[1]).slice(0,3), canMine = mine.length>=3;
+  let mode = top3Mode || (canMine ? "mine" : "set"); if(mode==="mine" && !canMine) mode = "set";
+  let list = null, body = "";
+  if(mode==="mine") list = mine.map(([num,v])=>({num, v, own:true}));
+  else {
+    const sp = setPrices(s);
+    if(spLoading && spLoading.id===s.id) body = `<p class="hint t3msg" id="t3-prog">Preise werden geladen … ${spLoading.done} / ${spLoading.total}</p>`;
+    else if(!sp) body = `<button class="btn t3load" type="button" id="t3-load">Wertvollste Karten des Sets laden</button><p class="hint t3msg">Lädt einmal die Preise aller ${s.cards.length} Karten.</p>`;
+    if(sp){ list = Object.entries(sp.p).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([num,v])=>({num, v, own: owned.has(num)})); if(sp.d !== todayISO() && !spLoading) setTimeout(()=>loadSetPrices(s, lang), 1500); }
+  }
+  if(list && list.length){
+    const ord = [list[1], list[0], list[2]].map((x,i)=>x && {...x, rank: i===1 ? 1 : i===0 ? 2 : 3}).filter(Boolean);
+    body = `<div class="t3row">${ord.map(x=>{ const c = cardAt(s.id, x.num); if(!c) return ""; return `<button class="t3c${x.rank===1?" first":""}${x.own?"":" miss"}" type="button" data-t3c="${esc(x.num)}" aria-label="Platz ${x.rank}: ${esc(cardTitleFor(s,c))}, ${eur(x.v)}"><span class="t3img">${cimg(s, x.num, "low", "cimg", lang ? LANGNAME[lang] : undefined)}<i>${x.rank}</i></span><b>${eur(x.v)}</b><small>${esc(cardTitleFor(s,c))}${x.own?"":" · fehlt"}</small></button>`; }).join("")}</div>` + body;
+  }
+  return `<div class="top3"><div class="t3h"><b>Top 3</b>${canMine ? `<span class="t3tog" role="group" aria-label="Top 3 Auswahl"><button type="button" data-t3="mine" aria-pressed="${mode==="mine"}">Meine</button><button type="button" data-t3="set" aria-pressed="${mode==="set"}">Im Set</button></span>` : `<small>im Set</small>`}</div>${body}</div>`;
+}
+function bindTop3(s, lang){
+  $("#head").querySelectorAll("[data-t3]").forEach(b=>b.addEventListener("click", ()=>{ top3Mode = b.dataset.t3; render(); }));
+  $("#t3-load")?.addEventListener("click", ()=>{ loadSetPrices(s, lang); render(); });
+  $("#head").querySelectorAll("[data-t3c]").forEach(b=>b.addEventListener("click", ()=>openCtx({kind:"set", setId:s.id, num:b.dataset.t3c})));
+}
+
+/* ---------- Ersatzbilder ---------- */
+const PTCG = {"2011bw":"mcd11","2012bw":"mcd12","2014xy":"mcd14","2015xy":"mcd15","2016xy":"mcd16","2017sm":"mcd17","2018sm":"mcd18","2019sm":"mcd19","2021swsh":"mcd21","2022swsh":"mcd22","2023sv":"mcd23","2024sv":"mcd24"};
+const ptcgUrl = (s, num, q) => s.ptcg ? `https://images.pokemontcg.io/${s.ptcg}/${String(num).replace(/^0+/,"")}${q==="high"?"_hires":""}.png` : "";
+function showFallbackImg(im, s, c){
+  const p = ptcgUrl(s, c[0], "high"); $("#d-3d").hidden = true;
+  const art = () => { im.onerror = () => im.classList.add("noimg"); im.onload = null; if(c[7]){ im.classList.add("art"); im.src = artUrl(c[7]); $("#d-imgnote").hidden = false; } else im.classList.add("noimg"); };
+  im.onerror = art; im.onload = () => { $("#d-3d").hidden = ctx?.kind!=="set"; };
+  if(p) im.src = p; else art();
+}
+
 /* ---------- Sammlung zurücksetzen ---------- */
 function openReset(step){
   const n = sum(cards,qtyOf);
@@ -1765,8 +1901,10 @@ function renderMore(){
   $("#head").innerHTML = `<h1>Mehr</h1>`;
   $("#tools").innerHTML = "";
   $("#view").innerHTML = `
+    ${(()=>{ const hid = TAB_ALL.filter(x=>!curTabs().includes(x)); return hid.length ? `<section class="set-sec mob-only"><h2>Weitere Bereiche</h2><div class="group">${hid.map(x=>x==="scan" ? `<button class="srow" type="button" data-scan><span class="srico">${tabIcon(x)}</span><span class="lbl">${TAB_LBL[x]}</span><span class="chev">›</span></button>` : `<a class="srow" href="#${x}"><span class="srico">${tabIcon(x)}</span><span class="lbl">${TAB_LBL[x]}</span><span class="chev">›</span></a>`).join("")}</div></section>` : ""; })()}
     <section class="set-sec"><h2>Konto &amp; Abgleich</h2>${kontoHTML()}</section>
     <section class="set-sec"><h2>Darstellung</h2><div class="group"><div class="srow seg-row"><div class="seg" role="group" aria-label="Darstellung">${[["auto","Automatisch"],["light","Hell"],["dark","Dunkel"]].map(([k,l])=>`<button type="button" data-theme-opt="${k}" aria-pressed="${th===k}">${l}</button>`).join("")}</div></div></div></section>
+    <section class="set-sec mob-only"><h2>Navigation</h2><div class="group"><button class="srow" type="button" id="tabs-cfg"><span class="lbl" style="flex:none">Tab-Leiste anpassen</span><span class="val" style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;text-align:right">${curTabs().map(x=>TAB_LBL[x]).join(", ")}</span><span class="chev">›</span></button></div></section>
     <section class="set-sec"><h2>Sammlung</h2><div class="group">
       <label class="srow" for="set-lang"><span class="lbl">Standard-Sprache</span><select id="set-lang">${LANGS.map(l=>`<option${l===settings.lang?" selected":""}>${l}</option>`).join("")}</select><span class="chev">›</span></label>
       <label class="srow" for="set-cond"><span class="lbl">Standard-Zustand</span><select id="set-cond">${CONDS.map(l=>`<option${l===settings.cond?" selected":""}>${l}</option>`).join("")}</select><span class="chev">›</span></label>
@@ -1790,6 +1928,7 @@ function renderMore(){
   $("#imp").addEventListener("change", importBackup);
   $("#open-log").addEventListener("click", openLog);
   $("#reset-all").addEventListener("click", ()=>openReset(1));
+  $("#tabs-cfg")?.addEventListener("click", ()=>openTabs(false));
   bindKonto();
 }
 function openLog(){
@@ -1934,13 +2073,13 @@ function renderDialog(){
   renderNote(s, c);
   const key = s.id+"|"+c[0], im = $("#d-img");
   if(im.dataset.key !== key){
-    im.dataset.key = key; im.className = "big"; im.removeAttribute("src"); $("#d-3d").hidden = true;
+    im.dataset.key = key; im.className = "big"; im.removeAttribute("src"); $("#d-3d").hidden = true; $("#d-imgnote").hidden = true;
     const req = ++infoReq;
     $("#d-price").innerHTML = "Preis wird geladen …"; $("#d-price").hidden = false;
     cardInfo(s, c[0], (mine[0]?.lang || defLang(s.id)) === "Englisch").then(info => {
       if(req !== infoReq || !ctx) return;
       lastInfo.set(key, info);
-      if(info.image){ im.onerror = () => { im.classList.add("noimg"); $("#d-3d").hidden = true; }; im.onload = () => { $("#d-3d").hidden = ctx?.kind!=="set"; }; im.src = info.image + "/high.webp"; } else im.classList.add("noimg");
+      if(info.image){ im.onerror = () => { im.classList.add("noimg"); $("#d-3d").hidden = true; }; im.onload = () => { $("#d-3d").hidden = ctx?.kind!=="set"; }; im.src = info.image + "/high.webp"; } else showFallbackImg(im, s, c);
       recordVariants(key, info); renderPrice();
       if(applyPrices(s.id, c[0], info)) render(); else renderVariants();
       if(cardSheet.state==="half") cardSheet.set("half");
@@ -2015,7 +2154,7 @@ $("#d-body").addEventListener("click", e=>{
 function renderDexDialog(){
   const n = ctx.dex, mine = cards.filter(e=>+e.dex===n && qtyOf(e)), q = sum(mine,qtyOf);
   $("#d-3d").hidden = true;
-  const im = $("#d-img"); if(im.dataset.key !== "dex"+n){ im.dataset.key = "dex"+n; im.className = "big art"; im.onload = null; im.onerror = () => im.classList.add("noimg"); im.src = artUrl(n); } $("#d-price").hidden = true; $("#d-links").innerHTML = ""; $("#d-sub").hidden = true; $("#d-note").hidden = true; $("#d-note").dataset.key = "";
+  const im = $("#d-img"); if(im.dataset.key !== "dex"+n){ im.dataset.key = "dex"+n; im.className = "big art"; im.onload = null; im.onerror = () => im.classList.add("noimg"); im.src = artUrl(n); } $("#d-price").hidden = true; $("#d-links").innerHTML = ""; $("#d-sub").hidden = true; $("#d-imgnote").hidden = true; $("#d-note").hidden = true; $("#d-note").dataset.key = "";
   $("#d-title").textContent = NAMES[n-1];
   $("#d-chips").innerHTML = `<span class="chip num">#${pad4(n)}</span>${q?`<span class="chip have">${q}× im Album</span>`:`<span class="chip none">nicht im Album</span>`}`;
   $("#d-meta").textContent = `${(DEXCARDS.get(n)||[]).length} Karten in der Setliste` + (q ? ` · Wert ${eur(sum(mine,valOf))}` : "");
@@ -2653,6 +2792,7 @@ function init(){
   updatedNotice();
   setTimeout(checkUpdate, 1500);
   if(FIREBASE_CONFIG && LS.raw("pk-syncuid")) startAuth();
+  if(!settings.tabsSet) setTimeout(()=>{ if(!settings.tabsSet && !matchMedia("(min-width: 900px)").matches) openTabs(true); }, 900);
 }
 function needJA(){
   const ids = [...LS.get("pk-albums", []).map(a=>a?.setId), ...LS.get("pk-cards", []).map(c=>c?.setId), ...Object.keys(LS.get("pk-wish", {})).map(k=>k.split("|")[0])];

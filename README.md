@@ -4,14 +4,14 @@ Private Web-App für meine Pokémon-Sammelkarten – als digitales Album fürs i
 
 **App öffnen:** https://faabnatic.github.io/Kartenalbum/
 
-Aktuelle Version: **1.21** · Änderungen je Version stehen in [`CHANGELOG.md`](CHANGELOG.md).
+Aktuelle Version: **1.22** · Änderungen je Version stehen in [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Funktionen
 
 **Sammeln**
 - **Set-Alben** – deutsche/englische Sets vom Basis-Set (1999) bis Mega-Entwicklung (181 Sets) und japanische Sets ab Sonne & Mond (91 Sets)
 - **Album-Sprache** – Deutsch, Englisch oder Gemischt; dasselbe Set auch als zwei getrennte Alben. Englische Alben zeigen englische Karten- und Set-Namen, japanische Sets den japanischen Namen – der deutsche steht jeweils klein darunter
-- **Kamera-Scan** – Kamera-Knopf oben: erkennt Set-Kürzel und Kartennummer, Serien-Scan mit Liste zum Bestätigen, Nummer auch eintippbar (Texterkennung wird beim ersten Scan geladen)
+- **Kamera-Scan** – Bereich „Scannen“: erkennt Set-Kürzel und Kartennummer, Serien-Scan mit Liste zum Bestätigen, Nummer auch eintippbar (Texterkennung wird beim ersten Scan geladen)
 - **Varianten zählen** – Normal, Holo, Reverse, Poké-Ball-/Meisterball-Reverse, 1. Edition usw., je Sprache und Zustand
 - **Filter im Set** – Alle · Gesammelt · Fehlend · Doppelt, dazu Kategorie, Typ, Region, Variante, Seltenheit und Suche nach Name oder Nummer
 - **Wunschliste** – eigener Tab, Priorität Niedrig/Normal/Hoch, nach Sets gruppiert, Preis und Summe, als Text teilbar; gezählte Karten verschwinden automatisch
@@ -29,6 +29,8 @@ Aktuelle Version: **1.21** · Änderungen je Version stehen in [`CHANGELOG.md`](
 - **Erfolge** – 19 Meilensteine, z. B. erstes Set komplett oder 100 Karten
 
 **Allgemein**
+- **Tab-Leiste anpassbar** – 3 bis 5 Bereiche plus Mehr, Reihenfolge frei; ausgeblendete Bereiche unter Mehr
+- **Top 3 im Album** – deine wertvollsten Karten oder die des ganzen Sets
 - **Konto & Abgleich** – Anmeldung mit E-Mail/Passwort oder Google; Sammlung live auf allen Geräten
 - **Browser-Version** – eigenes Layout ab 900 px mit Seitenleiste, Karten-Panel und Tastatur (← → · Esc · /)
 - **Hell/Dunkel** – automatisch oder fest eingestellt
@@ -73,6 +75,7 @@ Neue Versionen meldet die App selbst („Version x verfügbar · Aktualisieren�
 - Kartenbilder, Setdaten und Cardmarket-Preise: [TCGdex](https://tcgdex.dev)
 - Pokémon-Artworks und Typ-Symbole: [PokeAPI](https://pokeapi.co)
 - Anmeldung und Abgleich: [Firebase](https://firebase.google.com)
+- Ersatzbilder für McDonald’s-Karten: [pokemontcg.io](https://pokemontcg.io)
 - Texterkennung beim Kamera-Scan: [Tesseract.js](https://github.com/naptha/tesseract.js) (über jsDelivr)
 
 Bilder und Preise werden live im Browser geladen und nicht in diesem Repository gespeichert.

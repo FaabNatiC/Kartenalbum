@@ -1,5 +1,13 @@
 # Kartenalbum – Änderungen
 
+## Version 1.22 · 04.11.2026
+- Tab-Leiste anpassbar: 3 bis 5 Bereiche plus Mehr, Reihenfolge per Pfeil, ausgeblendete Bereiche unter Mehr – Auswahl beim ersten Start
+- „Scannen“ als eigener Bereich in der Tab-Leiste
+- Album-Kopf aufgeräumt: Infos als Chips, Filter als Auswahl „Alle ▾“ in einer Zeile
+- Top 3 im Album: deine wertvollsten Karten oder die des ganzen Sets
+- Sets ohne Logo bekommen ein Schrift-Logo
+- McDonald’s-Karten mit Bildern von pokemontcg.io, sonst Pokémon-Artwork als Ersatz
+
 ## Version 1.21 · 04.11.2026
 - Karten per Kamera erkennen: Kamera-Knopf oben, Serien-Scan mit Liste zum Bestätigen, Nummer auch eintippbar
 - Im Set-Album sucht der Scan zuerst in diesem Set, sonst über das Set-Kürzel
