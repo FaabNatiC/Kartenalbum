@@ -1,5 +1,13 @@
 # Kartenalbum – Änderungen
 
+## Version 1.16 · 04.11.2026
+- Konto mit E-Mail und Passwort oder Google (Firebase) unter Mehr → Konto & Abgleich
+- Automatischer Abgleich: Karten, Alben und Einstellungen live auf allen Geräten
+- Eigene Sammlung pro Person, nur freigegebene E-Mail-Adressen dürfen speichern
+- Erste Anmeldung führt die bisherige Sammlung auf dem Gerät mit der Cloud zusammen
+- Offline zählen wie bisher, Abgleich sobald wieder Verbindung besteht
+- Album am Rechner vollständig sichtbar – Leisten liegen nicht mehr über den Seiten
+
 ## Version 1.15 · 04.11.2026
 - Browser-Version für Chrome, Edge, Firefox und Safari: ab 900 px Breite eigenes Layout
 - Seitenleiste links mit Navigation und Sammlungs-Übersicht

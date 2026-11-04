@@ -437,6 +437,13 @@ form.f{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .srow.seg-row{display:block;padding:8px}
 .srow.seg-row .seg{margin:0}
 .sfoot{margin:0 14px;font-size:12.5px;color:var(--muted)}
+.srow .sin{flex:1.4;min-width:0;border:0;background:transparent;color:var(--ink);font:500 15px var(--f-body);text-align:right;padding:8px 0;outline:none}
+.srow .sin::placeholder{color:var(--muted);opacity:.7}
+.acct-btns{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:8px 4px 0}
+.acct-or{display:flex;align-items:center;gap:10px;margin:10px 4px 2px;color:var(--muted);font-size:12.5px}
+.acct-or::before,.acct-or::after{content:"";flex:1;height:1px;background:var(--line)}
+.gbtn{display:flex;align-items:center;justify-content:center;gap:10px;margin:4px 4px 0;width:calc(100% - 8px);background:var(--page);font-weight:600}
+.gbtn svg{width:18px;height:18px}
 .tips{margin:0;padding:10px 14px 12px 32px;display:grid;gap:8px;font-size:14px}
 .logv{display:grid;gap:4px;padding:4px 0}
 .logv b{font-size:15px}
@@ -605,6 +612,7 @@ const CONDS = ["Mint","Near Mint","Excellent","Good","Light Played","Played","Po
 
 /* ---------- Änderungsprotokoll ---------- */
 const CHANGELOG = [
+  {v:"1.16", d:"2026-11-04", items:["Konto mit E-Mail und Passwort oder Google (Firebase) unter Mehr → Konto & Abgleich","Automatischer Abgleich: Karten, Alben und Einstellungen live auf allen Geräten","Eigene Sammlung pro Person, nur freigegebene E-Mail-Adressen dürfen speichern","Erste Anmeldung führt die bisherige Sammlung auf dem Gerät mit der Cloud zusammen","Offline zählen wie bisher, Abgleich sobald wieder Verbindung besteht","Album am Rechner vollständig sichtbar – Leisten liegen nicht mehr über den Seiten"]},
   {v:"1.15", d:"2026-11-04", items:["Browser-Version für Chrome, Edge, Firefox und Safari: ab 900 px Breite eigenes Layout","Seitenleiste links mit Navigation und Sammlungs-Übersicht","Breiteres Raster mit mehr Spalten, Set-Kopf nebeneinander","Karten-Detail als Seitenpanel rechts – Raster bleibt sichtbar","Tastatur: ← → nächste Karte bzw. Seite, Esc schließt, / öffnet die Suche","Album am Rechner als Doppelseite, Blättern per Klick auf den Seitenrand","3D-Ansicht am Rechner mit Maus, ohne Neigungsknopf","Hover-Effekte auf Karten und Alben"]},
   {v:"1.14", d:"2026-11-02", items:["Aktualisieren lädt erst neu, wenn die neue Version komplett geladen ist – keine leere App mehr","Fehlen die Setdaten beim Start, lädt die App einmal neu und zeigt sonst einen Hinweis","Set-Kopfzeile behält beim Scrollen ihre Farbe, nur eine dünne Trennlinie erscheint","Zurück aus der Album-Vorschau führt wieder in die Set-Liste („Alle Sets“)","Typ-Icons vollständig und einheitlich","Typ „Farblos“ heißt jetzt „Normal“","Set-Filter mit Region und Generation","Höchstwert genauer: berücksichtigt auch die Cardmarket-Durchschnitte der letzten 30 Tage"]},
   {v:"1.13", d:"2026-11-02", items:["Ältere Serien ergänzt: Sonne & Mond, XY, Schwarz & Weiß, HeartGold & SoulSilver, Platin, Diamant & Perl, EX, POP, e-Card, Neo, Gym, Basis und McDonald’s – insgesamt 181 Sets","Pokédex-Filter zeigt die Generation mit an, z. B. „Kanto · Gen 1“","Doppelte Überschrift entfernt: Kopfzeile nur noch im Set","Kopfbereich im Set luftiger: Statusleiste in App-Farbe, Kopfzeile erst beim Scrollen mit Hintergrund","Suche zeigt vor dem Tippen „Zuletzt angesehen“","3D-Knopf erscheint nicht mehr beim Pokémon-Artwork","Freies Eintragen von Karten entfernt – ältere Sets haben jetzt eigene Setlisten"]},
@@ -675,7 +683,7 @@ const vMain = key => { const o = vParts(key); return !o.stamps.length && !o.size
 /* ---------- Speicher ---------- */
 const LS = {
   get(k, d){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; }catch{ return d; } },
-  set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch{ setStatus("Speichern fehlgeschlagen – der Gerätespeicher ist voll oder blockiert. Bitte exportiere eine Sicherung unter Mehr."); } },
+  set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch{ setStatus("Speichern fehlgeschlagen – der Gerätespeicher ist voll oder blockiert. Bitte exportiere eine Sicherung unter Mehr."); } if(SYNC_KEYS.has(k)) syncDirty(); },
   works(){ try{ localStorage.setItem("pk-test","1"); localStorage.removeItem("pk-test"); return true; }catch{ return false; } },
   raw(k){ try{ return localStorage.getItem(k); }catch{ return null; } }, put(k,v){ try{ localStorage.setItem(k,v); }catch{} }
 };
@@ -1171,6 +1179,7 @@ function renderMore(){
   $("#head").innerHTML = `<h1>Mehr</h1>`;
   $("#tools").innerHTML = "";
   $("#view").innerHTML = `
+    <section class="set-sec"><h2>Konto &amp; Abgleich</h2>${kontoHTML()}</section>
     <section class="set-sec"><h2>Darstellung</h2><div class="group"><div class="srow seg-row"><div class="seg" role="group" aria-label="Darstellung">${[["auto","Automatisch"],["light","Hell"],["dark","Dunkel"]].map(([k,l])=>`<button type="button" data-theme-opt="${k}" aria-pressed="${th===k}">${l}</button>`).join("")}</div></div></div></section>
     <section class="set-sec"><h2>Sammlung</h2><div class="group">
       <label class="srow" for="set-lang"><span class="lbl">Standard-Sprache</span><select id="set-lang">${LANGS.map(l=>`<option${l===settings.lang?" selected":""}>${l}</option>`).join("")}</select><span class="chev">›</span></label>
@@ -1180,11 +1189,11 @@ function renderMore(){
     <section class="set-sec"><h2>Sicherung</h2><div class="group">
       <button class="srow act" type="button" id="exp"><span class="lbl">Sicherung exportieren</span></button>
       <label class="srow act" for="imp"><span class="lbl">Sicherung importieren</span></label><input type="file" id="imp" accept="application/json,.json" hidden>
-    </div><p class="sfoot" id="bk-msg">${cards.length ? (last ? `Letzte Sicherung am ${deDate(last)}${days>30?" – Zeit für eine neue.":"."}` : "Noch keine Sicherung. Deine Sammlung liegt nur auf diesem Gerät.") : "Deine Sammlung liegt nur auf diesem Gerät."}</p></section>
+    </div><p class="sfoot" id="bk-msg">${Sync.user?.emailVerified ? (last ? `Letzte Sicherung am ${deDate(last)}. Zusätzlich wird deine Sammlung über dein Konto abgeglichen.` : "Deine Sammlung wird über dein Konto abgeglichen. Eine Sicherungsdatei ist trotzdem eine gute Idee.") : cards.length ? (last ? `Letzte Sicherung am ${deDate(last)}${days>30?" – Zeit für eine neue.":"."}` : "Noch keine Sicherung. Deine Sammlung liegt nur auf diesem Gerät.") : "Deine Sammlung liegt nur auf diesem Gerät."}</p></section>
     <section class="set-sec"><h2>Tipps</h2><div class="group"><ul class="tips">${TIPS.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div></section>
     <section class="set-sec"><h2>Über die App</h2><div class="group">
       <button class="srow" type="button" id="open-log"><span class="lbl">Version</span><span class="val">${esc(APP_VERSION)}</span><span class="chev">›</span></button>
-    </div><p class="sfoot">Kartendaten, Kartenbilder und Preise: TCGdex (Setlisten Stand 02.11.2026, Basis-Set bis Mega-Entwicklung). Pokémon-Artwork und Typsymbole: PokeAPI. Deine Sammlung bleibt ausschließlich auf diesem Gerät. Pokémon und Pokémon-Sammelkarten sind Marken von Nintendo, Creatures und GAME FREAK.</p></section>`;
+    </div><p class="sfoot">Kartendaten, Kartenbilder und Preise: TCGdex (Setlisten Stand 02.11.2026, Basis-Set bis Mega-Entwicklung). Pokémon-Artwork und Typsymbole: PokeAPI. Ohne Anmeldung bleibt deine Sammlung ausschließlich auf diesem Gerät, mit Konto wird sie zusätzlich in Firebase (Google, EU) gespeichert. Pokémon und Pokémon-Sammelkarten sind Marken von Nintendo, Creatures und GAME FREAK.</p></section>`;
   document.querySelectorAll("[data-theme-opt]").forEach(b=>b.addEventListener("click",()=>{ const k = b.dataset.themeOpt; LS.put("pk-theme", k); applyTheme(); render(); }));
   $("#set-lang").addEventListener("change", e=>{ settings.lang = e.target.value; LS.set("pk-settings", settings); });
   $("#set-cond").addEventListener("change", e=>{ settings.cond = e.target.value; LS.set("pk-settings", settings); });
@@ -1192,6 +1201,7 @@ function renderMore(){
   $("#upd-all")?.addEventListener("click", () => updatePrices(null));
   $("#imp").addEventListener("change", importBackup);
   $("#open-log").addEventListener("click", openLog);
+  bindKonto();
 }
 function openLog(){
   $("#l-body").innerHTML = CHANGELOG.map(e=>`<div class="logv"><div><b>Version ${esc(e.v)}</b><small>${deDate(e.d)}</small></div><ul>${e.items.map(i=>`<li>${esc(i)}</li>`).join("")}</ul></div>`).join("");
@@ -1554,7 +1564,7 @@ function preload(){
 function role(el, r){ el.classList.toggle("lp", r==="l"); el.classList.toggle("rp", r==="r"); return el; }
 function blankPage(){ const d = document.createElement("section"); d.className = "apage blank"; return d; }
 function alLayout(){
-  const land = isLand(); alEl.classList.toggle("land", land);
+  const land = isLand(); alEl.classList.toggle("land", land && isTouch());
   const W = alStage.clientWidth - (land ? 16 : 24), H = alStage.clientHeight - (land ? 12 : 16);
   const n = per(), g = land ? 5 : 7, padX = 30, padY = 20, hd = 20;
   let cw = Math.min((W/n - padX - 2*g)/3, ((H - padY - hd - 2*g)/3) * 63/88);
@@ -1805,6 +1815,217 @@ function updatedNotice(){
 }
 document.addEventListener("visibilitychange", ()=>{ if(document.visibilityState==="visible") checkUpdate(); });
 
+/* ---------- Konto & Abgleich (Firebase) ---------- */
+// Firebase-Konfiguration aus der Firebase-Konsole (Projekteinstellungen → Web-App). Diese Werte sind nicht geheim.
+// Solange hier null steht, ist der Abgleich ausgeschaltet und die App speichert nur auf dem Gerät.
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyDKOJh1QqoDoSHgoepFIKzLLMgdjpVzksM",
+  authDomain: "kartenalbum.firebaseapp.com",
+  projectId: "kartenalbum",
+  storageBucket: "kartenalbum.firebasestorage.app",
+  messagingSenderId: "907792237018",
+  appId: "1:907792237018:web:814fd32dea220b448d80e3"
+};
+const FB_VER = "10.14.1";
+const SYNC_KEYS = new Set(["pk-cards","pk-albums","pk-settings"]);
+const Sync = {fb:null, loading:null, started:false, user:null, status:"off", msg:"", unsub:[], pushT:0, applying:false, busy:false};
+const DEV = (()=>{ let d = LS.raw("pk-dev"); if(!d){ d = rid(); LS.put("pk-dev", d); } return d; })();
+let synced = LS.get("pk-synchash", {});
+const canon = v => Array.isArray(v) ? "["+v.map(canon).join(",")+"]" : v && typeof v==="object" ? "{"+Object.keys(v).sort().filter(k=>v[k]!==undefined).map(k=>JSON.stringify(k)+":"+canon(v[k])).join(",")+"}" : JSON.stringify(v ?? null);
+const hashOf = s => { let h = 0; for(let i=0;i<s.length;i++) h = (h*31 + s.charCodeAt(i))|0; return s.length+":"+h; };
+const bucketKey = e => e.setId ? [e.setId,e.num,e.v,e.lang,e.cond].join("|") : "frei|"+e.id;
+const sortE = l => l.slice().sort((a,b)=>{ const x = bucketKey(a), y = bucketKey(b); return x<y?-1:x>y?1:0; });
+const hashE = l => hashOf(canon(sortE(l)));
+const plain = x => JSON.parse(JSON.stringify(x));
+const metaOf = () => ({albums: plain(albums), settings: plain(settings)});
+const hashMeta = m => hashOf(canon({albums:m.albums||[], settings:m.settings||{}}));
+function groupLocal(){ const m = new Map(); for(const e of cards){ const k = e.setId || "_frei"; if(!m.has(k)) m.set(k,[]); m.get(k).push(e); } return m; }
+function mergeE(a, b){ const m = new Map(); for(const e of [...a, ...b]){ const k = bucketKey(e), o = m.get(k); if(!o || qtyOf(e) > qtyOf(o)) m.set(k, e); } return [...m.values()]; }
+function mergeAlbums(a, b){ const m = new Map(); for(const x of [...(a||[]), ...(b||[])]) if(!m.has(x.setId)) m.set(x.setId, x); return [...m.values()]; }
+const deDateTime = iso => { const d = new Date(iso); if(isNaN(d)) return ""; const p = n => String(n).padStart(2,"0"); return `${p(d.getDate())}.${p(d.getMonth()+1)}.${d.getFullYear()}, ${p(d.getHours())}:${p(d.getMinutes())}`; };
+
+function syncDirty(){ try{ if(Sync.applying || !Sync.user?.emailVerified) return; clearTimeout(Sync.pushT); Sync.pushT = setTimeout(()=>pushNow().catch(syncErr), 1200); }catch{} }
+function setSync(st, msg){
+  Sync.status = st; if(msg!==undefined) Sync.msg = msg;
+  const el = $("#sync-status"); if(el) el.textContent = syncText();
+}
+function syncText(){
+  if(Sync.status==="denied") return "Diese E-Mail-Adresse ist nicht freigegeben. Sie muss in den Firestore-Regeln eingetragen sein.";
+  if(Sync.status==="error") return Sync.msg || "Abgleich fehlgeschlagen.";
+  if(Sync.status==="busy") return navigator.onLine===false ? "Offline – wird abgeglichen, sobald wieder Verbindung besteht." : "Wird abgeglichen …";
+  const l = LS.raw("pk-synclast");
+  return l ? `Zuletzt abgeglichen: ${deDateTime(l)}` : "Noch nicht abgeglichen.";
+}
+function markSynced(){ LS.put("pk-synclast", new Date().toISOString()); setSync("ok"); }
+function syncErr(e){
+  const code = e?.code || "";
+  if(code==="permission-denied" || code==="firestore/permission-denied") setSync("denied");
+  else if(code==="unavailable") setSync("busy");
+  else setSync("error", "Abgleich fehlgeschlagen" + (code ? ` (${code})` : "") + ".");
+}
+async function loadFb(){
+  if(Sync.fb) return Sync.fb;
+  if(!Sync.loading) Sync.loading = (async()=>{
+    const base = `https://www.gstatic.com/firebasejs/${FB_VER}/`;
+    const [A, Au, F] = await Promise.all([import(base+"firebase-app.js"), import(base+"firebase-auth.js"), import(base+"firebase-firestore.js")]);
+    const app = A.initializeApp(FIREBASE_CONFIG);
+    const auth = Au.getAuth(app); auth.languageCode = "de";
+    let db; try{ db = F.initializeFirestore(app, {localCache: F.persistentLocalCache({tabManager: F.persistentMultipleTabManager()})}); }catch{ db = F.getFirestore(app); }
+    Sync.fb = {A, Au, F, app, auth, db};
+    return Sync.fb;
+  })().catch(e=>{ Sync.loading = null; throw e; });
+  return Sync.loading;
+}
+function startAuth(){
+  if(!FIREBASE_CONFIG || Sync.started) return;
+  Sync.started = true;
+  loadFb().then(fb=>{
+    fb.Au.onAuthStateChanged(fb.auth, u=>{
+      Sync.user = u; stopListen();
+      if(u && u.emailVerified) beginSync();
+      refreshMore();
+    });
+  }).catch(()=>{ Sync.started = false; setSync("error", "Anmeldedienst konnte nicht geladen werden – keine Verbindung?"); refreshMore(); });
+}
+function refreshMore(){ if(view.name==="mehr" && !document.activeElement?.closest?.("#acct-f")) render(); }
+function stopListen(){ Sync.unsub.forEach(f=>{ try{ f(); }catch{} }); Sync.unsub = []; }
+
+// Cloud-Stand übernehmen. mode: "replace" (anderes Konto auf dem Gerät), "merge" (erste Anmeldung), "sync" (laufender Abgleich)
+function applyRemote(remote, rmeta, mode){
+  const local = groupLocal(), out = new Map(local);
+  let changed = false, metaChanged = false;
+  for(const [k, doc] of remote){
+    const L = local.get(k) || [], R = doc?.e || [], hl = hashE(L), hr = hashE(R), base = synced[k];
+    if(hl === hr){ synced[k] = hr; continue; }
+    let next = null;
+    if(mode==="replace" || (mode==="sync" && hl===base)){ next = R; synced[k] = hr; }
+    else if(mode==="merge" || hr!==base) next = mergeE(L, R);
+    if(next){ out.set(k, next); changed = true; }
+  }
+  if(mode==="replace") for(const k of local.keys()) if(!remote.has(k)){ out.delete(k); changed = true; }
+  if(rmeta || mode==="replace"){
+    const rm = {albums: rmeta?.albums || [], settings: rmeta?.settings || {}};
+    const lm = metaOf(), hl = hashMeta(lm), hr = hashMeta(rm), base = synced._meta;
+    if(hl === hr) synced._meta = hr;
+    else if(mode==="replace" || (mode==="sync" && hl===base)){ albums = rm.albums; settings = {...settings, ...rm.settings}; synced._meta = hr; metaChanged = true; }
+    else if(mode==="merge" || hr!==base){ albums = mergeAlbums(lm.albums, rm.albums); settings = {...rm.settings, ...lm.settings}; metaChanged = true; }
+  }
+  if(changed) cards = [...out.values()].flat();
+  Sync.applying = true;
+  try{
+    if(changed) saveCards();
+    if(metaChanged){ LS.set("pk-albums", albums); LS.set("pk-settings", settings); }
+  } finally { Sync.applying = false; }
+  LS.set("pk-synchash", synced);
+  if(changed || metaChanged){
+    render();
+    if(ctx && cardSheet.state!=="closed"){ try{ renderDialog(); }catch{} }
+  }
+  syncDirty();
+}
+async function beginSync(){
+  if(!Sync.fb || !Sync.user?.emailVerified || Sync.busy) return;
+  Sync.busy = true; stopListen(); setSync("busy");
+  const {F, db} = Sync.fb, uid = Sync.user.uid;
+  try{
+    const [snap, meta] = await Promise.all([F.getDocs(F.collection(db, "users", uid, "sets")), F.getDoc(F.doc(db, "users", uid))]);
+    const remote = new Map(); snap.forEach(d=>remote.set(d.id, d.data()));
+    const rmeta = meta.exists() ? meta.data() : null;
+    const prev = LS.raw("pk-syncuid");
+    if(prev !== uid){ synced = {}; applyRemote(remote, rmeta, prev ? "replace" : "merge"); LS.put("pk-syncuid", uid); }
+    else applyRemote(remote, rmeta, "sync");
+    await pushNow();
+    listen();
+    markSynced();
+  }catch(e){ syncErr(e); }
+  finally{ Sync.busy = false; }
+}
+async function pushNow(){
+  if(!Sync.fb || !Sync.user?.emailVerified || Sync.status==="denied") return;
+  const {F, db} = Sync.fb, uid = Sync.user.uid;
+  const local = groupLocal(), batch = F.writeBatch(db), pend = {};
+  let n = 0;
+  for(const k of new Set([...local.keys(), ...Object.keys(synced).filter(k=>k!=="_meta")])){
+    const L = local.get(k) || [], h = hashE(L);
+    if(synced[k] === h) continue;
+    batch.set(F.doc(db, "users", uid, "sets", k), {e: plain(sortE(L)), t: Date.now(), dev: DEV});
+    pend[k] = h; n++;
+  }
+  const lm = metaOf(), hm = hashMeta(lm);
+  if(synced._meta !== hm){ batch.set(F.doc(db, "users", uid), {...lm, t: Date.now(), dev: DEV}); pend._meta = hm; n++; }
+  if(!n) return;
+  setSync("busy");
+  Object.assign(synced, pend); LS.set("pk-synchash", synced);
+  try{ await batch.commit(); markSynced(); }
+  catch(e){ for(const k of Object.keys(pend)) delete synced[k]; LS.set("pk-synchash", synced); throw e; }
+}
+function listen(){
+  const {F, db} = Sync.fb, uid = Sync.user.uid;
+  Sync.unsub.push(F.onSnapshot(F.collection(db, "users", uid, "sets"), snap=>{
+    if(snap.metadata.hasPendingWrites) return;
+    const remote = new Map(); snap.docChanges().forEach(c=>{ if(c.type!=="removed") remote.set(c.doc.id, c.doc.data()); });
+    if(remote.size) applyRemote(remote, null, "sync");
+  }, syncErr));
+  Sync.unsub.push(F.onSnapshot(F.doc(db, "users", uid), d=>{
+    if(d.metadata.hasPendingWrites || !d.exists()) return;
+    applyRemote(new Map(), d.data(), "sync");
+  }, syncErr));
+}
+const AUTH_ERR = {"auth/invalid-credential":"E-Mail oder Passwort falsch.","auth/wrong-password":"E-Mail oder Passwort falsch.","auth/user-not-found":"E-Mail oder Passwort falsch.","auth/invalid-login-credentials":"E-Mail oder Passwort falsch.","auth/email-already-in-use":"Für diese E-Mail-Adresse gibt es schon ein Konto – bitte anmelden.","auth/weak-password":"Das Passwort ist zu kurz (mindestens 6 Zeichen).","auth/invalid-email":"Die E-Mail-Adresse ist ungültig.","auth/missing-password":"Bitte ein Passwort eingeben.","auth/network-request-failed":"Keine Verbindung.","auth/too-many-requests":"Zu viele Versuche – bitte später noch einmal.","auth/account-exists-with-different-credential":"Für diese E-Mail-Adresse gibt es schon ein Konto – bitte mit E-Mail und Passwort anmelden.","auth/unauthorized-domain":"Diese Adresse ist in Firebase noch nicht als autorisierte Domain eingetragen."};
+const authMsg = e => AUTH_ERR[e?.code] || `Das hat nicht geklappt (${e?.code || "unbekannter Fehler"}).`;
+function kontoHTML(){
+  if(!FIREBASE_CONFIG) return `<div class="group"><div class="srow"><span class="lbl">Abgleich</span><span class="val">nicht eingerichtet</span></div></div><p class="sfoot">Für den Abgleich zwischen Geräten muss die Firebase-Konfiguration in der App hinterlegt sein.</p>`;
+  if(!Sync.fb) return `<div class="group"><div class="srow"><span class="lbl">Konto</span><span class="val">${Sync.status==="error" ? "nicht erreichbar" : "wird geladen …"}</span></div></div><p class="sfoot" id="sync-status">${esc(Sync.status==="error" ? Sync.msg : "")}</p>`;
+  const u = Sync.user;
+  if(!u) return `<form class="group" id="acct-f" novalidate>
+      <label class="srow"><span class="lbl">E-Mail</span><input class="sin" id="ac-mail" type="email" autocomplete="username" inputmode="email" autocapitalize="off" spellcheck="false" placeholder="name@beispiel.de"></label>
+      <label class="srow"><span class="lbl">Passwort</span><input class="sin" id="ac-pw" type="password" autocomplete="current-password" placeholder="mind. 6 Zeichen"></label>
+      <button type="submit" hidden></button>
+    </form>
+    <div class="acct-btns"><button class="btn primary" type="button" id="ac-in">Anmelden</button><button class="btn" type="button" id="ac-up">Registrieren</button><button class="lnk" type="button" id="ac-reset">Passwort vergessen?</button></div>
+    <div class="acct-or"><span>oder</span></div>
+    <button class="btn gbtn" type="button" id="ac-google"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.6 5.4 2.7 13.3l7.9 6.1C12.5 13.7 17.8 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.4c-.5 2.9-2.2 5.3-4.6 6.9l7.4 5.7c4.3-4 6.9-9.9 6.9-17.1z"/><path fill="#FBBC05" d="M10.6 28.6c-.5-1.4-.8-2.9-.8-4.6s.3-3.2.8-4.6l-7.9-6.1C1 16.6 0 20.2 0 24s1 7.4 2.7 10.7l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.4-5.7c-2.1 1.4-4.8 2.3-8.5 2.3-6.2 0-11.5-4.2-13.4-9.9l-7.9 6.1C6.6 42.6 14.6 48 24 48z"/></svg>Mit Google anmelden</button>
+    <p class="sfoot" id="ac-msg">Mit Konto wird deine Sammlung zwischen deinen Geräten abgeglichen. Ohne Anmeldung bleibt alles nur auf diesem Gerät.</p>`;
+  if(!u.emailVerified) return `<div class="group"><div class="srow"><span class="lbl">Angemeldet als</span><span class="val">${esc(u.email)}</span></div></div>
+    <div class="acct-btns"><button class="btn primary" type="button" id="ac-ver">Ich habe bestätigt</button><button class="btn" type="button" id="ac-resend">Mail erneut senden</button><button class="lnk" type="button" id="ac-out">Abmelden</button></div>
+    <p class="sfoot" id="ac-msg">Bitte bestätige zuerst deine E-Mail-Adresse über den Link in der Mail (auch im Spam-Ordner nachsehen). Danach startet der Abgleich.</p>`;
+  return `<div class="group"><div class="srow"><span class="lbl">Angemeldet als</span><span class="val">${esc(u.email)}</span></div>
+      <button class="srow act" type="button" id="ac-sync"><span class="lbl">Jetzt abgleichen</span></button>
+      <button class="srow act" type="button" id="ac-out"><span class="lbl">Abmelden</span></button></div>
+    <p class="sfoot" id="sync-status">${esc(syncText())}</p>`;
+}
+function bindKonto(){
+  if(!FIREBASE_CONFIG) return;
+  if(!Sync.fb){ startAuth(); return; }
+  const {Au, auth} = Sync.fb, msg = t => { const m = $("#ac-msg"); if(m) m.textContent = t; };
+  const creds = () => [$("#ac-mail").value.trim(), $("#ac-pw").value];
+  const busyBtn = async (b, fn) => { b.disabled = true; try{ await fn(); }catch(e){ msg(authMsg(e)); } finally { b.disabled = false; } };
+  const signIn = () => busyBtn($("#ac-in"), async()=>{ const [m,p] = creds(); await Au.signInWithEmailAndPassword(auth, m, p); });
+  $("#acct-f")?.addEventListener("submit", e=>{ e.preventDefault(); signIn(); });
+  $("#ac-in")?.addEventListener("click", signIn);
+  $("#ac-google")?.addEventListener("click", e=>busyBtn(e.currentTarget, async()=>{
+    try{ await Au.signInWithPopup(auth, new Au.GoogleAuthProvider()); }
+    catch(err){
+      const c = err?.code || "";
+      if(c==="auth/popup-closed-by-user" || c==="auth/cancelled-popup-request") return;
+      if(c==="auth/account-exists-with-different-credential") throw {code:c};
+      msg("Die Google-Anmeldung hat hier nicht geklappt" + (window.matchMedia("(display-mode: standalone)").matches ? " – in der App vom Home-Bildschirm bitte E-Mail und Passwort nutzen." : ` (${c||"Fehler"}). Bitte E-Mail und Passwort nutzen.`));
+    }
+  }));
+  $("#ac-up")?.addEventListener("click", e=>busyBtn(e.currentTarget, async()=>{ const [m,p] = creds(); const r = await Au.createUserWithEmailAndPassword(auth, m, p); await Au.sendEmailVerification(r.user); }));
+  $("#ac-reset")?.addEventListener("click", e=>busyBtn(e.currentTarget, async()=>{ const [m] = creds(); if(!m){ msg("Bitte zuerst die E-Mail-Adresse eingeben."); return; } await Au.sendPasswordResetEmail(auth, m); msg("Mail zum Zurücksetzen des Passworts ist unterwegs."); }));
+  $("#ac-resend")?.addEventListener("click", e=>busyBtn(e.currentTarget, async()=>{ await Au.sendEmailVerification(auth.currentUser); msg("Bestätigungs-Mail wurde erneut gesendet."); }));
+  $("#ac-ver")?.addEventListener("click", e=>busyBtn(e.currentTarget, async()=>{
+    await auth.currentUser.reload(); await auth.currentUser.getIdToken(true);
+    Sync.user = auth.currentUser;
+    if(Sync.user.emailVerified){ render(); beginSync(); } else msg("Noch nicht bestätigt – bitte auf den Link in der Mail tippen.");
+  }));
+  $("#ac-sync")?.addEventListener("click", ()=>beginSync());
+  $("#ac-out")?.addEventListener("click", async()=>{ stopListen(); clearTimeout(Sync.pushT); try{ await Au.signOut(auth); }catch{} });
+}
+window.addEventListener("online", ()=>{ if(Sync.user?.emailVerified) beginSync(); });
+document.addEventListener("visibilitychange", ()=>{ if(document.visibilityState==="visible" && Sync.user?.emailVerified) syncDirty(); });
+
 /* ---------- Start ---------- */
 function init(){
   applyTheme();
@@ -1821,6 +2042,7 @@ function init(){
   if("serviceWorker" in navigator && location.protocol==="https:") navigator.serviceWorker.register("sw.js").catch(()=>{});
   updatedNotice();
   setTimeout(checkUpdate, 1500);
+  if(FIREBASE_CONFIG && LS.raw("pk-syncuid")) startAuth();
 }
 init();
 </script>
