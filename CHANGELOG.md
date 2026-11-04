@@ -1,5 +1,13 @@
 # Kartenalbum – Änderungen
 
+## Version 1.23 · 04.11.2026
+- Zoomen mit zwei Fingern und Doppeltippen deaktiviert – kein automatisches Heranzoomen mehr bei Eingabefeldern
+- Fix: Tab-Leiste verrutschte und Kopfzeile verschwand beim Scrollen
+- Alben, Pokédex und Mehr sind in der Tab-Leiste immer dabei
+- Flaggen statt Sprachkürzel – jetzt auch für deutsche Alben
+- Erscheinungsdatum steht in den Set-Zahlen, Set-Infos in einer Zeile
+- Am Rechner: „Scannen“ in der Seitenleiste richtig ausgerichtet
+
 ## Version 1.22 · 04.11.2026
 - Tab-Leiste anpassbar: 3 bis 5 Bereiche plus Mehr, Reihenfolge per Pfeil, ausgeblendete Bereiche unter Mehr – Auswahl beim ersten Start
 - „Scannen“ als eigener Bereich in der Tab-Leiste
