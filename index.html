@@ -11,8 +11,8 @@
 <meta name="theme-color" content="#e8ebf1" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0e121b" media="(prefers-color-scheme: dark)">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="icon-180.png">
-<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-180.png?v=2">
+<link rel="icon" href="icon-192.png?v=2">
 <script>try{var th=localStorage.getItem("pk-theme");if(th==="light"||th==="dark")document.documentElement.setAttribute("data-theme",th);var dk=th==="dark"||(th!=="light"&&matchMedia("(prefers-color-scheme: dark)").matches);document.querySelectorAll('meta[name="theme-color"]').forEach(function(m){m.removeAttribute("media");m.setAttribute("content",dk?"#0e121b":"#e8ebf1");});var sb=document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');if(sb)sb.setAttribute("content",dk?"black":"default");}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Chakra+Petch:wght@500;600;700&display=swap">
@@ -69,7 +69,7 @@ body.nobar .wrap{padding-top:calc(env(safe-area-inset-top,0px) + 18px)}
 .wrap{transition:transform .25s ease}
 .edge-hint{position:fixed;left:0;top:0;bottom:0;width:4px;background:var(--accent);opacity:0;z-index:40;pointer-events:none;transition:opacity .2s}
 .tabbar{position:fixed;left:0;right:0;bottom:0;z-index:25;background:var(--bar);-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
-.tabbar nav{max-width:640px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);height:var(--tabh);padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
+.tabbar nav{max-width:640px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);height:var(--tabh);padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
 .tab{display:grid;justify-items:center;align-content:center;gap:3px;text-decoration:none;color:var(--muted);font:600 11px var(--f-body);position:relative}
 .tab svg{width:25px;height:25px}
 .tab[aria-current="page"]{color:var(--accent)}
@@ -455,6 +455,42 @@ form.f{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .toast #t-log,.toast a.btn{background:transparent;color:var(--bg);border-color:color-mix(in srgb,var(--bg) 40%,transparent)}
 .toast .tx{border:0;background:none;color:inherit;font-size:20px;width:32px;height:32px;cursor:pointer;opacity:.7}
 
+a:focus:not(:focus-visible),button:focus:not(:focus-visible),label:focus:not(:focus-visible){outline:none}
+.statbtn{border:0;background:none;padding:0;text-align:left;color:inherit;font:inherit;cursor:pointer}
+.statbtn small{color:var(--accent)}
+.side-sum{border:0;text-align:left;color:var(--ink);font:inherit;cursor:pointer;width:100%}
+.side-sum .sgo{font-style:normal;color:var(--accent);font:600 12px var(--f-body);margin-left:6px}
+.wishbtn{display:inline-flex;align-items:center;gap:6px}
+.wishbtn svg{width:17px;height:17px;color:var(--accent)}
+.wishbtn[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}
+.dlinks{display:flex;flex-wrap:wrap;gap:8px}
+.wtag{position:absolute;right:4px;top:4px;z-index:2;width:20px;height:20px;border-radius:50%;background:var(--page);color:var(--accent);display:grid;place-items:center;box-shadow:var(--shadow)}
+.wtag svg{width:12px;height:12px}
+.wish-tools{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:14px}
+.wlist{display:grid;gap:10px;margin-top:16px}
+.wrow{display:flex;align-items:center;gap:12px;background:var(--page);border-radius:12px;padding:8px 10px;box-shadow:var(--shadow)}
+.wcard{flex:0 0 52px;aspect-ratio:63/88;border:0;padding:0;border-radius:5px;overflow:hidden;background:var(--pocket);cursor:pointer;position:relative}
+.wcard .cimg{width:100%;height:100%;object-fit:cover;filter:none;opacity:1}
+.winfo{flex:1;min-width:0;display:grid;gap:2px;border:0;background:none;text-align:left;color:var(--ink);font:inherit;cursor:pointer;padding:0}
+.winfo b{font:700 15px var(--f-body);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.winfo span{font-size:12.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.winfo .wpr{font:600 13px var(--f-num);color:var(--ink)}
+.wprio{border:1px solid var(--line);background:var(--page);color:var(--muted);font:600 12.5px var(--f-body);border-radius:99px;padding:5px 10px;cursor:pointer;min-height:32px}
+.wprio[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.wdel{border:0;background:var(--pocket);color:var(--ink);width:32px;height:32px;border-radius:50%;font-size:18px;cursor:pointer;flex:0 0 auto}
+.vchart{width:100%;height:auto;display:block}
+.vchart .vlab{font:600 19px var(--f-num);fill:var(--muted)}
+.stat b.up{color:#2f8a4e}.stat b.down{color:var(--accent)}
+.st-h{margin:6px 0 0;font:700 16px var(--f-body)}
+.toplist{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.toplist button{display:flex;align-items:center;gap:12px;width:100%;border:0;background:var(--bg);border-radius:10px;padding:9px 12px;text-align:left;color:var(--ink);font:inherit;cursor:pointer}
+.toplist .tr{font:700 15px var(--f-num);color:var(--muted);width:22px}
+.toplist .tn{flex:1;min-width:0;display:grid}
+.toplist .tn b{font-size:14.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.toplist .tn small{font-size:12px;color:var(--muted)}
+.toplist .tp{font:700 14px var(--f-num)}
+.tab{font-size:10.5px}
+
 /* ---------- Desktop / großer Bildschirm (ab 900 px) ---------- */
 .side-brand,.side-sum,.kbd,.pnav{display:none}
 @media (hover:hover) and (pointer:fine){
@@ -523,12 +559,13 @@ form.f{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
   <div id="tools"></div>
   <main id="view"></main>
 </div>
-<div class="tabbar"><div class="side-brand"><img src="icon-192.png" alt=""><b>Kartenalbum</b></div><nav aria-label="Hauptnavigation">
+<div class="tabbar"><div class="side-brand"><img src="icon-192.png?v=2" alt=""><b>Kartenalbum</b></div><nav aria-label="Hauptnavigation">
   <a class="tab" href="#regal" data-tab="regal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="5" height="16" rx="1"/><rect x="9.5" y="4" width="5" height="16" rx="1"/><path d="M15.6 5.4l3.6-1 3 14.8-3.6 1z"/></svg>Alben</a>
   <a class="tab" href="#dex" data-tab="dex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></svg>Pokédex</a>
   <a class="tab" href="#suche" data-tab="suche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L20.5 20.5"/></svg>Suche<kbd class="kbd">/</kbd></a>
+  <a class="tab" href="#wunsch" data-tab="wunsch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.3-8.9-8.6C1.7 8.3 3.6 5 6.9 5c2 0 3.3 1.1 5.1 3 1.8-1.9 3.1-3 5.1-3 3.3 0 5.2 3.3 3.8 6.4C19 15.7 12 20 12 20z"/></svg>Wunschliste</a>
   <a class="tab" href="#mehr" data-tab="mehr"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>Mehr</a>
-</nav><div class="side-sum" id="side-sum"></div></div>
+</nav><button class="side-sum" type="button" id="side-sum" aria-label="Wertentwicklung öffnen"></button></div>
 
 <div class="scrim" id="scrim" hidden></div>
 <section class="sheet" id="dlg" role="dialog" aria-modal="true" aria-labelledby="d-title" hidden>
@@ -562,6 +599,14 @@ form.f{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
     <h2 class="sh-t" id="p-title">Album anlegen</h2>
     <input class="field" id="p-q" type="search" placeholder="Set suchen, z. B. Stellarkrone oder SCR" autocomplete="off">
     <div class="plist" id="p-list"></div>
+  </div></div>
+</section>
+<section class="sheet" id="statsheet" role="dialog" aria-modal="true" aria-labelledby="st-title" hidden>
+  <div class="grab" aria-hidden="true"><span></span></div>
+  <div class="sheet-scroll"><div class="dlg">
+    <div class="dlg-x"><button class="x" type="button" data-sheet-close aria-label="Schließen">×</button></div>
+    <h2 class="sh-t" id="st-title">Wertentwicklung</h2>
+    <div id="st-body" style="display:grid;gap:14px"></div>
   </div></div>
 </section>
 <section class="sheet" id="logsheet" role="dialog" aria-modal="true" aria-labelledby="l-title" hidden>
@@ -612,6 +657,7 @@ const CONDS = ["Mint","Near Mint","Excellent","Good","Light Played","Played","Po
 
 /* ---------- Änderungsprotokoll ---------- */
 const CHANGELOG = [
+  {v:"1.17", d:"2026-11-04", items:["Neuer Tab „Wunschliste“: Karten im Karten-Sheet per Herz merken, Priorität hoch/normal, aktueller Preis und Summe, als Text teilen","Karten verschwinden automatisch von der Wunschliste, sobald du sie zählst","Wertentwicklung: Tipp auf den Sammlungswert zeigt den Verlauf und die 10 wertvollsten Karten","Wunschliste und Wertverlauf werden über das Konto abgeglichen","Neues App-Icon","Kein Fokus-Rahmen mehr nach Klick in der Seitenleiste"]},
   {v:"1.16", d:"2026-11-04", items:["Konto mit E-Mail und Passwort oder Google (Firebase) unter Mehr → Konto & Abgleich","Automatischer Abgleich: Karten, Alben und Einstellungen live auf allen Geräten","Eigene Sammlung pro Person, nur freigegebene E-Mail-Adressen dürfen speichern","Erste Anmeldung führt die bisherige Sammlung auf dem Gerät mit der Cloud zusammen","Offline zählen wie bisher, Abgleich sobald wieder Verbindung besteht","Album am Rechner vollständig sichtbar – Leisten liegen nicht mehr über den Seiten"]},
   {v:"1.15", d:"2026-11-04", items:["Browser-Version für Chrome, Edge, Firefox und Safari: ab 900 px Breite eigenes Layout","Seitenleiste links mit Navigation und Sammlungs-Übersicht","Breiteres Raster mit mehr Spalten, Set-Kopf nebeneinander","Karten-Detail als Seitenpanel rechts – Raster bleibt sichtbar","Tastatur: ← → nächste Karte bzw. Seite, Esc schließt, / öffnet die Suche","Album am Rechner als Doppelseite, Blättern per Klick auf den Seitenrand","3D-Ansicht am Rechner mit Maus, ohne Neigungsknopf","Hover-Effekte auf Karten und Alben"]},
   {v:"1.14", d:"2026-11-02", items:["Aktualisieren lädt erst neu, wenn die neue Version komplett geladen ist – keine leere App mehr","Fehlen die Setdaten beim Start, lädt die App einmal neu und zeigt sonst einen Hinweis","Set-Kopfzeile behält beim Scrollen ihre Farbe, nur eine dünne Trennlinie erscheint","Zurück aus der Album-Vorschau führt wieder in die Set-Liste („Alle Sets“)","Typ-Icons vollständig und einheitlich","Typ „Farblos“ heißt jetzt „Normal“","Set-Filter mit Region und Generation","Höchstwert genauer: berücksichtigt auch die Cardmarket-Durchschnitte der letzten 30 Tage"]},
@@ -687,7 +733,7 @@ const LS = {
   works(){ try{ localStorage.setItem("pk-test","1"); localStorage.removeItem("pk-test"); return true; }catch{ return false; } },
   raw(k){ try{ return localStorage.getItem(k); }catch{ return null; } }, put(k,v){ try{ localStorage.setItem(k,v); }catch{} }
 };
-let cards = [], albums = [], settings = {lang:"Deutsch", cond:"Near Mint"};
+let cards = [], albums = [], settings = {lang:"Deutsch", cond:"Near Mint"}, wish = {}, valHist = {};
 const rid = () => "l"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
 const saveCards = () => LS.set("pk-cards", cards);
 function setStatus(t){ const el=$("#status"); el.textContent=t||""; el.hidden=!t; }
@@ -815,6 +861,7 @@ function changeQty(setId, num, v, lang, cond, delta){
     const q = qtyOf(cards[i]) + delta;
     if(q<=0) cards.splice(i,1); else cards[i] = {...cards[i], qty:q};
   }
+  if(delta>0 && wish[wishKey(setId, num)]){ delete wish[wishKey(setId, num)]; saveWish(); toast(`<span>Von der Wunschliste entfernt</span><button class="tx" type="button" data-tclose aria-label="Schließen">×</button>`, 2200); }
   if(delta>0 && !albums.some(a=>a.setId===setId)){ albums.push({id:slugOf(setId), setId, created:new Date().toISOString()}); LS.set("pk-albums", albums); }
   saveCards(); render();
 }
@@ -828,7 +875,7 @@ function stepVariant(setId, num, v, delta){
 /* ---------- Routing ---------- */
 let view = {name:"regal"}, filter = "all", searchQ = "", pendingOpen = null, confirmAlbumDel = false;
 let backTo = null, restore = null, restoreFilt = false;
-const VIEW_LBL = {regal:"Alben", dex:"Pokédex", suche:"Suche", mehr:"Mehr", picker:"Alle Sets"};
+const VIEW_LBL = {regal:"Alben", dex:"Pokédex", suche:"Suche", wunsch:"Wunschliste", mehr:"Mehr", picker:"Alle Sets"};
 function jumpToSet(setId, num){
   backTo = {setId, hash: location.hash.slice(1) || "regal", view: view.name, y: window.scrollY, reopen: ctx ? {...ctx} : null};
   pendingOpen = {kind:"set", setId, num};
@@ -845,6 +892,7 @@ function route(){
   if(h==="dex") view={name:"dex"};
   else if(h==="suche") view={name:"suche"};
   else if(h==="mehr" || h==="info" || h==="neu") view={name:"mehr"};
+  else if(h==="wunsch") view={name:"wunsch"};
   else if(h.startsWith("set-") && SLUG.has(h.slice(4))) view={name:"set", set:SLUG.get(h.slice(4))};
   else view={name:"regal"};
   filter="all"; confirmAlbumDel=false;
@@ -864,7 +912,8 @@ const go = h => { if(location.hash.slice(1)===h) route(); else location.hash = h
 
 function render(){
   const tab = view.name==="set" ? "regal" : view.name;
-  const ss = $("#side-sum"); if(ss){ const n = sum(cards,qtyOf); ss.innerHTML = `<small>Sammlung</small><b>${n.toLocaleString("de-DE")} ${n===1?"Karte":"Karten"}</b><span>${eur(sum(cards,valOf))}</span>`; }
+  recordValue();
+  const ss = $("#side-sum"); if(ss){ const n = sum(cards,qtyOf); ss.innerHTML = `<small>Sammlung</small><b>${n.toLocaleString("de-DE")} ${n===1?"Karte":"Karten"}</b><span>${eur(sum(cards,valOf))} <i class="sgo">Verlauf ›</i></span>`; }
   document.body.classList.toggle("nobar", view.name!=="set");
   document.body.classList.toggle("scrolled", view.name==="set" && window.scrollY > 6);
   document.querySelectorAll(".tab").forEach(a=>{ if(a.dataset.tab===tab) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
@@ -880,6 +929,7 @@ function render(){
   else if(view.name==="set") renderSet(view.set);
   else if(view.name==="suche") renderSearch();
   else if(view.name==="mehr") renderMore();
+  else if(view.name==="wunsch") renderWish();
   else renderShelf();
   if(ctx && $("#dlg").open) renderDialog();
   if(pickSheet.state!=="closed") renderPicker();
@@ -892,7 +942,7 @@ function render(){
 function renderShelf(){
   $("#bar-title").textContent = "Alben";
   $("#head").innerHTML = `<h1>Pokémon <span>Kartenalbum</span></h1>
-    <div class="stats"><div class="stat"><small>Karten</small><b>${sum(cards,qtyOf)}</b></div><div class="stat"><small>Sammlungswert</small><b>${eur(sum(cards,valOf))}</b></div><div class="stat"><small>Alben</small><b>${shelfSets().length}</b></div></div>`;
+    <div class="stats"><div class="stat"><small>Karten</small><b>${sum(cards,qtyOf)}</b></div><button class="stat statbtn" type="button" id="open-stats" aria-label="Wertentwicklung öffnen"><small>Sammlungswert ›</small><b>${eur(sum(cards,valOf))}</b></button><div class="stat"><small>Alben</small><b>${shelfSets().length}</b></div></div>`;
   $("#tools").innerHTML = "";
   let html = `<div class="shelf">`;
   for(const s of shelfSets()) html += coverHTML(s);
@@ -929,7 +979,7 @@ function slotDex(n, list){
 function slotSet(s, c, list, noId){
   const nm = cName(c), sec = isSecret(s,c);
   const attrs = `type="button" data-set="${esc(s.id)}" data-num="${esc(c[0])}"${noId?"":` id="slot-${esc(c[0])}"`}`;
-  if(!list?.length) return `<button class="slot${sec?" secret":""}" ${attrs} aria-label="${esc(numDisp(s,c[0]))} ${esc(nm)}, fehlt"><span class="no"><b>${esc(c[0])}</b><span>${esc(nm)}</span></span>${cimg(s,c[0],"low","cimg")}<span class="tag">${esc(c[0])}</span></button>`;
+  if(!list?.length) return `<button class="slot${sec?" secret":""}" ${attrs} aria-label="${esc(numDisp(s,c[0]))} ${esc(nm)}, fehlt"><span class="no"><b>${esc(c[0])}</b><span>${esc(nm)}</span></span>${cimg(s,c[0],"low","cimg")}<span class="tag">${esc(c[0])}</span>${wish[wishKey(s.id,c[0])]?`<span class="wtag" title="Auf der Wunschliste">${HEART_SVG}</span>`:""}</button>`;
   const q = sum(list,qtyOf), t = TYPES[c[5]];
   const band = t ? `--tb:${t[1]};--ti:${t[2]}` : c[4]==="T" ? "--tb:#5b6b86;--ti:#fff" : "";
   return `<button class="slot owned" ${attrs} aria-label="${esc(numDisp(s,c[0]))} ${esc(nm)}, ${q} Karte(n)">${q>1?`<span class="badge">${q}×</span>`:""}${cimg(s, c[0], "low", "cimg", list[0].lang)}<span class="face" style="${band}"><span class="band"><span class="dx">${esc(numDisp(s,c[0]))}</span><span class="nm">${esc(nm)}</span></span></span></button>`;
@@ -1108,6 +1158,108 @@ function renderAlbumMenu(){
   $("#view").addEventListener("click", e=>{ if(fired && e.target.closest("[data-cover]")){ e.preventDefault(); e.stopPropagation(); fired = false; } }, true);
   $("#view").addEventListener("contextmenu", e=>{ const c = e.target.closest("[data-cover]"); if(c){ e.preventDefault(); cancel(); openAlbumMenu(SET.get(c.dataset.cover)); } });
 })();
+
+/* ---------- Wunschliste ---------- */
+const HEART_SVG = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.7 4.5c2.2 0 3.6 1.2 5.3 3.1 1.7-1.9 3.1-3.1 5.3-3.1 3.7 0 5.8 3.8 4.3 7.2C19.5 16.4 12 21 12 21z"/></svg>';
+const HEART_O = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.3-8.9-8.6C1.7 8.3 3.6 5 6.9 5c2 0 3.3 1.1 5.1 3 1.8-1.9 3.1-3 5.1-3 3.3 0 5.2 3.3 3.8 6.4C19 15.7 12 20 12 20z"/></svg>';
+const wishKey = (setId, num) => setId+"|"+num;
+const isWished = (setId, num) => !!wish[wishKey(setId, num)];
+function saveWish(){ LS.set("pk-wish", wish); }
+function toggleWish(setId, num){
+  const k = wishKey(setId, num);
+  if(wish[k]) delete wish[k]; else wish[k] = {p:0, t:Date.now()};
+  saveWish();
+}
+function wishPrice(info){
+  const ks = Object.keys(info?.vprice||{}).filter(k=>info.vprice[k] > 0);
+  const main = ks.filter(k=>vMain(k)), pool = main.length ? main : ks;
+  return pool.length ? Math.min(...pool.map(k=>info.vprice[k])) : 0;
+}
+let wishLoading = false;
+async function refreshWishPrices(){
+  if(wishLoading) return; wishLoading = true;
+  const today = new Date().toISOString().slice(0,10);
+  try{
+    for(const [k, w] of Object.entries(wish)){
+      if(w.prd === today) continue;
+      const [sid, num] = k.split("|"), s = SET.get(sid); if(!s || !cardAt(sid, num)) continue;
+      try{ const info = await cardInfo(s, num, false); lastInfo.set(k, info); if(wish[k]){ wish[k] = {...wish[k], pr: Math.round(wishPrice(info)*100)/100, prd: today}; } }catch{}
+    }
+    saveWish();
+    if(view.name==="wunsch") renderWish();
+  } finally { wishLoading = false; }
+}
+function wishList(){
+  return Object.entries(wish).map(([k,w])=>{ const [sid, num] = k.split("|"); const s = SET.get(sid), c = cardAt(sid, num); return s && c ? {k, w, s, c} : null; })
+    .filter(Boolean).sort((a,b)=>(b.w.p||0)-(a.w.p||0) || (b.w.t||0)-(a.w.t||0));
+}
+function renderWish(){
+  $("#bar-title").textContent = "Wunschliste";
+  const list = wishList(), total = sum(list, x=>x.w.pr||0), missing = list.filter(x=>x.w.pr==null).length;
+  $("#head").innerHTML = `<h1>Wunschliste</h1>${list.length?`<div class="stats"><div class="stat"><small>Karten</small><b>${list.length}</b></div><div class="stat"><small>Summe</small><b>${eur(total)}</b></div></div>`:""}`;
+  $("#tools").innerHTML = list.length ? `<div class="row wish-tools"><button class="btn" type="button" id="wish-share">Als Text teilen</button>${missing?`<span class="hint">Preise werden geladen …</span>`:`<span class="hint">Preise: günstigste Variante, Cardmarket-Trend</span>`}</div>` : "";
+  $("#view").innerHTML = list.length ? `<div class="wlist">${list.map(({k,w,s,c})=>`<div class="wrow">
+      <button class="wcard" type="button" data-wopen="${esc(k)}" aria-label="${esc(cName(c))} öffnen">${cimg(s,c[0],"low","cimg")}</button>
+      <button class="winfo" type="button" data-wopen="${esc(k)}"><b>${esc(cName(c))}</b><span>${esc(s.de)} · ${esc(s.abbr)} ${esc(numDisp(s,c[0]))}</span><span class="wpr">${w.pr==null?"Preis wird geladen …":w.pr?`ab ${eur(w.pr)}`:"kein Preis verfügbar"}</span></button>
+      <button class="wprio" type="button" data-wprio="${esc(k)}" aria-pressed="${!!w.p}" aria-label="Priorität hoch">${w.p?"Hoch":"Normal"}</button>
+      <button class="wdel" type="button" data-wdel="${esc(k)}" aria-label="Von der Wunschliste entfernen">×</button>
+    </div>`).join("")}</div>` : `<p class="empty">Noch keine Karten auf der Wunschliste. Öffne eine Karte und tippe auf „Wunschliste“.</p>`;
+  $("#view").querySelectorAll("[data-wopen]").forEach(b=>b.addEventListener("click", ()=>{ const [setId, num] = b.dataset.wopen.split("|"); openCtx({kind:"set", setId, num}); }));
+  $("#view").querySelectorAll("[data-wprio]").forEach(b=>b.addEventListener("click", ()=>{ const k = b.dataset.wprio; if(!wish[k]) return; wish[k] = {...wish[k], p: wish[k].p ? 0 : 1}; saveWish(); renderWish(); }));
+  $("#view").querySelectorAll("[data-wdel]").forEach(b=>b.addEventListener("click", ()=>{ delete wish[b.dataset.wdel]; saveWish(); renderWish(); }));
+  $("#wish-share")?.addEventListener("click", shareWish);
+  if(missing || list.some(x=>x.w.prd !== new Date().toISOString().slice(0,10))) refreshWishPrices();
+}
+async function shareWish(){
+  const list = wishList(), line = x => `• ${cName(x.c)} – ${x.s.de} ${x.s.abbr} ${numDisp(x.s,x.c[0])}${x.w.pr?` – ab ${eur(x.w.pr)}`:""}`;
+  const hi = list.filter(x=>x.w.p), no = list.filter(x=>!x.w.p);
+  const d = new Date(), p = n => String(n).padStart(2,"0");
+  const text = [`Meine Pokémon-Wunschliste (${p(d.getDate())}.${p(d.getMonth()+1)}.${d.getFullYear()})`, "", ...(hi.length?["Priorität hoch:", ...hi.map(line), ""]:[]), ...(no.length?[hi.length?"Weitere:":"Karten:", ...no.map(line), ""]:[]), `Summe: ${eur(sum(list,x=>x.w.pr||0))}`].join("\n");
+  try{ if(navigator.share){ await navigator.share({text}); return; } }catch(e){ if(e?.name==="AbortError") return; }
+  try{ await navigator.clipboard.writeText(text); toast(`<span>Wunschliste kopiert</span><button class="tx" type="button" data-tclose aria-label="Schließen">×</button>`, 2500); }catch{ toast(`<span>Teilen nicht möglich</span><button class="tx" type="button" data-tclose aria-label="Schließen">×</button>`, 2500); }
+}
+
+/* ---------- Wertentwicklung ---------- */
+const localDay = () => { const d = new Date(), p = n => String(n).padStart(2,"0"); return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`; };
+function recordValue(){
+  if(!cards.length && !Object.keys(valHist).length) return;
+  const d = localDay(), v = Math.round(sum(cards,valOf)*100)/100;
+  if(valHist[d] !== v){ valHist[d] = v; LS.set("pk-valhist", valHist); }
+}
+function chartSVG(pts){
+  const W = 600, H = 200, pl = 8, pr = 8, pt = 14, pb = 26;
+  if(pts.length < 2) return "";
+  const vs = pts.map(p=>p[1]), mn = Math.min(...vs), mx = Math.max(...vs), span = (mx - mn) || Math.max(1, mx*0.1);
+  const lo = mn - span*0.15, hi = mx + span*0.15;
+  const x = i => pl + i*(W-pl-pr)/(pts.length-1), y = v => pt + (1-(v-lo)/(hi-lo))*(H-pt-pb);
+  const line = pts.map((p,i)=>`${i?"L":"M"}${x(i).toFixed(1)} ${y(p[1]).toFixed(1)}`).join(" ");
+  const area = `${line} L${x(pts.length-1).toFixed(1)} ${H-pb} L${x(0).toFixed(1)} ${H-pb} Z`;
+  const lab = i => deDate(pts[i][0]).slice(0,6);
+  return `<svg class="vchart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Verlauf des Sammlungswerts von ${eur(vs[0])} auf ${eur(vs[vs.length-1])}">
+    <path d="${area}" fill="color-mix(in srgb,var(--accent) 12%,transparent)"/><path d="${line}" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="${x(pts.length-1).toFixed(1)}" cy="${y(vs[vs.length-1]).toFixed(1)}" r="4.5" fill="var(--accent)"/>
+    <text x="${pl}" y="${H-6}" class="vlab">${lab(0)}</text><text x="${W-pr}" y="${H-6}" class="vlab" text-anchor="end">${lab(pts.length-1)}</text></svg>`;
+}
+let statRange = 30;
+function openStats(){ renderStats(); statSheet.open("full"); }
+function renderStats(){
+  recordValue();
+  const all = Object.entries(valHist).sort((a,b)=>a[0]<b[0]?-1:1);
+  const cut = statRange ? new Date(Date.now() - statRange*864e5).toISOString().slice(0,10) : "";
+  const pts = all.filter(([d])=>d >= cut);
+  const now = sum(cards,valOf), first = pts[0]?.[1] ?? now, diff = now - first;
+  const groups = new Map();
+  for(const e of cards){ if(!e.setId || !qtyOf(e) || !(+e.val)) continue; const k = e.setId+"|"+e.num+"|"+e.v, o = groups.get(k); if(!o || +e.val > +o.val) groups.set(k, e); }
+  const top = [...groups.values()].sort((a,b)=>b.val-a.val).slice(0,10);
+  $("#st-body").innerHTML = `
+    <div class="stats" style="margin-top:0"><div class="stat"><small>Sammlungswert</small><b>${eur(now)}</b></div>${pts.length>1?`<div class="stat"><small>Veränderung</small><b class="${diff>=0?"up":"down"}">${diff>=0?"+":"−"}${eur(Math.abs(diff))}</b></div>`:""}</div>
+    <div class="seg" role="group" aria-label="Zeitraum">${[[7,"7 Tage"],[30,"30 Tage"],[365,"1 Jahr"],[0,"Alles"]].map(([d,l])=>`<button type="button" data-srange="${d}" aria-pressed="${statRange===d}">${l}</button>`).join("")}</div>
+    ${pts.length>1 ? chartSVG(pts) : `<p class="hint">Der Verlauf beginnt heute: Jeden Tag, an dem du die App öffnest, kommt ein Punkt dazu. Werte aktualisierst du unter Mehr → Werte aktualisieren.</p>`}
+    <h3 class="st-h">Top 10 – wertvollste Karten</h3>
+    ${top.length ? `<ol class="toplist">${top.map((e,i)=>{ const s = SET.get(e.setId), c = cardAt(e.setId, e.num); if(!s||!c) return ""; return `<li><button type="button" data-top="${esc(e.setId)}|${esc(e.num)}"><span class="tr">${i+1}</span><span class="tn"><b>${esc(cName(c))}</b><small>${esc(s.abbr)} ${esc(numDisp(s,c[0]))} · ${esc(vLabel(e.v))}</small></span><span class="tp">${eur(+e.val)}</span></button></li>`; }).join("")}</ol>` : `<p class="hint">Noch keine Karten mit Preis. Öffne eine Karte oder tippe unter Mehr auf „Werte aktualisieren“.</p>`}`;
+  $("#st-body").querySelectorAll("[data-srange]").forEach(b=>b.addEventListener("click", ()=>{ statRange = +b.dataset.srange; renderStats(); }));
+  $("#st-body").querySelectorAll("[data-top]").forEach(b=>b.addEventListener("click", ()=>{ const [setId, num] = b.dataset.top.split("|"); openCtx({kind:"set", setId, num}); }));
+}
 
 /* ---------- Suche ---------- */
 function renderSearch(){
@@ -1321,6 +1473,8 @@ const closeSheet = () => cardSheet.close();
 Object.defineProperty($("#dlg"), "open", {get:()=>cardSheet.state!=="closed"});
 const pickSheet = makeSheet($("#pick"));
 const logSheet = makeSheet($("#logsheet"));
+const statSheet = makeSheet($("#statsheet"));
+document.addEventListener("click", e=>{ if(e.target.closest("#open-stats,#side-sum")) openStats(); });
 const menuSheet = makeSheet($("#menusheet"));
 const filtSheet = makeSheet($("#filt"));
 function rememberRecent(c){ if(c.kind!=="set") return; const k = c.setId+"|"+c.num; const l = LS.get("pk-recent", []).filter(x=>x!==k); l.unshift(k); LS.set("pk-recent", l.slice(0,12)); }
@@ -1334,7 +1488,10 @@ function renderDialog(){
   const typeChip = c[4]==="P" && t ? `<span class="chip type" style="--tb:${t[1]};--ti:${t[2]}">${typeIcon(c[5])}${esc(t[0])}</span>` : `<span class="chip">${esc(CAT[c[4]]||"")}</span>`;
   $("#d-chips").innerHTML = `<span class="chip num">${esc(s.abbr)} ${esc(numDisp(s,c[0]))}</span>${rar[0]&&rar[0]!=="–"?`<span class="chip rare">${esc(/★/.test(rar[1]||"") ? rar[1]+" " : "")}${esc(rar[0])}</span>`:""}${typeChip}${q?`<span class="chip have">${q}× im Album</span>`:`<span class="chip none">nicht im Album</span>`}`;
   $("#d-meta").textContent = [s.de, c[7] ? `Pokédex #${pad4(c[7])}` : "", q ? `Wert ${eur(sum(mine,valOf))}` : ""].filter(Boolean).join(" · ");
-  $("#d-links").innerHTML = `<a class="btn" href="${cmLink(c)}" target="_blank" rel="noopener">Bei Cardmarket suchen ↗</a>`;
+  const wk = wishKey(s.id, c[0]), ww = wish[wk];
+  $("#d-links").innerHTML = `<a class="btn" href="${cmLink(c)}" target="_blank" rel="noopener">Bei Cardmarket suchen ↗</a><button class="btn wishbtn" type="button" id="d-wish" aria-pressed="${!!ww}">${ww?HEART_SVG:HEART_O}${ww?"Auf der Wunschliste":"Wunschliste"}</button>${ww?`<button class="btn wishbtn" type="button" id="d-wprio" aria-pressed="${!!ww.p}">${ww.p?"Priorität hoch":"Priorität normal"}</button>`:""}`;
+  $("#d-wish").addEventListener("click", ()=>{ toggleWish(s.id, c[0]); renderDialog(); if(view.name==="wunsch" || view.name==="set") render(); });
+  $("#d-wprio")?.addEventListener("click", ()=>{ if(!wish[wk]) return; wish[wk] = {...wish[wk], p: wish[wk].p ? 0 : 1}; saveWish(); renderDialog(); if(view.name==="wunsch") render(); });
   const key = s.id+"|"+c[0], im = $("#d-img");
   if(im.dataset.key !== key){
     im.dataset.key = key; im.className = "big"; im.removeAttribute("src"); $("#d-3d").hidden = true;
@@ -1461,7 +1618,7 @@ async function updatePrices(s){
 /* ---------- Sicherung ---------- */
 async function exportBackup(){
   const iso = new Date().toISOString();
-  const data = JSON.stringify({app:"kartenalbum", version:2, exported:iso, cards, albums, settings}, null, 1);
+  const data = JSON.stringify({app:"kartenalbum", version:2, exported:iso, cards, albums, settings, wish, valHist}, null, 1);
   const name = `kartenalbum-${deDate(iso)}.json`;
   const file = new File([data], name, {type:"application/json"});
   try{
@@ -1480,6 +1637,9 @@ async function importBackup(e){
     cards = migrate([...cards, ...d.cards.filter(c=>c && !ids.has(c.id))]);
     const al = new Map(albums.map(a=>[a.id,a])); d.albums.forEach(a=>{ if(a && a.id) al.set(a.id,a); }); albums = [...al.values()];
     if(d.settings) settings = {...settings, ...d.settings};
+    if(d.wish) wish = {...d.wish, ...wish};
+    if(d.valHist) valHist = {...d.valHist, ...valHist};
+    LS.set("pk-wish", wish); LS.set("pk-valhist", valHist);
     saveCards(); LS.set("pk-albums",albums); LS.set("pk-settings",settings); render();
     $("#bk-msg").textContent = `Import vom ${deDate(d.exported)}: ${sum(cards,qtyOf)-before} Karten hinzugekommen.`;
   }catch(err){ $("#bk-msg").textContent = "Import fehlgeschlagen: " + (err?.message||err); }
@@ -1827,7 +1987,7 @@ const FIREBASE_CONFIG = {
   appId: "1:907792237018:web:814fd32dea220b448d80e3"
 };
 const FB_VER = "10.14.1";
-const SYNC_KEYS = new Set(["pk-cards","pk-albums","pk-settings"]);
+const SYNC_KEYS = new Set(["pk-cards","pk-albums","pk-settings","pk-wish","pk-valhist"]);
 const Sync = {fb:null, loading:null, started:false, user:null, status:"off", msg:"", unsub:[], pushT:0, applying:false, busy:false};
 const DEV = (()=>{ let d = LS.raw("pk-dev"); if(!d){ d = rid(); LS.put("pk-dev", d); } return d; })();
 let synced = LS.get("pk-synchash", {});
@@ -1837,8 +1997,8 @@ const bucketKey = e => e.setId ? [e.setId,e.num,e.v,e.lang,e.cond].join("|") : "
 const sortE = l => l.slice().sort((a,b)=>{ const x = bucketKey(a), y = bucketKey(b); return x<y?-1:x>y?1:0; });
 const hashE = l => hashOf(canon(sortE(l)));
 const plain = x => JSON.parse(JSON.stringify(x));
-const metaOf = () => ({albums: plain(albums), settings: plain(settings)});
-const hashMeta = m => hashOf(canon({albums:m.albums||[], settings:m.settings||{}}));
+const metaOf = () => ({albums: plain(albums), settings: plain(settings), wish: plain(wish), vh: plain(valHist)});
+const hashMeta = m => hashOf(canon({albums:m.albums||[], settings:m.settings||{}, wish:m.wish||{}, vh:m.vh||{}}));
 function groupLocal(){ const m = new Map(); for(const e of cards){ const k = e.setId || "_frei"; if(!m.has(k)) m.set(k,[]); m.get(k).push(e); } return m; }
 function mergeE(a, b){ const m = new Map(); for(const e of [...a, ...b]){ const k = bucketKey(e), o = m.get(k); if(!o || qtyOf(e) > qtyOf(o)) m.set(k, e); } return [...m.values()]; }
 function mergeAlbums(a, b){ const m = new Map(); for(const x of [...(a||[]), ...(b||[])]) if(!m.has(x.setId)) m.set(x.setId, x); return [...m.values()]; }
@@ -1904,17 +2064,17 @@ function applyRemote(remote, rmeta, mode){
   }
   if(mode==="replace") for(const k of local.keys()) if(!remote.has(k)){ out.delete(k); changed = true; }
   if(rmeta || mode==="replace"){
-    const rm = {albums: rmeta?.albums || [], settings: rmeta?.settings || {}};
+    const rm = {albums: rmeta?.albums || [], settings: rmeta?.settings || {}, wish: rmeta?.wish || {}, vh: rmeta?.vh || {}};
     const lm = metaOf(), hl = hashMeta(lm), hr = hashMeta(rm), base = synced._meta;
     if(hl === hr) synced._meta = hr;
-    else if(mode==="replace" || (mode==="sync" && hl===base)){ albums = rm.albums; settings = {...settings, ...rm.settings}; synced._meta = hr; metaChanged = true; }
-    else if(mode==="merge" || hr!==base){ albums = mergeAlbums(lm.albums, rm.albums); settings = {...rm.settings, ...lm.settings}; metaChanged = true; }
+    else if(mode==="replace" || (mode==="sync" && hl===base)){ albums = rm.albums; settings = {...settings, ...rm.settings}; wish = rm.wish; valHist = rm.vh; synced._meta = hr; metaChanged = true; }
+    else if(mode==="merge" || hr!==base){ albums = mergeAlbums(lm.albums, rm.albums); settings = {...rm.settings, ...lm.settings}; wish = {...rm.wish, ...lm.wish}; valHist = {...rm.vh, ...lm.vh}; metaChanged = true; }
   }
   if(changed) cards = [...out.values()].flat();
   Sync.applying = true;
   try{
     if(changed) saveCards();
-    if(metaChanged){ LS.set("pk-albums", albums); LS.set("pk-settings", settings); }
+    if(metaChanged){ LS.set("pk-albums", albums); LS.set("pk-settings", settings); LS.set("pk-wish", wish); LS.set("pk-valhist", valHist); }
   } finally { Sync.applying = false; }
   LS.set("pk-synchash", synced);
   if(changed || metaChanged){
@@ -2031,6 +2191,7 @@ function init(){
   applyTheme();
   albums = LS.get("pk-albums", []);
   settings = {...settings, ...LS.get("pk-settings", {})};
+  wish = LS.get("pk-wish", {}); valHist = LS.get("pk-valhist", {});
   const raw = LS.get("pk-cards", []);
   cards = migrate(raw);
   if(JSON.stringify(cards) !== JSON.stringify(raw)) saveCards();

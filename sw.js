@@ -1,5 +1,5 @@
 // Offline-Fähigkeit: App-Dateien und bereits angesehene Kartenbilder werden auf dem Gerät zwischengespeichert.
-const APP = "kartenalbum-v18";
+const APP = "kartenalbum-v19";
 const IMG = "kartenbilder-v1";
 const FILES = ["./", "index.html", "data.js", "manifest.webmanifest", "icon-180.png", "icon-192.png", "icon-512.png"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(APP).then(c => c.addAll(FILES.map(f => new Request(f, {cache: "reload"}))))); self.skipWaiting(); });

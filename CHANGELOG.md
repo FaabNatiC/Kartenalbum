@@ -1,5 +1,13 @@
 # Kartenalbum – Änderungen
 
+## Version 1.17 · 04.11.2026
+- Neuer Tab „Wunschliste“: Karten im Karten-Sheet per Herz merken, Priorität hoch/normal, aktueller Preis und Summe, als Text teilen
+- Karten verschwinden automatisch von der Wunschliste, sobald du sie zählst
+- Wertentwicklung: Tipp auf den Sammlungswert zeigt den Verlauf und die 10 wertvollsten Karten
+- Wunschliste und Wertverlauf werden über das Konto abgeglichen
+- Neues App-Icon
+- Kein Fokus-Rahmen mehr nach Klick in der Seitenleiste
+
 ## Version 1.16 · 04.11.2026
 - Konto mit E-Mail und Passwort oder Google (Firebase) unter Mehr → Konto & Abgleich
 - Automatischer Abgleich: Karten, Alben und Einstellungen live auf allen Geräten
