@@ -1,6 +1,6 @@
 # Kartenalbum
 
-Private Web-App für meine Pokémon-Sammelkarten – als digitales Album fürs iPhone und den Browser.
+Private Web-App für meine Pokémon-Sammelkarten – als digitales Album fürs iPhone und den Browser. 
 
 **App öffnen:** https://faabnatic.github.io/Kartenalbum/
 
