@@ -1,5 +1,13 @@
 # Kartenalbum – Änderungen
 
+## Version 1.19 · 04.11.2026
+- Japanische Sets ab Sonne & Mond (91 Sets, über 10.000 Karten) mit japanischen Kartenbildern
+- Beim Album anlegen: Umschalter „Deutsch / Englisch · Japanisch“
+- Pokémon in japanischen Sets mit deutschem Namen, Karten zählen automatisch als „Japanisch“
+- Album-Sprache wählbar: Deutsch, Englisch oder Gemischt – dasselbe Set geht auch als zwei getrennte Alben
+- Sprache eines Albums später über ••• änderbar
+- Wunschliste: Sets standardmäßig zugeklappt
+
 ## Version 1.18 · 04.11.2026
 - Wunschliste: Priorität Niedrig, Normal oder Hoch per kurzem Auswahl-Sheet
 - Wunschliste nach Sets gruppiert, Sets mit höchster Priorität zuerst
