@@ -1,5 +1,15 @@
 # Kartenalbum – Änderungen
 
+## Version 1.15 · 04.11.2026
+- Browser-Version für Chrome, Edge, Firefox und Safari: ab 900 px Breite eigenes Layout
+- Seitenleiste links mit Navigation und Sammlungs-Übersicht
+- Breiteres Raster mit mehr Spalten, Set-Kopf nebeneinander
+- Karten-Detail als Seitenpanel rechts – Raster bleibt sichtbar
+- Tastatur: ← → nächste Karte bzw. Seite, Esc schließt, / öffnet die Suche
+- Album am Rechner als Doppelseite, Blättern per Klick auf den Seitenrand
+- 3D-Ansicht am Rechner mit Maus, ohne Neigungsknopf
+- Hover-Effekte auf Karten und Alben
+
 ## Version 1.14 · 02.11.2026
 - Aktualisieren lädt erst neu, wenn die neue Version komplett geladen ist – keine leere App mehr
 - Fehlen die Setdaten beim Start, lädt die App einmal neu und zeigt sonst einen Hinweis
