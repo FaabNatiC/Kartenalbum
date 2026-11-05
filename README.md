@@ -4,7 +4,7 @@ Private Web-App für meine Pokémon-Sammelkarten – als digitales Album fürs i
 
 **App öffnen:** https://faabnatic.github.io/Kartenalbum/
 
-Aktuelle Version: **1.26** · Änderungen je Version stehen in [`CHANGELOG.md`](CHANGELOG.md).
+Aktuelle Version: **1.27** · Änderungen je Version stehen in [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Funktionen
 
@@ -28,7 +28,7 @@ Aktuelle Version: **1.26** · Änderungen je Version stehen in [`CHANGELOG.md`](
 - **Preise** – aktueller Cardmarket-Trend je Variante und eigener Höchstwert, täglich automatisch aktualisiert; Cardmarket-Knopf führt direkt zur Karte
 - **Portfolio** – Wertkurve mit Zeitraum, Aufteilung nach Set, Sprache, Seltenheit und Typ, Gewinner & Verlierer, alle Karten nach Wert
 - **Set-Details** – Setwert und Verlauf, Kosten bis komplett, Aufteilung, Gewinner & Verlierer je Set
-- **Erfolge** – 106 selbst gestaltete Orden mit 3D-Prägung in Gruppen (Sammlung, Trainer Kanto/Johto, Legendäre, Familien, Typ-Trainer); im Detail drehbar, mit Stand, nächster Stufe und Liste der benötigten Pokémon
+- **Erfolge** – 106 selbst gestaltete Orden mit 3D-Prägung in Gruppen (Sammlung, Trainer Kanto/Johto, Legendäre, Familien, Typ-Trainer); im Detail als echtes 3D-Objekt drehbar, mit Stand, nächster Stufe, benötigten Pokémon und deinen beitragenden Karten
 
 **Allgemein**
 - **Einstellungen** – über das Zahnrad oben rechts: Konto, Darstellung, Sicherung, Tab-Leiste u. v. m.
@@ -81,6 +81,7 @@ Neue Versionen meldet die App selbst („Version x verfügbar · Aktualisieren�
 - Anmeldung und Abgleich: [Firebase](https://firebase.google.com)
 - Ersatzbilder für McDonald’s-Karten: [pokemontcg.io](https://pokemontcg.io)
 - Texterkennung beim Kamera-Scan: [Tesseract.js](https://github.com/naptha/tesseract.js) (über jsDelivr)
+- 3D-Darstellung der Orden: [Three.js](https://threejs.org) (über cdnjs, wird erst beim Öffnen eines Ordens geladen)
 
 Bilder und Preise werden live im Browser geladen und nicht in diesem Repository gespeichert.
 

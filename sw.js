@@ -1,5 +1,5 @@
 // Offline-Fähigkeit: App-Dateien und bereits angesehene Kartenbilder werden auf dem Gerät zwischengespeichert.
-const APP = "kartenalbum-v28";
+const APP = "kartenalbum-v29";
 const IMG = "kartenbilder-v1";
 const FILES = ["./", "index.html", "data.js", "manifest.webmanifest", "icon-180.png", "icon-192.png", "icon-512.png"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(APP).then(c => c.addAll(FILES.map(f => new Request(f, {cache: "reload"}))))); self.skipWaiting(); });
@@ -20,6 +20,6 @@ self.addEventListener("fetch", e => {
   if (url.origin === location.origin) {
     // Netzwerk zuerst, damit Updates ankommen; offline aus dem Cache
     // immer beim Server nachfragen (ETag), damit neue Versionen sofort ankommen; offline aus dem Cache
-    e.respondWith(fetch(e.request.url, {cache: "no-cache", credentials: "same-origin"}).then(res => { if (res.ok && !url.search) { const copy = res.clone(); caches.open(APP).then(c => c.put(e.request, copy)); } return res; }).catch(() => caches.match(e.request, {ignoreSearch: true})));
+    e.respondWith(fetch(e.request.url, {cache: "no-cache", credentials: "same-origin"}).then(res => { if (res.ok) { const copy = res.clone(); caches.open(APP).then(c => c.put(url.search ? url.origin + url.pathname : e.request, copy)); } return res; }).catch(() => caches.match(e.request, {ignoreSearch: true})));
   }
 });

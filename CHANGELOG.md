@@ -1,5 +1,14 @@
 # Kartenalbum – Änderungen
 
+## Version 1.27 · 05.11.2026
+- Orden als echtes 3D-Objekt im Detail – drehen, Schwung, Rückseite mit Gravur
+- Neuer Orden-Stil: Metallrahmen, Akzentring, Emaille und Motiv in Element-Farbe
+- Orden-Sheet: deine beitragenden Karten mit Bild, Karten und Pokémon antippbar
+- Deutsche Namen für viele japanische Trainer- und Energiekarten sowie für Gym-Karten (z. B. Rockos Onix)
+- Unterseiten ohne Kopfzeile mit schwebenden Knöpfen, Set-Logo ganz oben
+- Zahnrad in der Kopfzeile, „+“ zum Album anlegen neben der Suche
+- Portfolio: Ausreißer ausgeblendet, „<1 %“ bei kleinen Anteilen
+
 ## Version 1.26 · 05.11.2026
 - Einstellungen über das Zahnrad oben rechts, „Mehr“ zeigt nur noch die weiteren Bereiche
 - Alben: Ansicht-Umschalter direkt neben der Suche
