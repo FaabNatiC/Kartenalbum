@@ -1,5 +1,8 @@
 # Kartenalbum – Änderungen
 
+## Version 1.31 · 05.11.2026
+- Dark-Modus: Statusleiste durchsichtig – Verlauf und Titelleiste reichen nahtlos bis ganz oben
+
 ## Version 1.30 · 05.11.2026
 - Verlauf der Tab-Überschrift reicht bis unter die Statusleiste – keine harte Kante mehr
 - Schmale Titelleiste beim Scrollen höher, Zahnrad nicht mehr abgeschnitten

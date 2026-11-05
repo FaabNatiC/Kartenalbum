@@ -13,7 +13,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png?v=2">
 <link rel="icon" href="icon-192.png?v=2">
-<script>try{var th=localStorage.getItem("pk-theme");if(th==="light"||th==="dark")document.documentElement.setAttribute("data-theme",th);var dk=th==="dark"||(th!=="light"&&matchMedia("(prefers-color-scheme: dark)").matches);document.querySelectorAll('meta[name="theme-color"]').forEach(function(m){m.removeAttribute("media");m.setAttribute("content",dk?"#0e121b":"#e8ebf1");});var sb=document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');if(sb)sb.setAttribute("content",dk?"black":"default");}catch(e){}</script>
+<script>try{var th=localStorage.getItem("pk-theme");if(th==="light"||th==="dark")document.documentElement.setAttribute("data-theme",th);var dk=th==="dark"||(th!=="light"&&matchMedia("(prefers-color-scheme: dark)").matches);document.querySelectorAll('meta[name="theme-color"]').forEach(function(m){m.removeAttribute("media");m.setAttribute("content",dk?"#0e121b":"#e8ebf1");});var sb=document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');if(sb)sb.setAttribute("content",dk?"black-translucent":"default");}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Chakra+Petch:wght@500;600;700&display=swap">
 <style>
@@ -990,6 +990,7 @@ const CONDS = ["Mint","Near Mint","Excellent","Good","Light Played","Played","Po
 
 /* ---------- Änderungsprotokoll ---------- */
 const CHANGELOG = [
+  {v:"1.31", d:"2026-11-05", items:["Dark-Modus: Statusleiste durchsichtig – Verlauf und Titelleiste reichen nahtlos bis ganz oben"]},
   {v:"1.30", d:"2026-11-05", items:["Verlauf der Tab-Überschrift reicht bis unter die Statusleiste – keine harte Kante mehr","Schmale Titelleiste beim Scrollen höher, Zahnrad nicht mehr abgeschnitten"]},
   {v:"1.29", d:"2026-11-05", items:["Neue Tab-Überschriften: großer Titel mit dezentem Verlauf, beim Scrollen schmale Leiste oben","Orden im Detail sehen jetzt genau wie in der Übersicht aus – in 3D","Bilder werden dauerhaft auf dem Gerät gespeichert (Einstellungen → Speicher)","Größeres Set-Logo, Lücke über der Set-Leiste behoben","Vorschläge für persönliche Alben einklappbar","Pokédex: Auswahl „Karte hinzufügen“ entfernt"]},
   {v:"1.28", d:"2026-11-05", items:["Persönliche Alben: nach Pokémon, Seltenheit, Typ, Familie, Trainer oder frei – mit Vorschlägen beim Anlegen","Karten im Karten-Sheet zu freien Alben hinzufügen","Orden-Sheet: Karte nur ansehen statt Sprung ins Set, fehlende Karten ausgegraut","3D-Orden drehen flüssig mit Schwung"]},
@@ -2522,7 +2523,7 @@ function applyTheme(){
   if(th==="light" || th==="dark") root.setAttribute("data-theme", th); else root.removeAttribute("data-theme");
   const dark = th==="dark" || (th==="auto" && matchMedia("(prefers-color-scheme: dark)").matches);
   document.querySelectorAll('meta[name="theme-color"]').forEach(m=>{ m.removeAttribute("media"); m.setAttribute("content", dark ? "#0e121b" : "#e8ebf1"); });
-  document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]')?.setAttribute("content", dark ? "black" : "default");
+  document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]')?.setAttribute("content", dark ? "black-translucent" : "default");
   updTbar.last = null; if(typeof updTbar === "function") requestAnimationFrame(updTbar);
 }
 matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", applyTheme);
