@@ -588,6 +588,32 @@ body.aprun .tabbar::before{opacity:1}
 .pbadge{position:absolute;left:30px;top:10px;z-index:3;font:800 9.5px var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:#4f3905;background:linear-gradient(135deg,#ffe48a,#e6b52e 55%,#c8921a);border-radius:4px;padding:2px 5px;box-shadow:0 1px 2px rgba(0,0,0,.25)}
 i.pbadge{position:static;display:inline-block;font-style:normal;margin-right:6px;vertical-align:1px}
 .aqwrap{margin-top:16px}
+.achgrp{margin-top:12px;background:var(--page);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+.achgh{display:grid;grid-template-columns:1fr auto auto;grid-template-rows:auto auto;align-items:center;column-gap:10px;row-gap:6px;width:100%;border:0;background:none;padding:14px 14px 12px;color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+.achgh b{font:700 16px var(--f-body)}.achgh>span:nth-of-type(1){font:600 13px var(--f-num);color:var(--muted)}
+.achgb{grid-column:1 / 3;height:5px;border-radius:3px;background:var(--pocket);overflow:hidden}.achgb i{display:block;height:100%;background:linear-gradient(90deg,#e6b52e,var(--accent))}
+.achgh .chev{grid-row:1 / 3;grid-column:3;color:var(--muted);font-size:22px;transition:transform .2s}
+.achgrp.open .achgh .chev{transform:rotate(90deg)}
+.achgrp .achgrid{padding:4px 8px 14px;margin:0}
+.achtop{display:grid;justify-items:center;text-align:center;gap:2px}
+.mrot{width:min(62vw,230px);aspect-ratio:1;perspective:700px;touch-action:none;cursor:grab;-webkit-user-select:none;user-select:none}
+.mcoin{position:relative;width:100%;height:100%;transform-style:preserve-3d}
+.mface{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.mface .medal{width:100%;height:100%}
+.mgloss{position:absolute;inset:8%;border-radius:50%;pointer-events:none;background:radial-gradient(circle at center,rgba(255,255,255,.45),rgba(255,255,255,0) 45%) no-repeat;background-size:200% 200%;mix-blend-mode:soft-light}
+.mback{transform:rotateY(180deg);display:grid;place-items:center}
+.mbackc{width:82%;aspect-ratio:1;border-radius:50%;display:grid;place-content:center;gap:6px;text-align:center;background:radial-gradient(circle at 35% 30%,#f4f6f8,#aab2bb 60%,#6c757f);border:6px solid #4a525b;box-shadow:inset 0 0 0 4px rgba(255,255,255,.35),inset 0 -8px 18px rgba(0,0,0,.35),0 8px 18px rgba(0,0,0,.35);color:#2b3138;padding:14%}
+.mbackc small{font:800 10px var(--f-body);letter-spacing:.2em;opacity:.7}
+.mbackc b{font:800 18px var(--f-display);line-height:1.1;text-shadow:0 1px 0 rgba(255,255,255,.6)}
+.mbackc span{font:600 12px var(--f-body);line-height:1.3}
+.achtop.lock .mfront .medal{opacity:.65}
+.achname{margin:8px 0 0;font:800 22px var(--f-display)}
+.achhint{margin:2px 0 0;font-size:12px}
+.achlh{margin:4px 0 0;font:700 14px var(--f-body)}
+.achlist{display:flex;flex-wrap:wrap;gap:6px}
+.achp{font:600 12.5px var(--f-body);padding:4px 9px;border-radius:99px;background:var(--pocket);color:var(--muted)}
+.achp.have{background:color-mix(in srgb,#2f8a4e 18%,var(--page));color:#2f8a4e}
+.achp small{font-weight:500;opacity:.8}
 .achhead{display:grid;gap:6px;margin-top:10px}
 .achhead>b{font:800 30px var(--f-num)}.achhead>b small{font:600 15px var(--f-body);color:var(--muted)}
 .achhead .hint{margin:0}
@@ -614,6 +640,19 @@ i.pbadge{position:static;display:inline-block;font-style:normal;margin-right:6px
 .achrow{display:flex;justify-content:space-between;gap:10px;font-size:14px;color:var(--muted)}.achrow>b{color:var(--ink);font-family:var(--f-num)}.achrow span b{color:var(--ink)}
 @media (min-width:900px){.achgrid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}.achm .medal{width:96px;height:96px}.pbadge{left:34px}}
 @media (prefers-reduced-motion:reduce){.achm.new .medal,.achm.new .msw,.achsh .msw{animation:none}}
+.gearbtn{display:none;position:absolute;right:max(16px,env(safe-area-inset-right,0px));top:calc(env(safe-area-inset-top,0px) + 16px);z-index:5;width:42px;height:42px;border-radius:50%;background:var(--page);color:var(--ink);box-shadow:var(--shadow);place-items:center}
+.gearbtn svg{width:22px;height:22px}
+.gearbtn .dot{position:absolute;top:4px;right:4px;width:10px;height:10px;border-radius:50%;background:var(--accent);border:2px solid var(--page)}
+body.nobar .gearbtn{display:grid}
+body.nobar #head>h1,body.nobar #head .shead>h1{padding-right:52px}
+.aqrow{display:flex;gap:8px;align-items:center;margin-top:16px}
+.aqrow .qwrap{flex:1;margin-top:0}
+.aqrow .vtog{margin-top:0}
+.mtiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-top:18px}
+.mtile{display:grid;justify-items:start;gap:10px;padding:16px;border-radius:14px;background:var(--page);box-shadow:var(--shadow);color:var(--ink);text-decoration:none;border:0;font:600 16px var(--f-body);text-align:left;cursor:pointer}
+.mtile svg{width:28px;height:28px;color:var(--accent)}
+.mtile small{font:500 12.5px var(--f-body);color:var(--muted)}
+@media (min-width:900px){.gearbtn{top:28px;right:36px}}
 .lbadge{position:absolute;right:10px;top:10px;z-index:3;display:block;line-height:0;padding:0!important;background:none!important;font:700 11px var(--f-num);letter-spacing:.04em;background:var(--ink);color:var(--bg);border-radius:6px;padding:2px 6px}
 .sub .lpill,.lpill{display:inline-block;color:var(--bg);font-family:var(--f-body);font:700 11.5px var(--f-body);background:var(--ink);color:var(--bg);border-radius:6px;padding:1px 7px;margin-right:4px;vertical-align:1px}
 .lang-opts{display:grid;gap:8px}
@@ -708,7 +747,7 @@ button.tab{border:0;background:none;padding:0;cursor:pointer;width:100%;font:600
 .big.art{object-fit:contain;background:var(--pocket);border-radius:12px;padding:12%}
 
 /* ---------- Desktop / großer Bildschirm (ab 900 px) ---------- */
-.side-brand,.side-sum,.kbd,.pnav{display:none}
+.side-brand,.side-sum,.kbd,.pnav,.desk-only{display:none}
 @media (hover:hover) and (pointer:fine){
   .slot{transition:transform .15s,box-shadow .15s}
   .slot:hover{transform:translateY(-3px);box-shadow:0 8px 18px rgba(20,28,48,.18)}
@@ -731,6 +770,7 @@ button.tab{border:0;background:none;padding:0;cursor:pointer;width:100%;font:600
   .tab[aria-current="page"] svg{color:var(--accent)}
   .tab .dot{position:static;margin-left:auto}
   .kbd{display:inline-block;margin-left:auto;font:600 12px var(--f-num);color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:0 6px}
+  .desk-only{display:block}
   .side-brand{display:flex;align-items:center;gap:10px;padding:0 8px}
   .side-brand img{width:34px;height:34px;border-radius:9px}
   .side-brand b{font:800 17px var(--f-body)}
@@ -772,6 +812,7 @@ button.tab{border:0;background:none;padding:0;cursor:pointer;width:100%;font:600
 <body>
 <header class="bar"><div class="bar-in"><span id="bar-left"></span><span class="bar-title" id="bar-title">Alben</span><span id="bar-right" style="justify-self:end"></span></div></header>
 <div class="wrap">
+  <a class="gearbtn" id="gear" href="#einstellungen" aria-label="Einstellungen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1.03 1.56V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1.1-1.56 1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.56-1.03H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 8.9a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1.03-1.56V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1.03 1.56 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.34 1.87V9a1.7 1.7 0 0 0 1.56 1.03H21a2 2 0 1 1 0 4h-.09A1.7 1.7 0 0 0 19.4 15z"/></svg></a>
   <div id="head"></div>
   <div id="status" class="note" hidden></div>
   <div id="tools"></div>
@@ -898,6 +939,7 @@ const CONDS = ["Mint","Near Mint","Excellent","Good","Light Played","Played","Po
 
 /* ---------- Änderungsprotokoll ---------- */
 const CHANGELOG = [
+  {v:"1.26", d:"2026-11-05", items:["Einstellungen über das Zahnrad oben rechts, „Mehr“ zeigt nur noch die weiteren Bereiche","Alben: Ansicht-Umschalter direkt neben der Suche","106 Orden im neuen 3D-Stil – in Gruppen: Sammlung, Trainer Kanto und Johto, Legendäre, Familien, Typ-Trainer","Orden im Detail drehen und umdrehen, mit Liste der benötigten Pokémon","Portfolio: internationale Karten mit deutschem Namen klein dazu"]},
   {v:"1.25", d:"2026-11-05", items:["Neuer Bereich „Erfolge“ mit eigenen Orden für alle 19 Erfolge – mit Metallglanz und Animation beim Freischalten","Tipp auf einen Orden: Erklärung, dein Stand, nächste Stufe und Freischaltdatum","Suche im Alben-Tab nach Name, Kürzel oder Serie","Promo-Alben mit goldenem „PROMO“-Badge","Alte Alben ohne Sprache sind jetzt deutsche Alben – mit Flagge und nur deutschen Karten"]},
   {v:"1.24", d:"2026-11-04", items:["Neuer Bereich „Portfolio“: Wertkurve mit Zeitraum, Aufteilung nach Set, Sprache, Seltenheit und Typ, Gewinner & Verlierer, alle Karten nach Wert","Set-Details im Portfolio: Setwert und Verlauf, Kosten bis komplett, Aufteilung, Gewinner & Verlierer","Preise der eigenen Karten werden einmal täglich automatisch aktualisiert","Alben als kompakte Liste mit Set-Logo – Umschalter oben rechts","Cardmarket-Knopf führt direkt zur richtigen Karte","Karten-Sheet öffnet bis unter die Preise, auf kleinen iPhones mit kleinerem Bild","Suche zeigt nur noch zuletzt gesuchte Karten","Flaggen und Set-Infos im Album kleiner, mehr Abstand zu Top 3"]},
   {v:"1.23", d:"2026-11-04", items:["Zoomen mit zwei Fingern und Doppeltippen deaktiviert – kein automatisches Heranzoomen mehr bei Eingabefeldern","Fix: Tab-Leiste verrutschte und Kopfzeile verschwand beim Scrollen","Alben, Pokédex und Mehr sind in der Tab-Leiste immer dabei","Flaggen statt Sprachkürzel – jetzt auch für deutsche Alben","Erscheinungsdatum steht in den Set-Zahlen, Set-Infos in einer Zeile","Am Rechner: „Scannen“ in der Seitenleiste richtig ausgerichtet"]},
@@ -1007,7 +1049,7 @@ const vMain = key => { const o = vParts(key); return !o.stamps.length && !o.size
 /* ---------- Speicher ---------- */
 const LS = {
   get(k, d){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; }catch{ return d; } },
-  set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch{ setStatus("Speichern fehlgeschlagen – der Gerätespeicher ist voll oder blockiert. Bitte exportiere eine Sicherung unter Mehr."); } if(SYNC_KEYS.has(k)) syncDirty(); },
+  set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch{ setStatus("Speichern fehlgeschlagen – der Gerätespeicher ist voll oder blockiert. Bitte exportiere eine Sicherung unter Einstellungen."); } if(SYNC_KEYS.has(k)) syncDirty(); },
   works(){ try{ localStorage.setItem("pk-test","1"); localStorage.removeItem("pk-test"); return true; }catch{ return false; } },
   raw(k){ try{ return localStorage.getItem(k); }catch{ return null; } }, put(k,v){ try{ localStorage.setItem(k,v); }catch{} }
 };
@@ -1178,10 +1220,12 @@ function jumpToSet(setId, num){
 }
 function goBack(){
   if(view.name==="pset"){ go("portfolio"); return; }
+  if(view.name==="einstellungen"){ go(setFrom || "regal"); return; }
   if(view.name!=="set") return;
   if(backTo && backTo.setId===view.set.id){ const b = backTo; backTo = null; restore = {y:b.y, reopen:b.reopen, picker:b.picker}; go(b.hash); }
   else go("regal");
 }
+let setFrom = "regal";
 let ctx = null, infoReq = 0, openDet = new Set(), showMore = false, confirmDel = null;
 /* ---------- Zoom-Sperre (iPhone) ---------- */
 (()=>{
@@ -1205,6 +1249,7 @@ function route(){
   else if(h==="wunsch") view={name:"wunsch"};
   else if(h==="portfolio") view={name:"portfolio"};
   else if(h==="erfolge") view={name:"erfolge"};
+  else if(h==="einstellungen"){ if(view && view.name!=="einstellungen") setFrom = location.hash && view.name!=="set" ? (view.name==="pset" ? "portfolio" : view.name==="regal" ? "regal" : view.name) : "regal"; view={name:"einstellungen"}; }
   else if(h.startsWith("portfolio-") && SLUG.has(h.slice(10))){ const ps = SLUG.get(h.slice(10)); if(!view || view.name!=="pset" || view.set!==ps) psLang = "all"; view={name:"pset", set:ps}; }
   else if(h.startsWith("set-") && SLUG.has(h.slice(4).split("~")[0])){ const [sl, lg] = h.slice(4).split("~"); view={name:"set", set:SLUG.get(sl), lang: LANGNAME[lg] ? lg : null}; }
   else view={name:"regal"};
@@ -1227,13 +1272,13 @@ function render(){
   const tab = view.name==="set" ? "regal" : view.name==="pset" ? "portfolio" : view.name;
   recordValue(); setTimeout(checkAch, 0);
   const ss = $("#side-sum"); if(ss){ const n = sum(cards,qtyOf); ss.innerHTML = `<small>Sammlung</small><b>${n.toLocaleString("de-DE")} ${n===1?"Karte":"Karten"}</b><span>${eur(sum(cards,valOf))} <i class="sgo">Portfolio ›</i></span>`; }
-  document.body.classList.toggle("nobar", view.name!=="set" && view.name!=="pset");
+  document.body.classList.toggle("nobar", !["set","pset","einstellungen"].includes(view.name));
   applyTabs();
   document.body.classList.toggle("scrolled", view.name==="set" && window.scrollY > 6);
   document.querySelectorAll(".tab").forEach(a=>{ if(a.dataset.tab===tab) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
-  const mt = document.querySelector('.tab[data-tab="mehr"]'); mt.querySelector(".dot")?.remove();
-  if(LS.raw("pk-seen") !== APP_VERSION && view.name!=="mehr") mt.insertAdjacentHTML("beforeend",'<span class="dot"></span>');
-  const backLbl = view.name==="set" ? (backTo && backTo.setId===view.set.id ? VIEW_LBL[backTo.view] || "Zurück" : "Alben") : view.name==="pset" ? "Portfolio" : "";
+  const gr = $("#gear"); gr.querySelector(".dot")?.remove();
+  if(LS.raw("pk-seen") !== APP_VERSION && view.name!=="einstellungen") gr.insertAdjacentHTML("beforeend",'<span class="dot"></span>');
+  const backLbl = view.name==="set" ? (backTo && backTo.setId===view.set.id ? VIEW_LBL[backTo.view] || "Zurück" : "Alben") : view.name==="pset" ? "Portfolio" : view.name==="einstellungen" ? (VIEW_LBL[setFrom] || "Zurück") : "";
   $("#bar-left").innerHTML = backLbl ? `<button class="bar-back" type="button" id="back-btn">${SVG_L}${esc(backLbl)}</button>` : "";
   $("#back-btn")?.addEventListener("click", goBack);
   const showMore = view.name==="set" && (albums.some(a=>a.setId===view.set.id) || cards.some(c=>c.setId===view.set.id && qtyOf(c)));
@@ -1243,6 +1288,7 @@ function render(){
   else if(view.name==="set") renderSet(view.set);
   else if(view.name==="suche") renderSearch();
   else if(view.name==="mehr") renderMore();
+  else if(view.name==="einstellungen") renderSettings();
   else if(view.name==="wunsch") renderWish();
   else if(view.name==="portfolio") renderPortfolio();
   else if(view.name==="erfolge") renderAch();
@@ -1259,11 +1305,11 @@ function render(){
 function renderShelf(){
   $("#bar-title").textContent = "Alben";
   const lv = settings.shelf==="list";
-  $("#head").innerHTML = `<div class="shead"><h1>Pokémon <span>Kartenalbum</span></h1><div class="vtog" role="group" aria-label="Ansicht"><button type="button" data-shelf="grid" aria-pressed="${!lv}" aria-label="Raster">${ICON_GRID}</button><button type="button" data-shelf="list" aria-pressed="${lv}" aria-label="Liste">${ICON_LIST}</button></div></div>
+  $("#head").innerHTML = `<h1>Pokémon <span>Kartenalbum</span></h1>
     <div class="stats"><div class="stat"><small>Karten</small><b>${sum(cards,qtyOf)}</b></div><button class="stat statbtn" type="button" id="open-stats" aria-label="Portfolio öffnen"><small>Sammlungswert ›</small><b>${eur(sum(cards,valOf))}</b></button><div class="stat"><small>Alben</small><b>${shelfAlbums().length}</b></div></div>`;
-  bindShelfHead();
   if(!$("#aq")){
-    $("#tools").innerHTML = `<div class="qwrap aqwrap"><input class="field" id="aq" type="search" inputmode="search" placeholder="Alben durchsuchen" autocomplete="off" autocorrect="off" enterkeyhint="search" value="${esc(shelfQ)}"><button class="qclr" type="button" id="aq-clr" aria-label="Suche leeren" ${shelfQ?"":"hidden"}>×</button></div>`;
+    $("#tools").innerHTML = `<div class="aqrow"><div class="qwrap aqwrap"><input class="field" id="aq" type="search" inputmode="search" placeholder="Alben durchsuchen" autocomplete="off" autocorrect="off" enterkeyhint="search" value="${esc(shelfQ)}"><button class="qclr" type="button" id="aq-clr" aria-label="Suche leeren" ${shelfQ?"":"hidden"}>×</button></div><div class="vtog" role="group" aria-label="Ansicht"><button type="button" data-shelf="grid" aria-pressed="${!lv}" aria-label="Raster">${ICON_GRID}</button><button type="button" data-shelf="list" aria-pressed="${lv}" aria-label="Liste">${ICON_LIST}</button></div></div>`;
+    $("#tools").querySelectorAll("[data-shelf]").forEach(b=>b.addEventListener("click", ()=>{ settings.shelf = b.dataset.shelf; LS.set("pk-settings", settings); $("#tools").querySelectorAll("[data-shelf]").forEach(x=>x.setAttribute("aria-pressed", String(x.dataset.shelf===settings.shelf))); renderShelfView(); }));
     $("#aq").addEventListener("input", e=>{ shelfQ = e.target.value; $("#aq-clr").hidden = !shelfQ; renderShelfView(); });
     $("#aq-clr").addEventListener("click", ()=>{ shelfQ = ""; $("#aq").value = ""; $("#aq-clr").hidden = true; renderShelfView(); });
   }
@@ -1489,7 +1535,7 @@ function renderAlbumMenu(){
   $("#m-title").textContent = s.de + (mln ? " · " + mln : "");
   const pd = mine.map(c=>c.priceDate||"").filter(Boolean).sort().pop();
   $("#m-body").innerHTML = menuConfirm
-    ? `<div class="danger-box"><p><b>Album „${esc(s.de)}“ entfernen?</b></p><p>${n ? `Dabei werden auch <b>${n} ${n===1?"Karte":"Karten"} im Wert von ${eur(v)}</b> aus deiner Sammlung gelöscht. Das lässt sich nicht rückgängig machen – exportiere vorher eine Sicherung unter Mehr, wenn du sie behalten willst.` : "Das Album ist leer, es gehen keine Karten verloren."}</p>
+    ? `<div class="danger-box"><p><b>Album „${esc(s.de)}“ entfernen?</b></p><p>${n ? `Dabei werden auch <b>${n} ${n===1?"Karte":"Karten"} im Wert von ${eur(v)}</b> aus deiner Sammlung gelöscht. Das lässt sich nicht rückgängig machen – exportiere vorher eine Sicherung unter Einstellungen, wenn du sie behalten willst.` : "Das Album ist leer, es gehen keine Karten verloren."}</p>
        <div class="row" style="justify-content:flex-end"><button class="btn" type="button" id="m-cancel">Abbrechen</button><button class="btn red" type="button" id="m-del">${n?"Album und Karten löschen":"Album entfernen"}</button></div></div>`
     : `<div class="group"><button class="menu-row" type="button" id="m-open">Album öffnen</button><button class="menu-row" type="button" id="upd-prices" ${n?"":"disabled"}>Werte aktualisieren<small id="upd-msg">${pd?`Stand ${deDate(pd)}`:""}</small></button>${s.ja ? "" : `<button class="menu-row" type="button" id="m-lang">Sprache des Albums<small>${ml ? flag(ml) + mln : "Gemischt"}</small></button>`}<button class="menu-row red" type="button" id="m-ask">Album entfernen<small>${n?`${n} ${n===1?"Karte":"Karten"} · ${eur(v)}`:"leer"}</small></button></div>`;
   $("#m-open")?.addEventListener("click", ()=>{ menuSheet.close(); if(view.name==="set" && view.set.id===s.id && (view.lang||null)===ml) openAlbum(s, firstVisiblePage(s), false); else go(albumHash(s, ml)); });
@@ -1710,16 +1756,16 @@ const ACH = [
 ];
 function achStats(){
   const st = {qty:0, value:0, maxVal:0, rar:new Set(), ed1:false, setsDone:0, master:0};
-  const dex = new Set(), types = new Set(), setIds = new Set();
+  const dex = new Set(), types = new Set(), setIds = new Set(), keys = new Set(), tk = {};
   for(const e of cards){
     const q = qtyOf(e); if(!q) continue;
     st.qty += q; st.value += valOf(e); st.maxVal = Math.max(st.maxVal, +e.val||0);
     if(+e.dex) dex.add(+e.dex);
     if(e.v && e.v.includes("s:1st-edition")) st.ed1 = true;
-    if(e.setId){ setIds.add(e.setId); const c = cardAt(e.setId, e.num); if(c){ st.rar.add(c[3]); if(c[4]==="P" && c[5]) types.add(c[5]); if(c[7]) dex.add(c[7]); } }
+    if(e.setId){ setIds.add(e.setId); const k = e.setId+"|"+e.num; keys.add(k); const c = cardAt(e.setId, e.num); if(c){ st.rar.add(c[3]); if(c[4]==="P" && c[5]){ types.add(c[5]); (tk[c[5]] ||= new Set()).add(k); } if(c[7]) dex.add(c[7]); } }
   }
   for(const id of setIds){ const s = SET.get(id); if(!s) continue; const p = setProgress(s, setOwned(s)); if(p.base >= p.baseTotal && p.baseTotal) st.setsDone++; if(p.all >= p.allTotal && p.allTotal) st.master++; }
-  st.dex = dex.size; st.regions = REGIONS.filter(([,,a,b])=>{ for(let i=a;i<=b;i++) if(!dex.has(i)) return false; return true; }).length;
+  st.dex = dex.size; st.dexSet = dex; st.keys = keys; st.typeCards = Object.fromEntries(Object.entries(tk).map(([t, v])=>[t, v.size])); st.regions = REGIONS.filter(([,,a,b])=>{ for(let i=a;i<=b;i++) if(!dex.has(i)) return false; return true; }).length;
   const allTypes = Object.keys(TYPES); st.types = allTypes.filter(t=>types.has(t)).length; st.typesAll = allTypes.length;
   return st;
 }
@@ -1742,22 +1788,77 @@ function achHTML(){
     return `<div class="srow ach${done?" done":""}"><span class="amedal" aria-hidden="true">${done?"★":"☆"}</span><span class="lbl"><b>${esc(name)}</b><small>${esc(desc)}</small></span><span class="val">${done?deDate(ach[id]):goal>1?`${Math.min(v,goal).toLocaleString("de-DE")} / ${goal.toLocaleString("de-DE")}`:"offen"}</span></div>`; }).join("")}</div></section>`;
 }
 
-/* ---------- Orden (eigene Gestaltung) ---------- */
-const MPAL = {
-  bronze:["#8a5a2b","#cd8f52","#fff1df","#4f2f12"], silver:["#69717b","#c3cad2","#ffffff","#353b42"], gold:["#8a6410","#e6b52e","#fff6d6","#4f3905"],
-  platinum:["#55687a","#dde6ee","#ffffff","#27333f"], normal:["#857d6c","#d6cdb8","#fffaf0","#47423a"], water:["#1d4f8c","#3f8fdc","#e6f1fb","#0a2a4f"],
-  psychic:["#4c2a73","#9a55b3","#f6ecfb","#2a1543"], fighting:["#6e3a1c","#b06235","#fdeee3","#3b1e0c"], grass:["#2c5f22","#4f9a43","#effae9","#143011"],
-  grassdark:["#1c4216","#38752e","#e8f6e2","#0c220a"], dragon:["#5f4c10","#a88a26","#fff4cf","#352a06"], fairy:["#8c3a64","#db78ab","#fff0f7","#55203d"],
-  metalgold:["#7a5a06","#d9a400","#fff6cf","#463302"], dark:["#161c23","#344150","#e3e9f0","#0b0f13"], teal:["#0f5e4b","#1d9e75","#e3f7f0","#06352a"],
-  locked:["#8b9098","#c3c7cd","#eef0f3","#666b73"]
+/* ---------- Orden (eigene Gestaltung, 3D-Prägung) ---------- */
+const OL = "#15181b";
+const FR = {
+  normal:["#3d382f","#f3ead6","#a89c84"], bronze:["#4a2a10","#f0b47c","#9a5f2c"], silver:["#30353b","#f6f8fa","#9aa1a9"], gold:["#4e3804","#ffe68f","#c9961c"],
+  platinum:["#24313d","#ffffff","#a9bccd"], blue:["#0a2a4f","#a6cff5","#2f6fb8"], purple:["#2a1543","#dcbcef","#7d44a0"], brown:["#3b1e0c","#ecbf9c","#9a5530"],
+  green:["#143011","#b5e3a5","#3f8a35"], green2:["#0c220a","#97cf86","#2b6623"], olive:["#352a06","#f3e08f","#93771b"], pink:["#55203d","#f8c8df","#c45f93"],
+  purple2:["#24103c","#c9a4e6","#5e2d86"], goldbar:["#463302","#ffe48a","#b88900"], dark:["#07090c","#8d99a6","#27313c"], teal:["#06352a","#a3eccf","#14836a"],
+  rainbow:["#1f2328","#ffffff","#888"], locked:["#4a4e55","#c9ccd1","#868b93"]
 };
-const MEDAL = {
-  first:["circle","normal","card"], c10:["circle","bronze","stack"], c100:["circle","silver","binder"], c500:["circle","gold","fan"], c1000:["star","platinum","crown"],
-  dex100:["hex","water","lens"], dex500:["hex","psychic","book"], region:["diamond","fighting","map"],
-  set1:["shield","grass","check"], set3:["shield","grassdark","triple"], master:["shield","dragon","crowngem"],
-  ir:["flower","fairy","palette"], sir:["flower","psychic","frame"], hr:["diamond","metalgold","bars"],
-  types:["circle","platinum","wheel"], ed1:["circle","dark","laurel"], v50:["diamond","teal","gem"], w100:["circle","silver","coin"], w1000:["star","gold","chest"]
+FR.iron = ["#1c1f23","#a3a9b0","#4d535a"];
+const MDEF = {
+  first:["circle","iron","card"], c10:["circle","bronze","stack"], c100:["circle","silver","binder"], c500:["circle","gold","fan"], c1000:["star","platinum","crown"],
+  dex100:["hex","silver","lens"], dex500:["hex","gold","book"], region:["diamond","bronze","map"],
+  set1:["shield","silver","check"], set3:["shield","gold","triple"], master:["shield","platinum","crowngem"],
+  ir:["oct","silver","palette"], sir:["oct","gold","frame"], hr:["diamond","gold","bars"],
+  types:["circle","silver","wheel"], ed1:["circle","iron","laurel"], v50:["diamond","silver","gem"], w100:["circle","silver","coin"], w1000:["star","gold","chest"]
 };
+const TCOL = ["#4f9a43","#d9572b","#2f84cf","#f0c93a","#9a55b3","#b06235","#344150","#8d99a5","#a88a26","#c8c2b4","#db78ab"];
+function shapePts(shape){
+  const poly = (n, r, rot=-Math.PI/2) => Array.from({length:n},(_,i)=>{ const a = 2*Math.PI*i/n + rot; return [100+r*Math.cos(a), 100+r*Math.sin(a)]; });
+  let o;
+  if(shape==="diamond") o = [[100,6],[194,100],[100,194],[6,100]];
+  else if(shape==="hex") o = poly(6, 94);
+  else if(shape==="oct") o = poly(8, 94, -Math.PI/2 + Math.PI/8);
+  else if(shape==="shield") o = [[100,6],[184,28],[182,104],[150,160],[100,194],[50,160],[18,104],[16,28]];
+  else if(shape==="star") o = Array.from({length:24},(_,i)=>{ const a = Math.PI*i/12 - Math.PI/2, r = i%2 ? 80 : 96; return [100+r*Math.cos(a), 100+r*Math.sin(a)]; });
+  else o = poly(36, 93);
+  const k = shape==="diamond" ? .56 : shape==="star" ? .62 : .64, cy = shape==="shield" ? 96 : 100;
+  return [o, o.map(([x,y])=>[100+(x-100)*k, cy+(y-100)*k])];
+}
+const mixC = (a, b, t) => { const p = x => [1,3,5].map(i=>parseInt(x.slice(i,i+2),16)); const A = p(a), B = p(b); return "#" + A.map((v,i)=>Math.round(v+(B[i]-v)*t).toString(16).padStart(2,"0")).join(""); };
+const P = a => a.map(z=>z[0].toFixed(1)+","+z[1].toFixed(1)).join(" ");
+function frameSVG(shape, pal, rainbow){
+  const [ink, lt, dk] = pal, [o, inn] = shapePts(shape), n = o.length, R = n > 20 ? 1 : n > 7 ? 4 : 7;
+  let rays = "", c = 0;
+  for(let e=0;e<n;e++){ const a=o[e], b=o[(e+1)%n], p=inn[e], q=inn[(e+1)%n];
+    for(let s=0;s<R;s++){ const t0=s/R, t1=(s+1)/R, L=(u,v,t)=>[u[0]+(v[0]-u[0])*t, u[1]+(v[1]-u[1])*t];
+      const mx = (a[0]+b[0]+p[0]+q[0])/4 - 100, my = (a[1]+b[1]+p[1]+q[1])/4 - 100, ang = Math.atan2(my, mx), lit = (Math.cos(ang - (-3*Math.PI/4)) + 1)/2;
+      const col = c%2 ? mixC(dk, lt, .55 + .45*lit) : mixC(dk, lt, .1 + .5*lit); c++;
+      rays += `<polygon points="${P([L(a,b,t0),L(a,b,t1),L(p,q,t1),L(p,q,t0)])}" fill="${col}"/>`; } }
+  // Licht von oben links: obere Hälfte heller
+  return `<polygon points="${P(o)}" transform="translate(0 5)" fill="${ink}" opacity=".55"/><polygon points="${P(o)}" fill="${dk}"/>${rays}
+    <polygon points="${P(o)}" fill="url(#lightTL)"/>
+    <polygon points="${P(o)}" fill="none" stroke="${ink}" stroke-width="7" stroke-linejoin="round"/>
+    <polygon points="${P(inn)}" fill="#24272b" stroke="${ink}" stroke-width="4.5" stroke-linejoin="round"/>
+    <polygon points="${P(inn)}" fill="url(#innerG)"/>`;
+}
+const S = (d, f, extra="") => `<path d="${d}" fill="${f}" stroke="${OL}" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" ${extra}/>`;
+const card = (x, y, w, h, art, rot=0, pivot="100 100") => `<g transform="rotate(${rot} ${pivot})"><rect x="${x+3}" y="${y+4}" width="${w}" height="${h}" rx="6" fill="#0d0f11" opacity=".5"/><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="6" fill="#f6d34a" stroke="${OL}" stroke-width="4"/><rect x="${x+5}" y="${y+5}" width="${w-10}" height="${h*.45}" rx="2" fill="${art}" stroke="${OL}" stroke-width="2.5"/><path d="M${x+7} ${y+h*.62} h${w-14} M${x+7} ${y+h*.74} h${(w-14)*.7}" stroke="${OL}" stroke-width="2.5" stroke-linecap="round" opacity=".55"/><path d="M${x+5} ${y+3} h${w*.4}" stroke="#fff6c4" stroke-width="2.5" stroke-linecap="round"/></g>`;
+const OBJ = {
+  card: () => card(78, 60, 46, 66, "#6fb6e8", -8),
+  stack: () => card(88, 54, 42, 60, "#e2724a", 10) + card(80, 62, 42, 60, "#7cc46a", 0) + card(70, 70, 42, 60, "#6fb6e8", -10),
+  binder: () => `<rect x="69" y="62" width="72" height="88" rx="9" fill="#0d0f11" opacity=".5"/>` + S("M66 66 a8 8 0 0 1 8 -8 h56 a8 8 0 0 1 8 8 v74 a8 8 0 0 1 -8 8 h-56 a8 8 0 0 1 -8 -8z","#c53a33") + S("M66 66 a8 8 0 0 1 8 -8 h12 v90 h-12 a8 8 0 0 1 -8 -8z","#86221d") + `<rect x="96" y="74" width="34" height="24" rx="3" fill="#f6f1e6" stroke="${OL}" stroke-width="3"/>${[80,102,124].map(y=>`<circle cx="76" cy="${y}" r="5.5" fill="#e6e9ec" stroke="${OL}" stroke-width="2.5"/>`).join("")}<path d="M94 64 h36" stroke="#ef8a83" stroke-width="5" stroke-linecap="round"/>`,
+  fan: () => card(78, 58, 44, 64, "#9a55b3", -24, "100 140") + card(78, 58, 44, 64, "#e2724a", 0, "100 140") + card(78, 58, 44, 64, "#6fb6e8", 24, "100 140"),
+  crown: () => `<path d="M60 140 V84 L82 106 L100 66 L118 106 L140 84 V140Z" fill="#0d0f11" opacity=".5" transform="translate(3 5)"/>` + S("M60 140 V84 L82 106 L100 66 L118 106 L140 84 V140Z","#f2c53d") + S("M60 126 H140 V142 H60Z","#c9900f") + `<circle cx="60" cy="82" r="8" fill="#e24b4a" stroke="${OL}" stroke-width="3"/><circle cx="100" cy="64" r="8" fill="#378add" stroke="${OL}" stroke-width="3"/><circle cx="140" cy="82" r="8" fill="#1d9e75" stroke="${OL}" stroke-width="3"/>` + card(87, 96, 26, 34, "#9a55b3", 0) + `<path d="M68 118 V94" stroke="#fff3b8" stroke-width="5" stroke-linecap="round"/>`,
+  lens: () => `<path d="M122 122 L148 148" stroke="${OL}" stroke-width="22" stroke-linecap="round"/><path d="M122 122 L148 148" stroke="#8a5a2b" stroke-width="13" stroke-linecap="round"/><path d="M126 124 L146 144" stroke="#c48a55" stroke-width="4" stroke-linecap="round"/>` + `<circle cx="96" cy="98" r="35" fill="#0d0f11" opacity=".45"/>` + `<circle cx="94" cy="94" r="35" fill="#d9b24c" stroke="${OL}" stroke-width="4"/><circle cx="94" cy="94" r="26" fill="#8fd3f0" stroke="${OL}" stroke-width="3.5"/><path d="M78 86 a18 18 0 0 1 15 -11" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M104 112 a18 18 0 0 0 8 -8" stroke="#5aa9d0" stroke-width="4" fill="none" stroke-linecap="round"/>`,
+  book: () => S("M100 76 C86 66 70 64 56 68 V138 C70 134 86 136 100 146 C114 136 130 134 144 138 V68 C130 64 114 66 100 76Z","#7d44a0","transform=\"translate(0 6)\"") + S("M100 74 C86 64 70 62 56 66 V134 C70 130 86 132 100 142 C114 132 130 130 144 134 V66 C130 62 114 64 100 74Z","#fbf6ea") + `<path d="M100 74 V142" stroke="${OL}" stroke-width="3"/><path d="M64 84 H90 M64 96 H90 M64 108 H86" stroke="#9a8f80" stroke-width="3.5" stroke-linecap="round"/><path d="M110 104 l9 9 l16 -20" fill="none" stroke="#2f8a4e" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>`,
+  map: () => `<polygon points="56,72 78,62 100,72 122,62 144,70 144,138 122,148 100,138 78,148 56,138" fill="#0d0f11" opacity=".45" transform="translate(3 5)"/>` + `<polygon points="56,72 78,62 100,72 122,62 144,70 144,138 122,148 100,138 78,148 56,138" fill="#f1e2bf" stroke="${OL}" stroke-width="4" stroke-linejoin="round"/><polygon points="78,62 100,72 100,138 78,148" fill="#dcc79a"/><polygon points="122,62 144,70 144,138 122,148" fill="#dcc79a"/><path d="M66 120 C76 100 92 118 104 100 S126 92 134 84" stroke="#c0392b" stroke-width="3.5" stroke-dasharray="6 5" fill="none"/><path d="M134 84 V52" stroke="${OL}" stroke-width="4" stroke-linecap="round"/>` + S("M134 52 L156 60 L134 68Z","#e24b4a") + `<polygon points="56,72 78,62 100,72 122,62 144,70 144,138 122,148 100,138 78,148 56,138" fill="none" stroke="${OL}" stroke-width="4" stroke-linejoin="round"/>`,
+  check: () => `<path d="M66 102 L90 126 L136 74" fill="none" stroke="#0d0f11" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" opacity=".5" transform="translate(2 6)"/><path d="M66 102 L90 126 L136 74" fill="none" stroke="${OL}" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/><path d="M66 102 L90 126 L136 74" fill="none" stroke="#f8f4e6" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/><path d="M70 100 L88 118" stroke="#fff" stroke-width="5" stroke-linecap="round"/>`,
+  triple: () => { const sh = (x,y,c) => `<g transform="translate(${x} ${y})"><path d="M0 -26 L22 -19 V0 C22 15 11 23 0 28 C-11 23 -22 15 -22 0 V-19Z" fill="#0d0f11" opacity=".45" transform="translate(2 4)"/>${S("M0 -26 L22 -19 V0 C22 15 11 23 0 28 C-11 23 -22 15 -22 0 V-19Z", c)}<path d="M-9 0 l7 7 l12 -14" fill="none" stroke="${OL}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M-14 -16 v10" stroke="#fff" stroke-width="3.5" stroke-linecap="round" opacity=".7"/></g>`; return sh(72,114,"#f0c93a") + sh(128,114,"#f0c93a") + sh(100,86,"#ffe28a"); },
+  crowngem: () => `<path d="M62 126 V82 L82 100 L100 70 L118 100 L138 82 V126Z" fill="#0d0f11" opacity=".5" transform="translate(3 5)"/>` + S("M62 126 V82 L82 100 L100 70 L118 100 L138 82 V126Z","#f2c53d") + S("M62 120 H138 V138 H62Z","#c9900f") + S("M100 92 L116 108 L100 128 L84 108Z","#e24b4a") + `<path d="M84 108 H116 M100 92 V128" stroke="${OL}" stroke-width="2" opacity=".5"/><path d="M92 102 l5 -5" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/><path d="M70 116 V94" stroke="#fff3b8" stroke-width="5" stroke-linecap="round"/>`,
+  palette: () => `<path d="M100 60 C72 60 56 80 56 102 C56 126 74 144 96 144 C106 144 106 132 100 126 C96 120 100 112 108 112 H122 C136 112 146 102 146 90 C146 72 126 60 100 60Z" fill="#0d0f11" opacity=".45" transform="translate(3 5)"/>` + S("M100 60 C72 60 56 80 56 102 C56 126 74 144 96 144 C106 144 106 132 100 126 C96 120 100 112 108 112 H122 C136 112 146 102 146 90 C146 72 126 60 100 60Z","#d9a066") + [["#e24b4a",76,88],["#f0c93a",96,76],["#378add",120,80],["#4f9a43",72,112]].map(([c,x,y])=>`<circle cx="${x}" cy="${y}" r="9" fill="${c}" stroke="${OL}" stroke-width="3"/><circle cx="${x-3}" cy="${y-3}" r="2.5" fill="#fff" opacity=".7"/>`).join("") + `<path d="M118 138 L150 100" stroke="${OL}" stroke-width="10" stroke-linecap="round"/><path d="M118 138 L150 100" stroke="#8a5a2b" stroke-width="5" stroke-linecap="round"/>` + S("M146 104 L156 92 L160 96 L150 108Z","#db78ab"),
+  frame: () => `<rect x="61" y="65" width="80" height="76" rx="4" fill="#0d0f11" opacity=".5"/>` + S("M58 60 H138 V136 H58Z","#e0a92b") + S("M70 72 H126 V124 H70Z","#3a2a68") + `<path d="M70 110 L86 94 L98 106 L110 92 L126 108 V124 H70Z" fill="#7d44a0"/><polygon points="98,76 102,86 113,87 105,94 107,105 98,99 89,105 91,94 83,87 94,86" fill="#ffe28a" stroke="${OL}" stroke-width="2.5" stroke-linejoin="round"/><path d="M62 64 h30" stroke="#ffe8a3" stroke-width="3.5" stroke-linecap="round"/><path d="M70 72 H126 V124 H70Z" fill="none" stroke="${OL}" stroke-width="3"/>`,
+  bars: () => { const bar = (x,y) => S(`M${x} ${y} L${x+10} ${y-16} H${x+46} L${x+56} ${y}Z`,"#f2c53d") + S(`M${x} ${y} H${x+56} V${y+8} H${x}Z`,"#c08f00") + `<path d="M${x+12} ${y-12} H${x+30}" stroke="#fff6c4" stroke-width="3" stroke-linecap="round"/>`; return bar(46,138) + bar(98,138) + bar(72,114) + `<path d="M140 64 l3 9 9 3 -9 3 -3 9 -3 -9 -9 -3 9 -3Z" fill="#fff" stroke="${OL}" stroke-width="2"/><path d="M62 74 l2 6 6 2 -6 2 -2 6 -2 -6 -6 -2 6 -2Z" fill="#fff8d0"/>`; },
+  wheel: () => `<circle cx="102" cy="105" r="42" fill="#0d0f11" opacity=".5"/>` + TCOL.map((c,i)=>{ const a0 = 2*Math.PI*i/11 - Math.PI/2, a1 = 2*Math.PI*(i+1)/11 - Math.PI/2, r = 42; return `<path d="M100 100 L${(100+r*Math.cos(a0)).toFixed(1)} ${(100+r*Math.sin(a0)).toFixed(1)} A${r} ${r} 0 0 1 ${(100+r*Math.cos(a1)).toFixed(1)} ${(100+r*Math.sin(a1)).toFixed(1)}Z" fill="${c}" stroke="${OL}" stroke-width="2.5" stroke-linejoin="round"/>`; }).join("") + `<circle cx="100" cy="100" r="42" fill="none" stroke="${OL}" stroke-width="4"/><circle cx="100" cy="100" r="12" fill="#f6f1e6" stroke="${OL}" stroke-width="4"/><path d="M70 82 a36 36 0 0 1 22 -20" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" opacity=".6"/>`,
+  laurel: () => { const leaf = (a, side) => { const r = a*Math.PI/180, x = 100 + 40*Math.cos(r), y = 104 + 40*Math.sin(r); return `<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="6.5" ry="12" fill="#d9a92b" stroke="${OL}" stroke-width="2.5" transform="rotate(${a} ${x.toFixed(1)} ${y.toFixed(1)})"/>`; }; return [110,135,160,185,210].map(a=>leaf(a)).join("") + [70,45,20,-5,-30].map(a=>leaf(a)).join("") + `<text x="102" y="130" text-anchor="middle" font-family="Georgia,serif" font-size="72" font-weight="700" fill="#0d0f11" opacity=".5">1</text><text x="100" y="126" text-anchor="middle" font-family="Georgia,serif" font-size="72" font-weight="700" fill="#f2d27a" stroke="${OL}" stroke-width="3.5">1</text>`; },
+  gem: () => `<polygon points="62,90 80,66 120,66 138,90 100,144" fill="#0d0f11" opacity=".5" transform="translate(3 6)"/><polygon points="62,90 80,66 120,66 138,90 100,144" fill="#7fe0c4" stroke="${OL}" stroke-width="4" stroke-linejoin="round"/><polygon points="62,90 138,90 100,144" fill="#33b38f"/><polygon points="80,66 90,90 100,66" fill="#c8f6e7"/><polygon points="100,66 110,90 120,66" fill="#a6eed8"/><path d="M62 90 H138 M80 66 L90 90 L100 144 L110 90 L120 66 M90 90 L100 66 L110 90" fill="none" stroke="${OL}" stroke-width="2.5" stroke-linejoin="round"/><polygon points="62,90 80,66 120,66 138,90 100,144" fill="none" stroke="${OL}" stroke-width="4" stroke-linejoin="round"/><path d="M78 80 l6 -8" stroke="#fff" stroke-width="4" stroke-linecap="round"/><path d="M146 66 l2 6 6 2 -6 2 -2 6 -2 -6 -6 -2 6 -2Z" fill="#fff"/>`,
+  coin: () => { const c = (y) => S(`M66 ${y} a34 11 0 0 0 68 0 v-10 a34 11 0 0 0 -68 0z`,"#b9c2cb") + `<ellipse cx="100" cy="${y-10}" rx="34" ry="11" fill="#e6ebef" stroke="${OL}" stroke-width="4"/>`; return c(146) + c(132) + `<circle cx="102" cy="88" r="32" fill="#0d0f11" opacity=".45"/><circle cx="100" cy="84" r="32" fill="#e6ebef" stroke="${OL}" stroke-width="4"/><circle cx="100" cy="84" r="24" fill="#c9d1d8" stroke="${OL}" stroke-width="2.5"/><text x="100" y="97" text-anchor="middle" font-size="36" font-weight="800" fill="#4a5560">€</text><path d="M80 70 a24 24 0 0 1 14 -8" stroke="#fff" stroke-width="4.5" fill="none" stroke-linecap="round"/>`; },
+  chest: () => `<path d="M56 98 V88 C56 62 144 62 144 88 V98Z M56 98 H144 V146 H56Z" fill="#0d0f11" opacity=".5" transform="translate(3 5)"/>` + S("M56 98 V88 C56 62 144 62 144 88 V98Z","#a5612d") + S("M56 98 H144 V146 H56Z","#7a4220") + S("M56 98 H144 V108 H56Z","#e0ad1f") + S("M90 90 H110 V116 H90Z","#ffd34d") + `<circle cx="100" cy="103" r="3.5" fill="${OL}"/><path d="M66 78 C80 70 120 70 134 78" stroke="#d39566" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M78 66 C86 56 112 54 124 64" stroke="#ffe28a" stroke-width="6" fill="none" stroke-linecap="round" opacity=".9"/><path d="M150 58 l3 9 9 3 -9 3 -3 9 -3 -9 -9 -3 9 -3Z" fill="#fff" stroke="${OL}" stroke-width="2"/><path d="M54 60 l2 6 6 2 -6 2 -2 6 -2 -6 -6 -2 6 -2Z" fill="#fff8d0"/>`
+};
+
 const ACH_EXPL = {
   first:"Der Anfang jeder Sammlung: Du hast deine erste Karte in der App gezählt.",
   c10:"Zehn Karten liegen in deinen Alben – der erste kleine Stapel.",
@@ -1779,87 +1880,141 @@ const ACH_EXPL = {
   w100:"Der Gesamtwert deiner Sammlung liegt über 100 €.",
   w1000:"Der Gesamtwert deiner Sammlung liegt über 1.000 €."
 };
-const ACH_TIERS = [["first","c10","c100","c500","c1000"],["dex100","dex500"],["set1","set3","master"],["ir","sir"],["w100","w1000"]];
-const hexMix = (a, b, t) => { const p = x => [1,3,5].map(i=>parseInt(x.slice(i,i+2),16)); const A = p(a), B = p(b); return "#" + A.map((v,i)=>Math.round(v+(B[i]-v)*t).toString(16).padStart(2,"0")).join(""); };
-const MSHAPE = {
-  circle:[`<circle cx="50" cy="50" r="47"/>`, `<circle cx="50" cy="50" r="38"/>`],
-  hex:[`<polygon points="50,2 92,26 92,74 50,98 8,74 8,26"/>`, `<polygon points="50,12 83,31 83,69 50,88 17,69 17,31"/>`],
-  shield:[`<path d="M50 2 L91 14 V45 C91 73 72 89 50 98 C28 89 9 73 9 45 V14Z"/>`, `<path d="M50 12 L82 21.5 V45 C82 67 67 80 50 88 C33 80 18 67 18 45 V21.5Z"/>`],
-  diamond:[`<polygon points="50,1 99,50 50,99 1,50"/>`, `<polygon points="50,13 87,50 50,87 13,50"/>`],
-  star:[`<polygon points="${Array.from({length:24},(_,i)=>{ const r = i%2 ? 41 : 49, a = Math.PI*i/12 - Math.PI/2; return (50+r*Math.cos(a)).toFixed(1)+","+(50+r*Math.sin(a)).toFixed(1); }).join(" ")}"/>`, `<circle cx="50" cy="50" r="34"/>`],
-  flower:[`<g>${Array.from({length:8},(_,i)=>{ const a = Math.PI*i/4; return `<circle cx="${(50+33*Math.cos(a)).toFixed(1)}" cy="${(50+33*Math.sin(a)).toFixed(1)}" r="15"/>`; }).join("")}<circle cx="50" cy="50" r="38"/></g>`, `<circle cx="50" cy="50" r="32"/>`]
+// Element-Embleme (eigene Gestaltung), zentriert um 100/100
+const shadowed = (d, f) => `<path d="${d}" fill="#0d0f11" opacity=".45" transform="translate(3 5)"/>` + S(d, f);
+const EMB = {
+  rock: () => shadowed("M60 136 L68 102 L92 84 L116 90 L136 116 L128 140 L82 146Z","#9c8f7e") + `<path d="M92 84 L98 112 L68 102 M98 112 L128 140 M98 112 L136 116" fill="none" stroke="${OL}" stroke-width="2.5" opacity=".55"/>` + shadowed("M120 76 L132 66 L146 74 L144 88 L128 90Z","#b3a794") + `<path d="M74 104 L88 92" stroke="#e9e2d6" stroke-width="4" stroke-linecap="round"/>`,
+  drop: () => shadowed("M100 54 C116 78 134 96 134 118 A34 34 0 0 1 66 118 C66 96 84 78 100 54Z","#5b9fd6") + `<path d="M84 112 a18 18 0 0 0 10 22" stroke="#e6f3ff" stroke-width="6" fill="none" stroke-linecap="round"/><circle cx="114" cy="104" r="5" fill="#cfe7fb"/>`,
+  bolt: () => shadowed("M112 52 L72 110 H98 L86 150 L132 88 H106 Z","#f0c43a") + `<path d="M108 60 L82 102" stroke="#fff6c4" stroke-width="4" stroke-linecap="round"/>`,
+  leaf: () => shadowed("M60 142 C60 92 94 60 142 58 C142 106 110 140 60 142Z","#6aa856") + `<path d="M62 140 C86 116 106 96 132 70 M84 118 L80 98 M100 102 L98 84 M96 112 L114 112 M112 94 L126 94" fill="none" stroke="${OL}" stroke-width="3" stroke-linecap="round" opacity=".6"/><path d="M76 118 C80 96 96 78 118 70" stroke="#d6f0c8" stroke-width="4" fill="none" stroke-linecap="round" opacity=".7"/>`,
+  poison: () => shadowed("M88 56 H112 V82 L136 130 A12 12 0 0 1 126 146 H74 A12 12 0 0 1 64 130 L88 82Z","#d9d4e8") + S("M74 118 H126 L134 132 A10 10 0 0 1 126 142 H74 A10 10 0 0 1 66 132Z","#8d5cb8") + `<circle cx="92" cy="128" r="5" fill="#c9a6e6" stroke="${OL}" stroke-width="2"/><circle cx="110" cy="122" r="3.5" fill="#c9a6e6" stroke="${OL}" stroke-width="2"/><circle cx="104" cy="100" r="4" fill="#c9a6e6" stroke="${OL}" stroke-width="2"/><path d="M84 56 H116" stroke="${OL}" stroke-width="6" stroke-linecap="round"/><path d="M93 64 V84" stroke="#fff" stroke-width="3.5" stroke-linecap="round" opacity=".8"/>`,
+  crystal: () => shadowed("M76 140 L84 124 H116 L124 140Z","#8a5a2b") + `<circle cx="102" cy="96" r="32" fill="#0d0f11" opacity=".45"/><circle cx="100" cy="92" r="32" fill="#a993d8" stroke="${OL}" stroke-width="4"/><circle cx="100" cy="92" r="20" fill="#cbbcf0" opacity=".6"/><path d="M82 80 a22 22 0 0 1 14 -12" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M112 98 l2 6 6 2 -6 2 -2 6 -2 -6 -6 -2 6 -2Z" fill="#fff"/>`,
+  flame: () => shadowed("M100 50 C120 76 138 92 134 122 C130 142 116 150 100 150 C84 150 68 142 66 122 C64 100 80 92 86 72 C92 86 96 90 100 92 C102 78 100 64 100 50Z","#e0733a") + S("M100 92 C110 106 118 114 116 128 C114 140 108 144 100 144 C92 144 86 140 84 128 C83 116 92 110 100 92Z","#f6c443") + `<path d="M80 114 C80 102 86 96 90 88" stroke="#ffd9b0" stroke-width="4" fill="none" stroke-linecap="round"/>`,
+  ground: () => shadowed("M54 142 L88 82 L104 106 L118 90 L148 142Z","#b48a55") + `<path d="M88 82 L80 100 L86 106 M118 90 L114 102" fill="none" stroke="#e8cfa6" stroke-width="4" stroke-linecap="round"/><path d="M96 142 L100 126 L94 118 L100 108" fill="none" stroke="${OL}" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>`,
+  ice: () => { const arm = r => `<g transform="rotate(${r} 100 100)"><path d="M100 56 V144 M100 70 L88 60 M100 70 L112 60 M100 130 L88 140 M100 130 L112 140" fill="none" stroke="${OL}" stroke-width="11" stroke-linecap="round"/></g>`, arm2 = r => `<g transform="rotate(${r} 100 100)"><path d="M100 56 V144 M100 70 L88 60 M100 70 L112 60 M100 130 L88 140 M100 130 L112 140" fill="none" stroke="#cfeaf7" stroke-width="5" stroke-linecap="round"/></g>`; return `<g transform="translate(3 5)" opacity=".45"><g stroke="#000">${[0,60,120].map(arm).join("")}</g></g>` + [0,60,120].map(arm).join("") + [0,60,120].map(arm2).join("") + `<circle cx="100" cy="100" r="8" fill="#e8f7ff" stroke="${OL}" stroke-width="3"/>`; },
+  fist: () => shadowed("M66 92 a12 12 0 0 1 12 -12 h44 a12 12 0 0 1 12 12 v28 a26 26 0 0 1 -26 26 h-30 a12 12 0 0 1 -12 -12z","#e0a57a") + `<path d="M88 80 V100 M110 80 V100 M66 104 h20" stroke="${OL}" stroke-width="3" stroke-linecap="round" opacity=".7"/>` + S("M66 104 C66 96 74 92 84 94 C96 96 98 108 90 114 C84 118 72 116 66 112Z","#eab48c") + `<path d="M76 86 h40" stroke="#f8d9bf" stroke-width="4" stroke-linecap="round"/>`,
+  ghost: () => shadowed("M68 144 V100 A32 32 0 0 1 132 100 V144 L121 132 L110 144 L100 132 L90 144 L79 132Z","#9b8fc6") + `<ellipse cx="88" cy="102" rx="6" ry="9" fill="${OL}"/><ellipse cx="112" cy="102" rx="6" ry="9" fill="${OL}"/><circle cx="90" cy="99" r="2" fill="#fff"/><circle cx="114" cy="99" r="2" fill="#fff"/><path d="M78 88 a24 24 0 0 1 16 -16" stroke="#e1dbf5" stroke-width="4" fill="none" stroke-linecap="round"/>`,
+  dragon: () => shadowed("M58 124 C66 82 98 60 144 56 C132 72 130 84 140 98 C124 98 116 106 116 122 C104 114 90 116 84 130 C78 120 68 118 58 124Z","#7d8fca") + `<path d="M144 56 L100 106 M132 88 L106 104 M120 74 L102 102" fill="none" stroke="${OL}" stroke-width="3" stroke-linecap="round" opacity=".6"/><path d="M72 112 C80 90 100 74 124 66" stroke="#dbe3fb" stroke-width="4" fill="none" stroke-linecap="round" opacity=".8"/>`,
+  feather: () => shadowed("M140 56 C102 62 72 94 66 140 C98 132 130 104 140 56Z","#cdbf9f") + `<path d="M64 144 L136 62" stroke="${OL}" stroke-width="4" stroke-linecap="round"/><path d="M90 116 L80 104 M104 100 L96 88 M118 84 L112 74 M98 110 L110 112 M112 94 L124 96" stroke="${OL}" stroke-width="2.5" stroke-linecap="round" opacity=".55"/>`,
+  bug: () => `<circle cx="102" cy="108" r="34" fill="#0d0f11" opacity=".45"/>` + S("M100 72 A34 34 0 1 1 99.9 72Z","#c8483d") + S("M86 70 A14 12 0 0 1 114 70 L114 76 H86Z","#2b2f35") + `<path d="M100 74 V140" stroke="${OL}" stroke-width="3.5"/>${[[86,96],[114,96],[84,120],[116,120],[100,132]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="6" fill="#2b2f35"/>`).join("")}<path d="M90 64 L82 54 M110 64 L118 54" stroke="${OL}" stroke-width="3" stroke-linecap="round"/><path d="M76 96 a26 26 0 0 1 10 -14" stroke="#f3b2aa" stroke-width="4" fill="none" stroke-linecap="round"/>`,
+  star: () => shadowed("M100 54 L112 86 L146 88 L120 109 L129 142 L100 123 L71 142 L80 109 L54 88 L88 86Z","#efd27a") + `<path d="M100 66 L108 88" stroke="#fff8d9" stroke-width="4" stroke-linecap="round"/>`,
+  gear: () => { const pts = Array.from({length:32},(_,i)=>{ const a = Math.PI*2*i/32, r = (i%4<2) ? 42 : 33; return (100+r*Math.cos(a)).toFixed(1)+","+(100+r*Math.sin(a)).toFixed(1); }).join(" "); return `<polygon points="${pts}" fill="#0d0f11" opacity=".45" transform="translate(3 5)"/><polygon points="${pts}" fill="#a9b3bd" stroke="${OL}" stroke-width="4" stroke-linejoin="round"/><circle cx="100" cy="100" r="13" fill="#4f5963" stroke="${OL}" stroke-width="4"/><path d="M76 82 a30 30 0 0 1 18 -14" stroke="#eef2f5" stroke-width="4" fill="none" stroke-linecap="round"/>`; },
+  moon: () => shadowed("M114 56 A46 46 0 1 0 144 130 A38 38 0 1 1 114 56Z","#e4cf86") + `<path d="M138 70 l2 6 6 2 -6 2 -2 6 -2 -6 -6 -2 6 -2Z M126 98 l1.5 4 4 1.5 -4 1.5 -1.5 4 -1.5 -4 -4 -1.5 4 -1.5Z" fill="#fff"/><path d="M74 96 a34 34 0 0 1 22 -30" stroke="#fff6d2" stroke-width="4" fill="none" stroke-linecap="round" opacity=".8"/>`,
+  heart: () => shadowed("M100 146 C70 124 56 108 56 88 A20 20 0 0 1 100 78 A20 20 0 0 1 144 88 C144 108 130 124 100 146Z","#df8db4") + `<path d="M70 88 a12 12 0 0 1 12 -12" stroke="#fde3ef" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M134 56 l2.5 7 7 2.5 -7 2.5 -2.5 7 -2.5 -7 -7 -2.5 7 -2.5Z" fill="#fff" stroke="${OL}" stroke-width="1.5"/>`
 };
-function medalSym(k, f, i, rim){
-  const st = `fill="${f}" stroke="${i}" stroke-width="3" stroke-linejoin="round"`;
-  switch(k){
-    case "card": return `<rect x="38" y="30" width="24" height="36" rx="3" ${st}/><rect x="42.5" y="35" width="15" height="12" rx="1.5" fill="${i}" opacity=".35"/>`;
-    case "stack": return `<rect x="45" y="27" width="21" height="30" rx="3" ${st} opacity=".55"/><rect x="40" y="32" width="21" height="30" rx="3" ${st} opacity=".8"/><rect x="35" y="37" width="21" height="30" rx="3" ${st}/>`;
-    case "binder": return `<rect x="33" y="28" width="34" height="44" rx="3" ${st}/><path d="M43 30 V70" stroke="${i}" stroke-width="2.5"/>${[38,50,62].map(y=>`<circle cx="38" cy="${y}" r="2.6" fill="${i}"/>`).join("")}<rect x="48" y="36" width="14" height="10" rx="1.5" fill="${i}" opacity=".3"/>`;
-    case "fan": return [-22,0,22].map(r=>`<rect x="40" y="30" width="20" height="30" rx="3" ${st} transform="rotate(${r} 50 68)"/>`).join("");
-    case "crown": return `<path d="M27 66 V40 L38.5 50 L50 31 L61.5 50 L73 40 V66Z" ${st}/><path d="M27 59 H73" stroke="${i}" stroke-width="3"/>${[[27,38],[50,29],[73,38]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="3.6" fill="${rim}" stroke="${i}" stroke-width="2"/>`).join("")}<rect x="44" y="46" width="12" height="9" rx="1.5" fill="${i}" opacity=".35"/>`;
-    case "lens": return `<circle cx="46" cy="46" r="13" ${st} stroke-width="4.5"/><path d="M42 41 a6 6 0 0 1 6 -2" stroke="${i}" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".5"/><path d="M56 56 L69 69" stroke="${i}" stroke-width="7.5" stroke-linecap="round"/>`;
-    case "book": return `<path d="M50 36 C42 31 33 31 26 33.5 V67 C33 64.5 42 64.5 50 69 C58 64.5 67 64.5 74 67 V33.5 C67 31 58 31 50 36Z" ${st}/><path d="M50 36 V69" stroke="${i}" stroke-width="2.5"/><path d="M55 50 l5 5 l9 -11" fill="none" stroke="${i}" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M31 42 H44 M31 49 H44 M31 56 H41" stroke="${i}" stroke-width="2" opacity=".5"/>`;
-    case "map": return `<polygon points="26,35 38,30 50,35 62,30 74,34 74,67 62,72 50,67 38,72 26,67" ${st}/><path d="M38 30 V72 M50 35 V67 M62 30 V72" stroke="${i}" stroke-width="1.8" opacity=".45"/><path d="M57 59 V37" stroke="${i}" stroke-width="3" stroke-linecap="round"/><polygon points="57,37 70,41.5 57,46" fill="${rim}" stroke="${i}" stroke-width="2" stroke-linejoin="round"/>`;
-    case "check": return `<path d="M33 51 L45 63 L67 37" fill="none" stroke="${f}" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><path d="M33 51 L45 63 L67 37" fill="none" stroke="${i}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>`;
-    case "triple": { const sh = (x,y) => `<path transform="translate(${x} ${y})" d="M0 -13 L11 -9.5 V0 C11 8 5.5 12 0 14 C-5.5 12 -11 8 -11 0 V-9.5Z" ${st} stroke-width="2.5"/><path transform="translate(${x} ${y})" d="M-5 0 l4 4 l7 -8" fill="none" stroke="${i}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`; return sh(36,58) + sh(64,58) + sh(50,40); }
-    case "crowngem": return `<path d="M30 60 V41 L40 49 L50 34 L60 49 L70 41 V60Z" ${st}/><path d="M30 60 H70 V66 H30Z" ${st}/><polygon points="50,44 56,51 50,58 44,51" fill="${rim}" stroke="${i}" stroke-width="2"/>`;
-    case "palette": return `<path d="M50 28 C35 28 26 39 26 50 C26 62 36 71 47 71 C52 71 52 65 49 62 C47 59 49 55.5 53 55.5 H60 C68 55.5 74 50 74 44 C74 34.5 63 28 50 28Z" ${st}/>${[["#d9572b",37,43],["#f0c93a",47,36],["#2f84cf",59,38],["#4f9a43",36,55]].map(([c,x,y])=>`<circle cx="${x}" cy="${y}" r="4" fill="${c}" stroke="${i}" stroke-width="1.5"/>`).join("")}`;
-    case "frame": return `<rect x="29" y="30" width="42" height="40" rx="2" fill="${i}"/><rect x="34" y="35" width="32" height="30" fill="${f}"/><polygon points="50,39 53.5,47 62,47.5 55.5,53 57.5,61 50,56.5 42.5,61 44.5,53 38,47.5 46.5,47" fill="${rim}" stroke="${i}" stroke-width="1.5" stroke-linejoin="round"/>`;
-    case "bars": return `<path d="M28 66 L34 54 H52 L58 66Z" ${st}/><path d="M44 66 L50 54 H66 L72 66Z" ${st}/><path d="M36 53 L42 41 H58 L64 53Z" ${st}/><path d="M70 28 l2 6 6 2 -6 2 -2 6 -2 -6 -6 -2 6 -2Z" fill="${f}" stroke="${i}" stroke-width="1.5"/>`;
-    case "wheel": { const cols = ["#4f9a43","#d9572b","#2f84cf","#f0c93a","#9a55b3","#b06235","#344150","#8d99a5","#a88a26","#c8c2b4","#db78ab"]; return cols.map((c,n)=>{ const a0 = 2*Math.PI*n/11 - Math.PI/2, a1 = 2*Math.PI*(n+1)/11 - Math.PI/2, r = 27; return `<path d="M50 50 L${(50+r*Math.cos(a0)).toFixed(2)} ${(50+r*Math.sin(a0)).toFixed(2)} A${r} ${r} 0 0 1 ${(50+r*Math.cos(a1)).toFixed(2)} ${(50+r*Math.sin(a1)).toFixed(2)}Z" fill="${c}" stroke="${i}" stroke-width="1.2"/>`; }).join("") + `<circle cx="50" cy="50" r="8" fill="${f}" stroke="${i}" stroke-width="2.5"/>`; }
-    case "laurel": { const leaf = a => { const r = a*Math.PI/180, x = 50 + 23*Math.cos(r), y = 51 + 23*Math.sin(r); return `<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="3.4" ry="6.8" fill="${f}" stroke="${i}" stroke-width="1.3" transform="rotate(${a.toFixed(0)} ${x.toFixed(1)} ${y.toFixed(1)})"/>`; }; return [112,138,164,190,216,68,42,16,-10,-36].map(leaf).join("") + `<text x="50" y="62" text-anchor="middle" font-family="Georgia,serif" font-size="32" font-weight="700" fill="${f}" stroke="${i}" stroke-width="1.5">1</text>`; }
-    case "gem": return `<polygon points="33,42 42,31 58,31 67,42 50,70" ${st}/><path d="M33 42 H67 M42 31 L46 42 L50 70 L54 42 L58 31" fill="none" stroke="${i}" stroke-width="2" stroke-linejoin="round"/><path d="M38 41 l4 -5" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".7"/>`;
-    case "coin": return `<ellipse cx="50" cy="63" rx="18" ry="6" ${st}/><ellipse cx="50" cy="58" rx="18" ry="6" ${st}/><circle cx="50" cy="43" r="16" ${st}/><text x="50" y="50.5" text-anchor="middle" font-size="20" font-weight="800" fill="${i}">€</text>`;
-    case "chest": return `<path d="M27 47 V42 C27 32 73 32 73 42 V47Z" ${st}/><rect x="27" y="47" width="46" height="22" rx="2.5" ${st}/><rect x="44" y="44" width="12" height="11" rx="2" fill="${rim}" stroke="${i}" stroke-width="2"/><text x="50" y="66" text-anchor="middle" font-size="11" font-weight="800" fill="${i}">€</text><path d="M66 30 l1.5 4 4 1.5 -4 1.5 -1.5 4 -1.5 -4 -4 -1.5 4 -1.5Z" fill="#fff" opacity=".9"/>`;
-  }
-  return "";
-}
-let MID = 0;
+const scaleAt = (svg, k, dx=0, dy=0) => `<g transform="translate(${100+dx} ${100+dy}) scale(${k}) translate(-100 -100)">${svg}</g>`;
+Object.assign(OBJ, {
+  gymcard: k => `<g transform="rotate(-8 100 100)"><rect x="66" y="52" width="72" height="100" rx="8" fill="#0d0f11" opacity=".5" transform="translate(3 5)"/><rect x="66" y="52" width="72" height="100" rx="8" fill="#f2d24c" stroke="${OL}" stroke-width="4"/><rect x="74" y="60" width="56" height="50" rx="3" fill="#e9e4d6" stroke="${OL}" stroke-width="3"/><path d="M76 122 h50 M76 132 h34" stroke="${OL}" stroke-width="3" stroke-linecap="round" opacity=".5"/></g>` + scaleAt(EMB[k](), .5, 2, -15),
+  legend: region => `<path d="M58 118 V78 L78 96 L100 62 L122 96 L142 78 V118Z" fill="#0d0f11" opacity=".5" transform="translate(3 5)"/>` + S("M58 118 V78 L78 96 L100 62 L122 96 L142 78 V118Z","#e8c04a") + S("M100 74 L104 86 L116 86 L106 93 L110 105 L100 98 L90 105 L94 93 L84 86 L96 86Z","#fff3c4") + S("M48 120 H152 L144 133 L152 146 H48 L56 133Z","#8c2f2b") + `<text x="100" y="138" text-anchor="middle" font-family="Georgia,serif" font-size="13" font-weight="700" letter-spacing="1" fill="#fbe9c8">${region.toUpperCase()}</text><path d="M66 112 V88" stroke="#fff3b8" stroke-width="4" stroke-linecap="round"/>`,
+  starter: () => scaleAt(EMB.leaf(), .48, -26, 16) + scaleAt(EMB.flame(), .48, 26, 16) + scaleAt(EMB.drop(), .48, 0, -24),
+  evo: () => { const cols = ["#d9572b","#2f84cf","#f0c93a","#9a55b3","#344150","#4f9a43","#7fc7d9","#db78ab"]; return `<circle cx="102" cy="104" r="38" fill="#0d0f11" opacity=".45"/>` + cols.map((c,i)=>{ const a = Math.PI*2*i/8 - Math.PI/2, x = 100+30*Math.cos(a), y = 100+30*Math.sin(a); return `<polygon points="${x},${y-9} ${x+8},${y} ${x},${y+9} ${x-8},${y}" fill="${c}" stroke="${OL}" stroke-width="2.5" stroke-linejoin="round"/>`; }).join("") + S("M100 82 L104 95 L118 95 L107 103 L111 117 L100 109 L89 117 L93 103 L82 95 L96 95Z","#c99a63"); },
+  fossil: () => shadowed("M100 52 L138 74 V122 L100 146 L62 122 V74Z","#d8932e") + `<path d="M100 52 L138 74 V122 L100 146 L62 122 V74Z" fill="#f2b84b" opacity=".45"/><path d="M100 100 m0 -4 a4 4 0 1 1 -4 4 a8 8 0 1 1 8 8 a12 12 0 1 1 -12 -12 a16 16 0 1 1 16 16 a20 20 0 1 1 -20 -20" fill="none" stroke="#6b3d10" stroke-width="3.5" stroke-linecap="round"/><path d="M72 80 L88 70" stroke="#ffe3a8" stroke-width="5" stroke-linecap="round"/>`,
+  bolts: () => scaleAt(EMB.bolt(), .8, -8, 0) + scaleAt(EMB.bolt(), .38, 32, -26) + scaleAt(EMB.bolt(), .3, 34, 30)
+});
+// Gruppen und weitere Erfolge
+const ACH_GROUPS = [["base","Sammlung"],["kanto","Trainer Kanto"],["johto","Trainer Johto"],["legend","Legendäre"],["family","Familien"],["types","Typ-Trainer"]];
+const ACHX = {};
+for(const id of Object.keys(MDEF)) ACHX[id] = {grp:"base", medal:MDEF[id]};
+const ownAll = (st, list) => [list.filter(d=>st.dexSet.has(d)).length, list.length];
+function addAch(id, name, desc, fn, grp, medal, extra){ ACH.push([id, name, desc, fn]); ACHX[id] = {grp, medal, ...(extra||{})}; }
+const GYM_OWNER = {rocko:"Brock", misty:"Misty", bob:"Lt. Surge", erika:"Erika", koga:"Koga", sabrina:"Sabrina", pyro:"Blaine", giovanni:"Giovanni"};
+function gymCards(owner){ const out = []; for(const id of ["gym1","gym2"]){ const s = SET.get(id); if(!s) continue; for(const c of s.cards) if(c[4]==="P" && c[2].startsWith(owner+"'s ")) out.push(id+"|"+c[0]); } return out; }
+[
+  ["rocko","Rocko","rock",[74,95]], ["misty","Misty","drop",[120,121]], ["bob","Major Bob","bolt",[100,25,26]], ["erika","Erika","leaf",[71,114,45]],
+  ["koga","Koga","poison",[109,89,110]], ["sabrina","Sabrina","crystal",[64,122,49,65]], ["pyro","Pyro","flame",[58,77,78,59]], ["giovanni","Giovanni","ground",[111,51,31,34,112]]
+].forEach(([k, n, e, team])=>{
+  addAch("k_"+k, `${n}s Team`, `Alle Pokémon aus ${n}s Team (Rot/Blau)`, st=>ownAll(st, team), "kanto", ["diamond","silver",e], {dex:team, expl:`Arenaleiter ${n} aus Kanto. Du brauchst jedes Pokémon aus dem Team in Pokémon Rot/Blau mindestens einmal als Karte – egal aus welchem Set oder welcher Sprache.`});
+  addAch("kg_"+k, `${n}s Sammlung`, `Alle „${GYM_OWNER[k]}'s …“-Karten aus den Gym-Sets`, st=>{ const l = gymCards(GYM_OWNER[k]); return [l.filter(x=>st.keys.has(x)).length, l.length || 1]; }, "kanto", ["star","gold","gymcard",e], {gym:GYM_OWNER[k], expl:`Alle Pokémon-Karten mit ${n}s Namen aus Gym Heroes und Gym Challenge (2000), z. B. „${GYM_OWNER[k]}'s …“. Jede Karte zählt einmal, egal in welcher Sprache.`});
+});
+[["lorelei","Lorelei","ice",[87,91,80,124,131]],["bruno","Bruno","fist",[95,107,106,68]],["agathe","Agathe","ghost",[94,42,93,24]],["siegfried","Siegfried","dragon",[130,148,142,149]]].forEach(([k,n,e,team])=>
+  addAch("k4_"+k, `${n}s Team`, `Top Vier Kanto: alle Pokémon aus ${n}s Team`, st=>ownAll(st, team), "kanto", ["hex","gold",e], {dex:team, expl:`${n} gehört zu den Top Vier in Pokémon Rot/Blau. Du brauchst jedes Pokémon aus dem Team mindestens einmal als Karte.`}));
+[["falk","Falk","feather",[16,17]],["kai","Kai","bug",[11,14,123]],["bianka","Bianka","star",[35,241]],["jens","Jens","ghost",[92,93,94]],["hartwig","Hartwig","fist",[57,62]],["jasmin","Jasmin","gear",[81,208]],["norbert","Norbert","ice",[86,87,221]],["sandra","Sandra","dragon",[148,230]]].forEach(([k,n,e,team])=>
+  addAch("j_"+k, `${n}s Team`, `Alle Pokémon aus ${n}s Team (Gold/Silber)`, st=>ownAll(st, team), "johto", ["oct","silver",e], {dex:team, expl:`Arenaleiter${n==="Bianka"||n==="Jasmin"||n==="Sandra"?"in":""} ${n} aus Johto. Du brauchst jedes Pokémon aus dem Team in Pokémon Gold/Silber mindestens einmal als Karte.`}));
+[["willi","Willi","crystal",[178,124,80,103]],["koga","Koga","poison",[168,49,205,89,169]],["bruno","Bruno","fist",[237,106,107,95,68]],["melanie","Melanie","moon",[197,45,94,198,229]],["siegfried","Champion Siegfried","dragon",[130,149,6,142]]].forEach(([k,n,e,team])=>
+  addAch("j4_"+k, `${n}s Team`, k==="siegfried" ? "Champion von Johto: alle Pokémon aus dem Team" : `Top Vier Johto: alle Pokémon aus ${n}s Team`, st=>ownAll(st, team), "johto", ["shield", k==="siegfried" ? "platinum" : "gold", e], {dex:team, expl:`${k==="siegfried" ? "Siegfried ist der Champion" : n + " gehört zu den Top Vier"} in Pokémon Gold/Silber. Du brauchst jedes Pokémon aus dem Team mindestens einmal als Karte.`}));
+const rng = (a,b) => Array.from({length:b-a+1},(_,i)=>a+i);
+[["Kanto",[144,145,146,150,151]],["Johto",[243,244,245,249,250,251]],["Hoenn",rng(377,386)],["Sinnoh",rng(480,493)],["Einall",[494,...rng(638,649)]],["Kalos",rng(716,721)],["Alola",[772,773,...rng(785,792),800,801,802,...rng(807,809)]],["Galar",rng(888,898)],["Paldea",[1001,1002,1003,1004,1007,1008,1014,1015,1016,1017,1024,1025]]].forEach(([r, list])=>
+  addAch("l_"+r.toLowerCase(), `Legenden ${r}`, `Alle legendären und mysteriösen Pokémon aus ${r}`, st=>ownAll(st, list), "legend", ["star","platinum","legend",r], {dex:list, expl:`Alle legendären und mysteriösen Pokémon der Region ${r} – jeweils mindestens einmal als Karte, egal aus welchem Set.`}));
+[["Kanto",1],["Johto",152],["Hoenn",252],["Sinnoh",387],["Einall",495],["Kalos",650],["Alola",722],["Galar",810],["Paldea",906]].forEach(([r, a])=>
+  addAch("f_st_"+r.toLowerCase(), `Starter ${r}`, `Alle drei Starter aus ${r} samt Entwicklungen`, st=>ownAll(st, rng(a, a+8)), "family", ["circle","silver","starter"], {dex:rng(a, a+8), expl:`Die drei Starter-Pokémon aus ${r} mit allen Entwicklungen – neun Pokémon, jeweils mindestens einmal als Karte.`}));
+addAch("f_evoli","Evoli-Familie","Evoli und alle acht Entwicklungen", st=>ownAll(st,[133,134,135,136,196,197,470,471,700]), "family", ["oct","gold","evo"], {dex:[133,134,135,136,196,197,470,471,700], expl:"Evoli und alle acht Entwicklungen: Aquana, Blitza, Flamara, Psiana, Nachtara, Folipurba, Glaziola und Feelinara."});
+addAch("f_fossil","Fossilien-Forscher","Alle Fossil-Pokémon aus Kanto", st=>ownAll(st,[138,139,140,141,142]), "family", ["hex","bronze","fossil"], {dex:[138,139,140,141,142], expl:"Amonitas, Amoroso, Kabuto, Kabutops und Aerodactyl – die Fossil-Pokémon aus Kanto."});
+addAch("f_pika","Pikachu-Familie","Pichu, Pikachu und Raichu", st=>ownAll(st,[172,25,26]), "family", ["circle","gold","bolts"], {dex:[172,25,26], expl:"Die ganze Pikachu-Familie: Pichu, Pikachu und Raichu."});
+const TYPE_TR = {Grass:["Pflanzen","leaf"],Fire:["Feuer","flame"],Water:["Wasser","drop"],Lightning:["Elektro","bolt"],Psychic:["Psycho","crystal"],Fighting:["Kampf","fist"],Darkness:["Finsternis","moon"],Metal:["Metall","gear"],Dragon:["Drachen","dragon"],Colorless:["Normal","star"],Fairy:["Feen","heart"]};
+for(const [t, [n, e]] of Object.entries(TYPE_TR)) [[10,"I","bronze"],[100,"II","silver"],[1000,"III","gold"]].forEach(([g, r, pal])=>
+  addAch(`t_${t}_${g}`, `${n}-Trainer ${r}`, `${g.toLocaleString("de-DE")} verschiedene ${TYPES[t][0]}-Karten`, st=>[st.typeCards[t]||0, g], "types", ["circle", pal, e], {expl:`${g.toLocaleString("de-DE")} verschiedene Pokémon-Karten vom Typ ${TYPES[t][0]}. Doppelte zählen nicht: Dieselbe Karte in mehreren Varianten oder Sprachen zählt nur einmal.`, tier:[`t_${t}_10`,`t_${t}_100`,`t_${t}_1000`]}));
+
+const ACH_TIERS = [["first","c10","c100","c500","c1000"],["dex100","dex500"],["set1","set3","master"],["ir","sir"],["w100","w1000"]];
+let MID2 = 0;
 function medalSVG(id, locked){
-  const [shape, pk, sym] = MEDAL[id] || ["circle","silver","card"], [rim, face, f, ink] = MPAL[locked ? "locked" : pk], u = "md" + (++MID);
-  const [outer, inner] = MSHAPE[shape];
-  const ins = locked ? `<text x="50" y="63" text-anchor="middle" font-size="36" font-weight="800" fill="${ink}" opacity=".7">?</text>` : medalSym(sym, f, ink, rim);
-  return `<svg class="medal" viewBox="0 0 100 100" aria-hidden="true"><defs>
-    <linearGradient id="${u}r" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${hexMix(rim,"#ffffff",.45)}"/><stop offset=".5" stop-color="${rim}"/><stop offset="1" stop-color="${hexMix(rim,"#000000",.35)}"/></linearGradient>
-    <linearGradient id="${u}f" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${hexMix(face,"#ffffff",.35)}"/><stop offset="1" stop-color="${hexMix(face,"#000000",.08)}"/></linearGradient>
-    <linearGradient id="${u}g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".75"/><stop offset=".45" stop-color="#fff" stop-opacity=".12"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient>
-    <clipPath id="${u}c">${inner}</clipPath></defs>
-    <g fill="url(#${u}r)">${outer}</g><g fill="${hexMix(rim,"#000000",.3)}" transform="translate(0 1.5)" opacity=".6">${inner}</g><g fill="url(#${u}f)">${inner}</g>
-    ${ins}
-    ${locked ? "" : `<g clip-path="url(#${u}c)"><rect x="0" y="0" width="100" height="100" fill="url(#${u}g)" opacity=".55"/><rect class="msw" x="-60" y="-10" width="26" height="120" fill="#fff" opacity=".75" transform="skewX(-20)"/></g>`}
-  </svg>`;
+  const m = ACHX[id]?.medal || ["circle","silver","star"], [shape, pk, obj, arg] = m, pal = FR[locked ? "locked" : pk] || FR.silver, u = "q" + (++MID2);
+  const bev = (n, sd, sc, k) => `<filter id="${u}${n}" x="-15%" y="-15%" width="130%" height="135%"><feGaussianBlur in="SourceAlpha" stdDeviation="${sd}" result="b"/><feSpecularLighting in="b" surfaceScale="${sc}" specularConstant="1" specularExponent="18" lighting-color="#ffffff" result="s"><feDistantLight azimuth="225" elevation="38"/></feSpecularLighting><feComposite in="s" in2="SourceAlpha" operator="in" result="s2"/><feDiffuseLighting in="b" surfaceScale="${sc}" diffuseConstant="1.15" lighting-color="#ffffff" result="d"><feDistantLight azimuth="225" elevation="50"/></feDiffuseLighting><feComposite in="d" in2="SourceAlpha" operator="in" result="d2"/><feComposite in="SourceGraphic" in2="d2" operator="arithmetic" k1="1" k2="0" k3="0" k4="0" result="lit"/><feComposite in="lit" in2="s2" operator="arithmetic" k1="0" k2="1" k3="${k}" k4="0"/></filter>`;
+  const [o] = shapePts(shape);
+  let svg = `<svg class="medal" viewBox="0 0 200 200" aria-hidden="true"><defs><linearGradient id="${u}l" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".25"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".25"/></linearGradient><radialGradient id="${u}i" cx=".45" cy=".38" r=".7"><stop offset="0" stop-color="#fff" stop-opacity=".12"/><stop offset="1" stop-color="#000" stop-opacity=".45"/></radialGradient>
+    ${bev("f", 3, 5, .75)}${bev("o", 2.2, 4, .6)}<filter id="${u}m"><feColorMatrix type="saturate" values=".62"/></filter>
+    <filter id="${u}d" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#000" flood-opacity=".5"/></filter><clipPath id="${u}c"><polygon points="${P(o)}"/></clipPath></defs>`;
+  svg += `<g filter="url(#${u}d)"><g filter="url(#${u}f)">` + frameSVG(shape, pal, false).replace("url(#lightTL)", `url(#${u}l)`).replace("url(#innerG)", `url(#${u}i)`) + `</g></g>`;
+  const inner = OBJ[obj] ? OBJ[obj](arg) : EMB[obj] ? EMB[obj]() : "";
+  svg += locked ? `<text x="100" y="124" text-anchor="middle" font-size="64" font-weight="800" fill="#9aa0a8" stroke="${OL}" stroke-width="3" filter="url(#${u}o)">?</text>` : `<g filter="url(#${u}d)"><g filter="url(#${u}m)"><g filter="url(#${u}o)">${inner}</g></g></g><g clip-path="url(#${u}c)"><rect class="msw" x="-80" y="-20" width="40" height="240" fill="#fff" opacity=".55" transform="skewX(-20)"/></g>`;
+  return svg + `</svg>`;
 }
 function achVal(id, v, goal){
   if(id==="w100" || id==="w1000") return `${eur(v)} / ${eur(goal)}`;
   if(goal===1) return v>=1 ? "erreicht" : "noch offen";
   return `${Math.min(v,goal).toLocaleString("de-DE")} / ${goal.toLocaleString("de-DE")}`;
 }
+let achOpen = null;
 function renderAch(){
   $("#bar-title").textContent = "Erfolge";
+  if(!achOpen) achOpen = new Set(LS.get("pk-achopen", ["base"]));
   const st = achStats(), got = ACH.filter(([id])=>ach[id]).length;
   const open = ACH.filter(([id])=>!ach[id]).map(a=>{ const [v, g] = a[3](st); return {a, v, g, r: g ? Math.min(1, v/g) : 0}; }).sort((x,y)=>y.r-x.r)[0];
   const seen = new Set(LS.get("pk-achanim", [])), fresh = [];
   $("#head").innerHTML = `<h1>Erfolge</h1><div class="achhead"><b>${got} <small>von ${ACH.length}</small></b><span class="achbar"><i style="width:${(got/ACH.length*100).toFixed(1)}%"></i></span>${open ? `<p class="hint">Als Nächstes: <b>${esc(open.a[1])}</b> · ${achVal(open.a[0], open.v, open.g)}</p>` : `<p class="hint">Alle Erfolge freigeschaltet – stark!</p>`}</div>`;
   $("#tools").innerHTML = "";
-  $("#view").innerHTML = `<div class="achgrid">${ACH.map(([id, name, desc])=>{ const done = !!ach[id], nw = done && !seen.has(id); if(nw) fresh.push(id);
-    return `<button class="achm${done?"":" lock"}${nw?" new":""}" type="button" data-ach="${id}" aria-label="${esc(name)}, ${done?"freigeschaltet":"noch offen"}">${medalSVG(id, !done)}<b>${esc(name)}</b><small>${done ? deDate(ach[id]) : esc(desc)}</small></button>`; }).join("")}</div>`;
+  $("#view").innerHTML = ACH_GROUPS.map(([g, label])=>{
+    const list = ACH.filter(([id])=>(ACHX[id]?.grp||"base")===g), n = list.filter(([id])=>ach[id]).length, isOpen = achOpen.has(g);
+    return `<section class="achgrp${isOpen?" open":""}"><button class="achgh" type="button" data-achg="${g}" aria-expanded="${isOpen}"><b>${label}</b><span>${n} von ${list.length}</span><span class="achgb"><i style="width:${(n/list.length*100).toFixed(1)}%"></i></span><span class="chev">›</span></button>
+      ${isOpen ? `<div class="achgrid">${list.map(([id, name, desc])=>{ const done = !!ach[id], nw = done && !seen.has(id); if(nw) fresh.push(id);
+        return `<button class="achm${done?"":" lock"}${nw?" new":""}" type="button" data-ach="${id}" aria-label="${esc(name)}, ${done?"freigeschaltet":"noch offen"}">${medalSVG(id, !done)}<b>${esc(name)}</b><small>${done ? deDate(ach[id]) : esc(desc)}</small></button>`; }).join("")}</div>` : ""}</section>`; }).join("");
   if(fresh.length) LS.set("pk-achanim", [...seen, ...fresh]);
+  $("#view").querySelectorAll("[data-achg]").forEach(b=>b.addEventListener("click", ()=>{ const g = b.dataset.achg; if(achOpen.has(g)) achOpen.delete(g); else achOpen.add(g); LS.put("pk-achopen", JSON.stringify([...achOpen])); const y = window.scrollY; renderAch(); window.scrollTo(0, y); }));
   $("#view").querySelectorAll("[data-ach]").forEach(b=>b.addEventListener("click", ()=>openAchSheet(b.dataset.ach)));
 }
 function openAchSheet(id){
   const a = ACH.find(x=>x[0]===id); if(!a) return;
-  const st = achStats(), [v, g] = a[3](st), done = !!ach[id];
+  const st = achStats(), [v, g] = a[3](st), done = !!ach[id], X = ACHX[id] || {};
   wsMode = {kind:"ach"};
-  $("#ws-title").textContent = a[1];
+  $("#ws-title").textContent = "";
   const bar = (val, goal, cls) => `<span class="achbar big${cls||""}"><i style="width:${(goal ? Math.min(1, val/goal)*100 : 0).toFixed(1)}%"></i></span>`;
-  const tier = ACH_TIERS.find(t=>t.includes(id)), nextId = tier && tier[tier.indexOf(id)+1], nx = nextId && ACH.find(x=>x[0]===nextId);
+  const tier = X.tier || ACH_TIERS.find(t=>t.includes(id)), nextId = tier && tier[tier.indexOf(id)+1], nx = nextId && ACH.find(x=>x[0]===nextId);
   let nxHTML = "";
   if(nx){ const [nv, ng] = nx[3](st); nxHTML = `<div class="achrow"><span>Nächste Stufe: <b>${esc(nx[1])}</b></span><b>${ach[nextId] ? "erreicht ✓" : achVal(nextId, nv, ng)}</b></div>${bar(nv, ng, " nx")}`; }
-  $("#ws-body").innerHTML = `<div class="achsh${done?"":" lock"}">${medalSVG(id, !done)}<div><p class="achst">${done ? `Freigeschaltet am ${deDate(ach[id])}` : "Noch nicht freigeschaltet"}</p><p class="hint" style="margin:2px 0 0">${esc(a[2])}</p></div></div>
-    <p style="margin:0">${esc(ACH_EXPL[id] || a[2])}</p>
+  let listHTML = "";
+  if(X.dex) listHTML = `<h4 class="achlh">Pokémon</h4><div class="achlist">${X.dex.map(d=>{ const h = st.dexSet.has(d); return `<span class="achp${h?" have":""}">${h?"✓ ":""}${esc(NAMES[d-1]||("#"+d))}</span>`; }).join("")}</div>`;
+  if(X.gym){ const l = gymCards(X.gym); listHTML = `<h4 class="achlh">Karten</h4><div class="achlist">${l.map(k=>{ const [sid, num] = k.split("|"), c = cardAt(sid, num), h = st.keys.has(k); return c ? `<span class="achp${h?" have":""}">${h?"✓ ":""}${esc(c[1] || c[2])} <small>${esc(SET.get(sid).abbr)} ${esc(num)}</small></span>` : ""; }).join("")}</div>`; }
+  $("#ws-body").innerHTML = `<div class="achtop${done?"":" lock"}"><div class="mrot" id="mrot"><div class="mcoin" id="mcoin"><div class="mface mfront">${medalSVG(id, !done)}<span class="mgloss" id="mgloss"></span></div><div class="mface mback"><div class="mbackc"><small>KARTENALBUM</small><b>${esc(a[1])}</b><span>${done ? `verdient am<br>${deDate(ach[id])}` : "noch nicht<br>verdient"}</span></div></div></div></div>
+      <h3 class="achname">${esc(a[1])}</h3><p class="achst">${done ? `Freigeschaltet am ${deDate(ach[id])}` : "Noch nicht freigeschaltet"}</p><p class="hint achhint">Ziehen zum Drehen · Doppeltippen zum Umdrehen${isMouse() ? "" : ` · <button class="lnk" type="button" id="m-tilt">Neigung</button>`}</p></div>
+    <p style="margin:0">${esc(X.expl || ACH_EXPL[id] || a[2])}</p>
     <div class="achrow"><span>Dein Stand</span><b>${achVal(id, v, g)}</b></div>${bar(v, g, done ? " ok" : "")}
-    ${nxHTML}`;
+    ${nxHTML}${listHTML}`;
+  bindMedalRot();
   if(wishSheet.state==="closed") wishSheet.open("half"); else wishSheet.set("half");
+}
+const MR = {rx:0, ry:0, flip:0, drag:null, tilt:false, last:0};
+function mrApply(anim){ const c = $("#mcoin"); if(!c) return; c.style.transition = anim ? "transform .6s cubic-bezier(.2,.9,.3,1.2)" : "none"; c.style.transform = `rotateX(${MR.rx}deg) rotateY(${MR.ry + MR.flip}deg)`; const g = $("#mgloss"); if(g) g.style.backgroundPosition = `${50 - MR.ry*1.4}% ${50 + MR.rx*1.4}%`; }
+function mrOrient(e){ if(!MR.tilt || MR.drag) return; MR.rx = Math.max(-30, Math.min(30, ((e.beta||0) - 45) * .8)); MR.ry = Math.max(-35, Math.min(35, (e.gamma||0) * 1.1)); mrApply(false); }
+function bindMedalRot(){
+  const el = $("#mrot"); if(!el) return; MR.rx = 0; MR.ry = 0; MR.flip = 0; mrApply(false);
+  ["touchstart","touchmove"].forEach(t=>el.addEventListener(t, e=>e.stopPropagation(), {passive:true}));
+  el.addEventListener("pointerdown", e=>{ el.setPointerCapture(e.pointerId); MR.drag = {x:e.clientX, y:e.clientY, rx:MR.rx, ry:MR.ry, t:performance.now(), lx:e.clientX, lt:performance.now(), vx:0}; });
+  el.addEventListener("pointermove", e=>{ const d = MR.drag; if(!d) return; const now = performance.now(); d.vx = (e.clientX - d.lx) / Math.max(1, now - d.lt); d.lx = e.clientX; d.lt = now; MR.ry = d.ry + (e.clientX - d.x) * .7; MR.rx = Math.max(-40, Math.min(40, d.rx - (e.clientY - d.y) * .6)); mrApply(false); });
+  const end = e => { const d = MR.drag; if(!d) return; MR.drag = null; const now = performance.now(), moved = Math.abs(e.clientX - d.x) + Math.abs(e.clientY - d.y);
+    if(Math.abs(d.vx) > .9) MR.flip += d.vx > 0 ? 180 : -180;
+    else if(moved < 6){ if(now - MR.last < 320){ MR.flip += 180; MR.last = 0; } else MR.last = now; }
+    if(!MR.tilt){ MR.rx = 0; MR.ry = 0; } mrApply(true); };
+  el.addEventListener("pointerup", end); el.addEventListener("pointercancel", end);
+  $("#m-tilt")?.addEventListener("click", async()=>{ let on = !MR.tilt; if(on){ try{ if(typeof DeviceOrientationEvent!=="undefined" && typeof DeviceOrientationEvent.requestPermission==="function"){ const r = await DeviceOrientationEvent.requestPermission(); if(r!=="granted") on = false; } }catch{ on = false; } } MR.tilt = on; $("#m-tilt").textContent = on ? "Neigung aus" : "Neigung"; window.removeEventListener("deviceorientation", mrOrient); if(on) window.addEventListener("deviceorientation", mrOrient); else { MR.rx = 0; MR.ry = 0; mrApply(true); } });
 }
 
 /* ---------- Kamera-Erkennung (Serien-Scan) ---------- */
@@ -2012,7 +2167,7 @@ function openTabs(first){
   $("#ws-title").textContent = first ? "Deine Tab-Leiste" : "Tab-Leiste anpassen";
   const draw = () => {
     const order = [...sel, ...TAB_ALL.filter(t=>!sel.includes(t))], ok = sel.length>=3 && sel.length<=5;
-    $("#ws-body").innerHTML = `<p class="hint" style="margin:0">${first ? "Wähle, welche Bereiche unten in der Leiste stehen sollen. " : ""}Alben, Pokédex und Mehr sind immer dabei, dazu 1 bis 3 weitere Bereiche. Ausgeblendete findest du unter Mehr. Am Rechner zeigt die Seitenleiste immer alle.</p>
+    $("#ws-body").innerHTML = `<p class="hint" style="margin:0">${first ? "Wähle, welche Bereiche unten in der Leiste stehen sollen. " : ""}Alben, Pokédex und Mehr sind immer dabei, dazu 1 bis 3 weitere Bereiche. Ausgeblendete findest du unter Mehr. Die Einstellungen erreichst du immer über das Zahnrad oben rechts. Am Rechner zeigt die Seitenleiste immer alle.</p>
       <div class="tabcfg">${order.map(t=>{ const on = sel.includes(t), i = sel.indexOf(t); const lk = TAB_LOCK.includes(t); return `<div class="tcrow${on?" on":""}"><button class="tctog" type="button" data-tt="${t}" aria-pressed="${on}" ${lk?'aria-disabled="true" title="Immer dabei"':""}><span class="tcchk${lk?" lock":""}" aria-hidden="true">${lk?LOCK_SVG:on?"✓":""}</span>${tabIcon(t)}<span>${TAB_LBL[t]}</span></button>${on?`<button class="tcmv" type="button" data-tm="${t}|-1" aria-label="${TAB_LBL[t]} nach oben" ${i===0?"disabled":""}>↑</button><button class="tcmv" type="button" data-tm="${t}|1" aria-label="${TAB_LBL[t]} nach unten" ${i===sel.length-1?"disabled":""}>↓</button>`:""}</div>`; }).join("")}
         <div class="tcrow fixed"><span class="tctog"><span class="tcchk lock" aria-hidden="true">${LOCK_SVG}</span>${tabIcon("mehr")}<span>Mehr</span></span><small>immer dabei</small></div></div>
       <p class="hint" style="margin:0;${ok?"":"color:var(--accent)"}">${sel.length} von 5 gewählt${ok?"":" – bitte mindestens einen weiteren Bereich wählen"}</p>
@@ -2184,16 +2339,26 @@ const TIPS = [
 ];
 function renderMore(){
   $("#bar-title").textContent = "Mehr";
+  const hid = TAB_ALL.filter(x=>!curTabs().includes(x)), DESC = {regal:"Deine Alben", dex:"Alle Pokémon", suche:"Karten finden", wunsch:"Gemerkte Karten", portfolio:"Wert & Analyse", erfolge:"Orden & Fortschritt", scan:"Karten per Kamera"};
+  $("#head").innerHTML = `<h1>Mehr</h1>`;
+  $("#tools").innerHTML = "";
+  $("#view").innerHTML = `<div class="mtiles mob-only">${hid.map(x=>x==="scan" ? `<button class="mtile" type="button" data-scan>${tabIcon(x)}<span>${TAB_LBL[x]}<br><small>${DESC[x]}</small></span></button>` : `<a class="mtile" href="#${x}">${tabIcon(x)}<span>${TAB_LBL[x]}<br><small>${DESC[x]}</small></span></a>`).join("")}</div>
+    ${hid.length ? "" : `<p class="empty mob-only">Alle Bereiche stehen schon in deiner Tab-Leiste.</p>`}
+    <p class="hint mob-only" style="margin-top:16px">Welche Bereiche unten in der Leiste stehen, stellst du unter <a href="#einstellungen">Einstellungen</a> → Tab-Leiste anpassen ein.</p>
+    <p class="empty desk-only">Alle Bereiche findest du links in der Seitenleiste.</p>`;
+}
+function renderSettings(){
+  $("#bar-title").textContent = "Einstellungen";
   LS.put("pk-seen", APP_VERSION);
   const last = LS.raw("pk-lastbackup");
   const days = last ? Math.floor((Date.now()-new Date(last))/864e5) : null;
   const th = LS.raw("pk-theme") || "auto";
   const pd = cards.map(c=>c.priceDate||"").filter(Boolean).sort().pop();
   const hasSet = cards.some(c=>c.setId);
-  $("#head").innerHTML = `<h1>Mehr</h1>`;
+  $("#head").innerHTML = `<h1>Einstellungen</h1>`;
   $("#tools").innerHTML = "";
   $("#view").innerHTML = `
-    ${(()=>{ const hid = TAB_ALL.filter(x=>!curTabs().includes(x)); return hid.length ? `<section class="set-sec mob-only"><h2>Weitere Bereiche</h2><div class="group">${hid.map(x=>x==="scan" ? `<button class="srow" type="button" data-scan><span class="srico">${tabIcon(x)}</span><span class="lbl">${TAB_LBL[x]}</span><span class="chev">›</span></button>` : `<a class="srow" href="#${x}"><span class="srico">${tabIcon(x)}</span><span class="lbl">${TAB_LBL[x]}</span><span class="chev">›</span></a>`).join("")}</div></section>` : ""; })()}
+    
     <section class="set-sec"><h2>Konto &amp; Abgleich</h2>${kontoHTML()}</section>
     <section class="set-sec"><h2>Darstellung</h2><div class="group"><div class="srow seg-row"><div class="seg" role="group" aria-label="Darstellung">${[["auto","Automatisch"],["light","Hell"],["dark","Dunkel"]].map(([k,l])=>`<button type="button" data-theme-opt="${k}" aria-pressed="${th===k}">${l}</button>`).join("")}</div></div></div></section>
     <section class="set-sec mob-only"><h2>Navigation</h2><div class="group"><button class="srow" type="button" id="tabs-cfg"><span class="lbl" style="flex:none">Tab-Leiste anpassen</span><span class="val" style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;text-align:right">${curTabs().map(x=>TAB_LBL[x]).join(", ")}</span><span class="chev">›</span></button></div></section>
@@ -2539,13 +2704,14 @@ function moversHTML(list){
   const ms = list.filter(e=>e.val>0 && e.a30>0 && Math.max(e.val, e.a30)>=0.5).map(e=>({...e, pct:(e.val-e.a30)/e.a30*100}));
   const up = ms.filter(e=>e.pct>=1).sort((a,b)=>b.pct-a.pct).slice(0,5), dn = ms.filter(e=>e.pct<=-1).sort((a,b)=>a.pct-b.pct).slice(0,5);
   if(!up.length && !dn.length) return `<p class="hint">Noch keine Vergleichswerte – sie kommen mit der nächsten Preisaktualisierung.</p>`;
-  const col = (t, l) => `<div class="pfmov"><h4>${t}</h4>${l.length ? l.map(e=>{ const s = SET.get(e.setId), c = cardAt(e.setId, e.num); return c ? `<button type="button" data-pfc="${esc(e.setId)}|${esc(e.num)}"><span class="mn"><b>${esc(cardTitleFor(s,c))}</b><small>${esc(s.abbr)} ${esc(numDisp(s,c[0]))}</small></span><span class="mp ${e.pct>=0?"up":"down"}">${e.pct>=0?"+":"−"}${Math.abs(Math.round(e.pct))} %<small>${eur(e.val)}</small></span></button>` : ""; }).join("") : `<p class="hint">–</p>`}</div>`;
+  const col = (t, l) => `<div class="pfmov"><h4>${t}</h4>${l.length ? l.map(e=>{ const s = SET.get(e.setId), c = cardAt(e.setId, e.num); const [nm, sub] = c ? pfName(s, c, e.lang) : []; return c ? `<button type="button" data-pfc="${esc(e.setId)}|${esc(e.num)}"><span class="mn"><b>${esc(nm)}</b><small>${sub?esc(sub)+" · ":""}${esc(s.abbr)} ${esc(numDisp(s,c[0]))}</small></span><span class="mp ${e.pct>=0?"up":"down"}">${e.pct>=0?"+":"−"}${Math.abs(Math.round(e.pct))} %<small>${eur(e.val)}</small></span></button>` : ""; }).join("") : `<p class="hint">–</p>`}</div>`;
   return `<div class="pfmovs">${col("Gewinner", up)}${col("Verlierer", dn)}</div><p class="hint pfnote">Trendpreis im Vergleich zum 30-Tage-Durchschnitt bei Cardmarket.</p>`;
 }
+function pfName(s, c, lang){ const de = cName(c); if(s.ja || lang==="Japanisch") return [c[2], de && de!==c[2] ? de : ""]; if(lang==="Englisch") return [c[2], c[1] && c[1]!==c[2] ? c[1] : ""]; return [de, ""]; }
 function rankHTML(list, show, moreId){
   const r = list.filter(e=>e.val>0).sort((a,b)=>b.val-a.val);
   if(!r.length) return `<p class="hint">Noch keine Karten mit Preis.</p>`;
-  return `<ol class="toplist pfrank">${r.slice(0, show).map((e,i)=>{ const s = SET.get(e.setId), c = cardAt(e.setId, e.num); if(!c) return ""; return `<li><button type="button" data-pfc="${esc(e.setId)}|${esc(e.num)}"><span class="tr">${i+1}</span><span class="tn"><b>${esc(cardTitleFor(s,c))}</b><small>${esc(s.abbr)} ${esc(numDisp(s,c[0]))} · ${esc(vLabel(e.v))}${e.qty>1?` · ${e.qty}×`:""}</small></span>${flag(LANGFLAG[e.lang])}<span class="tp">${eur(e.val)}</span></button></li>`; }).join("")}</ol>${r.length>show?`<button class="btn pfmore" type="button" id="${moreId}">Weitere ${Math.min(30, r.length-show)} zeigen</button>`:""}`;
+  return `<ol class="toplist pfrank">${r.slice(0, show).map((e,i)=>{ const s = SET.get(e.setId), c = cardAt(e.setId, e.num); if(!c) return ""; const [nm, sub] = pfName(s, c, e.lang); return `<li><button type="button" data-pfc="${esc(e.setId)}|${esc(e.num)}"><span class="tr">${i+1}</span><span class="tn"><b>${esc(nm)}</b><small>${sub?esc(sub)+" · ":""}${esc(s.abbr)} ${esc(numDisp(s,c[0]))} · ${esc(vLabel(e.v))}${e.qty>1?` · ${e.qty}×`:""}</small></span>${flag(LANGFLAG[e.lang])}<span class="tp">${eur(e.val)}</span></button></li>`; }).join("")}</ol>${r.length>show?`<button class="btn pfmore" type="button" id="${moreId}">Weitere ${Math.min(30, r.length-show)} zeigen</button>`:""}`;
 }
 function bindPf(){
   $("#view").querySelectorAll("[data-srange]").forEach(b=>b.addEventListener("click", ()=>{ statRange = +b.dataset.srange; render(); }));
@@ -3072,9 +3238,9 @@ function startAuth(){
       if(u && u.emailVerified) beginSync();
       refreshMore();
     });
-  }).catch(()=>{ Sync.failed = true; setSync("error", "Anmeldedienst konnte nicht geladen werden – keine Verbindung? Öffne Mehr später erneut."); refreshMore(); });
+  }).catch(()=>{ Sync.failed = true; setSync("error", "Anmeldedienst konnte nicht geladen werden – keine Verbindung? Öffne die Einstellungen später erneut."); refreshMore(); });
 }
-function refreshMore(){ if(view.name==="mehr" && !document.activeElement?.closest?.("#acct-f")) render(); }
+function refreshMore(){ if(view.name==="einstellungen" && !document.activeElement?.closest?.("#acct-f")) render(); }
 function stopListen(){ Sync.unsub.forEach(f=>{ try{ f(); }catch{} }); Sync.unsub = []; }
 
 // Cloud-Stand übernehmen. mode: "replace" (anderes Konto auf dem Gerät), "merge" (erste Anmeldung), "sync" (laufender Abgleich)
@@ -3212,7 +3378,7 @@ function bindKonto(){
   $("#ac-sync")?.addEventListener("click", ()=>beginSync());
   $("#ac-out")?.addEventListener("click", async()=>{ stopListen(); clearTimeout(Sync.pushT); try{ await Au.signOut(auth); }catch{} });
 }
-window.addEventListener("online", ()=>{ if(Sync.failed){ Sync.failed = false; Sync.started = false; if(view.name==="mehr" || LS.raw("pk-syncuid")) startAuth(); } if(Sync.user?.emailVerified) beginSync(); });
+window.addEventListener("online", ()=>{ if(Sync.failed){ Sync.failed = false; Sync.started = false; if(view.name==="einstellungen" || LS.raw("pk-syncuid")) startAuth(); } if(Sync.user?.emailVerified) beginSync(); });
 document.addEventListener("visibilitychange", ()=>{ if(document.visibilityState==="visible" && Sync.user?.emailVerified) syncDirty(); });
 
 /* ---------- Start ---------- */

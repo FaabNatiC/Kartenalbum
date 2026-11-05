@@ -1,5 +1,12 @@
 # Kartenalbum – Änderungen
 
+## Version 1.26 · 05.11.2026
+- Einstellungen über das Zahnrad oben rechts, „Mehr“ zeigt nur noch die weiteren Bereiche
+- Alben: Ansicht-Umschalter direkt neben der Suche
+- 106 Orden im neuen 3D-Stil – in Gruppen: Sammlung, Trainer Kanto und Johto, Legendäre, Familien, Typ-Trainer
+- Orden im Detail drehen und umdrehen, mit Liste der benötigten Pokémon bzw. Karten
+- Portfolio: internationale Karten mit deutschem Namen klein dazu
+
 ## Version 1.25 · 05.11.2026
 - Neuer Bereich „Erfolge“ mit eigenen Orden für alle 19 Erfolge – mit Metallglanz und Animation beim Freischalten
 - Tipp auf einen Orden: Erklärung, dein Stand, nächste Stufe und Freischaltdatum

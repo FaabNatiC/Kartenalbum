@@ -4,7 +4,7 @@ Private Web-App für meine Pokémon-Sammelkarten – als digitales Album fürs i
 
 **App öffnen:** https://faabnatic.github.io/Kartenalbum/
 
-Aktuelle Version: **1.25** · Änderungen je Version stehen in [`CHANGELOG.md`](CHANGELOG.md).
+Aktuelle Version: **1.26** · Änderungen je Version stehen in [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Funktionen
 
@@ -28,9 +28,10 @@ Aktuelle Version: **1.25** · Änderungen je Version stehen in [`CHANGELOG.md`](
 - **Preise** – aktueller Cardmarket-Trend je Variante und eigener Höchstwert, täglich automatisch aktualisiert; Cardmarket-Knopf führt direkt zur Karte
 - **Portfolio** – Wertkurve mit Zeitraum, Aufteilung nach Set, Sprache, Seltenheit und Typ, Gewinner & Verlierer, alle Karten nach Wert
 - **Set-Details** – Setwert und Verlauf, Kosten bis komplett, Aufteilung, Gewinner & Verlierer je Set
-- **Erfolge** – eigener Bereich mit 19 selbst gestalteten Orden, z. B. erstes Set komplett oder 100 Karten; Tipp zeigt Erklärung, Stand und nächste Stufe
+- **Erfolge** – 106 selbst gestaltete Orden mit 3D-Prägung in Gruppen (Sammlung, Trainer Kanto/Johto, Legendäre, Familien, Typ-Trainer); im Detail drehbar, mit Stand, nächster Stufe und Liste der benötigten Pokémon
 
 **Allgemein**
+- **Einstellungen** – über das Zahnrad oben rechts: Konto, Darstellung, Sicherung, Tab-Leiste u. v. m.
 - **Tab-Leiste anpassbar** – Alben, Pokédex und Mehr fest, dazu 1 bis 3 weitere Bereiche; Reihenfolge frei, ausgeblendete Bereiche unter Mehr
 - **Top 3 im Album** – deine wertvollsten Karten oder die des ganzen Sets
 - **Konto & Abgleich** – Anmeldung mit E-Mail/Passwort oder Google; Sammlung live auf allen Geräten
@@ -50,9 +51,9 @@ Neue Versionen meldet die App selbst („Version x verfügbar · Aktualisieren�
 ## Daten, Konto & Sicherung
 
 - **Ohne Anmeldung** liegt die Sammlung nur auf dem Gerät (Browser-Speicher).
-- **Mit Konto** (Mehr → Konto & Abgleich) wird sie zusätzlich in Firebase (Google, Rechenzentrum Frankfurt) gespeichert und zwischen allen Geräten abgeglichen. Nur freigegebene E-Mail-Adressen dürfen speichern; jede Person sieht nur ihre eigene Sammlung.
-- **Sicherung:** Mehr → Sicherung exportieren erzeugt eine JSON-Datei, die sich über Sicherung importieren wiederherstellen lässt – auch mit Konto sinnvoll.
-- **Zurücksetzen:** Mehr → Sammlung zurücksetzen löscht alles außer den Einstellungen (bei Anmeldung auf allen Geräten).
+- **Mit Konto** (Einstellungen → Konto & Abgleich) wird sie zusätzlich in Firebase (Google, Rechenzentrum Frankfurt) gespeichert und zwischen allen Geräten abgeglichen. Nur freigegebene E-Mail-Adressen dürfen speichern; jede Person sieht nur ihre eigene Sammlung.
+- **Sicherung:** Einstellungen → Sicherung exportieren erzeugt eine JSON-Datei, die sich über Sicherung importieren wiederherstellen lässt – auch mit Konto sinnvoll.
+- **Zurücksetzen:** Einstellungen → Sammlung zurücksetzen löscht alles außer den Einstellungen (bei Anmeldung auf allen Geräten).
 
 ### Firebase-Einrichtung (einmalig)
 
