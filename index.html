@@ -536,7 +536,7 @@ html,body{touch-action:pan-x pan-y}
 .alogo:not(:has(img)) .logo-t,.pslogo:not(:has(img)) .logo-t{display:block}
 .atx{flex:1;min-width:0;display:grid;gap:2px}
 .atx b{font-size:14.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.atx small{font:600 12px var(--f-num);color:var(--muted)}
+.atx small{font:600 12px var(--f-num);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .abar{position:relative;height:4px;border-radius:2px;background:var(--pocket);overflow:hidden;margin-top:3px}
 .abar i{position:absolute;left:0;top:0;bottom:0;background:var(--accent);border-radius:2px}.abar i.m{opacity:.35}
 .arow .flag{width:16px;height:11px;border-radius:2px}
@@ -585,6 +585,35 @@ button.pfbar{cursor:pointer}
 .tabbar::before{content:"";position:absolute;left:0;top:-1px;height:2px;width:var(--ap,0%);background:var(--accent);opacity:0;transition:width .3s,opacity .3s}
 body.aprun .tabbar::before{opacity:1}
 @media (min-width:900px){.pf{max-width:820px}.alist{grid-template-columns:1fr 1fr;gap:10px 14px}.tabbar::before{display:none}.pfmovs{gap:14px}}
+.pbadge{position:absolute;left:30px;top:10px;z-index:3;font:800 9.5px var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:#4f3905;background:linear-gradient(135deg,#ffe48a,#e6b52e 55%,#c8921a);border-radius:4px;padding:2px 5px;box-shadow:0 1px 2px rgba(0,0,0,.25)}
+i.pbadge{position:static;display:inline-block;font-style:normal;margin-right:6px;vertical-align:1px}
+.aqwrap{margin-top:16px}
+.achhead{display:grid;gap:6px;margin-top:10px}
+.achhead>b{font:800 30px var(--f-num)}.achhead>b small{font:600 15px var(--f-body);color:var(--muted)}
+.achhead .hint{margin:0}
+.achbar{display:block;height:6px;border-radius:3px;background:var(--pocket);overflow:hidden}
+.achbar i{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,#e6b52e,var(--accent))}
+.achbar.big{height:9px;border-radius:5px;width:100%;justify-self:stretch}.achbar.ok i{background:#2f8a4e}.achbar.nx i{background:var(--muted)}
+.achgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:16px 8px;margin-top:6px}
+.achm{border:0;background:none;display:grid;justify-items:center;align-content:start;gap:3px;padding:6px 2px;color:var(--ink);font:inherit;cursor:pointer;text-align:center;-webkit-tap-highlight-color:transparent}
+.achm .medal{width:80px;height:80px;filter:drop-shadow(0 4px 6px rgba(0,0,0,.28));margin-bottom:3px}
+.achm b{font-size:13px;line-height:1.2}
+.achm small{font-size:11px;color:var(--muted);line-height:1.25}
+.achm.lock b{color:var(--muted)}
+.achm.lock .medal{filter:none;opacity:.6}
+.achm:active .medal{transform:scale(.94)}
+.achm.new .medal{animation:mpop 1s cubic-bezier(.2,.9,.3,1.35) both}
+.achm.new .msw{animation:msweep 1.5s .45s ease-out both}
+@keyframes mpop{0%{transform:scale(.3) rotate(-25deg);opacity:0}60%{transform:scale(1.12) rotate(4deg);opacity:1}100%{transform:none}}
+@keyframes msweep{0%{transform:skewX(-20deg) translateX(0)}100%{transform:skewX(-20deg) translateX(190px)}}
+.achsh{display:flex;align-items:center;gap:16px}
+.achsh .medal{width:112px;height:112px;flex:none;filter:drop-shadow(0 6px 10px rgba(0,0,0,.3))}
+.achsh.lock .medal{opacity:.6;filter:none}
+.achsh .msw{animation:msweep 1.6s .2s ease-out both}
+.achst{margin:0;font:700 15px var(--f-body)}
+.achrow{display:flex;justify-content:space-between;gap:10px;font-size:14px;color:var(--muted)}.achrow>b{color:var(--ink);font-family:var(--f-num)}.achrow span b{color:var(--ink)}
+@media (min-width:900px){.achgrid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}.achm .medal{width:96px;height:96px}.pbadge{left:34px}}
+@media (prefers-reduced-motion:reduce){.achm.new .medal,.achm.new .msw,.achsh .msw{animation:none}}
 .lbadge{position:absolute;right:10px;top:10px;z-index:3;display:block;line-height:0;padding:0!important;background:none!important;font:700 11px var(--f-num);letter-spacing:.04em;background:var(--ink);color:var(--bg);border-radius:6px;padding:2px 6px}
 .sub .lpill,.lpill{display:inline-block;color:var(--bg);font-family:var(--f-body);font:700 11.5px var(--f-body);background:var(--ink);color:var(--bg);border-radius:6px;padding:1px 7px;margin-right:4px;vertical-align:1px}
 .lang-opts{display:grid;gap:8px}
@@ -753,6 +782,7 @@ button.tab{border:0;background:none;padding:0;cursor:pointer;width:100%;font:600
   <a class="tab" href="#dex" data-tab="dex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></svg>Pokédex</a>
   <a class="tab" href="#suche" data-tab="suche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L20.5 20.5"/></svg>Suche<kbd class="kbd">/</kbd></a>
   <a class="tab" href="#portfolio" data-tab="portfolio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20h18"/><path d="M4 16l5-5 4 3 7-8"/><path d="M15 6h5v5"/></svg>Portfolio</a>
+  <a class="tab" href="#erfolge" data-tab="erfolge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3l2.5 6M16 3l-2.5 6"/><circle cx="12" cy="15" r="6"/><path d="M12 12.2l.9 1.8 2 .3-1.45 1.4.35 2-1.8-.95-1.8.95.35-2L9.1 14.3l2-.3z"/></svg>Erfolge</a>
   <a class="tab" href="#wunsch" data-tab="wunsch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.3-8.9-8.6C1.7 8.3 3.6 5 6.9 5c2 0 3.3 1.1 5.1 3 1.8-1.9 3.1-3 5.1-3 3.3 0 5.2 3.3 3.8 6.4C19 15.7 12 20 12 20z"/></svg>Wunschliste</a>
   <button class="tab" type="button" data-tab="scan" data-scan><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="3.2"/></svg>Scannen</button>
   <a class="tab" href="#mehr" data-tab="mehr"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>Mehr</a>
@@ -868,6 +898,7 @@ const CONDS = ["Mint","Near Mint","Excellent","Good","Light Played","Played","Po
 
 /* ---------- Änderungsprotokoll ---------- */
 const CHANGELOG = [
+  {v:"1.25", d:"2026-11-05", items:["Neuer Bereich „Erfolge“ mit eigenen Orden für alle 19 Erfolge – mit Metallglanz und Animation beim Freischalten","Tipp auf einen Orden: Erklärung, dein Stand, nächste Stufe und Freischaltdatum","Suche im Alben-Tab nach Name, Kürzel oder Serie","Promo-Alben mit goldenem „PROMO“-Badge","Alte Alben ohne Sprache sind jetzt deutsche Alben – mit Flagge und nur deutschen Karten"]},
   {v:"1.24", d:"2026-11-04", items:["Neuer Bereich „Portfolio“: Wertkurve mit Zeitraum, Aufteilung nach Set, Sprache, Seltenheit und Typ, Gewinner & Verlierer, alle Karten nach Wert","Set-Details im Portfolio: Setwert und Verlauf, Kosten bis komplett, Aufteilung, Gewinner & Verlierer","Preise der eigenen Karten werden einmal täglich automatisch aktualisiert","Alben als kompakte Liste mit Set-Logo – Umschalter oben rechts","Cardmarket-Knopf führt direkt zur richtigen Karte","Karten-Sheet öffnet bis unter die Preise, auf kleinen iPhones mit kleinerem Bild","Suche zeigt nur noch zuletzt gesuchte Karten","Flaggen und Set-Infos im Album kleiner, mehr Abstand zu Top 3"]},
   {v:"1.23", d:"2026-11-04", items:["Zoomen mit zwei Fingern und Doppeltippen deaktiviert – kein automatisches Heranzoomen mehr bei Eingabefeldern","Fix: Tab-Leiste verrutschte und Kopfzeile verschwand beim Scrollen","Alben, Pokédex und Mehr sind in der Tab-Leiste immer dabei","Flaggen statt Sprachkürzel – jetzt auch für deutsche Alben","Erscheinungsdatum steht in den Set-Zahlen, Set-Infos in einer Zeile","Am Rechner: „Scannen“ in der Seitenleiste richtig ausgerichtet"]},
   {v:"1.22", d:"2026-11-04", items:["Tab-Leiste anpassbar: 3 bis 5 Bereiche plus Mehr, Reihenfolge per Pfeil, ausgeblendete Bereiche unter Mehr – Auswahl beim ersten Start","„Scannen“ als eigener Bereich in der Tab-Leiste","Album-Kopf aufgeräumt: Infos als Chips, Filter als Auswahl „Alle ▾“ in einer Zeile","Top 3 im Album: deine wertvollsten Karten oder die des ganzen Sets","Sets ohne Logo bekommen ein Schrift-Logo","McDonald’s-Karten mit Bildern von pokemontcg.io, sonst Pokémon-Artwork als Ersatz"]},
@@ -1139,7 +1170,7 @@ function stepVariant(setId, num, v, delta){
 /* ---------- Routing ---------- */
 let view = {name:"regal"}, filter = "all", searchQ = "", pendingOpen = null, confirmAlbumDel = false;
 let backTo = null, restore = null, restoreFilt = false, setQ = "", sqOpen = false;
-const VIEW_LBL = {regal:"Alben", dex:"Pokédex", suche:"Suche", wunsch:"Wunschliste", mehr:"Mehr", picker:"Alle Sets", portfolio:"Portfolio", pset:"Portfolio"};
+const VIEW_LBL = {regal:"Alben", dex:"Pokédex", suche:"Suche", wunsch:"Wunschliste", mehr:"Mehr", picker:"Alle Sets", portfolio:"Portfolio", pset:"Portfolio", erfolge:"Erfolge"};
 function jumpToSet(setId, num){
   backTo = {setId, hash: location.hash.slice(1) || "regal", view: view.name, y: window.scrollY, reopen: ctx ? {...ctx} : null};
   pendingOpen = {kind:"set", setId, num};
@@ -1173,6 +1204,7 @@ function route(){
   else if(h==="mehr" || h==="info" || h==="neu") view={name:"mehr"};
   else if(h==="wunsch") view={name:"wunsch"};
   else if(h==="portfolio") view={name:"portfolio"};
+  else if(h==="erfolge") view={name:"erfolge"};
   else if(h.startsWith("portfolio-") && SLUG.has(h.slice(10))){ const ps = SLUG.get(h.slice(10)); if(!view || view.name!=="pset" || view.set!==ps) psLang = "all"; view={name:"pset", set:ps}; }
   else if(h.startsWith("set-") && SLUG.has(h.slice(4).split("~")[0])){ const [sl, lg] = h.slice(4).split("~"); view={name:"set", set:SLUG.get(sl), lang: LANGNAME[lg] ? lg : null}; }
   else view={name:"regal"};
@@ -1213,6 +1245,7 @@ function render(){
   else if(view.name==="mehr") renderMore();
   else if(view.name==="wunsch") renderWish();
   else if(view.name==="portfolio") renderPortfolio();
+  else if(view.name==="erfolge") renderAch();
   else if(view.name==="pset") renderPSet(view.set);
   else renderShelf();
   if(ctx && $("#dlg").open) renderDialog();
@@ -1228,14 +1261,28 @@ function renderShelf(){
   const lv = settings.shelf==="list";
   $("#head").innerHTML = `<div class="shead"><h1>Pokémon <span>Kartenalbum</span></h1><div class="vtog" role="group" aria-label="Ansicht"><button type="button" data-shelf="grid" aria-pressed="${!lv}" aria-label="Raster">${ICON_GRID}</button><button type="button" data-shelf="list" aria-pressed="${lv}" aria-label="Liste">${ICON_LIST}</button></div></div>
     <div class="stats"><div class="stat"><small>Karten</small><b>${sum(cards,qtyOf)}</b></div><button class="stat statbtn" type="button" id="open-stats" aria-label="Portfolio öffnen"><small>Sammlungswert ›</small><b>${eur(sum(cards,valOf))}</b></button><div class="stat"><small>Alben</small><b>${shelfAlbums().length}</b></div></div>`;
-  $("#tools").innerHTML = "";
+  bindShelfHead();
+  if(!$("#aq")){
+    $("#tools").innerHTML = `<div class="qwrap aqwrap"><input class="field" id="aq" type="search" inputmode="search" placeholder="Alben durchsuchen" autocomplete="off" autocorrect="off" enterkeyhint="search" value="${esc(shelfQ)}"><button class="qclr" type="button" id="aq-clr" aria-label="Suche leeren" ${shelfQ?"":"hidden"}>×</button></div>`;
+    $("#aq").addEventListener("input", e=>{ shelfQ = e.target.value; $("#aq-clr").hidden = !shelfQ; renderShelfView(); });
+    $("#aq-clr").addEventListener("click", ()=>{ shelfQ = ""; $("#aq").value = ""; $("#aq-clr").hidden = true; renderShelfView(); });
+  }
+  renderShelfView();
+}
+let shelfQ = "";
+function renderShelfView(){
+  const lv = settings.shelf==="list", q = shelfQ.trim().toLowerCase();
+  const list = shelfAlbums().filter(({s})=>!q || [s.de, s.en, s.jn, s.abbr, s.serie, s.id].some(x=>x && String(x).toLowerCase().includes(q)));
   let html;
-  if(lv){ html = `<div class="alist">${shelfAlbums().map(({s, lang})=>rowHTML(s, lang)).join("")}<button class="arow add" type="button" id="add-album"><b>+</b><span>Album anlegen</span></button></div>`; }
-  else { html = `<div class="shelf">`; for(const {s, lang} of shelfAlbums()) html += coverHTML(s, lang); html += `<button class="cover add" type="button" id="add-album"><b>+</b><span>Album anlegen</span></button></div>`; }
+  if(q && !list.length) html = `<p class="empty">Kein Album passt zu „${esc(shelfQ.trim())}“.</p>`;
+  else if(lv){ html = `<div class="alist">${list.map(({s, lang})=>rowHTML(s, lang)).join("")}<button class="arow add" type="button" id="add-album"><b>+</b><span>Album anlegen</span></button></div>`; }
+  else { html = `<div class="shelf">`; for(const {s, lang} of list) html += coverHTML(s, lang); html += `<button class="cover add" type="button" id="add-album"><b>+</b><span>Album anlegen</span></button></div>`; }
   $("#view").innerHTML = html;
-  $("#head").querySelectorAll("[data-shelf]").forEach(b=>b.addEventListener("click", ()=>{ settings.shelf = b.dataset.shelf; LS.set("pk-settings", settings); render(); }));
+  $("#add-album")?.addEventListener("click", openPicker);
   $("#view").querySelectorAll("[data-amenu]").forEach(b=>b.addEventListener("click", ()=>{ const [sid, lg] = b.dataset.amenu.split("~"); openAlbumMenu(SET.get(sid), lg || null); }));
-  $("#add-album").addEventListener("click", openPicker);
+}
+function bindShelfHead(){
+  $("#head").querySelectorAll("[data-shelf]").forEach(b=>b.addEventListener("click", ()=>{ settings.shelf = b.dataset.shelf; LS.set("pk-settings", settings); render(); }));
 }
 
 /* ---------- Albumcover ---------- */
@@ -1252,7 +1299,7 @@ function coverHTML(s, lang){
   const fan = fanOrder([...ownedTop, ...ghosts]);
   const ll = lang==="en" ? "en" : "de", lb = flag(lang || (s.ja ? "ja" : ""));
   return `<a class="cover set" href="#${albumHash(s, lang)}" data-cover="${esc(s.id)}" data-lang="${lang||""}" style="--spine:${spineColor(s)}" aria-label="${esc(s.de)}, ${p.base} von ${p.baseTotal} Karten"><span class="ring2 r1" aria-hidden="true"></span><span class="ring2 r2" aria-hidden="true"></span>
-    ${lb?`<span class="lbadge">${lb}</span>`:""}<div class="fan">${fan.map((f,i)=>`<span class="fc f${i}${f.own?"":" ghost"}">${cimg(s, f.num, "low", "fimg", f.lang || (lang ? LANGNAME[lang] : undefined))}</span>`).join("")}</div>
+    ${lb?`<span class="lbadge">${lb}</span>`:""}${s.promo?`<span class="pbadge">Promo</span>`:""}<div class="fan">${fan.map((f,i)=>`<span class="fc f${i}${f.own?"":" ghost"}">${cimg(s, f.num, "low", "fimg", f.lang || (lang ? LANGNAME[lang] : undefined))}</span>`).join("")}</div>
     <div class="logo"><img src="${logoUrl(s,ll)}" data-alt="${logoUrl(s,ll==="de"?"en":"de")}" alt="${esc(lang==="en"?s.en:s.de)}" loading="lazy" onerror="logoErr(this)"><b class="logo-t">${esc(lang==="en"?s.en:s.de)}<small>${s.jn && s.jn!==s.de ? esc(s.jn) + " · " : ""}${esc(s.abbr)}</small></b></div>
     <div class="cmeta"><img class="sym" src="${symUrl(s)}" alt="" loading="lazy" onerror="this.remove()"><span>${p.base} / ${p.baseTotal}</span><span class="v">${eur(sum(list,valOf))}</span></div>
     <span class="bar-p"><i class="m" style="width:${(p.all/p.allTotal*100).toFixed(1)}%"></i><i style="width:${(p.base/p.allTotal*100).toFixed(1)}%"></i></span></a>`;
@@ -1266,7 +1313,7 @@ function logoBox(s, lang, cls){
 }
 function rowHTML(s, lang){
   const owned = setOwned(s, lang), p = setProgress(s, owned), v = sum([...owned.values()].flat(), valOf), t = lang==="en" && s.en ? s.en : s.de;
-  return `<div class="arow" style="--spine:${spineColor(s)}"><a class="arow-main" href="#${albumHash(s, lang)}" aria-label="${esc(t)}, ${p.base} von ${p.baseTotal} Karten">${logoBox(s, lang, "alogo")}<span class="atx"><b>${esc(t)}</b><small>${esc(s.abbr)} · ${p.base}/${p.baseTotal} · ${eur(v)}</small><span class="abar"><i class="m" style="width:${(p.all/p.allTotal*100).toFixed(1)}%"></i><i style="width:${(p.base/p.allTotal*100).toFixed(1)}%"></i></span></span>${flag(lang || (s.ja ? "ja" : ""))}</a><button class="arow-more" type="button" data-amenu="${esc(s.id)}~${lang||""}" aria-label="Album-Optionen">•••</button></div>`;
+  return `<div class="arow" style="--spine:${spineColor(s)}"><a class="arow-main" href="#${albumHash(s, lang)}" aria-label="${esc(t)}, ${p.base} von ${p.baseTotal} Karten">${logoBox(s, lang, "alogo")}<span class="atx"><b>${esc(t)}</b><small>${s.promo?`<i class="pbadge">Promo</i>`:""}${esc(s.abbr)} · ${p.base}/${p.baseTotal} · ${eur(v)}</small><span class="abar"><i class="m" style="width:${(p.all/p.allTotal*100).toFixed(1)}%"></i><i style="width:${(p.base/p.allTotal*100).toFixed(1)}%"></i></span></span>${flag(lang || (s.ja ? "ja" : ""))}</a><button class="arow-more" type="button" data-amenu="${esc(s.id)}~${lang||""}" aria-label="Album-Optionen">•••</button></div>`;
 }
 
 /* ---------- Taschen ---------- */
@@ -1685,7 +1732,7 @@ function checkAch(){
     if(neu.length){
       LS.set("pk-ach", ach);
       toast(`<span>${neu.length===1 ? `Erfolg freigeschaltet: <b>${esc(neu[0])}</b>` : `${neu.length} Erfolge freigeschaltet`}</span><button class="btn" type="button" id="t-ach">Ansehen</button><button class="tx" type="button" data-tclose aria-label="Schließen">×</button>`, 5000);
-      $("#t-ach")?.addEventListener("click", ()=>{ go("mehr"); setTimeout(()=>$("#ach-sec")?.scrollIntoView({block:"start"}), 80); });
+      $("#t-ach")?.addEventListener("click", ()=>go("erfolge"));
     }
   } finally { achBusy = false; }
 }
@@ -1693,6 +1740,126 @@ function achHTML(){
   const st = achStats(), got = ACH.filter(([id])=>ach[id]).length;
   return `<section class="set-sec" id="ach-sec"><h2>Erfolge · ${got} von ${ACH.length}</h2><div class="group achs">${ACH.map(([id,name,desc,fn])=>{ const [v,goal] = fn(st), done = !!ach[id];
     return `<div class="srow ach${done?" done":""}"><span class="amedal" aria-hidden="true">${done?"★":"☆"}</span><span class="lbl"><b>${esc(name)}</b><small>${esc(desc)}</small></span><span class="val">${done?deDate(ach[id]):goal>1?`${Math.min(v,goal).toLocaleString("de-DE")} / ${goal.toLocaleString("de-DE")}`:"offen"}</span></div>`; }).join("")}</div></section>`;
+}
+
+/* ---------- Orden (eigene Gestaltung) ---------- */
+const MPAL = {
+  bronze:["#8a5a2b","#cd8f52","#fff1df","#4f2f12"], silver:["#69717b","#c3cad2","#ffffff","#353b42"], gold:["#8a6410","#e6b52e","#fff6d6","#4f3905"],
+  platinum:["#55687a","#dde6ee","#ffffff","#27333f"], normal:["#857d6c","#d6cdb8","#fffaf0","#47423a"], water:["#1d4f8c","#3f8fdc","#e6f1fb","#0a2a4f"],
+  psychic:["#4c2a73","#9a55b3","#f6ecfb","#2a1543"], fighting:["#6e3a1c","#b06235","#fdeee3","#3b1e0c"], grass:["#2c5f22","#4f9a43","#effae9","#143011"],
+  grassdark:["#1c4216","#38752e","#e8f6e2","#0c220a"], dragon:["#5f4c10","#a88a26","#fff4cf","#352a06"], fairy:["#8c3a64","#db78ab","#fff0f7","#55203d"],
+  metalgold:["#7a5a06","#d9a400","#fff6cf","#463302"], dark:["#161c23","#344150","#e3e9f0","#0b0f13"], teal:["#0f5e4b","#1d9e75","#e3f7f0","#06352a"],
+  locked:["#8b9098","#c3c7cd","#eef0f3","#666b73"]
+};
+const MEDAL = {
+  first:["circle","normal","card"], c10:["circle","bronze","stack"], c100:["circle","silver","binder"], c500:["circle","gold","fan"], c1000:["star","platinum","crown"],
+  dex100:["hex","water","lens"], dex500:["hex","psychic","book"], region:["diamond","fighting","map"],
+  set1:["shield","grass","check"], set3:["shield","grassdark","triple"], master:["shield","dragon","crowngem"],
+  ir:["flower","fairy","palette"], sir:["flower","psychic","frame"], hr:["diamond","metalgold","bars"],
+  types:["circle","platinum","wheel"], ed1:["circle","dark","laurel"], v50:["diamond","teal","gem"], w100:["circle","silver","coin"], w1000:["star","gold","chest"]
+};
+const ACH_EXPL = {
+  first:"Der Anfang jeder Sammlung: Du hast deine erste Karte in der App gezählt.",
+  c10:"Zehn Karten liegen in deinen Alben – der erste kleine Stapel.",
+  c100:"100 Karten insgesamt, egal aus welchem Set, welcher Sprache oder Variante. Doppelte zählen mit.",
+  c500:"500 Karten in deiner Sammlung. Doppelte und alle Varianten zählen mit.",
+  c1000:"Die Krönung für Vielsammler: 1.000 Karten in deiner Sammlung.",
+  dex100:"100 verschiedene Pokémon besitzt du als Karte – gezählt nach Pokédex-Nummer, Sprache und Set sind egal.",
+  dex500:"500 verschiedene Pokémon nach Pokédex-Nummer. Das ist fast die Hälfte aller Pokémon.",
+  region:"Alle Pokémon einer Region (z. B. Kanto #001–#151) hast du mindestens einmal als Karte.",
+  set1:"Ein Set ist im Grundset komplett – alle Karten bis zur offiziellen Nummer, ohne Secrets.",
+  set3:"Drei Sets sind im Grundset komplett.",
+  master:"Ein Set ist inklusive aller Secret Rares komplett. Varianten wie Reverse Holo sind dafür nicht nötig.",
+  ir:"Deine erste Illustration Rare – Karten, bei denen das Artwork über die ganze Karte geht.",
+  sir:"Deine erste Special Illustration Rare – die aufwendigsten Artworks eines Sets.",
+  hr:"Deine erste Hyper Rare bzw. Mega Hyper Rare – die goldenen Karten am Ende eines Sets.",
+  types:"Von jedem der 11 Typen besitzt du mindestens ein Pokémon: Pflanze, Feuer, Wasser, Elektro, Psycho, Kampf, Finsternis, Metall, Drache, Normal und Fee.",
+  ed1:"Eine Karte aus einer 1. Edition – die Erstauflage der frühen Sets.",
+  v50:"Eine einzelne Karte in deiner Sammlung ist laut Cardmarket-Trend mehr als 50 € wert.",
+  w100:"Der Gesamtwert deiner Sammlung liegt über 100 €.",
+  w1000:"Der Gesamtwert deiner Sammlung liegt über 1.000 €."
+};
+const ACH_TIERS = [["first","c10","c100","c500","c1000"],["dex100","dex500"],["set1","set3","master"],["ir","sir"],["w100","w1000"]];
+const hexMix = (a, b, t) => { const p = x => [1,3,5].map(i=>parseInt(x.slice(i,i+2),16)); const A = p(a), B = p(b); return "#" + A.map((v,i)=>Math.round(v+(B[i]-v)*t).toString(16).padStart(2,"0")).join(""); };
+const MSHAPE = {
+  circle:[`<circle cx="50" cy="50" r="47"/>`, `<circle cx="50" cy="50" r="38"/>`],
+  hex:[`<polygon points="50,2 92,26 92,74 50,98 8,74 8,26"/>`, `<polygon points="50,12 83,31 83,69 50,88 17,69 17,31"/>`],
+  shield:[`<path d="M50 2 L91 14 V45 C91 73 72 89 50 98 C28 89 9 73 9 45 V14Z"/>`, `<path d="M50 12 L82 21.5 V45 C82 67 67 80 50 88 C33 80 18 67 18 45 V21.5Z"/>`],
+  diamond:[`<polygon points="50,1 99,50 50,99 1,50"/>`, `<polygon points="50,13 87,50 50,87 13,50"/>`],
+  star:[`<polygon points="${Array.from({length:24},(_,i)=>{ const r = i%2 ? 41 : 49, a = Math.PI*i/12 - Math.PI/2; return (50+r*Math.cos(a)).toFixed(1)+","+(50+r*Math.sin(a)).toFixed(1); }).join(" ")}"/>`, `<circle cx="50" cy="50" r="34"/>`],
+  flower:[`<g>${Array.from({length:8},(_,i)=>{ const a = Math.PI*i/4; return `<circle cx="${(50+33*Math.cos(a)).toFixed(1)}" cy="${(50+33*Math.sin(a)).toFixed(1)}" r="15"/>`; }).join("")}<circle cx="50" cy="50" r="38"/></g>`, `<circle cx="50" cy="50" r="32"/>`]
+};
+function medalSym(k, f, i, rim){
+  const st = `fill="${f}" stroke="${i}" stroke-width="3" stroke-linejoin="round"`;
+  switch(k){
+    case "card": return `<rect x="38" y="30" width="24" height="36" rx="3" ${st}/><rect x="42.5" y="35" width="15" height="12" rx="1.5" fill="${i}" opacity=".35"/>`;
+    case "stack": return `<rect x="45" y="27" width="21" height="30" rx="3" ${st} opacity=".55"/><rect x="40" y="32" width="21" height="30" rx="3" ${st} opacity=".8"/><rect x="35" y="37" width="21" height="30" rx="3" ${st}/>`;
+    case "binder": return `<rect x="33" y="28" width="34" height="44" rx="3" ${st}/><path d="M43 30 V70" stroke="${i}" stroke-width="2.5"/>${[38,50,62].map(y=>`<circle cx="38" cy="${y}" r="2.6" fill="${i}"/>`).join("")}<rect x="48" y="36" width="14" height="10" rx="1.5" fill="${i}" opacity=".3"/>`;
+    case "fan": return [-22,0,22].map(r=>`<rect x="40" y="30" width="20" height="30" rx="3" ${st} transform="rotate(${r} 50 68)"/>`).join("");
+    case "crown": return `<path d="M27 66 V40 L38.5 50 L50 31 L61.5 50 L73 40 V66Z" ${st}/><path d="M27 59 H73" stroke="${i}" stroke-width="3"/>${[[27,38],[50,29],[73,38]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="3.6" fill="${rim}" stroke="${i}" stroke-width="2"/>`).join("")}<rect x="44" y="46" width="12" height="9" rx="1.5" fill="${i}" opacity=".35"/>`;
+    case "lens": return `<circle cx="46" cy="46" r="13" ${st} stroke-width="4.5"/><path d="M42 41 a6 6 0 0 1 6 -2" stroke="${i}" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".5"/><path d="M56 56 L69 69" stroke="${i}" stroke-width="7.5" stroke-linecap="round"/>`;
+    case "book": return `<path d="M50 36 C42 31 33 31 26 33.5 V67 C33 64.5 42 64.5 50 69 C58 64.5 67 64.5 74 67 V33.5 C67 31 58 31 50 36Z" ${st}/><path d="M50 36 V69" stroke="${i}" stroke-width="2.5"/><path d="M55 50 l5 5 l9 -11" fill="none" stroke="${i}" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M31 42 H44 M31 49 H44 M31 56 H41" stroke="${i}" stroke-width="2" opacity=".5"/>`;
+    case "map": return `<polygon points="26,35 38,30 50,35 62,30 74,34 74,67 62,72 50,67 38,72 26,67" ${st}/><path d="M38 30 V72 M50 35 V67 M62 30 V72" stroke="${i}" stroke-width="1.8" opacity=".45"/><path d="M57 59 V37" stroke="${i}" stroke-width="3" stroke-linecap="round"/><polygon points="57,37 70,41.5 57,46" fill="${rim}" stroke="${i}" stroke-width="2" stroke-linejoin="round"/>`;
+    case "check": return `<path d="M33 51 L45 63 L67 37" fill="none" stroke="${f}" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><path d="M33 51 L45 63 L67 37" fill="none" stroke="${i}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>`;
+    case "triple": { const sh = (x,y) => `<path transform="translate(${x} ${y})" d="M0 -13 L11 -9.5 V0 C11 8 5.5 12 0 14 C-5.5 12 -11 8 -11 0 V-9.5Z" ${st} stroke-width="2.5"/><path transform="translate(${x} ${y})" d="M-5 0 l4 4 l7 -8" fill="none" stroke="${i}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`; return sh(36,58) + sh(64,58) + sh(50,40); }
+    case "crowngem": return `<path d="M30 60 V41 L40 49 L50 34 L60 49 L70 41 V60Z" ${st}/><path d="M30 60 H70 V66 H30Z" ${st}/><polygon points="50,44 56,51 50,58 44,51" fill="${rim}" stroke="${i}" stroke-width="2"/>`;
+    case "palette": return `<path d="M50 28 C35 28 26 39 26 50 C26 62 36 71 47 71 C52 71 52 65 49 62 C47 59 49 55.5 53 55.5 H60 C68 55.5 74 50 74 44 C74 34.5 63 28 50 28Z" ${st}/>${[["#d9572b",37,43],["#f0c93a",47,36],["#2f84cf",59,38],["#4f9a43",36,55]].map(([c,x,y])=>`<circle cx="${x}" cy="${y}" r="4" fill="${c}" stroke="${i}" stroke-width="1.5"/>`).join("")}`;
+    case "frame": return `<rect x="29" y="30" width="42" height="40" rx="2" fill="${i}"/><rect x="34" y="35" width="32" height="30" fill="${f}"/><polygon points="50,39 53.5,47 62,47.5 55.5,53 57.5,61 50,56.5 42.5,61 44.5,53 38,47.5 46.5,47" fill="${rim}" stroke="${i}" stroke-width="1.5" stroke-linejoin="round"/>`;
+    case "bars": return `<path d="M28 66 L34 54 H52 L58 66Z" ${st}/><path d="M44 66 L50 54 H66 L72 66Z" ${st}/><path d="M36 53 L42 41 H58 L64 53Z" ${st}/><path d="M70 28 l2 6 6 2 -6 2 -2 6 -2 -6 -6 -2 6 -2Z" fill="${f}" stroke="${i}" stroke-width="1.5"/>`;
+    case "wheel": { const cols = ["#4f9a43","#d9572b","#2f84cf","#f0c93a","#9a55b3","#b06235","#344150","#8d99a5","#a88a26","#c8c2b4","#db78ab"]; return cols.map((c,n)=>{ const a0 = 2*Math.PI*n/11 - Math.PI/2, a1 = 2*Math.PI*(n+1)/11 - Math.PI/2, r = 27; return `<path d="M50 50 L${(50+r*Math.cos(a0)).toFixed(2)} ${(50+r*Math.sin(a0)).toFixed(2)} A${r} ${r} 0 0 1 ${(50+r*Math.cos(a1)).toFixed(2)} ${(50+r*Math.sin(a1)).toFixed(2)}Z" fill="${c}" stroke="${i}" stroke-width="1.2"/>`; }).join("") + `<circle cx="50" cy="50" r="8" fill="${f}" stroke="${i}" stroke-width="2.5"/>`; }
+    case "laurel": { const leaf = a => { const r = a*Math.PI/180, x = 50 + 23*Math.cos(r), y = 51 + 23*Math.sin(r); return `<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="3.4" ry="6.8" fill="${f}" stroke="${i}" stroke-width="1.3" transform="rotate(${a.toFixed(0)} ${x.toFixed(1)} ${y.toFixed(1)})"/>`; }; return [112,138,164,190,216,68,42,16,-10,-36].map(leaf).join("") + `<text x="50" y="62" text-anchor="middle" font-family="Georgia,serif" font-size="32" font-weight="700" fill="${f}" stroke="${i}" stroke-width="1.5">1</text>`; }
+    case "gem": return `<polygon points="33,42 42,31 58,31 67,42 50,70" ${st}/><path d="M33 42 H67 M42 31 L46 42 L50 70 L54 42 L58 31" fill="none" stroke="${i}" stroke-width="2" stroke-linejoin="round"/><path d="M38 41 l4 -5" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".7"/>`;
+    case "coin": return `<ellipse cx="50" cy="63" rx="18" ry="6" ${st}/><ellipse cx="50" cy="58" rx="18" ry="6" ${st}/><circle cx="50" cy="43" r="16" ${st}/><text x="50" y="50.5" text-anchor="middle" font-size="20" font-weight="800" fill="${i}">€</text>`;
+    case "chest": return `<path d="M27 47 V42 C27 32 73 32 73 42 V47Z" ${st}/><rect x="27" y="47" width="46" height="22" rx="2.5" ${st}/><rect x="44" y="44" width="12" height="11" rx="2" fill="${rim}" stroke="${i}" stroke-width="2"/><text x="50" y="66" text-anchor="middle" font-size="11" font-weight="800" fill="${i}">€</text><path d="M66 30 l1.5 4 4 1.5 -4 1.5 -1.5 4 -1.5 -4 -4 -1.5 4 -1.5Z" fill="#fff" opacity=".9"/>`;
+  }
+  return "";
+}
+let MID = 0;
+function medalSVG(id, locked){
+  const [shape, pk, sym] = MEDAL[id] || ["circle","silver","card"], [rim, face, f, ink] = MPAL[locked ? "locked" : pk], u = "md" + (++MID);
+  const [outer, inner] = MSHAPE[shape];
+  const ins = locked ? `<text x="50" y="63" text-anchor="middle" font-size="36" font-weight="800" fill="${ink}" opacity=".7">?</text>` : medalSym(sym, f, ink, rim);
+  return `<svg class="medal" viewBox="0 0 100 100" aria-hidden="true"><defs>
+    <linearGradient id="${u}r" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${hexMix(rim,"#ffffff",.45)}"/><stop offset=".5" stop-color="${rim}"/><stop offset="1" stop-color="${hexMix(rim,"#000000",.35)}"/></linearGradient>
+    <linearGradient id="${u}f" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${hexMix(face,"#ffffff",.35)}"/><stop offset="1" stop-color="${hexMix(face,"#000000",.08)}"/></linearGradient>
+    <linearGradient id="${u}g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".75"/><stop offset=".45" stop-color="#fff" stop-opacity=".12"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <clipPath id="${u}c">${inner}</clipPath></defs>
+    <g fill="url(#${u}r)">${outer}</g><g fill="${hexMix(rim,"#000000",.3)}" transform="translate(0 1.5)" opacity=".6">${inner}</g><g fill="url(#${u}f)">${inner}</g>
+    ${ins}
+    ${locked ? "" : `<g clip-path="url(#${u}c)"><rect x="0" y="0" width="100" height="100" fill="url(#${u}g)" opacity=".55"/><rect class="msw" x="-60" y="-10" width="26" height="120" fill="#fff" opacity=".75" transform="skewX(-20)"/></g>`}
+  </svg>`;
+}
+function achVal(id, v, goal){
+  if(id==="w100" || id==="w1000") return `${eur(v)} / ${eur(goal)}`;
+  if(goal===1) return v>=1 ? "erreicht" : "noch offen";
+  return `${Math.min(v,goal).toLocaleString("de-DE")} / ${goal.toLocaleString("de-DE")}`;
+}
+function renderAch(){
+  $("#bar-title").textContent = "Erfolge";
+  const st = achStats(), got = ACH.filter(([id])=>ach[id]).length;
+  const open = ACH.filter(([id])=>!ach[id]).map(a=>{ const [v, g] = a[3](st); return {a, v, g, r: g ? Math.min(1, v/g) : 0}; }).sort((x,y)=>y.r-x.r)[0];
+  const seen = new Set(LS.get("pk-achanim", [])), fresh = [];
+  $("#head").innerHTML = `<h1>Erfolge</h1><div class="achhead"><b>${got} <small>von ${ACH.length}</small></b><span class="achbar"><i style="width:${(got/ACH.length*100).toFixed(1)}%"></i></span>${open ? `<p class="hint">Als Nächstes: <b>${esc(open.a[1])}</b> · ${achVal(open.a[0], open.v, open.g)}</p>` : `<p class="hint">Alle Erfolge freigeschaltet – stark!</p>`}</div>`;
+  $("#tools").innerHTML = "";
+  $("#view").innerHTML = `<div class="achgrid">${ACH.map(([id, name, desc])=>{ const done = !!ach[id], nw = done && !seen.has(id); if(nw) fresh.push(id);
+    return `<button class="achm${done?"":" lock"}${nw?" new":""}" type="button" data-ach="${id}" aria-label="${esc(name)}, ${done?"freigeschaltet":"noch offen"}">${medalSVG(id, !done)}<b>${esc(name)}</b><small>${done ? deDate(ach[id]) : esc(desc)}</small></button>`; }).join("")}</div>`;
+  if(fresh.length) LS.set("pk-achanim", [...seen, ...fresh]);
+  $("#view").querySelectorAll("[data-ach]").forEach(b=>b.addEventListener("click", ()=>openAchSheet(b.dataset.ach)));
+}
+function openAchSheet(id){
+  const a = ACH.find(x=>x[0]===id); if(!a) return;
+  const st = achStats(), [v, g] = a[3](st), done = !!ach[id];
+  wsMode = {kind:"ach"};
+  $("#ws-title").textContent = a[1];
+  const bar = (val, goal, cls) => `<span class="achbar big${cls||""}"><i style="width:${(goal ? Math.min(1, val/goal)*100 : 0).toFixed(1)}%"></i></span>`;
+  const tier = ACH_TIERS.find(t=>t.includes(id)), nextId = tier && tier[tier.indexOf(id)+1], nx = nextId && ACH.find(x=>x[0]===nextId);
+  let nxHTML = "";
+  if(nx){ const [nv, ng] = nx[3](st); nxHTML = `<div class="achrow"><span>Nächste Stufe: <b>${esc(nx[1])}</b></span><b>${ach[nextId] ? "erreicht ✓" : achVal(nextId, nv, ng)}</b></div>${bar(nv, ng, " nx")}`; }
+  $("#ws-body").innerHTML = `<div class="achsh${done?"":" lock"}">${medalSVG(id, !done)}<div><p class="achst">${done ? `Freigeschaltet am ${deDate(ach[id])}` : "Noch nicht freigeschaltet"}</p><p class="hint" style="margin:2px 0 0">${esc(a[2])}</p></div></div>
+    <p style="margin:0">${esc(ACH_EXPL[id] || a[2])}</p>
+    <div class="achrow"><span>Dein Stand</span><b>${achVal(id, v, g)}</b></div>${bar(v, g, done ? " ok" : "")}
+    ${nxHTML}`;
+  if(wishSheet.state==="closed") wishSheet.open("half"); else wishSheet.set("half");
 }
 
 /* ---------- Kamera-Erkennung (Serien-Scan) ---------- */
@@ -1827,8 +1994,8 @@ document.addEventListener("click", e=>{ const b = e.target.closest("[data-scan]"
 document.addEventListener("keydown", e=>{ if(SC.open && e.key==="Escape"){ e.stopImmediatePropagation(); closeScanner(); } }, true);
 
 /* ---------- Tab-Leiste ---------- */
-const TAB_ALL = ["regal","dex","suche","wunsch","portfolio","scan"];
-const TAB_LBL = {regal:"Alben", dex:"Pokédex", suche:"Suche", wunsch:"Wunschliste", portfolio:"Portfolio", scan:"Scannen"};
+const TAB_ALL = ["regal","dex","suche","wunsch","portfolio","erfolge","scan"];
+const TAB_LBL = {regal:"Alben", dex:"Pokédex", suche:"Suche", wunsch:"Wunschliste", portfolio:"Portfolio", erfolge:"Erfolge", scan:"Scannen"};
 const DEF_TABS = ["regal","dex","suche","wunsch"];
 const TAB_LOCK = ["regal","dex"];
 const curTabs = () => { let t = (settings.tabs||DEF_TABS).filter(x=>TAB_ALL.includes(x)); TAB_LOCK.forEach((x,i)=>{ if(!t.includes(x)) t.splice(Math.min(i,t.length), 0, x); }); if(t.length>5) t = [...t.filter(x=>TAB_LOCK.includes(x)), ...t.filter(x=>!TAB_LOCK.includes(x))].slice(0,5); return t.length>=3 ? t : DEF_TABS; };
@@ -2039,7 +2206,6 @@ function renderMore(){
       <button class="srow act" type="button" id="exp"><span class="lbl">Sicherung exportieren</span></button>
       <label class="srow act" for="imp"><span class="lbl">Sicherung importieren</span></label><input type="file" id="imp" accept="application/json,.json" hidden>
     </div><p class="sfoot" id="bk-msg">${Sync.user?.emailVerified ? (last ? `Letzte Sicherung am ${deDate(last)}. Zusätzlich wird deine Sammlung über dein Konto abgeglichen.` : "Deine Sammlung wird über dein Konto abgeglichen. Eine Sicherungsdatei ist trotzdem eine gute Idee.") : cards.length ? (last ? `Letzte Sicherung am ${deDate(last)}${days>30?" – Zeit für eine neue.":"."}` : "Noch keine Sicherung. Deine Sammlung liegt nur auf diesem Gerät.") : "Deine Sammlung liegt nur auf diesem Gerät."}</p></section>
-    ${achHTML()}
     <section class="set-sec"><h2>Tipps</h2><div class="group"><ul class="tips">${TIPS.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div></section>
     <section class="set-sec"><h2>Zurücksetzen</h2><div class="group"><button class="srow act" type="button" id="reset-all"><span class="lbl">Sammlung zurücksetzen</span></button></div><p class="sfoot">Löscht Karten, Alben, Wunschliste, Notizen, Erfolge und Wertverlauf${Sync.user?.emailVerified ? " – auch in deinem Konto auf allen Geräten" : ""}. Einstellungen bleiben.</p></section>
     <section class="set-sec"><h2>Über die App</h2><div class="group">
@@ -2847,6 +3013,21 @@ const metaOf = () => ({albums: plain(albums), settings: plain(settings), wish: p
 const hashMeta = m => hashOf(canon({albums:m.albums||[], settings:m.settings||{}, wish:m.wish||{}, vh:m.vh||{}, notes:m.notes||{}, ach:m.ach||{}}));
 function groupLocal(){ const m = new Map(); for(const e of cards){ const k = e.setId || "_frei"; if(!m.has(k)) m.set(k,[]); m.get(k).push(e); } return m; }
 function mergeE(a, b){ const m = new Map(); for(const e of [...a, ...b]){ const k = bucketKey(e), o = m.get(k); if(!o || qtyOf(e) > qtyOf(o)) m.set(k, e); } return [...m.values()]; }
+// Alben aus der Zeit vor der Sprachwahl (bis 1.18) sind deutsche Alben – einmalig auf Deutsch stellen
+function migAlbums(){
+  let ch = false;
+  for(const a of albums.slice()){
+    if(!a || a.lang) continue; const s = SET.get(a.setId); if(!s || s.ja) continue;
+    if(a.created && a.created.slice(0,10) >= "2026-11-05") continue;
+    const hasEn = albums.some(b=>b.setId===a.setId && b.lang==="en");
+    const onlyDe = !cards.some(c=>c.setId===a.setId && qtyOf(c) && c.lang && c.lang!=="Deutsch");
+    if(!hasEn && !onlyDe) continue;
+    if(albums.some(b=>b.setId===a.setId && b.lang==="de")) albums.splice(albums.indexOf(a), 1);
+    else { a.id = slugOf(s.id) + "~de"; a.lang = "de"; }
+    ch = true;
+  }
+  return ch;
+}
 function mergeAlbums(a, b){ const m = new Map(); for(const x of [...(a||[]), ...(b||[])]) if(x && !m.has(x.id||x.setId)) m.set(x.id||x.setId, x); return [...m.values()]; }
 const deDateTime = iso => { const d = new Date(iso); if(isNaN(d)) return ""; const p = n => String(n).padStart(2,"0"); return `${p(d.getDate())}.${p(d.getMonth()+1)}.${d.getFullYear()}, ${p(d.getHours())}:${p(d.getMinutes())}`; };
 
@@ -2922,6 +3103,7 @@ function applyRemote(remote, rmeta, mode){
     if(changed) saveCards();
     if(metaChanged){ LS.set("pk-albums", albums); LS.set("pk-settings", settings); LS.set("pk-wish", wish); LS.set("pk-valhist", valHist); LS.set("pk-notes", notes); LS.set("pk-ach", ach); }
   } finally { Sync.applying = false; }
+  if(migAlbums()){ LS.set("pk-albums", albums); metaChanged = true; }
   LS.set("pk-synchash", synced);
   if(!jaReady && needJA()) loadJA().then(()=>render()).catch(()=>{});
   if(changed || metaChanged){
@@ -3042,6 +3224,7 @@ function init(){
   const raw = LS.get("pk-cards", []);
   cards = migrate(raw);
   if(JSON.stringify(cards) !== JSON.stringify(raw)) saveCards();
+  if(migAlbums()) LS.set("pk-albums", albums);
   if(!LS.raw("pk-seen") && !cards.length) LS.put("pk-seen", APP_VERSION);
   window.addEventListener("hashchange", route);
   route();

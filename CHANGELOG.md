@@ -1,5 +1,12 @@
 # Kartenalbum – Änderungen
 
+## Version 1.25 · 05.11.2026
+- Neuer Bereich „Erfolge“ mit eigenen Orden für alle 19 Erfolge – mit Metallglanz und Animation beim Freischalten
+- Tipp auf einen Orden: Erklärung, dein Stand, nächste Stufe und Freischaltdatum
+- Suche im Alben-Tab nach Name, Kürzel oder Serie
+- Promo-Alben mit goldenem „PROMO“-Badge
+- Alte Alben ohne Sprache sind jetzt deutsche Alben – mit Flagge und nur deutschen Karten
+
 ## Version 1.24 · 04.11.2026
 - Neuer Bereich „Portfolio“: Wertkurve mit Zeitraum, Aufteilung nach Set, Sprache, Seltenheit und Typ, Gewinner & Verlierer, alle Karten nach Wert
 - Set-Details im Portfolio: Setwert und Verlauf, Kosten bis komplett, Aufteilung, Gewinner & Verlierer
