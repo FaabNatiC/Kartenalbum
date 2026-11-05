@@ -4,7 +4,7 @@ Private Web-App für meine Pokémon-Sammelkarten – als digitales Album fürs i
 
 **App öffnen:** https://faabnatic.github.io/Kartenalbum/
 
-Aktuelle Version: **1.28** · Änderungen je Version stehen in [`CHANGELOG.md`](CHANGELOG.md).
+Aktuelle Version: **1.29** · Änderungen je Version stehen in [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Funktionen
 
@@ -39,7 +39,7 @@ Aktuelle Version: **1.28** · Änderungen je Version stehen in [`CHANGELOG.md`](
 - **Browser-Version** – eigenes Layout ab 900 px mit Seitenleiste, Karten-Panel und Tastatur (← → · Esc · /)
 - **Ohne Zoom** – die App lässt sich am iPhone nicht versehentlich vergrößern
 - **Hell/Dunkel** – automatisch oder fest eingestellt
-- **Offline nutzbar** – App und bereits angesehene Kartenbilder werden zwischengespeichert
+- **Offline nutzbar** – App, Kartenbilder und Pokémon-Artworks werden nach dem ersten Laden auf dem Gerät gespeichert (max. 3.000 Bilder, unter Einstellungen → Speicher leerbar)
 
 ## Auf dem iPhone installieren
 

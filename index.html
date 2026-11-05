@@ -79,6 +79,7 @@ body.nobar .wrap{padding-top:calc(env(safe-area-inset-top,0px) + 18px)}
 
 /* Kopf der Ansichten */
 h1{font-family:var(--f-display);font-stretch:125%;font-weight:800;font-size:clamp(26px,6vw,36px);letter-spacing:-.01em;margin:0;line-height:1.05;text-wrap:balance}
+body.nobar #head h1{font:800 34px/1.1 var(--f-body);font-stretch:100%;letter-spacing:-.02em}
 h1 span{color:var(--accent)}
 .sub{color:var(--muted);margin:4px 0 0;font-size:14px}
 .sub b{font-family:var(--f-num);font-weight:600;color:var(--ink)}
@@ -202,7 +203,15 @@ dialog::backdrop{background:rgba(10,14,24,.55)}
 .sheet h2.sh-t{margin:0;font-family:var(--f-display);font-stretch:112%;font-weight:800;font-size:22px;padding-right:46px}
 .big.art{aspect-ratio:1;width:min(55%,200px);object-fit:contain;background:transparent;box-shadow:none}
 /* Pokédex-Artwork */
-:root{--sil:brightness(0);--silo:.42}
+:root{--sil:brightness(0);--silo:.42;--hbg:#d3d8e2}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--hbg:#26304a}}
+:root[data-theme="dark"]{--hbg:#26304a}
+body.nobar #head{margin:calc(-1 * (env(safe-area-inset-top,0px) + 18px)) calc(-1 * max(16px,env(safe-area-inset-right,0px))) 0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:calc(env(safe-area-inset-top,0px) + 18px) max(16px,env(safe-area-inset-right,0px)) 14px max(16px,env(safe-area-inset-left,0px));background:linear-gradient(180deg,var(--hbg) 0%,color-mix(in srgb,var(--hbg) 45%,var(--bg)) 55%,var(--bg) 100%)}
+body.nobar #head .hrow{margin-bottom:12px}
+.tbar{position:fixed;left:0;right:0;top:0;z-index:26;display:flex;align-items:center;justify-content:center;padding:calc(env(safe-area-inset-top,0px) + 6px) 56px 8px;background:var(--bar);-webkit-backdrop-filter:saturate(1.6) blur(16px);backdrop-filter:saturate(1.6) blur(16px);border-bottom:1px solid var(--line);font:700 17px var(--f-body);color:var(--ink);transform:translateY(-110%);transition:transform .22s ease;pointer-events:none}
+.tbar.show{transform:none;pointer-events:auto}
+.tbar .gearbtn{position:absolute;right:max(12px,env(safe-area-inset-right,0px));bottom:4px;width:34px;height:34px;box-shadow:none;background:var(--pocket)}
+@media (min-width:900px){.tbar{display:none}body.nobar #head{margin-top:-32px;padding-top:32px;margin-left:-36px;margin-right:-36px;padding-left:36px;padding-right:36px}}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--sil:brightness(0) invert(1);--silo:.2}}
 :root[data-theme="dark"]{--sil:brightness(0) invert(1);--silo:.2}
 .slot.dexs{background:var(--pocket);border:1px solid var(--pocket-edge);padding:0}
@@ -231,7 +240,8 @@ dialog::backdrop{background:rgba(10,14,24,.55)}
 .mini{display:flex;align-items:center;gap:10px;height:0;opacity:0;overflow:hidden;font-size:13px;margin-top:4px}
 .mini .ring{width:30px;height:30px}
 .mini .ring text{display:none}
-.mlogo{height:26px;display:grid;place-items:center;min-width:0;flex:0 1 auto}
+.mlogo{height:26px;display:flex;align-items:center;min-width:0;flex:0 1 auto;overflow:hidden}
+.mv{flex:none}
 .mlogo img{max-height:26px;max-width:130px;object-fit:contain}
 .mlogo .logo-t{display:none;font:700 14px var(--f-body);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mlogo:not(:has(img)) .logo-t{display:block}
@@ -623,6 +633,10 @@ button.achp{border:0;font:600 12.5px var(--f-body);cursor:pointer}
 .pbadge.pers{background:linear-gradient(135deg,#d9c4f2,#8d6bc4 60%,#6a4fa8);color:#fff}
 .pcover .logo-t{color:#6a4fa8;font-size:17px}
 .pthumb{overflow:hidden;border-radius:4px;width:40px;height:56px;margin:0 12px}.pthumb .cimg{width:100%;height:100%;object-fit:cover}
+.pgrp{border:1px solid var(--line);border-radius:12px;background:var(--page);overflow:hidden}
+.pgh{display:flex;align-items:center;gap:8px;width:100%;border:0;background:none;padding:12px 14px;color:var(--ink);font:inherit;cursor:pointer;text-align:left}
+.pgh b{flex:1;font:700 15px var(--f-body)}.pgh span{font:600 12px var(--f-num);color:var(--muted)}.pgh .chev{font-size:20px;transition:transform .2s}
+.pgrp.open .pgh .chev{transform:rotate(90deg)}.pgrp .grp{padding:0 10px 10px}
 .prow.pers{grid-template-columns:44px minmax(0,1fr) auto}.prow.pers small{display:block;color:var(--muted);font-size:12px}
 .prow.pers .plogo{width:44px;height:44px;display:grid;place-items:center}.pdex{width:44px;height:44px;object-fit:contain}
 .phead{display:grid;justify-items:center;text-align:center;gap:4px}.ph1{font-size:clamp(24px,6vw,32px);margin:0 70px}
@@ -661,10 +675,13 @@ button.achp{border:0;font:600 12.5px var(--f-body);cursor:pointer}
   body.floatbar .bar-more{width:38px;height:38px}
   body.floatbar .wrap{padding-top:calc(env(safe-area-inset-top,0px) + 8px)}
   body.floatbar .sethead{margin-top:0}
-  body.floatbar .slogo{height:56px;margin:0 60px}
-  body.floatbar .slogo img{max-height:56px}
-  body.floatbar .stick{top:calc(env(safe-area-inset-top,0px) + 4px)}
+  body.floatbar .slogo{height:auto;min-height:48px;max-width:calc(100% - 120px);margin:0 auto}
+  body.floatbar .slogo img{max-height:88px;max-width:100%}
+  body.floatbar .slogo.wide{max-width:min(100%,320px);margin-top:44px}
+  body.floatbar .slogo .logo-t{font-size:30px}
+  body.floatbar .stick{top:0;padding-top:calc(env(safe-area-inset-top,0px) + 4px)}
   body.floatbar .mini{padding-left:98px;padding-right:50px}
+  body.floatbar .mini .ring{display:none}
   body[data-view="einstellungen"] #head>h1{text-align:center;font-size:24px;line-height:40px;margin:0 96px 14px}
   body[data-view="pset"] .pshead{flex-direction:column;text-align:center;gap:8px}
   body[data-view="pset"] .pslogo{margin:0 60px;height:48px}
@@ -843,6 +860,7 @@ button.tab{border:0;background:none;padding:0;cursor:pointer;width:100%;font:600
 </head>
 <body>
 <header class="bar"><div class="bar-in"><span id="bar-left"></span><span class="bar-title" id="bar-title">Alben</span><span id="bar-right" style="justify-self:end"></span></div></header>
+<div class="tbar" id="tbar" aria-hidden="true"><span id="tbar-t"></span><a class="gearbtn" href="#einstellungen" aria-label="Einstellungen" tabindex="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7"/></svg></a></div>
 <div class="wrap">
   <a class="gearbtn" id="gear" href="#einstellungen" aria-label="Einstellungen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1.03 1.56V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1.1-1.56 1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.56-1.03H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 8.9a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1.03-1.56V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1.03 1.56 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.34 1.87V9a1.7 1.7 0 0 0 1.56 1.03H21a2 2 0 1 1 0 4h-.09A1.7 1.7 0 0 0 19.4 15z"/></svg></a>
   <div id="head"></div>
@@ -971,6 +989,7 @@ const CONDS = ["Mint","Near Mint","Excellent","Good","Light Played","Played","Po
 
 /* ---------- Änderungsprotokoll ---------- */
 const CHANGELOG = [
+  {v:"1.29", d:"2026-11-05", items:["Neue Tab-Überschriften: großer Titel mit dezentem Verlauf, beim Scrollen schmale Leiste oben","Orden im Detail sehen jetzt genau wie in der Übersicht aus – in 3D","Bilder werden dauerhaft auf dem Gerät gespeichert (Einstellungen → Speicher)","Größeres Set-Logo, Lücke über der Set-Leiste behoben","Vorschläge für persönliche Alben einklappbar","Pokédex: Auswahl „Karte hinzufügen“ entfernt"]},
   {v:"1.28", d:"2026-11-05", items:["Persönliche Alben: nach Pokémon, Seltenheit, Typ, Familie, Trainer oder frei – mit Vorschlägen beim Anlegen","Karten im Karten-Sheet zu freien Alben hinzufügen","Orden-Sheet: Karte nur ansehen statt Sprung ins Set, fehlende Karten ausgegraut","3D-Orden drehen flüssig mit Schwung"]},
   {v:"1.27", d:"2026-11-05", items:["Orden als echtes 3D-Objekt im Detail – drehen, Schwung, Rückseite mit Gravur","Neuer Orden-Stil: Metallrahmen, Akzentring, Emaille und Motiv in Element-Farbe","Orden-Sheet: deine beitragenden Karten mit Bild, Karten und Pokémon antippbar","Deutsche Namen für viele japanische Trainer- und Energiekarten sowie für Gym-Karten (z. B. Rockos Onix)","Unterseiten ohne Kopfzeile mit schwebenden Knöpfen, Set-Logo ganz oben","Zahnrad in der Kopfzeile, „+“ zum Album anlegen neben der Suche","Portfolio: Ausreißer ausgeblendet, „<1 %“ bei kleinen Anteilen"]},
   {v:"1.26", d:"2026-11-05", items:["Einstellungen über das Zahnrad oben rechts, „Mehr“ zeigt nur noch die weiteren Bereiche","Alben: Ansicht-Umschalter direkt neben der Suche","106 Orden im neuen 3D-Stil – in Gruppen: Sammlung, Trainer Kanto und Johto, Legendäre, Familien, Typ-Trainer","Orden im Detail drehen und umdrehen, mit Liste der benötigten Pokémon","Portfolio: internationale Karten mit deutschem Namen klein dazu"]},
@@ -1343,8 +1362,18 @@ function render(){
   if(album.open && !album.busy) alRender(true);
   updatePager();
   placeGear();
+  updTbar();
 }
 const GEAR = document.getElementById("gear");
+function updTbar(){
+  const tg = $("#tbar .gearbtn"); if(tg && !tg.dataset.ok && GEAR){ tg.innerHTML = GEAR.innerHTML; tg.dataset.ok = 1; }
+  const tb = $("#tbar"); if(!tb) return;
+  const on = document.body.classList.contains("nobar") && !DESK.matches, h1 = $("#head h1");
+  const show = on && h1 && h1.getBoundingClientRect().bottom < 4;
+  if(show) $("#tbar-t").textContent = h1.textContent;
+  tb.classList.toggle("show", !!show); tb.setAttribute("aria-hidden", String(!show));
+}
+window.addEventListener("scroll", ()=>requestAnimationFrame(updTbar), {passive:true});
 function placeGear(){
   const show = document.body.classList.contains("nobar") && view.name!=="einstellungen";
   GEAR.hidden = !show; if(!show) return;
@@ -1356,7 +1385,7 @@ function placeGear(){
 function renderShelf(){
   $("#bar-title").textContent = "Alben";
   const lv = settings.shelf==="list";
-  $("#head").innerHTML = `<h1>Pokémon <span>Kartenalbum</span></h1>
+  $("#head").innerHTML = `<h1>Alben</h1>
     <div class="stats"><div class="stat"><small>Karten</small><b>${sum(cards,qtyOf)}</b></div><button class="stat statbtn" type="button" id="open-stats" aria-label="Portfolio öffnen"><small>Sammlungswert ›</small><b>${eur(sum(cards,valOf))}</b></button><div class="stat"><small>Alben</small><b>${shelfAlbums().length + persAlbums().length}</b></div></div>`;
   if(!$("#aq")){
     $("#tools").innerHTML = `<div class="aqrow"><div class="qwrap aqwrap"><input class="field" id="aq" type="search" inputmode="search" placeholder="Alben durchsuchen" autocomplete="off" autocorrect="off" enterkeyhint="search" value="${esc(shelfQ)}"><button class="qclr" type="button" id="aq-clr" aria-label="Suche leeren" ${shelfQ?"":"hidden"}>×</button></div><div class="vtog" role="group" aria-label="Ansicht"><button type="button" data-shelf="grid" aria-pressed="${!lv}" aria-label="Raster">${ICON_GRID}</button><button type="button" data-shelf="list" aria-pressed="${lv}" aria-label="Liste">${ICON_LIST}</button></div><button class="addbtn" type="button" id="add-top" aria-label="Album anlegen">+<span>Album anlegen</span></button></div>`;
@@ -1517,7 +1546,7 @@ function renderSet(s){
   $("#bar-title").textContent = "";
   const owned = setOwned(s, view.lang), p = setProgress(s, owned), list = [...owned.values()].flat(), value = sum(list,valOf);
   const hasAlbum = albums.some(a=>a.setId===s.id && (a.lang||null)===(view.lang||null)), fc = filtCount(), vl = view.lang==="en" ? "en" : "de";
-  $("#head").innerHTML = `<div class="sethead" id="sethead" style="--spine:${spineColor(s)}"><div class="slogo"><img src="${logoUrl(s,vl)}" data-alt="${logoUrl(s,vl==="de"?"en":"de")}" alt="${esc(setTitle(s))}" onerror="logoErr(this)"><b class="logo-t">${esc(setTitle(s))}<small>${s.jn && s.jn!==s.de ? esc(s.jn) + " · " : ""}${esc(s.abbr)}</small></b></div>
+  $("#head").innerHTML = `<div class="sethead" id="sethead" style="--spine:${spineColor(s)}"><div class="slogo"><img src="${logoUrl(s,vl)}" data-alt="${logoUrl(s,vl==="de"?"en":"de")}" alt="${esc(setTitle(s))}" onerror="logoErr(this)" onload="if(this.naturalWidth/this.naturalHeight>3.2)this.parentNode.classList.add('wide')"><b class="logo-t">${esc(setTitle(s))}<small>${s.jn && s.jn!==s.de ? esc(s.jn) + " · " : ""}${esc(s.abbr)}</small></b></div>
     <div class="ringrow">${ringSVG(p)}<div class="kvs">${s.rel?`<div class="kv"><span>Erschienen</span><b>${deDate(s.rel)}</b></div>`:""}<div class="kv"><span>Grundset</span><b>${p.base} / ${p.baseTotal}</b></div>${p.allTotal>p.baseTotal?`<div class="kv"><span>Master-Set</span><b>${p.all} / ${p.allTotal}</b></div>`:""}<div class="kv"><span>Wert</span><b>${eur(value)}</b></div></div></div>
     <div class="hchips">${view.lang ? `<span class="hc l">${flag(view.lang)}${LANGNAME[view.lang]}</span>` : s.ja ? `<span class="hc l">${flag("ja")}Japanisch</span>` : ""}<span class="hc">${esc(s.abbr)}</span><span class="hc">${esc(s.serie)}</span><span class="hc">${s.promo ? `${s.cards.length} Promokarten` : s.cards.length - p.baseTotal > 0 ? `${s.off} + ${s.cards.length - p.baseTotal} Secret` : `${s.off} Karten`}</span></div>${hasAlbum ? top3HTML(s, view.lang, owned) : ""}<p class="sub" hidden>${s.promo?`${s.cards.length} Promokarten`:`${s.off} Karten + ${s.cards.length - p.baseTotal} Secret`}</p></div>`;
   const opts = setFilterOptions(s);
@@ -2114,40 +2143,6 @@ const THREE_URL = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.mi
 let threeP = null;
 function loadThree(){ if(window.THREE) return Promise.resolve(window.THREE); if(threeP) return threeP; threeP = new Promise((res, rej)=>{ const sc = document.createElement("script"); sc.src = THREE_URL; sc.async = true; sc.onload = ()=>res(window.THREE); sc.onerror = ()=>{ threeP = null; rej(new Error("3D konnte nicht geladen werden")); }; document.head.appendChild(sc); }); return threeP; }
 const MET3 = {iron:[0x8f969e,.35], bronze:[0xc98d56,.32], silver:[0xd7dbe0,.26], gold:[0xe8b437,.28], platinum:[0xeef3f7,.16], locked:[0x9da2a9,.45]};
-function emb3(T, kind){
-  const S = () => new T.Shape(), poly = pts => { const s = S(); pts.forEach(([x,y],i)=>i?s.lineTo(x,y):s.moveTo(x,y)); s.closePath(); return s; };
-  const circ = r => { const s = S(); s.absarc(0,0,r,0,Math.PI*2,false); return s; };
-  const rrect = (w,h,r) => { const s = S(), x = -w/2, y = -h/2; s.moveTo(x+r,y); s.lineTo(x+w-r,y); s.quadraticCurveTo(x+w,y,x+w,y+r); s.lineTo(x+w,y+h-r); s.quadraticCurveTo(x+w,y+h,x+w-r,y+h); s.lineTo(x+r,y+h); s.quadraticCurveTo(x,y+h,x,y+h-r); s.lineTo(x,y+r); s.quadraticCurveTo(x,y,x+r,y); return s; };
-  const star = (n, r1, r2, rot=Math.PI/2) => poly(Array.from({length:n*2},(_,i)=>{ const a = Math.PI*i/n + rot, r = i%2 ? r2 : r1; return [r*Math.cos(a), r*Math.sin(a)]; }));
-  switch(kind){
-    case "drop": { const s = S(); s.moveTo(0,26); s.bezierCurveTo(7,14,18,5,18,-5); s.bezierCurveTo(18,-16,9,-23,0,-23); s.bezierCurveTo(-9,-23,-18,-16,-18,-5); s.bezierCurveTo(-18,5,-7,14,0,26); return [s]; }
-    case "flame": { const s = S(); s.moveTo(0,28); s.bezierCurveTo(10,16,21,7,19,-7); s.bezierCurveTo(17,-19,9,-24,0,-24); s.bezierCurveTo(-10,-24,-19,-17,-19,-7); s.bezierCurveTo(-19,3,-10,9,-7,17); s.bezierCurveTo(-3,10,-1,9,2,7); s.bezierCurveTo(4,14,2,21,0,28); return [s]; }
-    case "leaf": case "feather": { const s = S(); s.moveTo(-19,-21); s.bezierCurveTo(-19,4,-2,21,23,23); s.bezierCurveTo(23,-2,5,-19,-19,-21); return [s]; }
-    case "bolt": case "bolts": return [poly([[5,26],[-14,-1],[-2,-1],[-7,-25],[14,4],[2,4]])];
-    case "crown": case "crowngem": case "legend": return [poly([[-22,-14],[-22,12],[-11,2],[0,21],[11,2],[22,12],[22,-14]])];
-    case "star": case "evo": case "starter": return [star(5, 22, 9)];
-    case "ice": return [star(6, 23, 7)];
-    case "heart": { const s = S(); s.moveTo(0,-20); s.bezierCurveTo(-22,-4,-22,16,-10,18); s.bezierCurveTo(-4,19,0,14,0,10); s.bezierCurveTo(0,14,4,19,10,18); s.bezierCurveTo(22,16,22,-4,0,-20); return [s]; }
-    case "moon": { const s = circ(20), h = new T.Path(); h.absarc(9,6,16,0,Math.PI*2,true); s.holes.push(h); return [s]; }
-    case "gem": case "v50": return [poly([[-18,8],[-10,18],[10,18],[18,8],[0,-22]])];
-    case "rock": return [poly([[-20,-16],[-15,6],[-3,16],[13,12],[21,-6],[14,-18]])];
-    case "ground": case "map": return [poly([[-24,-16],[-6,16],[3,4],[10,12],[24,-16]])];
-    case "fist": case "card": case "stack": case "binder": case "fan": case "gymcard": case "book": return [rrect(kind==="book"?40:28, kind==="book"?30:38, 5)];
-    case "ghost": return [poly([[-17,-20],[-17,6],[-12,16],[-4,20],[4,20],[12,16],[17,6],[17,-20],[11,-14],[6,-20],[0,-14],[-6,-20],[-11,-14]])];
-    case "dragon": return [poly([[-22,-10],[-12,8],[4,18],[24,22],[16,10],[22,0],[10,-2],[8,-14],[-4,-8]])];
-    case "bug": case "crystal": case "lens": case "coin": case "wheel": case "palette": return [circ(19)];
-    case "poison": return [poly([[-5,22],[5,22],[5,10],[18,-14],[14,-20],[-14,-20],[-18,-14],[-5,10]])];
-    case "gear": { const s = star(10, 21, 15, 0), h = new T.Path(); h.absarc(0,0,6,0,Math.PI*2,true); s.holes.push(h); return [s]; }
-    case "check": case "triple": return [poly([[-21,1],[-13,9],[-5,1],[14,20],[22,12],[-5,-15]])];
-    case "frame": { const s = rrect(38,34,2), h = new T.Path(); h.moveTo(-13,-11); h.lineTo(13,-11); h.lineTo(13,11); h.lineTo(-13,11); h.closePath(); s.holes.push(h); return [s, star(5,8,3.5)]; }
-    case "bars": return [poly([[-22,-14],[-16,-2],[16,-2],[22,-14]]), poly([[-12,0],[-7,12],[7,12],[12,0]])];
-    case "chest": { const s = S(); s.moveTo(-22,-16); s.lineTo(22,-16); s.lineTo(22,6); s.bezierCurveTo(22,20,-22,20,-22,6); s.closePath(); return [s]; }
-    case "laurel": return [poly([[-3,-18],[3,-18],[3,18],[-6,12],[-3,10]])];
-    case "fossil": return [poly(Array.from({length:6},(_,i)=>{ const a = Math.PI/3*i + Math.PI/2; return [22*Math.cos(a), 22*Math.sin(a)]; }))];
-  }
-  return [circ(18)];
-}
-const M3 = {run:null};
 function stopMedal3D(){ if(M3.run){ M3.run.stop(); M3.run = null; } }
 async function medal3D(host, id, locked, achDate){
   stopMedal3D();
@@ -2172,14 +2167,16 @@ async function medal3D(host, id, locked, achDate){
   const outer = toV(o), inner = toV(inn), mid = toV(inn, 1.08);
   const grp = new T.Group();
   const add = (geo, mat, z) => { const me = new T.Mesh(geo, mat); me.position.z = z; grp.add(me); return me; };
-  add(new T.ExtrudeGeometry(ring(outer, mid), {depth:8, bevelEnabled:true, bevelThickness:5, bevelSize:4, bevelSegments:3, curveSegments:16}), metal(mc, mr), -4);
-  add(new T.ExtrudeGeometry(ring(toV(inn, 1.12), inner), {depth:3, bevelEnabled:false}), lack(acc[0]), 4);
-  const plateMat = lack(locked ? acc[1] : mixC(acc[1], acc[0], .4));
-  if(locked){ const c2 = document.createElement("canvas"); c2.width = c2.height = 256; const q = c2.getContext("2d"); q.fillStyle = acc[1]; q.fillRect(0,0,256,256); q.fillStyle = "#6b7078"; q.font = "800 150px system-ui,sans-serif"; q.textAlign = "center"; q.textBaseline = "middle"; q.fillText("?", 128, 140); const t2 = new T.CanvasTexture(c2); t2.encoding = T.sRGBEncoding; plateMat.map = t2; plateMat.color = new T.Color(0xffffff); }
-  const plateGeo = new T.ExtrudeGeometry(pshape(inner), {depth:4, bevelEnabled:true, bevelThickness:1.5, bevelSize:1.5, bevelSegments:2});
-  if(locked){ plateGeo.computeBoundingBox(); const bb = plateGeo.boundingBox, uv = plateGeo.attributes.uv, pos = plateGeo.attributes.position; for(let i=0;i<uv.count;i++) uv.setXY(i, (pos.getX(i)-bb.min.x)/(bb.max.x-bb.min.x), (pos.getY(i)-bb.min.y)/(bb.max.y-bb.min.y)); }
-  add(plateGeo, plateMat, -2);
-  if(!locked){ const inr = Math.min(...inner.map((a,i)=>{ const b2 = inner[(i+1)%inner.length], dx = b2[0]-a[0], dy = b2[1]-a[1]; return Math.abs(a[0]*dy - a[1]*dx) / Math.hypot(dx, dy); })), sc2 = Math.min(1.1, Math.max(.5, inr / 27)); for(const shp of emb3(T, kind)){ if(!shp) continue; const me = add(new T.ExtrudeGeometry(shp, {depth:6, bevelEnabled:true, bevelThickness:3, bevelSize:2.2, bevelSegments:3, curveSegments:16}), matt(acc[2]), 3); me.scale.set(sc2, sc2, 1); } }
+  // Körper: Metall in Orden-Form, Vorderseite = exakt der Orden aus der Übersicht
+  add(new T.ExtrudeGeometry(pshape(outer), {depth:8, bevelEnabled:true, bevelThickness:5, bevelSize:3, bevelSegments:4, curveSegments:24}), metal(mc, mr), -4);
+  const fcv = document.createElement("canvas"); fcv.width = fcv.height = 1024;
+  try{ const src = medalSVG(id, locked).replace('<svg class="medal"', '<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024"');
+    const img = new Image(); img.decoding = "sync"; await new Promise((ok, no)=>{ img.onload = ok; img.onerror = no; img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(src); });
+    fcv.getContext("2d").drawImage(img, 0, 0, 1024, 1024); }catch{}
+  if(!host.isConnected) return false;
+  const ftx = new T.CanvasTexture(fcv); ftx.encoding = T.sRGBEncoding; ftx.anisotropy = 4;
+  const frontGeo = new T.ShapeGeometry(pshape(outer), 24); { const uv = frontGeo.attributes.uv, pos = frontGeo.attributes.position; for(let i=0;i<uv.count;i++){ const xs = pos.getX(i)/k + 100, ys = cy - pos.getY(i)/k; uv.setXY(i, xs/200, 1 - ys/200); } }
+  add(frontGeo, new T.MeshStandardMaterial({map:ftx, metalness:.35, roughness:.42, envMapIntensity:.9}), 9.3);
   // Rückseite mit Gravur
   const c3 = document.createElement("canvas"); c3.width = c3.height = 512; const b = c3.getContext("2d"); const bg = b.createRadialGradient(200,180,20,256,256,300); bg.addColorStop(0,"#ffffff"); bg.addColorStop(1,"#9aa2ab"); b.fillStyle = bg; b.fillRect(0,0,512,512); b.fillStyle = "#3a4048"; b.textAlign = "center"; b.font = "700 30px system-ui,sans-serif"; b.fillText("KARTENALBUM", 256, 170);
   const nm = (ACH.find(a=>a[0]===id)||[])[1] || ""; b.font = "800 46px system-ui,sans-serif"; const words = nm.split(" "), lines = []; let ln = ""; for(const w of words){ if(b.measureText((ln+" "+w).trim()).width > 380 && ln){ lines.push(ln); ln = w; } else ln = (ln+" "+w).trim(); } lines.push(ln); lines.forEach((l,i)=>b.fillText(l, 256, 250 + i*54));
@@ -2562,6 +2559,7 @@ function renderSettings(){
       <label class="srow" for="set-cond"><span class="lbl">Standard-Zustand</span><select id="set-cond">${CONDS.map(l=>`<option${l===settings.cond?" selected":""}>${l}</option>`).join("")}</select><span class="chev">›</span></label>
       <button class="srow act" type="button" id="upd-all" ${hasSet?"":"disabled"}><span class="lbl">Werte aktualisieren</span><span class="val">${pd?`Stand ${deDate(pd)}`:""}</span></button>
     </div><p class="sfoot" id="val-msg">${hasSet?"Holt den aktuellen Cardmarket-Trend je Variante für alle deine Karten.":"Noch keine Karten aus Sets eingetragen."}</p></section>
+    <section class="set-sec"><h2>Speicher</h2><div class="group"><div class="srow"><span class="lbl">Gespeicherte Bilder</span><span class="val" id="img-cnt">…</span></div><button class="srow act" type="button" id="img-clear"><span class="lbl">Bilder-Speicher leeren</span></button></div><p class="sfoot">Kartenbilder und Pokémon-Artworks werden nach dem ersten Laden auf dem Gerät gespeichert (höchstens 3.000), damit sie sofort und offline erscheinen.</p></section>
     <section class="set-sec"><h2>Sicherung</h2><div class="group">
       <button class="srow act" type="button" id="exp"><span class="lbl">Sicherung exportieren</span></button>
       <label class="srow act" for="imp"><span class="lbl">Sicherung importieren</span></label><input type="file" id="imp" accept="application/json,.json" hidden>
@@ -2580,6 +2578,8 @@ function renderSettings(){
   $("#open-log").addEventListener("click", openLog);
   $("#reset-all").addEventListener("click", ()=>openReset(1));
   $("#tabs-cfg")?.addEventListener("click", ()=>openTabs(false));
+  (async()=>{ try{ const c = await caches.open("kartenbilder-v1"), n = (await c.keys()).length; let mb = ""; try{ const est = await navigator.storage?.estimate?.(); if(est?.usage) mb = ` · ${(est.usage/1048576).toLocaleString("de-DE",{maximumFractionDigits:0})} MB gesamt`; }catch{} const el = $("#img-cnt"); if(el) el.textContent = n.toLocaleString("de-DE") + " Bilder" + mb; }catch{ const el = $("#img-cnt"); if(el) el.textContent = "–"; } })();
+  $("#img-clear")?.addEventListener("click", async()=>{ try{ await caches.delete("kartenbilder-v1"); }catch{} const el = $("#img-cnt"); if(el) el.textContent = "0 Bilder"; });
   bindKonto();
 }
 function openLog(){
@@ -2833,10 +2833,8 @@ function renderDexDialog(){
   const opts = (DEXCARDS.get(n)||[]).map(([sid,i])=>{ const s=SET.get(sid), c=s.cards[i]; return {v:`${sid}|${c[0]}`, l:`${s.de} · ${s.abbr} ${numDisp(s,c[0])} · ${cName(c)} · ${(RAR[c[3]]||[c[3]])[0]}`, rel:s.rel}; }).sort((a,b)=>b.rel.localeCompare(a.rel));
   $("#d-body").innerHTML = `<div style="display:grid;gap:18px">
     ${rows?`<div style="display:grid;gap:10px"><p class="sec-h">Deine Karten von ${esc(NAMES[n-1])}</p><div class="list">${rows}</div></div>`:""}
-    <div style="display:grid;gap:10px"><p class="sec-h">Karte hinzufügen</p>
-      ${opts.length?`<div class="fld"><label for="dx-pick">Aus der Setliste wählen – öffnet die Karte zum Zählen</label><select id="dx-pick"><option value="">Karte wählen</option>${opts.map(o=>`<option value="${esc(o.v)}">${esc(o.l)}</option>`).join("")}</select></div>`:""}
-    </div></div>`;
-  $("#dx-pick")?.addEventListener("change", e=>{ if(!e.target.value) return; const [sid,num]=e.target.value.split("|"); jumpToSet(sid, num); });
+    ${rows ? "" : `<p class="hint" style="margin:0">Noch keine Karte von ${esc(NAMES[n-1])}. Zählen kannst du im Set-Album oder per Scan.</p>`}
+    </div>`;
 }
 
 /* ---------- Preise aktualisieren ---------- */
@@ -2896,6 +2894,8 @@ function openFreeName(rename){
   if(wishSheet.state==="closed") wishSheet.open("half"); else wishSheet.set("half");
   setTimeout(()=>$("#fa-name")?.focus(), 350);
 }
+let persOpen = null;
+$("#p-list").addEventListener("click", e=>{ const g = e.target.closest("[data-pg]"); if(!g || !persOpen) return; const k = g.dataset.pg; if(persOpen.has(k)) persOpen.delete(k); else persOpen.add(k); LS.put("pk-persopen", JSON.stringify([...persOpen])); renderPicker(); });
 function renderPersPicker(q){
   const own = cards.filter(e=>e.setId && qtyOf(e)), keyset = new Map();
   for(const e of own){ const c = cardAt(e.setId, e.num); if(c) keyset.set(e.setId+"|"+e.num, c); }
@@ -2907,7 +2907,8 @@ function renderPersPicker(q){
   let dexList = q ? NAMES.map((n,i)=>[i+1,n]).filter(([,n])=>n.toLowerCase().includes(ql)).slice(0,20) : [...dexCnt].sort((a,b)=>b[1]-a[1]).slice(0,12).map(([d])=>[d, NAMES[d-1]]);
   const art = d => `<img class="pdex" src="${artUrl(d)}" alt="" loading="lazy" onerror="this.remove()">`;
   const fams = ACH.filter(([id])=>ACHX[id]?.grp==="family" || ACHX[id]?.grp==="legend"), trs = ACH.filter(([id])=>/^(k_|kg_|k4_|j_|j4_)/.test(id));
-  const sec = (h, body) => body ? `<div><h5>${h}</h5><div class="grp">${body}</div></div>` : "";
+  if(!persOpen) persOpen = new Set(LS.get("pk-persopen", ["Pokémon"]));
+  const sec = (h, body) => { if(!body) return ""; const n = (body.match(/class="prow/g)||[]).length, key = h.replace(/ –.*$/, ""), open = q || persOpen.has(key); return `<div class="pgrp${open?" open":""}"><button class="pgh" type="button" data-pg="${esc(key)}" aria-expanded="${open}"><b>${esc(h)}</b><span>${n}</span><span class="chev">›</span></button>${open ? `<div class="grp">${body}</div>` : ""}</div>`; };
   const match = t => !q || t.toLowerCase().includes(ql);
   $("#p-list").innerHTML = [
     `<p class="hint" style="margin:0">Persönliche Alben zeigen deine gesammelten Karten nach einem Thema – über alle Sets und Sprachen. Neue passende Karten landen automatisch darin.</p>`,
@@ -2915,7 +2916,7 @@ function renderPersPicker(q){
     sec("Seltenheit", PRAR.filter(r=>match(r[1])).map(([k,l,list])=>row("rar", k, l, cnt(c=>list.includes(c[3])))).join("")),
     sec("Typ", Object.entries(TYPES).filter(([,v])=>match(v[0])).map(([k,v])=>row("type", k, (TYPE_TR[k]?.[0] || v[0])+"-Karten", cnt(c=>c[4]==="P" && c[5]===k), typeIcon(k))).join("")),
     sec("Familie & Legendäre", fams.filter(a=>match(a[1])).map(([id,n])=>{ const d = new Set(ACHX[id].dex); return row("fam", id, n, cnt(c=>d.has(c[7]))); }).join("")),
-    sec("Trainer", trs.filter(a=>match(a[1])).map(([id,n])=>{ const X = ACHX[id]; if(X.gym){ const k = new Set(gymCards(X.gym)); return row("trainer", id, n.replace(/s Sammlung$/, "s Karten"), [...keyset.keys()].filter(x=>k.has(x)).length); } const d = new Set(X.dex); return row("trainer", id, n, cnt(c=>d.has(c[7]))); }).join("")),
+    ...[["Trainer Kanto", /^(k_|kg_|k4_)/], ["Trainer Johto", /^(j_|j4_)/]].map(([h, re])=>sec(h, trs.filter(a=>re.test(a[0]) && match(a[1])).map(([id,n])=>{ const X = ACHX[id]; if(X.gym){ const k = new Set(gymCards(X.gym)); return row("trainer", id, n.replace(/s Sammlung$/, "s Karten"), [...keyset.keys()].filter(x=>k.has(x)).length); } const d = new Set(X.dex); return row("trainer", id, n, cnt(c=>d.has(c[7]))); }).join(""))),
     q ? "" : sec("Frei", `<button class="prow pers" type="button" data-padd="free|"><span class="plogo" style="font-size:24px">+</span><span><b>Leeres Album</b><small>Mit eigenem Namen, Karten fügst du selbst hinzu</small></span><span class="chev">›</span></button>`)
   ].join("");
 }

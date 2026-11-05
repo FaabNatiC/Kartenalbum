@@ -1,5 +1,13 @@
 # Kartenalbum – Änderungen
 
+## Version 1.29 · 05.11.2026
+- Neue Tab-Überschriften: großer Titel mit dezentem Verlauf, beim Scrollen schmale Leiste oben
+- Orden im Detail sehen jetzt genau wie in der Übersicht aus – in 3D
+- Bilder werden dauerhaft auf dem Gerät gespeichert (Einstellungen → Speicher)
+- Größeres Set-Logo, Lücke über der Set-Leiste behoben
+- Vorschläge für persönliche Alben einklappbar
+- Pokédex: Auswahl „Karte hinzufügen“ entfernt
+
 ## Version 1.28 · 05.11.2026
 - Persönliche Alben: nach Pokémon, Seltenheit, Typ, Familie, Trainer oder frei – mit Vorschlägen beim Anlegen
 - Karten im Karten-Sheet zu freien Alben hinzufügen
