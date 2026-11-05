@@ -1,5 +1,9 @@
 # Kartenalbum – Änderungen
 
+## Version 1.30 · 05.11.2026
+- Verlauf der Tab-Überschrift reicht bis unter die Statusleiste – keine harte Kante mehr
+- Schmale Titelleiste beim Scrollen höher, Zahnrad nicht mehr abgeschnitten
+
 ## Version 1.29 · 05.11.2026
 - Neue Tab-Überschriften: großer Titel mit dezentem Verlauf, beim Scrollen schmale Leiste oben
 - Orden im Detail sehen jetzt genau wie in der Übersicht aus – in 3D

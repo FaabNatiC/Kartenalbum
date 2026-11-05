@@ -208,9 +208,10 @@ dialog::backdrop{background:rgba(10,14,24,.55)}
 :root[data-theme="dark"]{--hbg:#26304a}
 body.nobar #head{margin:calc(-1 * (env(safe-area-inset-top,0px) + 18px)) calc(-1 * max(16px,env(safe-area-inset-right,0px))) 0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:calc(env(safe-area-inset-top,0px) + 18px) max(16px,env(safe-area-inset-right,0px)) 14px max(16px,env(safe-area-inset-left,0px));background:linear-gradient(180deg,var(--hbg) 0%,color-mix(in srgb,var(--hbg) 45%,var(--bg)) 55%,var(--bg) 100%)}
 body.nobar #head .hrow{margin-bottom:12px}
-.tbar{position:fixed;left:0;right:0;top:0;z-index:26;display:flex;align-items:center;justify-content:center;padding:calc(env(safe-area-inset-top,0px) + 6px) 56px 8px;background:var(--bar);-webkit-backdrop-filter:saturate(1.6) blur(16px);backdrop-filter:saturate(1.6) blur(16px);border-bottom:1px solid var(--line);font:700 17px var(--f-body);color:var(--ink);transform:translateY(-110%);transition:transform .22s ease;pointer-events:none}
+@media (max-width:899px){body.nobar::before{background:var(--hbg);transition:background .2s}body.nobar.tbon::before{background:transparent}}
+.tbar{position:fixed;left:0;right:0;top:0;z-index:26;display:flex;align-items:center;justify-content:center;padding:calc(env(safe-area-inset-top,0px) + 10px) 60px 10px;line-height:24px;background:var(--bar);-webkit-backdrop-filter:saturate(1.6) blur(16px);backdrop-filter:saturate(1.6) blur(16px);border-bottom:1px solid var(--line);font:700 17px var(--f-body);color:var(--ink);transform:translateY(-110%);transition:transform .22s ease;pointer-events:none}
 .tbar.show{transform:none;pointer-events:auto}
-.tbar .gearbtn{position:absolute;right:max(12px,env(safe-area-inset-right,0px));bottom:4px;width:34px;height:34px;box-shadow:none;background:var(--pocket)}
+.tbar .gearbtn{position:absolute;right:max(12px,env(safe-area-inset-right,0px));top:calc(env(safe-area-inset-top,0px) + 5px);width:34px;height:34px;overflow:visible;box-shadow:none;background:var(--pocket)}
 @media (min-width:900px){.tbar{display:none}body.nobar #head{margin-top:-32px;padding-top:32px;margin-left:-36px;margin-right:-36px;padding-left:36px;padding-right:36px}}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--sil:brightness(0) invert(1);--silo:.2}}
 :root[data-theme="dark"]{--sil:brightness(0) invert(1);--silo:.2}
@@ -989,6 +990,7 @@ const CONDS = ["Mint","Near Mint","Excellent","Good","Light Played","Played","Po
 
 /* ---------- Änderungsprotokoll ---------- */
 const CHANGELOG = [
+  {v:"1.30", d:"2026-11-05", items:["Verlauf der Tab-Überschrift reicht bis unter die Statusleiste – keine harte Kante mehr","Schmale Titelleiste beim Scrollen höher, Zahnrad nicht mehr abgeschnitten"]},
   {v:"1.29", d:"2026-11-05", items:["Neue Tab-Überschriften: großer Titel mit dezentem Verlauf, beim Scrollen schmale Leiste oben","Orden im Detail sehen jetzt genau wie in der Übersicht aus – in 3D","Bilder werden dauerhaft auf dem Gerät gespeichert (Einstellungen → Speicher)","Größeres Set-Logo, Lücke über der Set-Leiste behoben","Vorschläge für persönliche Alben einklappbar","Pokédex: Auswahl „Karte hinzufügen“ entfernt"]},
   {v:"1.28", d:"2026-11-05", items:["Persönliche Alben: nach Pokémon, Seltenheit, Typ, Familie, Trainer oder frei – mit Vorschlägen beim Anlegen","Karten im Karten-Sheet zu freien Alben hinzufügen","Orden-Sheet: Karte nur ansehen statt Sprung ins Set, fehlende Karten ausgegraut","3D-Orden drehen flüssig mit Schwung"]},
   {v:"1.27", d:"2026-11-05", items:["Orden als echtes 3D-Objekt im Detail – drehen, Schwung, Rückseite mit Gravur","Neuer Orden-Stil: Metallrahmen, Akzentring, Emaille und Motiv in Element-Farbe","Orden-Sheet: deine beitragenden Karten mit Bild, Karten und Pokémon antippbar","Deutsche Namen für viele japanische Trainer- und Energiekarten sowie für Gym-Karten (z. B. Rockos Onix)","Unterseiten ohne Kopfzeile mit schwebenden Knöpfen, Set-Logo ganz oben","Zahnrad in der Kopfzeile, „+“ zum Album anlegen neben der Suche","Portfolio: Ausreißer ausgeblendet, „<1 %“ bei kleinen Anteilen"]},
@@ -1372,6 +1374,9 @@ function updTbar(){
   const show = on && h1 && h1.getBoundingClientRect().bottom < 4;
   if(show) $("#tbar-t").textContent = h1.textContent;
   tb.classList.toggle("show", !!show); tb.setAttribute("aria-hidden", String(!show));
+  document.body.classList.toggle("tbon", !!show);
+  const top = on && !show ? getComputedStyle(document.documentElement).getPropertyValue("--hbg").trim() : getComputedStyle(document.documentElement).getPropertyValue("--bg").trim();
+  if(top && top !== updTbar.last){ updTbar.last = top; document.querySelectorAll('meta[name="theme-color"]').forEach(m=>{ m.removeAttribute("media"); m.setAttribute("content", top); }); }
 }
 window.addEventListener("scroll", ()=>requestAnimationFrame(updTbar), {passive:true});
 function placeGear(){
@@ -2518,6 +2523,7 @@ function applyTheme(){
   const dark = th==="dark" || (th==="auto" && matchMedia("(prefers-color-scheme: dark)").matches);
   document.querySelectorAll('meta[name="theme-color"]').forEach(m=>{ m.removeAttribute("media"); m.setAttribute("content", dark ? "#0e121b" : "#e8ebf1"); });
   document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]')?.setAttribute("content", dark ? "black" : "default");
+  updTbar.last = null; if(typeof updTbar === "function") requestAnimationFrame(updTbar);
 }
 matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", applyTheme);
 const TIPS = [
