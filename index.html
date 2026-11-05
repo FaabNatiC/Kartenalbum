@@ -616,9 +616,17 @@ button.achp{border:0;font:600 12.5px var(--f-body);cursor:pointer}
 .achcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:8px}
 .achc{border:0;padding:0;background:var(--pocket);border-radius:6px;overflow:hidden;aspect-ratio:63/88;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.2)}
 .achc .cimg{width:100%;height:100%;object-fit:cover;display:block}
+.achc.miss .cimg{filter:grayscale(1);opacity:.4}
 .mrot canvas{width:100%!important;height:100%!important;display:block}
 .achp.have{background:color-mix(in srgb,#2f8a4e 18%,var(--page));color:#2f8a4e}
 .achp small{font-weight:500;opacity:.8}
+.pbadge.pers{background:linear-gradient(135deg,#d9c4f2,#8d6bc4 60%,#6a4fa8);color:#fff}
+.pcover .logo-t{color:#6a4fa8;font-size:17px}
+.pthumb{overflow:hidden;border-radius:4px;width:40px;height:56px;margin:0 12px}.pthumb .cimg{width:100%;height:100%;object-fit:cover}
+.prow.pers{grid-template-columns:44px minmax(0,1fr) auto}.prow.pers small{display:block;color:var(--muted);font-size:12px}
+.prow.pers .plogo{width:44px;height:44px;display:grid;place-items:center}.pdex{width:44px;height:44px;object-fit:contain}
+.phead{display:grid;justify-items:center;text-align:center;gap:4px}.ph1{font-size:clamp(24px,6vw,32px);margin:0 70px}
+.phead .hint{margin:0}
 .achhead{display:grid;gap:6px;margin-top:10px}
 .achhead>b{font:800 30px var(--f-num)}.achhead>b small{font:600 15px var(--f-body);color:var(--muted)}
 .achhead .hint{margin:0}
@@ -894,7 +902,7 @@ button.tab{border:0;background:none;padding:0;cursor:pointer;width:100%;font:600
   <div class="sheet-scroll"><div class="dlg">
     <div class="dlg-x"><button class="x" type="button" data-sheet-close aria-label="Schließen">×</button></div>
     <h2 class="sh-t" id="p-title">Album anlegen</h2>
-    <div class="seg" role="group" aria-label="Sets" id="p-lang" style="margin-top:0"><button type="button" data-pl="int" aria-pressed="true">Deutsch / Englisch</button><button type="button" data-pl="ja" aria-pressed="false">Japanisch</button></div>
+    <div class="seg" role="group" aria-label="Sets" id="p-lang" style="margin-top:0"><button type="button" data-pl="int" aria-pressed="true">Deutsch / Englisch</button><button type="button" data-pl="ja" aria-pressed="false">Japanisch</button><button type="button" data-pl="pers" aria-pressed="false">Persönlich</button></div>
     <input class="field" id="p-q" type="search" placeholder="Set suchen, z. B. Stellarkrone oder SCR" autocomplete="off">
     <div class="plist" id="p-list"></div>
   </div></div>
@@ -963,6 +971,7 @@ const CONDS = ["Mint","Near Mint","Excellent","Good","Light Played","Played","Po
 
 /* ---------- Änderungsprotokoll ---------- */
 const CHANGELOG = [
+  {v:"1.28", d:"2026-11-05", items:["Persönliche Alben: nach Pokémon, Seltenheit, Typ, Familie, Trainer oder frei – mit Vorschlägen beim Anlegen","Karten im Karten-Sheet zu freien Alben hinzufügen","Orden-Sheet: Karte nur ansehen statt Sprung ins Set, fehlende Karten ausgegraut","3D-Orden drehen flüssig mit Schwung"]},
   {v:"1.27", d:"2026-11-05", items:["Orden als echtes 3D-Objekt im Detail – drehen, Schwung, Rückseite mit Gravur","Neuer Orden-Stil: Metallrahmen, Akzentring, Emaille und Motiv in Element-Farbe","Orden-Sheet: deine beitragenden Karten mit Bild, Karten und Pokémon antippbar","Deutsche Namen für viele japanische Trainer- und Energiekarten sowie für Gym-Karten (z. B. Rockos Onix)","Unterseiten ohne Kopfzeile mit schwebenden Knöpfen, Set-Logo ganz oben","Zahnrad in der Kopfzeile, „+“ zum Album anlegen neben der Suche","Portfolio: Ausreißer ausgeblendet, „<1 %“ bei kleinen Anteilen"]},
   {v:"1.26", d:"2026-11-05", items:["Einstellungen über das Zahnrad oben rechts, „Mehr“ zeigt nur noch die weiteren Bereiche","Alben: Ansicht-Umschalter direkt neben der Suche","106 Orden im neuen 3D-Stil – in Gruppen: Sammlung, Trainer Kanto und Johto, Legendäre, Familien, Typ-Trainer","Orden im Detail drehen und umdrehen, mit Liste der benötigten Pokémon","Portfolio: internationale Karten mit deutschem Namen klein dazu"]},
   {v:"1.25", d:"2026-11-05", items:["Neuer Bereich „Erfolge“ mit eigenen Orden für alle 19 Erfolge – mit Metallglanz und Animation beim Freischalten","Tipp auf einen Orden: Erklärung, dein Stand, nächste Stufe und Freischaltdatum","Suche im Alben-Tab nach Name, Kürzel oder Serie","Promo-Alben mit goldenem „PROMO“-Badge","Alte Alben ohne Sprache sind jetzt deutsche Alben – mit Flagge und nur deutschen Karten"]},
@@ -1248,6 +1257,7 @@ function jumpToSet(setId, num){
 function goBack(){
   if(view.name==="pset"){ go("portfolio"); return; }
   if(view.name==="einstellungen"){ go(setFrom || "regal"); return; }
+  if(view.name==="palb"){ go("regal"); return; }
   if(view.name!=="set") return;
   if(backTo && backTo.setId===view.set.id){ const b = backTo; backTo = null; restore = {y:b.y, reopen:b.reopen, picker:b.picker}; go(b.hash); }
   else go("regal");
@@ -1276,6 +1286,7 @@ function route(){
   else if(h==="wunsch") view={name:"wunsch"};
   else if(h==="portfolio") view={name:"portfolio"};
   else if(h==="erfolge") view={name:"erfolge"};
+  else if(h.startsWith("palb-") && albums.some(a=>a.kind==="p" && a.id===h.slice(5))){ const pa = albums.find(a=>a.id===h.slice(5)); if(view?.alb?.id!==pa.id){ pQ = ""; } view={name:"palb", alb:pa}; }
   else if(h==="einstellungen"){ if(view && view.name!=="einstellungen") setFrom = location.hash && view.name!=="set" ? (view.name==="pset" ? "portfolio" : view.name==="regal" ? "regal" : view.name) : "regal"; view={name:"einstellungen"}; }
   else if(h.startsWith("portfolio-") && SLUG.has(h.slice(10))){ const ps = SLUG.get(h.slice(10)); if(!view || view.name!=="pset" || view.set!==ps) psLang = "all"; view={name:"pset", set:ps}; }
   else if(h.startsWith("set-") && SLUG.has(h.slice(4).split("~")[0])){ const [sl, lg] = h.slice(4).split("~"); view={name:"set", set:SLUG.get(sl), lang: LANGNAME[lg] ? lg : null}; }
@@ -1296,23 +1307,25 @@ function route(){
 const go = h => { if(location.hash.slice(1)===h) route(); else location.hash = h; };
 
 function render(){
-  const tab = view.name==="set" ? "regal" : view.name==="pset" ? "portfolio" : view.name;
+  const tab = view.name==="set" || view.name==="palb" ? "regal" : view.name==="pset" ? "portfolio" : view.name;
   recordValue(); setTimeout(checkAch, 0);
   const ss = $("#side-sum"); if(ss){ const n = sum(cards,qtyOf); ss.innerHTML = `<small>Sammlung</small><b>${n.toLocaleString("de-DE")} ${n===1?"Karte":"Karten"}</b><span>${eur(sum(cards,valOf))} <i class="sgo">Portfolio ›</i></span>`; }
-  document.body.classList.toggle("nobar", !["set","pset","einstellungen"].includes(view.name));
-  document.body.classList.toggle("floatbar", ["set","pset","einstellungen"].includes(view.name));
+  document.body.classList.toggle("nobar", !["set","pset","einstellungen","palb"].includes(view.name));
+  document.body.classList.toggle("floatbar", ["set","pset","einstellungen","palb"].includes(view.name));
   document.body.dataset.view = view.name;
   applyTabs();
   document.body.classList.toggle("scrolled", view.name==="set" && window.scrollY > 6);
   document.querySelectorAll(".tab").forEach(a=>{ if(a.dataset.tab===tab) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
   const gr = GEAR; gr.querySelector(".dot")?.remove();
   if(LS.raw("pk-seen") !== APP_VERSION && view.name!=="einstellungen") gr.insertAdjacentHTML("beforeend",'<span class="dot"></span>');
-  const backLbl = view.name==="set" ? (backTo && backTo.setId===view.set.id ? VIEW_LBL[backTo.view] || "Zurück" : "Alben") : view.name==="pset" ? "Portfolio" : view.name==="einstellungen" ? (VIEW_LBL[setFrom] || "Zurück") : "";
+  const backLbl = view.name==="set" ? (backTo && backTo.setId===view.set.id ? VIEW_LBL[backTo.view] || "Zurück" : "Alben") : view.name==="pset" ? "Portfolio" : view.name==="einstellungen" ? (VIEW_LBL[setFrom] || "Zurück") : view.name==="palb" ? "Alben" : "";
   $("#bar-left").innerHTML = backLbl ? `<button class="bar-back" type="button" id="back-btn">${SVG_L}${esc(backLbl)}</button>` : "";
   $("#back-btn")?.addEventListener("click", goBack);
   const showMore = view.name==="set" && (albums.some(a=>a.setId===view.set.id) || cards.some(c=>c.setId===view.set.id && qtyOf(c)));
-  $("#bar-right").innerHTML = view.name==="set" ? `<span class="bar-r">${showMore ? `<button class="bar-more" type="button" id="more-btn" aria-label="Album-Optionen">•••</button>` : ""}</span>` : "";
+  if(view.name==="palb"){ $("#bar-right").innerHTML = `<span class="bar-r"><button class="bar-more" type="button" id="pmore-btn" aria-label="Album-Optionen">•••</button></span>`; }
+  else $("#bar-right").innerHTML = view.name==="set" ? `<span class="bar-r">${showMore ? `<button class="bar-more" type="button" id="more-btn" aria-label="Album-Optionen">•••</button>` : ""}</span>` : "";
   $("#more-btn")?.addEventListener("click", ()=>openAlbumMenu(view.set, view.lang));
+  $("#pmore-btn")?.addEventListener("click", ()=>openPMenu(view.alb));
   if(view.name==="dex") renderDex();
   else if(view.name==="set") renderSet(view.set);
   else if(view.name==="suche") renderSearch();
@@ -1321,6 +1334,7 @@ function render(){
   else if(view.name==="wunsch") renderWish();
   else if(view.name==="portfolio") renderPortfolio();
   else if(view.name==="erfolge") renderAch();
+  else if(view.name==="palb") renderPAlbum(view.alb);
   else if(view.name==="pset") renderPSet(view.set);
   else renderShelf();
   if(ctx && $("#dlg").open) renderDialog();
@@ -1343,7 +1357,7 @@ function renderShelf(){
   $("#bar-title").textContent = "Alben";
   const lv = settings.shelf==="list";
   $("#head").innerHTML = `<h1>Pokémon <span>Kartenalbum</span></h1>
-    <div class="stats"><div class="stat"><small>Karten</small><b>${sum(cards,qtyOf)}</b></div><button class="stat statbtn" type="button" id="open-stats" aria-label="Portfolio öffnen"><small>Sammlungswert ›</small><b>${eur(sum(cards,valOf))}</b></button><div class="stat"><small>Alben</small><b>${shelfAlbums().length}</b></div></div>`;
+    <div class="stats"><div class="stat"><small>Karten</small><b>${sum(cards,qtyOf)}</b></div><button class="stat statbtn" type="button" id="open-stats" aria-label="Portfolio öffnen"><small>Sammlungswert ›</small><b>${eur(sum(cards,valOf))}</b></button><div class="stat"><small>Alben</small><b>${shelfAlbums().length + persAlbums().length}</b></div></div>`;
   if(!$("#aq")){
     $("#tools").innerHTML = `<div class="aqrow"><div class="qwrap aqwrap"><input class="field" id="aq" type="search" inputmode="search" placeholder="Alben durchsuchen" autocomplete="off" autocorrect="off" enterkeyhint="search" value="${esc(shelfQ)}"><button class="qclr" type="button" id="aq-clr" aria-label="Suche leeren" ${shelfQ?"":"hidden"}>×</button></div><div class="vtog" role="group" aria-label="Ansicht"><button type="button" data-shelf="grid" aria-pressed="${!lv}" aria-label="Raster">${ICON_GRID}</button><button type="button" data-shelf="list" aria-pressed="${lv}" aria-label="Liste">${ICON_LIST}</button></div><button class="addbtn" type="button" id="add-top" aria-label="Album anlegen">+<span>Album anlegen</span></button></div>`;
     $("#add-top").addEventListener("click", openPicker);
@@ -1357,13 +1371,15 @@ let shelfQ = "";
 function renderShelfView(){
   const lv = settings.shelf==="list", q = shelfQ.trim().toLowerCase();
   const list = shelfAlbums().filter(({s})=>!q || [s.de, s.en, s.jn, s.abbr, s.serie, s.id].some(x=>x && String(x).toLowerCase().includes(q)));
+  const plist = persAlbums().filter(a=>!q || persName(a).toLowerCase().includes(q));
   let html;
-  if(q && !list.length) html = `<p class="empty">Kein Album passt zu „${esc(shelfQ.trim())}“.</p>`;
-  else if(lv){ html = `<div class="alist">${list.map(({s, lang})=>rowHTML(s, lang)).join("")}<button class="arow add" type="button" id="add-album"><b>+</b><span>Album anlegen</span></button></div>`; }
-  else { html = `<div class="shelf">`; for(const {s, lang} of list) html += coverHTML(s, lang); html += `<button class="cover add" type="button" id="add-album"><b>+</b><span>Album anlegen</span></button></div>`; }
+  if(q && !list.length && !plist.length) html = `<p class="empty">Kein Album passt zu „${esc(shelfQ.trim())}“.</p>`;
+  else if(lv){ html = `<div class="alist">${plist.map(prowHTML).join("")}${list.map(({s, lang})=>rowHTML(s, lang)).join("")}<button class="arow add" type="button" id="add-album"><b>+</b><span>Album anlegen</span></button></div>`; }
+  else { html = `<div class="shelf">` + plist.map(pcoverHTML).join(""); for(const {s, lang} of list) html += coverHTML(s, lang); html += `<button class="cover add" type="button" id="add-album"><b>+</b><span>Album anlegen</span></button></div>`; }
   $("#view").innerHTML = html;
   $("#add-album")?.addEventListener("click", openPicker);
   $("#view").querySelectorAll("[data-amenu]").forEach(b=>b.addEventListener("click", ()=>{ const [sid, lg] = b.dataset.amenu.split("~"); openAlbumMenu(SET.get(sid), lg || null); }));
+  $("#view").querySelectorAll("[data-pmenu]").forEach(b=>b.addEventListener("click", ()=>openPMenu(albums.find(a=>a.id===b.dataset.pmenu))));
 }
 function bindShelfHead(){
   $("#head").querySelectorAll("[data-shelf]").forEach(b=>b.addEventListener("click", ()=>{ settings.shelf = b.dataset.shelf; LS.set("pk-settings", settings); render(); }));
@@ -2026,6 +2042,11 @@ function renderAch(){
   $("#view").querySelectorAll("[data-achg]").forEach(b=>b.addEventListener("click", ()=>{ const g = b.dataset.achg; if(achOpen.has(g)) achOpen.delete(g); else achOpen.add(g); LS.put("pk-achopen", JSON.stringify([...achOpen])); const y = window.scrollY; renderAch(); window.scrollTo(0, y); }));
   $("#view").querySelectorAll("[data-ach]").forEach(b=>b.addEventListener("click", ()=>openAchSheet(b.dataset.ach)));
 }
+function exampleCard(d){
+  const l = (DEXCARDS.get(d) || []).map(([sid, i])=>SET.get(sid)).filter(Boolean); if(!l.length) return null;
+  const s2 = l.filter(x=>!x.ja).sort((a,b)=>(b.rel||"").localeCompare(a.rel||""))[0] || l[0];
+  const c = s2.cards.find(c=>c[7]===d); return c ? {setId:s2.id, num:c[0], miss:true} : null;
+}
 function achContrib(id, X){
   const best = new Map();
   const pick = e => { const k = e.setId+"|"+e.num; const o = best.get(k); if(!o || (+e.val||0) > (+o.val||0)) best.set(k, e); };
@@ -2054,26 +2075,31 @@ function openAchSheet(id){
   let listHTML = "";
   if(X.dex) listHTML = `<h4 class="achlh">Pokémon</h4><div class="achlist">${X.dex.map(d=>{ const h = st.dexSet.has(d); return `<button type="button" class="achp${h?" have":""}" data-dexo="${d}">${h?"✓ ":""}${esc(NAMES[d-1]||("#"+d))}</button>`; }).join("")}</div>`;
   if(X.gym){ const l = gymCards(X.gym); listHTML = `<h4 class="achlh">Karten</h4><div class="achlist">${l.map(k=>{ const [sid, num] = k.split("|"), c = cardAt(sid, num), h = st.keys.has(k); return c ? `<button type="button" class="achp${h?" have":""}" data-jump="${esc(k)}">${h?"✓ ":""}${esc(c[1] || c[2])} <small>${esc(SET.get(sid).abbr)} ${esc(num)}</small></button>` : ""; }).join("")}</div>`; }
-  const contrib = achContrib(id, X), cards12 = contrib.slice(0, X.dex || X.gym ? 60 : 12);
-  const cardsHTML = contrib.length ? `<h4 class="achlh">Deine Karten <small>${contrib.length}</small></h4><div class="achcards">${cards12.map(e=>{ const s2 = SET.get(e.setId), c = cardAt(e.setId, e.num); return c ? `<button type="button" class="achc" data-jump="${esc(e.setId)}|${esc(e.num)}" aria-label="${esc(cName(c))}, ${esc(s2.abbr)} ${esc(e.num)}">${cimg(s2, e.num, "low", "cimg", e.lang)}</button>` : ""; }).join("")}</div>${contrib.length > cards12.length ? `<p class="hint" style="margin:0">+ ${contrib.length - cards12.length} weitere</p>` : ""}` : "";
+  const contrib = achContrib(id, X);
+  let gridItems, extra = 0;
+  if(X.gym){ const own = new Map(contrib.map(e=>[e.setId+"|"+e.num, e])); gridItems = gymCards(X.gym).map(k=>{ const [sid, num] = k.split("|"); return own.get(k) || {setId:sid, num, miss:true}; }); listHTML = ""; }
+  else if(X.dex){ const per = new Map(); for(const e of contrib){ const c = cardAt(e.setId, e.num); per.set((c && c[7]) || +e.dex, e); } gridItems = X.dex.map(d=>per.get(d) || exampleCard(d)).filter(Boolean); }
+  else { gridItems = contrib.slice(0, 12); extra = contrib.length - gridItems.length; }
+  const nOwn = gridItems.filter(e=>!e.miss).length;
+  const cardsHTML = gridItems.length ? `<h4 class="achlh">${X.gym || X.dex ? "Karten" : "Deine Karten"} <small>${X.gym || X.dex ? nOwn + " / " + gridItems.length : contrib.length}</small></h4><div class="achcards">${gridItems.map(e=>{ const s2 = SET.get(e.setId), c = cardAt(e.setId, e.num); return c ? `<button type="button" class="achc${e.miss?" miss":""}" data-cview="${esc(e.setId)}|${esc(e.num)}" aria-label="${esc(cName(c))}, ${esc(s2.abbr)} ${esc(e.num)}${e.miss?", fehlt":""}">${cimg(s2, e.num, "low", "cimg", e.lang)}</button>` : ""; }).join("")}</div>${extra > 0 ? `<p class="hint" style="margin:0">+ ${extra} weitere</p>` : ""}` : "";
   $("#ws-body").innerHTML = `<div class="achtop${done?"":" lock"}"><div class="mrot" id="mrot"><div class="mcoin" id="mcoin"><div class="mface mfront">${medalSVG(id, !done)}</div><div class="mface mback"><div class="mbackc"><small>KARTENALBUM</small><b>${esc(a[1])}</b><span>${done ? `verdient am<br>${deDate(ach[id])}` : "noch nicht<br>verdient"}</span></div></div></div></div>
       <h3 class="achname">${esc(a[1])}</h3><p class="achst">${done ? `Freigeschaltet am ${deDate(ach[id])}` : "Noch nicht freigeschaltet"}</p><p class="hint achhint">Ziehen zum Drehen · Doppeltippen zum Umdrehen${isMouse() ? "" : ` · <button class="lnk" type="button" id="m-tilt">Neigung</button>`}</p></div>
     <p style="margin:0">${esc(X.expl || ACH_EXPL[id] || a[2])}</p>
     <div class="achrow"><span>Dein Stand</span><b>${achVal(id, v, g)}</b></div>${bar(v, g, done ? " ok" : "")}
     ${nxHTML}${listHTML}${cardsHTML}`;
   bindMedalRot();
-  $("#ws-body").querySelectorAll("[data-jump]").forEach(b=>b.addEventListener("click", ()=>{ const [sid, num] = b.dataset.jump.split("|"); stopMedal3D(); wishSheet.close(); jumpToSet(sid, num); }));
+  $("#ws-body").querySelectorAll("[data-cview],[data-jump]").forEach(b=>b.addEventListener("click", ()=>{ const [sid, num] = (b.dataset.cview || b.dataset.jump).split("|"); openCtx({kind:"set", setId:sid, num}); }));
   $("#ws-body").querySelectorAll("[data-dexo]").forEach(b=>b.addEventListener("click", ()=>openCtx({kind:"dex", dex:+b.dataset.dexo})));
   const host = $("#mrot"); if(host) setTimeout(()=>{ medal3D(host, id, !done, done ? deDate(ach[id]) : "").catch(()=>{}); }, 380);
   if(wishSheet.state==="closed") wishSheet.open("half"); else wishSheet.set("half");
 }
-const MR = {rx:0, ry:0, flip:0, drag:null, tilt:false, last:0};
+const MR = {rx:0, ry:0, flip:0, drag:null, tilt:false, last:0, off:false};
 function mrApply(anim){ const c = $("#mcoin"); if(!c) return; c.style.transition = anim ? "transform .6s cubic-bezier(.2,.9,.3,1.2)" : "none"; c.style.transform = `rotateX(${MR.rx}deg) rotateY(${MR.ry + MR.flip}deg)`; const g = $("#mgloss"); if(g) g.style.backgroundPosition = `${50 - MR.ry*1.4}% ${50 + MR.rx*1.4}%`; }
 function mrOrient(e){ if(!MR.tilt || MR.drag) return; MR.rx = Math.max(-30, Math.min(30, ((e.beta||0) - 45) * .8)); MR.ry = Math.max(-35, Math.min(35, (e.gamma||0) * 1.1)); mrApply(false); }
 function bindMedalRot(){
-  const el = $("#mrot"); if(!el) return; MR.rx = 0; MR.ry = 0; MR.flip = 0; mrApply(false);
+  const el = $("#mrot"); if(!el) return; MR.rx = 0; MR.ry = 0; MR.flip = 0; MR.off = false; mrApply(false);
   ["touchstart","touchmove"].forEach(t=>el.addEventListener(t, e=>e.stopPropagation(), {passive:true}));
-  el.addEventListener("pointerdown", e=>{ el.setPointerCapture(e.pointerId); MR.drag = {x:e.clientX, y:e.clientY, rx:MR.rx, ry:MR.ry, t:performance.now(), lx:e.clientX, lt:performance.now(), vx:0}; });
+  el.addEventListener("pointerdown", e=>{ if(MR.off) return; el.setPointerCapture(e.pointerId); MR.drag = {x:e.clientX, y:e.clientY, rx:MR.rx, ry:MR.ry, t:performance.now(), lx:e.clientX, lt:performance.now(), vx:0}; });
   el.addEventListener("pointermove", e=>{ const d = MR.drag; if(!d) return; const now = performance.now(); d.vx = (e.clientX - d.lx) / Math.max(1, now - d.lt); d.lx = e.clientX; d.lt = now; MR.ry = d.ry + (e.clientX - d.x) * .7; MR.rx = Math.max(-40, Math.min(40, d.rx - (e.clientY - d.y) * .6)); mrApply(false); });
   const end = e => { const d = MR.drag; if(!d) return; MR.drag = null; const now = performance.now(), moved = Math.abs(e.clientX - d.x) + Math.abs(e.clientY - d.y);
     if(Math.abs(d.vx) > .9) MR.flip += d.vx > 0 ? 180 : -180;
@@ -2130,7 +2156,7 @@ async function medal3D(host, id, locked, achDate){
   const m = ACHX[id]?.medal || ["circle","silver","star"], [shape, pk, obj, arg] = m, kind = obj==="gymcard" ? arg : obj;
   const [mc, mr] = MET3[locked ? "locked" : pk] || MET3.silver, acc = locked ? ["#8b9098","#d6d9dd","#7d838a"] : accOf(m);
   const W = host.clientWidth || 230, H = host.clientHeight || W;
-  const R = new T.WebGLRenderer({antialias:true, alpha:true}); R.setPixelRatio(Math.min(2, devicePixelRatio)); R.setSize(W, H); R.outputEncoding = T.sRGBEncoding; R.toneMapping = T.LinearToneMapping;
+  const R = new T.WebGLRenderer({antialias:true, alpha:true}); R.setPixelRatio(Math.min(1.5, devicePixelRatio)); R.setSize(W, H); R.outputEncoding = T.sRGBEncoding; R.toneMapping = T.LinearToneMapping;
   const sc = new T.Scene(), cam = new T.PerspectiveCamera(30, W/H, 1, 600); cam.position.set(0, 0, 250);
   const cv = document.createElement("canvas"); cv.width = 512; cv.height = 256; const g = cv.getContext("2d"); const gr = g.createLinearGradient(0,0,0,256); gr.addColorStop(0,"#ffffff"); gr.addColorStop(.45,"#8d949c"); gr.addColorStop(.55,"#2a2e33"); gr.addColorStop(1,"#0c0d0f"); g.fillStyle = gr; g.fillRect(0,0,512,256); g.fillStyle = "rgba(255,255,255,.9)"; g.fillRect(60,40,90,30); g.fillRect(330,60,120,24); g.fillRect(200,150,60,12);
   const tx = new T.CanvasTexture(cv); tx.mapping = T.EquirectangularReflectionMapping; const pm = new T.PMREMGenerator(R); const envT = pm.fromEquirectangular(tx).texture; sc.environment = envT;
@@ -2146,14 +2172,14 @@ async function medal3D(host, id, locked, achDate){
   const outer = toV(o), inner = toV(inn), mid = toV(inn, 1.08);
   const grp = new T.Group();
   const add = (geo, mat, z) => { const me = new T.Mesh(geo, mat); me.position.z = z; grp.add(me); return me; };
-  add(new T.ExtrudeGeometry(ring(outer, mid), {depth:8, bevelEnabled:true, bevelThickness:5, bevelSize:4, bevelSegments:6, curveSegments:24}), metal(mc, mr), -4);
+  add(new T.ExtrudeGeometry(ring(outer, mid), {depth:8, bevelEnabled:true, bevelThickness:5, bevelSize:4, bevelSegments:3, curveSegments:16}), metal(mc, mr), -4);
   add(new T.ExtrudeGeometry(ring(toV(inn, 1.12), inner), {depth:3, bevelEnabled:false}), lack(acc[0]), 4);
   const plateMat = lack(locked ? acc[1] : mixC(acc[1], acc[0], .4));
   if(locked){ const c2 = document.createElement("canvas"); c2.width = c2.height = 256; const q = c2.getContext("2d"); q.fillStyle = acc[1]; q.fillRect(0,0,256,256); q.fillStyle = "#6b7078"; q.font = "800 150px system-ui,sans-serif"; q.textAlign = "center"; q.textBaseline = "middle"; q.fillText("?", 128, 140); const t2 = new T.CanvasTexture(c2); t2.encoding = T.sRGBEncoding; plateMat.map = t2; plateMat.color = new T.Color(0xffffff); }
   const plateGeo = new T.ExtrudeGeometry(pshape(inner), {depth:4, bevelEnabled:true, bevelThickness:1.5, bevelSize:1.5, bevelSegments:2});
   if(locked){ plateGeo.computeBoundingBox(); const bb = plateGeo.boundingBox, uv = plateGeo.attributes.uv, pos = plateGeo.attributes.position; for(let i=0;i<uv.count;i++) uv.setXY(i, (pos.getX(i)-bb.min.x)/(bb.max.x-bb.min.x), (pos.getY(i)-bb.min.y)/(bb.max.y-bb.min.y)); }
   add(plateGeo, plateMat, -2);
-  if(!locked){ const inr = Math.min(...inner.map((a,i)=>{ const b2 = inner[(i+1)%inner.length], dx = b2[0]-a[0], dy = b2[1]-a[1]; return Math.abs(a[0]*dy - a[1]*dx) / Math.hypot(dx, dy); })), sc2 = Math.min(1.1, Math.max(.5, inr / 27)); for(const shp of emb3(T, kind)){ if(!shp) continue; const me = add(new T.ExtrudeGeometry(shp, {depth:6, bevelEnabled:true, bevelThickness:3, bevelSize:2.2, bevelSegments:5, curveSegments:28}), matt(acc[2]), 3); me.scale.set(sc2, sc2, 1); } }
+  if(!locked){ const inr = Math.min(...inner.map((a,i)=>{ const b2 = inner[(i+1)%inner.length], dx = b2[0]-a[0], dy = b2[1]-a[1]; return Math.abs(a[0]*dy - a[1]*dx) / Math.hypot(dx, dy); })), sc2 = Math.min(1.1, Math.max(.5, inr / 27)); for(const shp of emb3(T, kind)){ if(!shp) continue; const me = add(new T.ExtrudeGeometry(shp, {depth:6, bevelEnabled:true, bevelThickness:3, bevelSize:2.2, bevelSegments:3, curveSegments:16}), matt(acc[2]), 3); me.scale.set(sc2, sc2, 1); } }
   // Rückseite mit Gravur
   const c3 = document.createElement("canvas"); c3.width = c3.height = 512; const b = c3.getContext("2d"); const bg = b.createRadialGradient(200,180,20,256,256,300); bg.addColorStop(0,"#ffffff"); bg.addColorStop(1,"#9aa2ab"); b.fillStyle = bg; b.fillRect(0,0,512,512); b.fillStyle = "#3a4048"; b.textAlign = "center"; b.font = "700 30px system-ui,sans-serif"; b.fillText("KARTENALBUM", 256, 170);
   const nm = (ACH.find(a=>a[0]===id)||[])[1] || ""; b.font = "800 46px system-ui,sans-serif"; const words = nm.split(" "), lines = []; let ln = ""; for(const w of words){ if(b.measureText((ln+" "+w).trim()).width > 380 && ln){ lines.push(ln); ln = w; } else ln = (ln+" "+w).trim(); } lines.push(ln); lines.forEach((l,i)=>b.fillText(l, 256, 250 + i*54));
@@ -2162,15 +2188,25 @@ async function medal3D(host, id, locked, achDate){
   const backGeo = new T.ShapeGeometry(pshape(outer)); backGeo.computeBoundingBox(); { const bb = backGeo.boundingBox, uv = backGeo.attributes.uv, pos = backGeo.attributes.position; for(let i=0;i<uv.count;i++) uv.setXY(i, 1-(pos.getX(i)-bb.min.x)/(bb.max.x-bb.min.x), (pos.getY(i)-bb.min.y)/(bb.max.y-bb.min.y)); }
   const back = new T.Mesh(backGeo, new T.MeshStandardMaterial({map:t3, metalness:.6, roughness:.35, envMapIntensity:1})); back.position.z = -9.2; back.rotation.y = Math.PI; grp.add(back);
   sc.add(grp); host.innerHTML = ""; host.appendChild(R.domElement); R.domElement.style.touchAction = "none";
-  let ry = -.5, rx = .12, vy = .006, tgt = null, drag = null, lastTap = 0, raf = 0, alive = true;
+  MR.off = true;
+  let ry = -.5, rx = .12, vy = .006, vx = 0, tgt = null, drag = null, lastTap = 0, raf = 0, alive = true, tRy = ry, tRx = rx;
   const el = R.domElement;
-  ["touchstart","touchmove"].forEach(t=>el.addEventListener(t, e=>e.stopPropagation(), {passive:true}));
-  el.addEventListener("pointerdown", e=>{ el.setPointerCapture(e.pointerId); drag = {x:e.clientX, y:e.clientY, ry, rx, t:performance.now()}; tgt = null; });
-  el.addEventListener("pointermove", e=>{ if(!drag) return; const n = drag.ry + (e.clientX-drag.x)*.012; vy = n - ry; ry = n; rx = Math.max(-.7, Math.min(.7, drag.rx + (e.clientY-drag.y)*.01)); });
-  const up = e => { if(!drag) return; const moved = Math.abs(e.clientX-drag.x) + Math.abs(e.clientY-drag.y); drag = null; if(moved < 6){ const now = performance.now(); if(now - lastTap < 320){ tgt = ry + Math.PI; lastTap = 0; } else lastTap = now; } vy = Math.max(-.09, Math.min(.09, vy)) || .006; };
+  ["touchstart","touchmove"].forEach(t=>el.addEventListener(t, e=>{ e.stopPropagation(); if(t==="touchmove") e.preventDefault(); }, {passive:false}));
+  el.addEventListener("pointerdown", e=>{ e.stopPropagation(); try{ el.setPointerCapture(e.pointerId); }catch{} drag = {x:e.clientX, y:e.clientY, lx:e.clientX, ly:e.clientY, lt:performance.now(), ry:tRy, rx:tRx}; tgt = null; vy = 0; vx = 0; });
+  el.addEventListener("pointermove", e=>{ if(!drag) return; const now = performance.now(), dt = Math.max(8, now - drag.lt);
+    tRy = drag.ry + (e.clientX - drag.x) * .013; tRx = Math.max(-.8, Math.min(.8, drag.rx + (e.clientY - drag.y) * .011));
+    vy = vy*.5 + ((e.clientX - drag.lx) * .013 / dt * 16) * .5; drag.lx = e.clientX; drag.ly = e.clientY; drag.lt = now; });
+  const up = e => { if(!drag) return; const moved = Math.abs(e.clientX-drag.x) + Math.abs(e.clientY-drag.y); drag = null;
+    if(moved < 6){ const now = performance.now(); if(now - lastTap < 320){ tgt = Math.round(tRy / Math.PI) * Math.PI + Math.PI; lastTap = 0; } else lastTap = now; }
+    vy = Math.max(-.25, Math.min(.25, vy)); };
   el.addEventListener("pointerup", up); el.addEventListener("pointercancel", up);
   const loop = () => { if(!alive) return; if(!el.isConnected || wishSheet.state==="closed"){ stop(); return; } raf = requestAnimationFrame(loop);
-    if(!drag){ if(tgt!==null){ ry += (tgt - ry)*.12; if(Math.abs(tgt-ry) < .002){ ry = tgt; tgt = null; vy = .006; } } else if(MR.tilt){ ry += ((MR.ry*Math.PI/180) - ry)*.15; rx += ((MR.rx*Math.PI/180) - rx)*.15; } else { ry += vy; vy += (.006 - vy)*.02; rx *= .96; } }
+    if(!drag){
+      if(tgt!==null){ tRy += (tgt - tRy) * .14; if(Math.abs(tgt - tRy) < .002){ tRy = tgt; tgt = null; vy = 0; } }
+      else if(MR.tilt){ tRy = MR.ry*Math.PI/180; tRx = MR.rx*Math.PI/180; }
+      else { tRy += vy; vy *= .95; if(Math.abs(vy) < .004) vy = vy < 0 ? -.004 : .004; tRx *= .94; }
+    }
+    ry += (tRy - ry) * .45; rx += (tRx - rx) * .45;
     grp.rotation.y = ry; grp.rotation.x = rx; R.render(sc, cam); };
   const stop = () => { alive = false; cancelAnimationFrame(raf); grp.traverse(x=>{ x.geometry?.dispose(); const mt = x.material; if(mt){ mt.map?.dispose(); mt.dispose(); } }); envT.dispose(); pm.dispose(); R.dispose(); };
   M3.run = {stop}; loop(); return true;
@@ -2687,8 +2723,9 @@ function renderDialog(){
   const gtx = gradeTxt(notes[s.id+"|"+c[0]]); if(gtx) $("#d-chips").insertAdjacentHTML("beforeend", `<span class="chip grade">${esc(gtx)}</span>`);
   $("#d-meta").textContent = [s.de, c[7] ? `Pokédex #${pad4(c[7])}` : "", q ? `Wert ${eur(sum(mine,valOf))}` : ""].filter(Boolean).join(" · ");
   const wk = wishKey(s.id, c[0]), ww = wish[wk];
-  $("#d-links").innerHTML = `<a class="btn" id="d-cm" href="${cmLink(s, c, cmIdFor(s, c))}" target="_blank" rel="noopener">Bei Cardmarket ansehen ↗</a><button class="btn wishbtn" type="button" id="d-wish" aria-pressed="${!!ww}">${ww?HEART_SVG:HEART_O}${ww?`Wunschliste · ${prioLbl(ww.p)}`:"Wunschliste"}</button>`;
+  $("#d-links").innerHTML = `<a class="btn" id="d-cm" href="${cmLink(s, c, cmIdFor(s, c))}" target="_blank" rel="noopener">Bei Cardmarket ansehen ↗</a><button class="btn wishbtn" type="button" id="d-wish" aria-pressed="${!!ww}">${ww?HEART_SVG:HEART_O}${ww?`Wunschliste · ${prioLbl(ww.p)}`:"Wunschliste"}</button><button class="btn" type="button" id="d-padd">+ Zu Album</button>`;
   $("#d-wish").addEventListener("click", ()=>openPrio(s.id, c[0]));
+  $("#d-padd").addEventListener("click", ()=>openAddToAlbum(s.id, c[0]));
   renderNote(s, c);
   const key = s.id+"|"+c[0], im = $("#d-img");
   if(im.dataset.key !== key){
@@ -2813,6 +2850,105 @@ async function updatePrices(s){
   await Promise.all([worker(), worker(), worker(), worker()]);
   render();
   if(out()) out().textContent = `${keys.length - failed} Karten aktualisiert${stand ? `, Stand ${deDate(stand)}` : ""}${failed ? ` · ${failed} ohne Antwort` : ""}.`;
+}
+
+/* ---------- Persönliche Alben ---------- */
+const PRAR = [["SIR","Special Illustration Rare",["SIR"]],["IR","Illustration Rare",["IR"]],["HR","Hyper Rare",["HR","MHR"]],["SEC","Secret & Ultra Rare",["SEC","UR","SUR"]],["RR","Double Rare",["RR"]],["ACE","ACE SPEC",["ACE"]],["SR","Shiny Rare",["SR","SRV","SRVMAX"]],["RH","Holo Selten",["RH"]]];
+const persAlbums = () => albums.filter(a=>a && a.kind==="p");
+function persDef(a){
+  if(a.ptype==="dex") return {title: NAMES[a.pval-1] || ("#"+a.pval), test: c=>c[7]===a.pval, sub:"Pokémon"};
+  if(a.ptype==="rar"){ const r = PRAR.find(x=>x[0]===a.pval) || [a.pval, a.pval, [a.pval]]; return {title: r[1], test: c=>r[2].includes(c[3]), sub:"Seltenheit"}; }
+  if(a.ptype==="type") return {title: `${TYPE_TR[a.pval]?.[0] || TYPES[a.pval]?.[0] || a.pval}-Karten`, test: c=>c[4]==="P" && c[5]===a.pval, sub:"Typ"};
+  if(a.ptype==="fam" || a.ptype==="trainer"){ const X = ACHX[a.pval] || {}, nm = (ACH.find(x=>x[0]===a.pval)||[])[1] || a.pval;
+    if(X.gym){ return {title: nm.replace(/s Sammlung$/, "s Karten"), keys: ()=>new Set(gymCards(X.gym)), sub:"Trainer"}; }
+    const dex = new Set(X.dex || []); return {title: nm, test: c=>dex.has(c[7]), sub: a.ptype==="fam" ? "Familie" : "Trainer"}; }
+  return {title: "Freies Album", keys: ()=>new Set(a.cards || []), sub:"Frei"};
+}
+function persItems(a){
+  const d = persDef(a), keys = d.keys ? d.keys() : null, m = new Map();
+  for(const e of cards){ if(!e.setId || !qtyOf(e)) continue; const k = e.setId+"|"+e.num; if(keys ? !keys.has(k) : false) continue; const c = cardAt(e.setId, e.num); if(!c || (!keys && !d.test(c))) continue; if(!m.has(k)) m.set(k, {s:SET.get(e.setId), c, list:[]}); m.get(k).list.push(e); }
+  return [...m.values()];
+}
+const persName = a => a.name || persDef(a).title;
+function persStats(a){ const it = persItems(a); return {n: it.length, v: sum(it.flatMap(x=>x.list), valOf), top: it.map(x=>({...x, val: Math.max(...x.list.map(e=>+e.val||0))})).sort((x,y)=>y.val-x.val)}; }
+function pcoverHTML(a){
+  const st = persStats(a), fan = fanOrder(st.top.slice(0,3));
+  return `<a class="cover set pcover" href="#palb-${esc(a.id)}" style="--spine:#8a6d2a" aria-label="${esc(persName(a))}, ${st.n} Karten"><span class="ring2 r1" aria-hidden="true"></span><span class="ring2 r2" aria-hidden="true"></span><span class="pbadge pers">Persönlich</span>
+    <div class="fan">${fan.map((f,i)=>`<span class="fc f${i}">${cimg(f.s, f.c[0], "low", "fimg", f.list[0].lang)}</span>`).join("") || `<span class="fc f0 ghost"></span>`}</div>
+    <div class="logo"><b class="logo-t" style="display:block">${esc(persName(a))}<small>${esc(persDef(a).sub)}</small></b></div>
+    <div class="cmeta"><span>${st.n} ${st.n===1?"Karte":"Karten"}</span><span class="v">${eur(st.v)}</span></div></a>`;
+}
+function prowHTML(a){
+  const st = persStats(a), t = st.top[0];
+  return `<div class="arow" style="--spine:#8a6d2a"><a class="arow-main" href="#palb-${esc(a.id)}" aria-label="${esc(persName(a))}, ${st.n} Karten"><span class="alogo pthumb">${t ? cimg(t.s, t.c[0], "low", "cimg", t.list[0].lang) : ""}</span><span class="atx"><b>${esc(persName(a))}</b><small><i class="pbadge pers">Persönlich</i>${st.n} ${st.n===1?"Karte":"Karten"} · ${eur(st.v)}</small></span></a><button class="arow-more" type="button" data-pmenu="${esc(a.id)}" aria-label="Album-Optionen">•••</button></div>`;
+}
+function createPersonal(ptype, pval, name, keys){
+  const ex = !name && albums.find(a=>a.kind==="p" && a.ptype===ptype && a.pval===pval);
+  if(ex){ pickSheet.close(); go("palb-"+ex.id); return; }
+  const a = {id:"p"+rid().slice(1), kind:"p", ptype, pval, created:new Date().toISOString(), ...(name?{name}:{}), ...(keys?{cards:keys}:{})};
+  albums.push(a); LS.set("pk-albums", albums); pickSheet.close(); go("palb-"+a.id);
+}
+function openFreeName(rename){
+  $("#ws-title").textContent = rename ? "Album umbenennen" : "Freies Album";
+  $("#ws-body").innerHTML = `<label class="sr" for="fa-name">Name</label><input class="field" id="fa-name" type="text" maxlength="40" placeholder="z. B. Lieblingskarten" value="${esc(rename ? persName(rename) : "")}" autocomplete="off"><div class="row" style="justify-content:flex-end"><button class="btn primary" type="button" id="fa-ok">${rename ? "Speichern" : "Anlegen"}</button></div>${rename ? "" : `<p class="hint" style="margin:0">Karten fügst du im Karten-Sheet über „Zu Album“ hinzu.</p>`}`;
+  const ok = () => { const v = $("#fa-name").value.trim(); if(!v) return; wishSheet.close(); if(rename){ rename.name = v; LS.set("pk-albums", albums); render(); } else createPersonal("free", "", v, []); };
+  $("#fa-ok").addEventListener("click", ok); $("#fa-name").addEventListener("keydown", e=>{ if(e.key==="Enter") ok(); });
+  if(wishSheet.state==="closed") wishSheet.open("half"); else wishSheet.set("half");
+  setTimeout(()=>$("#fa-name")?.focus(), 350);
+}
+function renderPersPicker(q){
+  const own = cards.filter(e=>e.setId && qtyOf(e)), keyset = new Map();
+  for(const e of own){ const c = cardAt(e.setId, e.num); if(c) keyset.set(e.setId+"|"+e.num, c); }
+  const all = [...keyset.values()], cnt = f => all.filter(f).length;
+  const dexCnt = new Map(); for(const c of all) if(c[7]) dexCnt.set(c[7], (dexCnt.get(c[7])||0)+1);
+  const have = (t, v) => albums.some(a=>a.kind==="p" && a.ptype===t && a.pval===v);
+  const row = (t, v, title, n, img) => `<button class="prow pers" type="button" data-padd="${t}|${esc(String(v))}"><span class="plogo">${img||""}</span><span><b>${esc(title)}</b><small>${n} ${n===1?"Karte":"Karten"}${have(t, v) ? " · Album vorhanden" : ""}</small></span><span class="chev">›</span></button>`;
+  const ql = q.toLowerCase();
+  let dexList = q ? NAMES.map((n,i)=>[i+1,n]).filter(([,n])=>n.toLowerCase().includes(ql)).slice(0,20) : [...dexCnt].sort((a,b)=>b[1]-a[1]).slice(0,12).map(([d])=>[d, NAMES[d-1]]);
+  const art = d => `<img class="pdex" src="${artUrl(d)}" alt="" loading="lazy" onerror="this.remove()">`;
+  const fams = ACH.filter(([id])=>ACHX[id]?.grp==="family" || ACHX[id]?.grp==="legend"), trs = ACH.filter(([id])=>/^(k_|kg_|k4_|j_|j4_)/.test(id));
+  const sec = (h, body) => body ? `<div><h5>${h}</h5><div class="grp">${body}</div></div>` : "";
+  const match = t => !q || t.toLowerCase().includes(ql);
+  $("#p-list").innerHTML = [
+    `<p class="hint" style="margin:0">Persönliche Alben zeigen deine gesammelten Karten nach einem Thema – über alle Sets und Sprachen. Neue passende Karten landen automatisch darin.</p>`,
+    sec(q ? "Pokémon" : "Pokémon – deine häufigsten", dexList.map(([d,n])=>row("dex", d, n, dexCnt.get(d)||0, art(d))).join("")),
+    sec("Seltenheit", PRAR.filter(r=>match(r[1])).map(([k,l,list])=>row("rar", k, l, cnt(c=>list.includes(c[3])))).join("")),
+    sec("Typ", Object.entries(TYPES).filter(([,v])=>match(v[0])).map(([k,v])=>row("type", k, (TYPE_TR[k]?.[0] || v[0])+"-Karten", cnt(c=>c[4]==="P" && c[5]===k), typeIcon(k))).join("")),
+    sec("Familie & Legendäre", fams.filter(a=>match(a[1])).map(([id,n])=>{ const d = new Set(ACHX[id].dex); return row("fam", id, n, cnt(c=>d.has(c[7]))); }).join("")),
+    sec("Trainer", trs.filter(a=>match(a[1])).map(([id,n])=>{ const X = ACHX[id]; if(X.gym){ const k = new Set(gymCards(X.gym)); return row("trainer", id, n.replace(/s Sammlung$/, "s Karten"), [...keyset.keys()].filter(x=>k.has(x)).length); } const d = new Set(X.dex); return row("trainer", id, n, cnt(c=>d.has(c[7]))); }).join("")),
+    q ? "" : sec("Frei", `<button class="prow pers" type="button" data-padd="free|"><span class="plogo" style="font-size:24px">+</span><span><b>Leeres Album</b><small>Mit eigenem Namen, Karten fügst du selbst hinzu</small></span><span class="chev">›</span></button>`)
+  ].join("");
+}
+let pSort = "rel", pQ = "";
+function renderPAlbum(a){
+  const d = persDef(a), st = persStats(a);
+  $("#bar-title").textContent = "";
+  $("#head").innerHTML = `<div class="phead"><h1 class="ph1">${esc(persName(a))}</h1><p class="hint"><i class="pbadge pers">Persönlich</i> ${esc(d.sub)}</p><div class="stats" style="justify-content:center"><div class="stat"><small>Karten</small><b>${st.n}</b></div><div class="stat"><small>Wert</small><b>${eur(st.v)}</b></div></div></div>`;
+  if(!$("#pq")){
+    $("#tools").innerHTML = `<div class="segrow"><label class="fsel"><span class="sr">Sortierung</span><select id="psort">${[["rel","Neueste zuerst"],["val","Wertvollste zuerst"],["set","Nach Set"]].map(([k,l])=>`<option value="${k}"${pSort===k?" selected":""}>${l}</option>`).join("")}</select></label></div><div class="qwrap"><input class="field" id="pq" type="search" placeholder="Im Album suchen" autocomplete="off" value="${esc(pQ)}"></div>`;
+    $("#psort").addEventListener("change", e=>{ pSort = e.target.value; renderPAlbum(a); });
+    $("#pq").addEventListener("input", e=>{ pQ = e.target.value; renderPAlbum(a); });
+  }
+  const q = pQ.trim().toLowerCase();
+  let it = persItems(a).filter(x=>!q || `${cName(x.c)} ${x.c[2]} ${x.s.abbr} ${x.c[0]}`.toLowerCase().includes(q));
+  const val = x => Math.max(...x.list.map(e=>+e.val||0));
+  it.sort(pSort==="val" ? (x,y)=>val(y)-val(x) : pSort==="set" ? (x,y)=>(x.s.rel||"").localeCompare(y.s.rel||"") || x.s.idx.get(x.c[0]) - y.s.idx.get(y.c[0]) : (x,y)=>(y.s.rel||"").localeCompare(x.s.rel||"") || x.s.idx.get(x.c[0]) - y.s.idx.get(y.c[0]));
+  $("#view").innerHTML = it.length ? pages(it, x=>slotSet(x.s, x.c, x.list, true).replace('class="slot owned"', 'class="slot owned"') , chunk=>[...new Set(chunk.map(x=>x.s.abbr))].join(" · ")) : `<p class="empty">${a.ptype==="free" ? "Noch leer. Öffne eine Karte und tippe auf „Zu Album“." : q ? "Keine Karte passt zur Suche." : "Noch keine passenden Karten gesammelt."}</p>`;
+}
+function openPMenu(a){
+  $("#ws-title").textContent = persName(a);
+  $("#ws-body").innerHTML = `<div class="group"><button class="menu-row" type="button" id="pm-ren">Umbenennen</button><button class="menu-row red" type="button" id="pm-del">Album entfernen<small>Deine Karten bleiben erhalten</small></button></div>`;
+  $("#pm-ren").addEventListener("click", ()=>openFreeName(a));
+  $("#pm-del").addEventListener("click", ()=>{ albums = albums.filter(x=>x!==a); LS.set("pk-albums", albums); wishSheet.close(); if(view.name==="palb") go("regal"); else render(); });
+  if(wishSheet.state==="closed") wishSheet.open("half"); else wishSheet.set("half");
+}
+function openAddToAlbum(setId, num){
+  const fr = albums.filter(a=>a.kind==="p" && a.ptype==="free"), k = setId+"|"+num;
+  $("#ws-title").textContent = "Zu Album hinzufügen";
+  $("#ws-body").innerHTML = `<div class="group">${fr.map(a=>{ const inn = (a.cards||[]).includes(k); return `<button class="menu-row" type="button" data-fa="${esc(a.id)}">${esc(persName(a))}<small>${inn ? "✓ enthalten – tippen zum Entfernen" : (a.cards||[]).length + " Karten"}</small></button>`; }).join("")}<button class="menu-row" type="button" id="fa-new">+ Neues freies Album</button></div>`;
+  $("#ws-body").querySelectorAll("[data-fa]").forEach(b=>b.addEventListener("click", ()=>{ const a = albums.find(x=>x.id===b.dataset.fa); a.cards = a.cards || []; if(a.cards.includes(k)) a.cards = a.cards.filter(x=>x!==k); else a.cards.push(k); LS.set("pk-albums", albums); wishSheet.close(); render(); }));
+  $("#fa-new").addEventListener("click", ()=>{ $("#ws-title").textContent = "Freies Album"; $("#ws-body").innerHTML = `<input class="field" id="fa-name" type="text" maxlength="40" placeholder="Name" autocomplete="off"><div class="row" style="justify-content:flex-end"><button class="btn primary" type="button" id="fa-ok">Anlegen</button></div>`; $("#fa-ok").addEventListener("click", ()=>{ const v = $("#fa-name").value.trim(); if(!v) return; albums.push({id:"p"+rid().slice(1), kind:"p", ptype:"free", pval:"", name:v, cards:[k], created:new Date().toISOString()}); LS.set("pk-albums", albums); wishSheet.close(); render(); }); });
+  if(wishSheet.state==="closed") wishSheet.open("half"); else wishSheet.set("half");
 }
 
 /* ---------- Tägliche Preisaktualisierung ---------- */
@@ -2983,6 +3119,8 @@ function openPicker(st){ $("#p-q").value = st?.q || ""; renderPicker(); pickShee
 function renderPicker(){
   const q = $("#p-q").value.trim().toLowerCase(), groups = new Map(), sa = shelfAlbums();
   document.querySelectorAll("#p-lang [data-pl]").forEach(b=>b.setAttribute("aria-pressed", String(b.dataset.pl===pickLang)));
+  $("#p-q").placeholder = pickLang==="pers" ? "Pokémon oder Thema suchen, z. B. Glurak" : "Set suchen, z. B. Stellarkrone oder SCR";
+  if(pickLang==="pers"){ renderPersPicker(q); return; }
   if(pickLang==="ja" && !jaReady){ $("#p-list").innerHTML = `<p class="hint">Japanische Sets werden geladen …</p>`; loadJA().then(renderPicker).catch(e=>{ $("#p-list").innerHTML = `<p class="hint">${esc(e.message)}</p>`; }); return; }
   const langsOf = id => sa.filter(x=>x.s.id===id).map(x=>x.lang||"mix");
   const have = new Set(SETS.filter(s=>{ const l = langsOf(s.id); return s.ja ? l.length>0 : (l.includes("mix") || (l.includes("de") && l.includes("en"))); }).map(s=>s.id));
@@ -2991,6 +3129,7 @@ function renderPicker(){
 }
 $("#p-q").addEventListener("input", renderPicker);
 $("#p-list").addEventListener("click", e=>{
+  const pa = e.target.closest("[data-padd]"); if(pa){ const [t, v] = pa.dataset.padd.split("|"); if(t==="free") return openFreeName(); createPersonal(t, t==="dex" ? +v : v); return; }
   const b = e.target.closest("[data-pset]"); if(!b || b.disabled) return;
   backTo = {setId:b.dataset.pset, hash:"regal", view:"picker", y:window.scrollY, reopen:null, picker:{q:$("#p-q").value, y:pickSheet.sc.scrollTop}};
   pickSheet.close(); go("set-"+slugOf(b.dataset.pset));

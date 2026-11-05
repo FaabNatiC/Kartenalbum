@@ -1,5 +1,11 @@
 # Kartenalbum – Änderungen
 
+## Version 1.28 · 05.11.2026
+- Persönliche Alben: nach Pokémon, Seltenheit, Typ, Familie, Trainer oder frei – mit Vorschlägen beim Anlegen
+- Karten im Karten-Sheet zu freien Alben hinzufügen
+- Orden-Sheet: Karte nur ansehen statt Sprung ins Set, fehlende Karten ausgegraut
+- 3D-Orden drehen flüssig mit Schwung
+
 ## Version 1.27 · 05.11.2026
 - Orden als echtes 3D-Objekt im Detail – drehen, Schwung, Rückseite mit Gravur
 - Neuer Orden-Stil: Metallrahmen, Akzentring, Emaille und Motiv in Element-Farbe

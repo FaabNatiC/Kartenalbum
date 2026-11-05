@@ -4,11 +4,12 @@ Private Web-App für meine Pokémon-Sammelkarten – als digitales Album fürs i
 
 **App öffnen:** https://faabnatic.github.io/Kartenalbum/
 
-Aktuelle Version: **1.27** · Änderungen je Version stehen in [`CHANGELOG.md`](CHANGELOG.md).
+Aktuelle Version: **1.28** · Änderungen je Version stehen in [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Funktionen
 
 **Sammeln**
+- **Persönliche Alben** – deine Karten nach Thema: ein Pokémon, eine Seltenheit, ein Typ, eine Familie, ein Trainer oder frei zusammengestellt; füllen sich automatisch
 - **Alben als Cover oder Liste** – große Cover-Ansicht oder kompakte Liste mit Set-Logo, Suche nach Name, Kürzel oder Serie, Promo-Alben mit „PROMO“-Badge
 - **Set-Alben** – deutsche/englische Sets vom Basis-Set (1999) bis Mega-Entwicklung (181 Sets) und japanische Sets ab Sonne & Mond (91 Sets)
 - **Album-Sprache** – Deutsch, Englisch oder Gemischt; dasselbe Set auch als zwei getrennte Alben, erkennbar an der Flagge. Englische Alben zeigen englische Karten- und Set-Namen, japanische Sets den japanischen Namen – der deutsche steht jeweils klein darunter
