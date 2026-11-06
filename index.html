@@ -209,7 +209,8 @@ dialog::backdrop{background:rgba(10,14,24,.55)}
 body.nobar #head{margin:calc(-1 * (env(safe-area-inset-top,0px) + 18px)) calc(-1 * max(16px,env(safe-area-inset-right,0px))) 0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:calc(env(safe-area-inset-top,0px) + 18px) max(16px,env(safe-area-inset-right,0px)) 14px max(16px,env(safe-area-inset-left,0px));background:linear-gradient(180deg,var(--hbg) 0%,color-mix(in srgb,var(--hbg) 45%,var(--bg)) 55%,var(--bg) 100%)}
 body.nobar #head .hrow{margin-bottom:12px}
 @media (max-width:899px){body.nobar::before{background:transparent}}
-.tabbar{bottom:calc(-1 * var(--vgap,0px))}.sheet{bottom:calc(-1 * var(--vgap,0px))}
+.tabbar::after{content:"";position:absolute;left:0;right:0;top:100%;height:120px;background:inherit;pointer-events:none}
+.sheet::after{content:"";position:absolute;left:0;right:0;top:100%;height:120px;background:var(--page);pointer-events:none}
 .tbar{position:fixed;left:0;right:0;top:0;z-index:26;display:flex;align-items:center;justify-content:center;padding:calc(env(safe-area-inset-top,0px) + 10px) 60px 10px;line-height:24px;background:var(--bar);-webkit-backdrop-filter:saturate(1.6) blur(16px);backdrop-filter:saturate(1.6) blur(16px);border-bottom:1px solid var(--line);font:700 17px var(--f-body);color:var(--ink);transform:translateY(-110%);transition:transform .22s ease;pointer-events:none}
 .tbar.show{transform:none;pointer-events:auto}
 .tbar .gearbtn{position:absolute;right:max(12px,env(safe-area-inset-right,0px));top:calc(env(safe-area-inset-top,0px) + 5px);width:34px;height:34px;overflow:visible;box-shadow:none;background:var(--pocket)}
@@ -992,6 +993,7 @@ const CONDS = ["Mint","Near Mint","Excellent","Good","Light Played","Played","Po
 
 /* ---------- Änderungsprotokoll ---------- */
 const CHANGELOG = [
+  {v:"1.33", d:"2026-11-06", items:["Tab-Leiste wieder an der richtigen Position, Beschriftung nicht mehr abgeschnitten, ohne Lücke darunter", "3D-Orden: Gravur auf der Rückseite nicht mehr spiegelverkehrt"]},
   {v:"1.32", d:"2026-11-06", items:["Verlauf läuft ohne Kante bis unter die Uhrzeit, Titelleiste erscheint passend beim Scrollen", "Tab-Leiste und Bottom Sheets schweben nicht mehr über dem unteren Rand", "3D-Orden funktionieren wieder – jetzt als Relief mit erhabenem Rahmen und Motiv", "Erfolge: Gruppen beim Öffnen des Tabs immer zugeklappt", "Persönliche Alben: Vorschlag öffnet erst eine Vorschau, angelegt wird per „Album anlegen“", "Set-Seite: keine leere Fläche über der Filterleiste, Top-3-Namen nicht mehr abgeschnitten", "Portfolio: „Jetzt aktualisieren“ lädt wirklich neu, mit Rückmeldung und Prüfzeit"]},
   {v:"1.31", d:"2026-11-05", items:["Dark-Modus: Statusleiste durchsichtig – Verlauf und Titelleiste reichen nahtlos bis ganz oben"]},
   {v:"1.30", d:"2026-11-05", items:["Verlauf der Tab-Überschrift reicht bis unter die Statusleiste – keine harte Kante mehr","Schmale Titelleiste beim Scrollen höher, Zahnrad nicht mehr abgeschnitten"]},
@@ -1387,13 +1389,7 @@ function updTbar(){
   if(top && top !== updTbar.last){ updTbar.last = top; document.querySelectorAll('meta[name="theme-color"]').forEach(m=>{ m.removeAttribute("media"); m.setAttribute("content", top); }); }
 }
 window.addEventListener("scroll", ()=>requestAnimationFrame(updTbar), {passive:true});
-// iOS-Fehler: Bei durchsichtiger Statusleiste sitzen unten fixierte Leisten um deren Höhe zu hoch
-function fixVGap(){
-  let g = 0;
-  if(navigator.standalone && innerWidth < innerHeight){ const d = screen.height - innerHeight; if(d > 8 && d < 90) g = d; }
-  document.documentElement.style.setProperty("--vgap", g + "px");
-}
-fixVGap(); addEventListener("resize", fixVGap); addEventListener("orientationchange", ()=>setTimeout(fixVGap, 300));
+
 function placeGear(){
   const show = document.body.classList.contains("nobar") && view.name!=="einstellungen";
   GEAR.hidden = !show; if(!show) return;
@@ -2214,7 +2210,7 @@ async function medal3D(host, id, locked, achDate){
   const nm = (ACH.find(a=>a[0]===id)||[])[1] || ""; b.font = "800 46px system-ui,sans-serif"; const words = nm.split(" "), lines = []; let ln = ""; for(const w of words){ if(b.measureText((ln+" "+w).trim()).width > 380 && ln){ lines.push(ln); ln = w; } else ln = (ln+" "+w).trim(); } lines.push(ln); lines.forEach((l,i)=>b.fillText(l, 256, 250 + i*54));
   b.font = "600 30px system-ui,sans-serif"; b.fillText(achDate ? "verdient am " + achDate : "noch nicht verdient", 256, 270 + lines.length*54);
   const t3 = new T.CanvasTexture(c3); t3.encoding = T.sRGBEncoding;
-  const backGeo = new T.ShapeGeometry(pshape(outer)); backGeo.computeBoundingBox(); { const bb = backGeo.boundingBox, uv = backGeo.attributes.uv, pos = backGeo.attributes.position; for(let i=0;i<uv.count;i++) uv.setXY(i, 1-(pos.getX(i)-bb.min.x)/(bb.max.x-bb.min.x), (pos.getY(i)-bb.min.y)/(bb.max.y-bb.min.y)); }
+  const backGeo = new T.ShapeGeometry(pshape(outer)); backGeo.computeBoundingBox(); { const bb = backGeo.boundingBox, uv = backGeo.attributes.uv, pos = backGeo.attributes.position; for(let i=0;i<uv.count;i++) uv.setXY(i, (pos.getX(i)-bb.min.x)/(bb.max.x-bb.min.x), (pos.getY(i)-bb.min.y)/(bb.max.y-bb.min.y)); }
   const back = new T.Mesh(backGeo, new T.MeshStandardMaterial({map:t3, metalness:.6, roughness:.35, envMapIntensity:1})); back.position.z = -9.2; back.rotation.y = Math.PI; grp.add(back);
   sc.add(grp); host.innerHTML = ""; host.appendChild(R.domElement); R.domElement.style.touchAction = "none";
   MR.off = true;

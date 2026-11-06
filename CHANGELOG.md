@@ -1,5 +1,9 @@
 # Kartenalbum – Änderungen
 
+## Version 1.33 · 06.11.2026
+- Tab-Leiste wieder an der richtigen Position, Beschriftung nicht mehr abgeschnitten, ohne Lücke darunter
+- 3D-Orden: Gravur auf der Rückseite nicht mehr spiegelverkehrt
+
 ## Version 1.32 · 06.11.2026
 - Verlauf läuft ohne Kante bis unter die Uhrzeit, Titelleiste erscheint passend beim Scrollen
 - Tab-Leiste und Bottom Sheets schweben nicht mehr über dem unteren Rand

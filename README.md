@@ -4,7 +4,7 @@ Private Web-App für meine Pokémon-Sammelkarten – als digitales Album fürs i
 
 **App öffnen:** https://faabnatic.github.io/Kartenalbum/
 
-Aktuelle Version: **1.32** · Änderungen je Version stehen in [`CHANGELOG.md`](CHANGELOG.md).
+Aktuelle Version: **1.33** · Änderungen je Version stehen in [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Funktionen
 
