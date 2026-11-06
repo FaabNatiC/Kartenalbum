@@ -1,5 +1,14 @@
 # Kartenalbum – Änderungen
 
+## Version 1.32 · 06.11.2026
+- Verlauf läuft ohne Kante bis unter die Uhrzeit, Titelleiste erscheint passend beim Scrollen
+- Tab-Leiste und Bottom Sheets schweben nicht mehr über dem unteren Rand
+- 3D-Orden funktionieren wieder – jetzt als Relief mit erhabenem Rahmen und Motiv
+- Erfolge: Gruppen beim Öffnen des Tabs immer zugeklappt
+- Persönliche Alben: Vorschlag öffnet erst eine Vorschau, angelegt wird per „Album anlegen“
+- Set-Seite: keine leere Fläche über der Filterleiste, Top-3-Namen nicht mehr abgeschnitten
+- Portfolio: „Jetzt aktualisieren“ lädt wirklich neu, mit Rückmeldung und Prüfzeit
+
 ## Version 1.31 · 05.11.2026
 - Dark-Modus: Statusleiste durchsichtig – Verlauf und Titelleiste reichen nahtlos bis ganz oben
 

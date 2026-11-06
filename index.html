@@ -208,7 +208,8 @@ dialog::backdrop{background:rgba(10,14,24,.55)}
 :root[data-theme="dark"]{--hbg:#26304a}
 body.nobar #head{margin:calc(-1 * (env(safe-area-inset-top,0px) + 18px)) calc(-1 * max(16px,env(safe-area-inset-right,0px))) 0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:calc(env(safe-area-inset-top,0px) + 18px) max(16px,env(safe-area-inset-right,0px)) 14px max(16px,env(safe-area-inset-left,0px));background:linear-gradient(180deg,var(--hbg) 0%,color-mix(in srgb,var(--hbg) 45%,var(--bg)) 55%,var(--bg) 100%)}
 body.nobar #head .hrow{margin-bottom:12px}
-@media (max-width:899px){body.nobar::before{background:var(--hbg);transition:background .2s}body.nobar.tbon::before{background:transparent}}
+@media (max-width:899px){body.nobar::before{background:transparent}}
+.tabbar{bottom:calc(-1 * var(--vgap,0px))}.sheet{bottom:calc(-1 * var(--vgap,0px))}
 .tbar{position:fixed;left:0;right:0;top:0;z-index:26;display:flex;align-items:center;justify-content:center;padding:calc(env(safe-area-inset-top,0px) + 10px) 60px 10px;line-height:24px;background:var(--bar);-webkit-backdrop-filter:saturate(1.6) blur(16px);backdrop-filter:saturate(1.6) blur(16px);border-bottom:1px solid var(--line);font:700 17px var(--f-body);color:var(--ink);transform:translateY(-110%);transition:transform .22s ease;pointer-events:none}
 .tbar.show{transform:none;pointer-events:auto}
 .tbar .gearbtn{position:absolute;right:max(12px,env(safe-area-inset-right,0px));top:calc(env(safe-area-inset-top,0px) + 5px);width:34px;height:34px;overflow:visible;box-shadow:none;background:var(--pocket)}
@@ -634,6 +635,7 @@ button.achp{border:0;font:600 12.5px var(--f-body);cursor:pointer}
 .pbadge.pers{background:linear-gradient(135deg,#d9c4f2,#8d6bc4 60%,#6a4fa8);color:#fff}
 .pcover .logo-t{color:#6a4fa8;font-size:17px}
 .pthumb{overflow:hidden;border-radius:4px;width:40px;height:56px;margin:0 12px}.pthumb .cimg{width:100%;height:100%;object-fit:cover}
+.pprev{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:14px;padding:10px 12px;border:1px dashed var(--line);border-radius:12px;color:var(--muted);font-size:13px}
 .pgrp{border:1px solid var(--line);border-radius:12px;background:var(--page);overflow:hidden}
 .pgh{display:flex;align-items:center;gap:8px;width:100%;border:0;background:none;padding:12px 14px;color:var(--ink);font:inherit;cursor:pointer;text-align:left}
 .pgh b{flex:1;font:700 15px var(--f-body)}.pgh span{font:600 12px var(--f-num);color:var(--muted)}.pgh .chev{font-size:20px;transition:transform .2s}
@@ -680,7 +682,7 @@ button.achp{border:0;font:600 12.5px var(--f-body);cursor:pointer}
   body.floatbar .slogo img{max-height:88px;max-width:100%}
   body.floatbar .slogo.wide{max-width:min(100%,320px);margin-top:44px}
   body.floatbar .slogo .logo-t{font-size:30px}
-  body.floatbar .stick{top:0;padding-top:calc(env(safe-area-inset-top,0px) + 4px)}
+  body.floatbar .stick{top:env(safe-area-inset-top,0px);padding-top:4px}
   body.floatbar .mini{padding-left:98px;padding-right:50px}
   body.floatbar .mini .ring{display:none}
   body[data-view="einstellungen"] #head>h1{text-align:center;font-size:24px;line-height:40px;margin:0 96px 14px}
@@ -990,6 +992,7 @@ const CONDS = ["Mint","Near Mint","Excellent","Good","Light Played","Played","Po
 
 /* ---------- Änderungsprotokoll ---------- */
 const CHANGELOG = [
+  {v:"1.32", d:"2026-11-06", items:["Verlauf läuft ohne Kante bis unter die Uhrzeit, Titelleiste erscheint passend beim Scrollen", "Tab-Leiste und Bottom Sheets schweben nicht mehr über dem unteren Rand", "3D-Orden funktionieren wieder – jetzt als Relief mit erhabenem Rahmen und Motiv", "Erfolge: Gruppen beim Öffnen des Tabs immer zugeklappt", "Persönliche Alben: Vorschlag öffnet erst eine Vorschau, angelegt wird per „Album anlegen“", "Set-Seite: keine leere Fläche über der Filterleiste, Top-3-Namen nicht mehr abgeschnitten", "Portfolio: „Jetzt aktualisieren“ lädt wirklich neu, mit Rückmeldung und Prüfzeit"]},
   {v:"1.31", d:"2026-11-05", items:["Dark-Modus: Statusleiste durchsichtig – Verlauf und Titelleiste reichen nahtlos bis ganz oben"]},
   {v:"1.30", d:"2026-11-05", items:["Verlauf der Tab-Überschrift reicht bis unter die Statusleiste – keine harte Kante mehr","Schmale Titelleiste beim Scrollen höher, Zahnrad nicht mehr abgeschnitten"]},
   {v:"1.29", d:"2026-11-05", items:["Neue Tab-Überschriften: großer Titel mit dezentem Verlauf, beim Scrollen schmale Leiste oben","Orden im Detail sehen jetzt genau wie in der Übersicht aus – in 3D","Bilder werden dauerhaft auf dem Gerät gespeichert (Einstellungen → Speicher)","Größeres Set-Logo, Lücke über der Set-Leiste behoben","Vorschläge für persönliche Alben einklappbar","Pokédex: Auswahl „Karte hinzufügen“ entfernt"]},
@@ -1181,11 +1184,11 @@ const typeIcon = t => TYPE_ICON[t] ? `<span class="ticon" aria-hidden="true" sty
 
 /* ---------- TCGdex-API: Bild + Preise je Variante ---------- */
 const API = "https://api.tcgdex.net/v2";
-const infoCache = new Map(), lastInfo = new Map();
+const infoCache = new Map(), lastInfo = new Map(); let noStore = false;
 function cardInfo(s, num, preferEn){
   const k = s.id + "|" + num + (preferEn ? "|en" : "");
   if(infoCache.has(k)) return infoCache.get(k);
-  const get = async l => { const r = await fetch(`${API}/${l}/cards/${encodeURIComponent(s.id + "-" + num)}`); if(!r.ok) throw new Error("HTTP " + r.status); return r.json(); };
+  const get = async l => { const r = await fetch(`${API}/${l}/cards/${encodeURIComponent(s.id + "-" + num)}`, noStore ? {cache:"no-store"} : undefined); if(!r.ok) throw new Error("HTTP " + r.status); return r.json(); };
   const p = (async () => {
     const first = s.ja ? "ja" : preferEn ? "en" : "de", second = s.ja ? null : preferEn ? "de" : "en";
     let a = null, b = null;
@@ -1279,7 +1282,7 @@ function jumpToSet(setId, num){
 function goBack(){
   if(view.name==="pset"){ go("portfolio"); return; }
   if(view.name==="einstellungen"){ go(setFrom || "regal"); return; }
-  if(view.name==="palb"){ go("regal"); return; }
+  if(view.name==="palb"){ if(view.alb.preview && pPrevBack){ restore = {y:0, picker:pPrevBack}; pPrevBack = null; } go("regal"); return; }
   if(view.name!=="set") return;
   if(backTo && backTo.setId===view.set.id){ const b = backTo; backTo = null; restore = {y:b.y, reopen:b.reopen, picker:b.picker}; go(b.hash); }
   else go("regal");
@@ -1308,6 +1311,7 @@ function route(){
   else if(h==="wunsch") view={name:"wunsch"};
   else if(h==="portfolio") view={name:"portfolio"};
   else if(h==="erfolge") view={name:"erfolge"};
+  else if(h==="palb-vorschau" && pPrev){ if(view?.alb!==pPrev) pQ = ""; view={name:"palb", alb:pPrev}; }
   else if(h.startsWith("palb-") && albums.some(a=>a.kind==="p" && a.id===h.slice(5))){ const pa = albums.find(a=>a.id===h.slice(5)); if(view?.alb?.id!==pa.id){ pQ = ""; } view={name:"palb", alb:pa}; }
   else if(h==="einstellungen"){ if(view && view.name!=="einstellungen") setFrom = location.hash && view.name!=="set" ? (view.name==="pset" ? "portfolio" : view.name==="regal" ? "regal" : view.name) : "regal"; view={name:"einstellungen"}; }
   else if(h.startsWith("portfolio-") && SLUG.has(h.slice(10))){ const ps = SLUG.get(h.slice(10)); if(!view || view.name!=="pset" || view.set!==ps) psLang = "all"; view={name:"pset", set:ps}; }
@@ -1340,11 +1344,12 @@ function render(){
   document.querySelectorAll(".tab").forEach(a=>{ if(a.dataset.tab===tab) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
   const gr = GEAR; gr.querySelector(".dot")?.remove();
   if(LS.raw("pk-seen") !== APP_VERSION && view.name!=="einstellungen") gr.insertAdjacentHTML("beforeend",'<span class="dot"></span>');
-  const backLbl = view.name==="set" ? (backTo && backTo.setId===view.set.id ? VIEW_LBL[backTo.view] || "Zurück" : "Alben") : view.name==="pset" ? "Portfolio" : view.name==="einstellungen" ? (VIEW_LBL[setFrom] || "Zurück") : view.name==="palb" ? "Alben" : "";
+  const backLbl = view.name==="set" ? (backTo && backTo.setId===view.set.id ? VIEW_LBL[backTo.view] || "Zurück" : "Alben") : view.name==="pset" ? "Portfolio" : view.name==="einstellungen" ? (VIEW_LBL[setFrom] || "Zurück") : view.name==="palb" ? (view.alb.preview ? "Zurück" : "Alben") : "";
   $("#bar-left").innerHTML = backLbl ? `<button class="bar-back" type="button" id="back-btn">${SVG_L}${esc(backLbl)}</button>` : "";
   $("#back-btn")?.addEventListener("click", goBack);
   const showMore = view.name==="set" && (albums.some(a=>a.setId===view.set.id) || cards.some(c=>c.setId===view.set.id && qtyOf(c)));
-  if(view.name==="palb"){ $("#bar-right").innerHTML = `<span class="bar-r"><button class="bar-more" type="button" id="pmore-btn" aria-label="Album-Optionen">•••</button></span>`; }
+  if(view.name==="palb" && view.alb.preview) $("#bar-right").innerHTML = "";
+  else if(view.name==="palb"){ $("#bar-right").innerHTML = `<span class="bar-r"><button class="bar-more" type="button" id="pmore-btn" aria-label="Album-Optionen">•••</button></span>`; }
   else $("#bar-right").innerHTML = view.name==="set" ? `<span class="bar-r">${showMore ? `<button class="bar-more" type="button" id="more-btn" aria-label="Album-Optionen">•••</button>` : ""}</span>` : "";
   $("#more-btn")?.addEventListener("click", ()=>openAlbumMenu(view.set, view.lang));
   $("#pmore-btn")?.addEventListener("click", ()=>openPMenu(view.alb));
@@ -1372,7 +1377,9 @@ function updTbar(){
   const tg = $("#tbar .gearbtn"); if(tg && !tg.dataset.ok && GEAR){ tg.innerHTML = GEAR.innerHTML; tg.dataset.ok = 1; }
   const tb = $("#tbar"); if(!tb) return;
   const on = document.body.classList.contains("nobar") && !DESK.matches, h1 = $("#head h1");
-  const show = on && h1 && h1.getBoundingClientRect().bottom < 4;
+  if(!updTbar.pr){ updTbar.pr = document.createElement("div"); updTbar.pr.style.cssText = "position:fixed;top:0;left:0;width:1px;height:env(safe-area-inset-top,0px);visibility:hidden;pointer-events:none"; document.body.appendChild(updTbar.pr); }
+  const st = updTbar.pr.offsetHeight;
+  const show = on && h1 && h1.getBoundingClientRect().top < st + 2;
   if(show) $("#tbar-t").textContent = h1.textContent;
   tb.classList.toggle("show", !!show); tb.setAttribute("aria-hidden", String(!show));
   document.body.classList.toggle("tbon", !!show);
@@ -1380,6 +1387,13 @@ function updTbar(){
   if(top && top !== updTbar.last){ updTbar.last = top; document.querySelectorAll('meta[name="theme-color"]').forEach(m=>{ m.removeAttribute("media"); m.setAttribute("content", top); }); }
 }
 window.addEventListener("scroll", ()=>requestAnimationFrame(updTbar), {passive:true});
+// iOS-Fehler: Bei durchsichtiger Statusleiste sitzen unten fixierte Leisten um deren Höhe zu hoch
+function fixVGap(){
+  let g = 0;
+  if(navigator.standalone && innerWidth < innerHeight){ const d = screen.height - innerHeight; if(d > 8 && d < 90) g = d; }
+  document.documentElement.style.setProperty("--vgap", g + "px");
+}
+fixVGap(); addEventListener("resize", fixVGap); addEventListener("orientationchange", ()=>setTimeout(fixVGap, 300));
 function placeGear(){
   const show = document.body.classList.contains("nobar") && view.name!=="einstellungen";
   GEAR.hidden = !show; if(!show) return;
@@ -1590,7 +1604,7 @@ function updateShrink(){
   const barB = (document.querySelector(".bar")?.getBoundingClientRect().bottom) || 50;
   const r = hd.getBoundingClientRect(), h = r.height || 1;
   const t = Math.max(0, Math.min(1, (barB + 10 - r.top) / h));
-  if(!reduced()){ hd.style.opacity = String(Math.max(0, 1 - t*1.4)); hd.style.transform = `translateY(${(t*h*0.35).toFixed(1)}px) scale(${(1 - t*0.18).toFixed(3)})`; }
+  if(!reduced()){ hd.style.opacity = String(Math.max(0, 1 - t*1.4)); hd.style.transform = `scale(${(1 - t*0.18).toFixed(3)})`; }
   const m = Math.max(0, Math.min(1, (t - 0.55) / 0.35));
   mini.style.height = (m*44).toFixed(1) + "px"; mini.style.opacity = String(m);
   st.classList.toggle("shrunk", m > 0.98);
@@ -2042,15 +2056,17 @@ for(const [t, [n, e]] of Object.entries(TYPE_TR)) [[10,"I","bronze"],[100,"II","
 
 const ACH_TIERS = [["first","c10","c100","c500","c1000"],["dex100","dex500"],["set1","set3","master"],["ir","sir"],["w100","w1000"]];
 let MID2 = 0;
-function medalSVG(id, locked){
+function medalSVG(id, locked, part){
   const m = ACHX[id]?.medal || ["circle","silver","star"], [shape, pk, obj, arg] = m, pal = FR[locked ? "locked" : pk] || FR.silver, u = "q" + (++MID2);
   const bev = (n, sd, sc, k) => `<filter id="${u}${n}" x="-15%" y="-15%" width="130%" height="135%"><feGaussianBlur in="SourceAlpha" stdDeviation="${sd}" result="b"/><feSpecularLighting in="b" surfaceScale="${sc}" specularConstant="1" specularExponent="18" lighting-color="#ffffff" result="s"><feDistantLight azimuth="225" elevation="38"/></feSpecularLighting><feComposite in="s" in2="SourceAlpha" operator="in" result="s2"/><feDiffuseLighting in="b" surfaceScale="${sc}" diffuseConstant="1.15" lighting-color="#ffffff" result="d"><feDistantLight azimuth="225" elevation="50"/></feDiffuseLighting><feComposite in="d" in2="SourceAlpha" operator="in" result="d2"/><feComposite in="SourceGraphic" in2="d2" operator="arithmetic" k1="1" k2="0" k3="0" k4="0" result="lit"/><feComposite in="lit" in2="s2" operator="arithmetic" k1="0" k2="1" k3="${k}" k4="0"/></filter>`;
   const [o] = shapePts(shape);
   let svg = `<svg class="medal" viewBox="0 0 200 200" aria-hidden="true"><defs><linearGradient id="${u}l" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".25"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".25"/></linearGradient><radialGradient id="${u}i" cx=".42" cy=".35" r=".75"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset=".7" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".18"/></radialGradient><linearGradient id="${u}g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${mixC(pal[2],"#ffffff",.75)}"/><stop offset=".45" stop-color="${pal[1]}"/><stop offset=".55" stop-color="${pal[2]}"/><stop offset="1" stop-color="${mixC(pal[2],"#000000",.25)}"/></linearGradient>
     ${bev("f", 3, 5, .75)}${bev("o", 2.2, 4, .6)}<filter id="${u}m"><feColorMatrix type="saturate" values=".72"/></filter>
     <filter id="${u}d" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#000" flood-opacity=".5"/></filter><clipPath id="${u}c"><polygon points="${P(o)}"/></clipPath></defs>`;
-  svg += `<g filter="url(#${u}d)"><g filter="url(#${u}f)">` + frameSVG(shape, pal, accOf(m), locked).replace("url(#lightTL)", `url(#${u}l)`).replace("url(#innerG)", `url(#${u}i)`).replace("url(#metalG)", `url(#${u}g)`) + `</g></g>`;
+  if(part !== "emb") svg += `<g filter="url(#${u}d)"><g filter="url(#${u}f)">` + frameSVG(shape, pal, accOf(m), locked).replace("url(#lightTL)", `url(#${u}l)`).replace("url(#innerG)", `url(#${u}i)`).replace("url(#metalG)", `url(#${u}g)`) + `</g></g>`;
   const inner = OBJ[obj] ? OBJ[obj](arg) : EMB[obj] ? EMB[obj]() : "";
+  if(part === "frame") return svg + `</svg>`;
+  if(part === "emb") return svg + (locked ? `<text x="100" y="124" text-anchor="middle" font-size="64" font-weight="800" fill="#a3a8b0" stroke="#4a4e55" stroke-width="3" filter="url(#${u}o)">?</text>` : `<g filter="url(#${u}m)"><g filter="url(#${u}o)">${inner}</g></g>`) + `</svg>`;
   svg += locked ? `<text x="100" y="124" text-anchor="middle" font-size="64" font-weight="800" fill="#a3a8b0" stroke="#4a4e55" stroke-width="3" filter="url(#${u}o)">?</text>` : `<g filter="url(#${u}d)"><g filter="url(#${u}m)"><g filter="url(#${u}o)">${inner}</g></g></g><g clip-path="url(#${u}c)"><rect class="msw" x="-80" y="-20" width="40" height="240" fill="#fff" opacity=".55" transform="skewX(-20)"/></g>`;
   return svg + `</svg>`;
 }
@@ -2060,9 +2076,10 @@ function achVal(id, v, goal){
   return `${Math.min(v,goal).toLocaleString("de-DE")} / ${goal.toLocaleString("de-DE")}`;
 }
 let achOpen = null;
+addEventListener("hashchange", ()=>{ if(!location.hash.startsWith("#erfolge")) achOpen = null; });
 function renderAch(){
   $("#bar-title").textContent = "Erfolge";
-  if(!achOpen) achOpen = new Set(LS.get("pk-achopen", ["base"]));
+  if(!achOpen) achOpen = new Set();
   const st = achStats(), got = ACH.filter(([id])=>ach[id]).length;
   const open = ACH.filter(([id])=>!ach[id]).map(a=>{ const [v, g] = a[3](st); return {a, v, g, r: g ? Math.min(1, v/g) : 0}; }).sort((x,y)=>y.r-x.r)[0];
   const seen = new Set(LS.get("pk-achanim", [])), fresh = [];
@@ -2074,7 +2091,7 @@ function renderAch(){
       ${isOpen ? `<div class="achgrid">${list.map(([id, name, desc])=>{ const done = !!ach[id], nw = done && !seen.has(id); if(nw) fresh.push(id);
         return `<button class="achm${done?"":" lock"}${nw?" new":""}" type="button" data-ach="${id}" aria-label="${esc(name)}, ${done?"freigeschaltet":"noch offen"}">${medalSVG(id, !done)}<b>${esc(name)}</b><small>${done ? deDate(ach[id]) : esc(desc)}</small></button>`; }).join("")}</div>` : ""}</section>`; }).join("");
   if(fresh.length) LS.set("pk-achanim", [...seen, ...fresh]);
-  $("#view").querySelectorAll("[data-achg]").forEach(b=>b.addEventListener("click", ()=>{ const g = b.dataset.achg; if(achOpen.has(g)) achOpen.delete(g); else achOpen.add(g); LS.put("pk-achopen", JSON.stringify([...achOpen])); const y = window.scrollY; renderAch(); window.scrollTo(0, y); }));
+  $("#view").querySelectorAll("[data-achg]").forEach(b=>b.addEventListener("click", ()=>{ const g = b.dataset.achg; if(achOpen.has(g)) achOpen.delete(g); else achOpen.add(g); const y = window.scrollY; renderAch(); window.scrollTo(0, y); }));
   $("#view").querySelectorAll("[data-ach]").forEach(b=>b.addEventListener("click", ()=>openAchSheet(b.dataset.ach)));
 }
 function exampleCard(d){
@@ -2149,6 +2166,7 @@ const THREE_URL = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.mi
 let threeP = null;
 function loadThree(){ if(window.THREE) return Promise.resolve(window.THREE); if(threeP) return threeP; threeP = new Promise((res, rej)=>{ const sc = document.createElement("script"); sc.src = THREE_URL; sc.async = true; sc.onload = ()=>res(window.THREE); sc.onerror = ()=>{ threeP = null; rej(new Error("3D konnte nicht geladen werden")); }; document.head.appendChild(sc); }); return threeP; }
 const MET3 = {iron:[0x8f969e,.35], bronze:[0xc98d56,.32], silver:[0xd7dbe0,.26], gold:[0xe8b437,.28], platinum:[0xeef3f7,.16], locked:[0x9da2a9,.45]};
+const M3 = {run:null};
 function stopMedal3D(){ if(M3.run){ M3.run.stop(); M3.run = null; } }
 async function medal3D(host, id, locked, achDate){
   stopMedal3D();
@@ -2175,14 +2193,22 @@ async function medal3D(host, id, locked, achDate){
   const add = (geo, mat, z) => { const me = new T.Mesh(geo, mat); me.position.z = z; grp.add(me); return me; };
   // Körper: Metall in Orden-Form, Vorderseite = exakt der Orden aus der Übersicht
   add(new T.ExtrudeGeometry(pshape(outer), {depth:8, bevelEnabled:true, bevelThickness:5, bevelSize:3, bevelSegments:4, curveSegments:24}), metal(mc, mr), -4);
-  const fcv = document.createElement("canvas"); fcv.width = fcv.height = 1024;
-  try{ const src = medalSVG(id, locked).replace('<svg class="medal"', '<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024"');
-    const img = new Image(); img.decoding = "sync"; await new Promise((ok, no)=>{ img.onload = ok; img.onerror = no; img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(src); });
-    fcv.getContext("2d").drawImage(img, 0, 0, 1024, 1024); }catch{}
+  const rast = async part => { const cv = document.createElement("canvas"); cv.width = cv.height = 1024;
+    try{ const src = medalSVG(id, locked, part).replace('<svg class="medal"', '<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024"');
+      const img = new Image(); await new Promise((ok, no)=>{ img.onload = ok; img.onerror = no; img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(src); });
+      cv.getContext("2d").drawImage(img, 0, 0, 1024, 1024); }catch{}
+    const t = new T.CanvasTexture(cv); t.encoding = T.sRGBEncoding; t.anisotropy = 4; return t; };
+  const [ftx, etx] = await Promise.all([rast("frame"), rast("emb")]);
   if(!host.isConnected) return false;
-  const ftx = new T.CanvasTexture(fcv); ftx.encoding = T.sRGBEncoding; ftx.anisotropy = 4;
-  const frontGeo = new T.ShapeGeometry(pshape(outer), 24); { const uv = frontGeo.attributes.uv, pos = frontGeo.attributes.position; for(let i=0;i<uv.count;i++){ const xs = pos.getX(i)/k + 100, ys = cy - pos.getY(i)/k; uv.setXY(i, xs/200, 1 - ys/200); } }
-  add(frontGeo, new T.MeshStandardMaterial({map:ftx, metalness:.35, roughness:.42, envMapIntensity:.9}), 9.3);
+  const svgUV = geo => { const uv = geo.attributes.uv, pos = geo.attributes.position; for(let i=0;i<uv.count;i++){ const xs = pos.getX(i)/k + 100, ys = cy - pos.getY(i)/k; uv.setXY(i, xs/200, 1 - ys/200); } return geo; };
+  const fmat = new T.MeshStandardMaterial({map:ftx, metalness:.45, roughness:.38, envMapIntensity:.9});
+  // Grundplatte (Emaille-Fläche) und erhabener Rahmen – beide mit dem Orden-Motiv aus der Übersicht
+  add(svgUV(new T.ShapeGeometry(pshape(outer), 24)), fmat, 9.05);
+  add(svgUV(new T.ExtrudeGeometry(ring(outer, inner), {depth:3.5, bevelEnabled:true, bevelThickness:1.2, bevelSize:.8, bevelSegments:3, curveSegments:24})), fmat, 9);
+  // Motiv als Relief: gestapelte Ebenen, untere dunkler = sichtbare Kante beim Drehen
+  const eg = svgUV(new T.ShapeGeometry(pshape(outer), 24)), NL = 9;
+  for(let i=0;i<NL;i++){ const f = i/(NL-1), top = i===NL-1;
+    add(eg, new T.MeshStandardMaterial({map:etx, transparent:true, alphaTest:.45, depthWrite:true, color:new T.Color().setScalar(top ? 1 : .38 + .3*f), metalness:top ? .3 : .5, roughness:top ? .4 : .5, envMapIntensity:top ? .9 : .5}), 9.3 + f*7); }
   // Rückseite mit Gravur
   const c3 = document.createElement("canvas"); c3.width = c3.height = 512; const b = c3.getContext("2d"); const bg = b.createRadialGradient(200,180,20,256,256,300); bg.addColorStop(0,"#ffffff"); bg.addColorStop(1,"#9aa2ab"); b.fillStyle = bg; b.fillRect(0,0,512,512); b.fillStyle = "#3a4048"; b.textAlign = "center"; b.font = "700 30px system-ui,sans-serif"; b.fillText("KARTENALBUM", 256, 170);
   const nm = (ACH.find(a=>a[0]===id)||[])[1] || ""; b.font = "800 46px system-ui,sans-serif"; const words = nm.split(" "), lines = []; let ln = ""; for(const w of words){ if(b.measureText((ln+" "+w).trim()).width > 380 && ln){ lines.push(ln); ln = w; } else ln = (ln+" "+w).trim(); } lines.push(ln); lines.forEach((l,i)=>b.fillText(l, 256, 250 + i*54));
@@ -2887,6 +2913,14 @@ function prowHTML(a){
   const st = persStats(a), t = st.top[0];
   return `<div class="arow" style="--spine:#8a6d2a"><a class="arow-main" href="#palb-${esc(a.id)}" aria-label="${esc(persName(a))}, ${st.n} Karten"><span class="alogo pthumb">${t ? cimg(t.s, t.c[0], "low", "cimg", t.list[0].lang) : ""}</span><span class="atx"><b>${esc(persName(a))}</b><small><i class="pbadge pers">Persönlich</i>${st.n} ${st.n===1?"Karte":"Karten"} · ${eur(st.v)}</small></span></a><button class="arow-more" type="button" data-pmenu="${esc(a.id)}" aria-label="Album-Optionen">•••</button></div>`;
 }
+let pPrev = null, pPrevBack = null;
+function previewPersonal(ptype, pval){
+  const ex = albums.find(a=>a.kind==="p" && a.ptype===ptype && a.pval===pval);
+  if(ex){ pickSheet.close(); go("palb-"+ex.id); return; }
+  pPrev = {id:"vorschau", kind:"p", ptype, pval, preview:true};
+  pPrevBack = {q:$("#p-q").value, y:pickSheet.sc.scrollTop};
+  pickSheet.close(); go("palb-vorschau");
+}
 function createPersonal(ptype, pval, name, keys){
   const ex = !name && albums.find(a=>a.kind==="p" && a.ptype===ptype && a.pval===pval);
   if(ex){ pickSheet.close(); go("palb-"+ex.id); return; }
@@ -2931,7 +2965,8 @@ let pSort = "rel", pQ = "";
 function renderPAlbum(a){
   const d = persDef(a), st = persStats(a);
   $("#bar-title").textContent = "";
-  $("#head").innerHTML = `<div class="phead"><h1 class="ph1">${esc(persName(a))}</h1><p class="hint"><i class="pbadge pers">Persönlich</i> ${esc(d.sub)}</p><div class="stats" style="justify-content:center"><div class="stat"><small>Karten</small><b>${st.n}</b></div><div class="stat"><small>Wert</small><b>${eur(st.v)}</b></div></div></div>`;
+  $("#head").innerHTML = `<div class="phead"><h1 class="ph1">${esc(persName(a))}</h1><p class="hint"><i class="pbadge pers">Persönlich</i> ${esc(d.sub)}</p><div class="stats" style="justify-content:center"><div class="stat"><small>Karten</small><b>${st.n}</b></div><div class="stat"><small>Wert</small><b>${eur(st.v)}</b></div></div>${a.preview ? `<div class="pprev"><span>Vorschau – noch nicht angelegt</span><button class="btn primary" type="button" id="pprev-add">Album anlegen</button></div>` : ""}</div>`;
+  $("#pprev-add")?.addEventListener("click", ()=>{ pPrevBack = null; const x = pPrev; pPrev = null; createPersonal(x.ptype, x.pval); });
   if(!$("#pq")){
     $("#tools").innerHTML = `<div class="segrow"><label class="fsel"><span class="sr">Sortierung</span><select id="psort">${[["rel","Neueste zuerst"],["val","Wertvollste zuerst"],["set","Nach Set"]].map(([k,l])=>`<option value="${k}"${pSort===k?" selected":""}>${l}</option>`).join("")}</select></label></div><div class="qwrap"><input class="field" id="pq" type="search" placeholder="Im Album suchen" autocomplete="off" value="${esc(pQ)}"></div>`;
     $("#psort").addEventListener("change", e=>{ pSort = e.target.value; renderPAlbum(a); });
@@ -2967,17 +3002,21 @@ async function autoPrices(force){
   const keys = [...new Set(cards.filter(c => c.setId && SET.has(c.setId) && qtyOf(c)).map(c => c.setId + "|" + c.num))];
   if(!keys.length) return;
   Object.assign(AP, {run:true, done:0, total:keys.length}); apProg();
-  const queue = keys.slice(); let ok = 0;
-  const worker = async () => { while(queue.length){ const k = queue.shift(); const [sid, num] = k.split("|"); try{ const s = SET.get(sid), en = cards.some(c=>c.setId===sid && c.num===num && c.lang==="Englisch") && !cards.some(c=>c.setId===sid && c.num===num && c.lang==="Deutsch"); const i = await cardInfo(s, num, en); lastInfo.set(k,i); applyPrices(sid, num, i); recordVariants(k, i); ok++; }catch{} AP.done++; if(AP.done % 10 === 0 || AP.done === AP.total) apProg(); } };
+  if(force){ infoCache.clear(); noStore = true; }
+  const queue = keys.slice(); let ok = 0, chg = 0;
+  const worker = async () => { while(queue.length){ const k = queue.shift(); const [sid, num] = k.split("|"); try{ const s = SET.get(sid), en = cards.some(c=>c.setId===sid && c.num===num && c.lang==="Englisch") && !cards.some(c=>c.setId===sid && c.num===num && c.lang==="Deutsch"); const i = await cardInfo(s, num, en); lastInfo.set(k,i); if(applyPrices(sid, num, i)) chg++; recordVariants(k, i); ok++; }catch{} AP.done++; if(AP.done % 10 === 0 || AP.done === AP.total) apProg(); } };
   try{ await Promise.all([worker(), worker(), worker()]); }
-  finally{ AP.run = false; if(ok) LS.put("pk-autoprice", localDay()); apProg(); render(); }
+  finally{ AP.run = false; noStore = false; if(ok){ LS.put("pk-autoprice", localDay()); LS.put("pk-pricecheck", new Date().toISOString()); } apProg(); render();
+    if(force) toast(ok ? (chg ? `Preise aktualisiert – ${chg} ${chg===1?"Karte":"Karten"} mit neuem Preis` : "Preise geprüft – keine Änderungen seit dem letzten Stand") : "Preise konnten nicht geladen werden – bitte später erneut versuchen", 4000); }
 }
 function apProg(){
   document.body.classList.toggle("aprun", AP.run);
   document.documentElement.style.setProperty("--ap", AP.total ? (AP.done/AP.total*100).toFixed(1)+"%" : "0%");
   const el = $("#pf-prog"); if(el) el.textContent = AP.run ? `Preise werden aktualisiert … ${AP.done} / ${AP.total}` : pfStand();
 }
-function pfStand(){ const pd = cards.map(c=>c.priceDate||"").filter(Boolean).sort().pop(); return pd ? `Preise vom ${deDate(pd)}` : "Noch keine Preise geladen"; }
+function pfStand(){ const pd = cards.map(c=>c.priceDate||"").filter(Boolean).sort().pop(), ck = LS.raw("pk-pricecheck");
+  const chk = ck ? (()=>{ const d = new Date(ck); return `geprüft ${d.toDateString()===new Date().toDateString() ? "heute" : d.toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",year:"numeric"})} ${d.toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"})}`; })() : "";
+  return pd ? `Preise vom ${deDate(pd)}${chk ? " · " + chk : ""}` : "Noch keine Preise geladen"; }
 
 /* ---------- Portfolio ---------- */
 let pfDim = "set", pfSet = "", pfLang = "", pfShow = 30, psLang = "all", psDim = "rar", psShow = 30;
@@ -3137,7 +3176,7 @@ function renderPicker(){
 }
 $("#p-q").addEventListener("input", renderPicker);
 $("#p-list").addEventListener("click", e=>{
-  const pa = e.target.closest("[data-padd]"); if(pa){ const [t, v] = pa.dataset.padd.split("|"); if(t==="free") return openFreeName(); createPersonal(t, t==="dex" ? +v : v); return; }
+  const pa = e.target.closest("[data-padd]"); if(pa){ const [t, v] = pa.dataset.padd.split("|"); if(t==="free") return openFreeName(); previewPersonal(t, t==="dex" ? +v : v); return; }
   const b = e.target.closest("[data-pset]"); if(!b || b.disabled) return;
   backTo = {setId:b.dataset.pset, hash:"regal", view:"picker", y:window.scrollY, reopen:null, picker:{q:$("#p-q").value, y:pickSheet.sc.scrollTop}};
   pickSheet.close(); go("set-"+slugOf(b.dataset.pset));
