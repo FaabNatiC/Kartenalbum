@@ -170,6 +170,9 @@ h1 span{color:var(--accent)}
 .face .band{background:var(--tb,#9aa3b5);color:var(--ti,#fff);padding:4px 5px 3px;display:grid;gap:1px}
 .face .nm{font:700 clamp(10px,2.6vw,12px)/1.1 var(--f-body);overflow-wrap:anywhere}
 .face .dx{font:600 9.5px var(--f-num);opacity:.85}
+.vb{position:absolute;right:4px;top:4px;display:flex;flex-direction:column;align-items:flex-end;gap:2px;z-index:2;pointer-events:none}
+.vb i{font:700 9.5px/1.25 var(--f-num);font-style:normal;padding:1px 5px;border-radius:99px;color:#fff;background:#5a6378;box-shadow:0 1px 2px rgba(0,0,0,.35);white-space:nowrap}
+.vb .rh{background:linear-gradient(90deg,#4f7cff,#a24fff,#ff5a8a)}.vb .h{background:linear-gradient(90deg,#c9971c,#ffe08a,#c9971c);color:#3a2700}.vb .l{background:#1f7a52}.vb .x{background:#3a4258}
 .badge{position:absolute;right:4px;top:4px;background:var(--accent);color:var(--accent-ink);font:700 10px var(--f-num);border-radius:99px;padding:1px 6px;z-index:2}
 .slot.flash{animation:flash 1.6s ease}
 @keyframes flash{0%,60%{box-shadow:0 0 0 4px var(--accent)}100%{box-shadow:0 0 0 0 transparent}}
@@ -209,6 +212,8 @@ dialog::backdrop{background:rgba(10,14,24,.55)}
 body.nobar #head{margin:calc(-1 * (env(safe-area-inset-top,0px) + 18px)) calc(-1 * max(16px,env(safe-area-inset-right,0px))) 0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:calc(env(safe-area-inset-top,0px) + 18px) max(16px,env(safe-area-inset-right,0px)) 14px max(16px,env(safe-area-inset-left,0px));background:linear-gradient(180deg,var(--hbg) 0%,color-mix(in srgb,var(--hbg) 45%,var(--bg)) 55%,var(--bg) 100%)}
 body.nobar #head .hrow{margin-bottom:12px}
 @media (max-width:899px){body.nobar::before{background:transparent}}
+/* iOS: kurze Seiten mindestens bildschirmhoch, sonst rechnet iOS mit zu kleinem Fenster und die Tab-Leiste schwebt */
+html{min-height:calc(100% + env(safe-area-inset-top,0px))}body{min-height:calc(100vh + env(safe-area-inset-top,0px))}
 .tabbar::after{content:"";position:absolute;left:0;right:0;top:100%;height:120px;background:inherit;pointer-events:none}
 .sheet::after{content:"";position:absolute;left:0;right:0;top:100%;height:120px;background:var(--page);pointer-events:none}
 .tbar{position:fixed;left:0;right:0;top:0;z-index:26;display:flex;align-items:center;justify-content:center;padding:calc(env(safe-area-inset-top,0px) + 10px) 60px 10px;line-height:24px;background:var(--bar);-webkit-backdrop-filter:saturate(1.6) blur(16px);backdrop-filter:saturate(1.6) blur(16px);border-bottom:1px solid var(--line);font:700 17px var(--f-body);color:var(--ink);transform:translateY(-110%);transition:transform .22s ease;pointer-events:none}
@@ -343,6 +348,11 @@ body.nobar #head .hrow{margin-bottom:12px}
 .big.noimg{display:none}
 .bigwrap{position:relative;width:min(100%,250px);margin:0 auto}
 .bigwrap .big{width:100%;cursor:zoom-in}
+.bigwrap{transition:transform .23s cubic-bezier(.2,.8,.2,1)}.bigwrap.sw{transition:none}
+.bigwrap .nb{position:absolute;top:0;width:100%;aspect-ratio:63/88;border-radius:12px;object-fit:cover;background:var(--pocket);opacity:.5;transform:scale(.86);pointer-events:none;box-shadow:var(--shadow)}
+.bigwrap .nb-l{right:calc(100% + 16px);transform-origin:right center}.bigwrap .nb-r{left:calc(100% + 16px);transform-origin:left center}
+.bigwrap .nb[hidden]{display:none}
+@media (min-width:900px){.bigwrap .nb{display:none!important}}
 .b3d{position:absolute;right:8px;bottom:8px;border:0;border-radius:999px;background:rgba(10,14,24,.72);color:#fff;font:700 12px var(--f-num);padding:6px 10px;cursor:pointer}
 /* 3D-Ansicht */
 .viewer{position:fixed;inset:0;z-index:70;background:rgba(6,8,13,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:calc(env(safe-area-inset-top,0px) + 12px) 16px calc(env(safe-area-inset-bottom,0px) + 16px);touch-action:none;-webkit-user-select:none;user-select:none;opacity:0;transition:opacity .2s}
@@ -637,6 +647,17 @@ button.achp{border:0;font:600 12.5px var(--f-body);cursor:pointer}
 .pcover .logo-t{color:#6a4fa8;font-size:17px}
 .pthumb{overflow:hidden;border-radius:4px;width:40px;height:56px;margin:0 12px}.pthumb .cimg{width:100%;height:100%;object-fit:cover}
 .pprev{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:14px;padding:10px 12px;border:1px dashed var(--line);border-radius:12px;color:var(--muted);font-size:13px}
+.achq{display:flex;align-items:center;gap:8px;margin:0 0 12px}.achq span{flex:1;font-size:13px;color:var(--muted)}
+.tmseg{margin-bottom:10px}#tm-q{margin-bottom:12px}
+.tmlist{display:grid;gap:8px}.tmrow .winfo span{font-size:12.5px;color:var(--muted)}.tmrow .winfo .flag{width:16px;height:11px;vertical-align:-1px;border-radius:2px}
+.tmch{display:flex;gap:4px;flex-wrap:wrap;margin-top:2px}.tmch .ch{font:700 10.5px var(--f-body);font-style:normal;padding:2px 7px;border-radius:99px}
+.ch.t{background:color-mix(in srgb,#3d7fd0 22%,transparent);color:#4f8fe0}.ch.v{background:color-mix(in srgb,#d0683d 22%,transparent);color:#d8743f}.ch.cm{background:color-mix(in srgb,#2f8a4e 22%,transparent);color:#3a9a5c}.ch.k{background:var(--pocket);color:var(--muted)}
+.tmr{display:grid;justify-items:end;gap:2px;border:0;background:none;color:var(--ink);font:inherit;padding:0 2px;cursor:pointer;text-align:right}.tmr b{font:700 15px var(--f-num)}.tmr small{font-size:11.5px;color:var(--muted)}.tmr .lnk{font-size:12px}
+.tmrow.kept{opacity:.7}.tmh{margin:18px 0 8px;font:600 12px var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}.tmh:first-child{margin-top:0}
+.tmkept{text-align:center;margin:16px 0}.tmset{display:grid;gap:10px;padding:12px;border:1px solid var(--line);border-radius:12px}
+.tmline{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:14px}.seg.sm button{padding:6px 10px;font-size:13px}
+.tmform{gap:10px;align-items:end}.tmform .fld{flex:1}.tmwarn{margin:0;padding:10px 12px;border-radius:10px;background:color-mix(in srgb,var(--accent) 14%,transparent);color:var(--ink);font-size:13px}
+#ws-body .tmset + .sec-h{margin-top:4px}
 .pgrp{border:1px solid var(--line);border-radius:12px;background:var(--page);overflow:hidden}
 .pgh{display:flex;align-items:center;gap:8px;width:100%;border:0;background:none;padding:12px 14px;color:var(--ink);font:inherit;cursor:pointer;text-align:left}
 .pgh b{flex:1;font:700 15px var(--f-body)}.pgh span{font:600 12px var(--f-num);color:var(--muted)}.pgh .chev{font-size:20px;transition:transform .2s}
@@ -801,6 +822,8 @@ button.tab{border:0;background:none;padding:0;cursor:pointer;width:100%;font:600
 
 /* ---------- Desktop / großer Bildschirm (ab 900 px) ---------- */
 .side-brand,.side-sum,.kbd,.pnav,.desk-only{display:none}
+body.noscan [data-scan]{display:none!important}
+@media (min-width:900px){.tab[data-tab="mehr"]{display:none}}
 @media (hover:hover) and (pointer:fine){
   .slot{transition:transform .15s,box-shadow .15s}
   .slot:hover{transform:translateY(-3px);box-shadow:0 8px 18px rgba(20,28,48,.18)}
@@ -880,6 +903,7 @@ button.tab{border:0;background:none;padding:0;cursor:pointer;width:100%;font:600
   <a class="tab" href="#erfolge" data-tab="erfolge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3l2.5 6M16 3l-2.5 6"/><circle cx="12" cy="15" r="6"/><path d="M12 12.2l.9 1.8 2 .3-1.45 1.4.35 2-1.8-.95-1.8.95.35-2L9.1 14.3l2-.3z"/></svg>Erfolge</a>
   <a class="tab" href="#wunsch" data-tab="wunsch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.3-8.9-8.6C1.7 8.3 3.6 5 6.9 5c2 0 3.3 1.1 5.1 3 1.8-1.9 3.1-3 5.1-3 3.3 0 5.2 3.3 3.8 6.4C19 15.7 12 20 12 20z"/></svg>Wunschliste</a>
   <button class="tab" type="button" data-tab="scan" data-scan><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="3.2"/></svg>Scannen</button>
+  <a class="tab" href="#tausch" data-tab="tausch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h14l-3.5-3.5"/><path d="M20 16H6l3.5 3.5"/></svg>Tausch</a>
   <a class="tab" href="#mehr" data-tab="mehr"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>Mehr</a>
 </nav><button class="side-sum" type="button" id="side-sum" aria-label="Portfolio öffnen"></button></div>
 
@@ -888,7 +912,7 @@ button.tab{border:0;background:none;padding:0;cursor:pointer;width:100%;font:600
   <div class="grab" aria-hidden="true"><span></span></div>
   <div class="sheet-scroll" id="sheet-scroll"><div class="dlg">
     <div class="dlg-x"><span class="pnav"><button class="x" type="button" id="d-prev" aria-label="Vorherige Karte"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><button class="x" type="button" id="d-next" aria-label="Nächste Karte"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button><small>← → · Esc</small></span><button class="x" type="button" data-sheet-close aria-label="Schließen">×</button></div>
-    <p class="imgnote" id="d-imgnote" hidden>Kein Kartenbild verfügbar – Pokémon-Artwork als Ersatz</p><div class="bigwrap"><img class="big noimg" id="d-img" alt=""><button class="b3d" type="button" id="d-3d" aria-label="Karte in 3D ansehen" hidden>3D</button></div>
+    <p class="imgnote" id="d-imgnote" hidden>Kein Kartenbild verfügbar – Pokémon-Artwork als Ersatz</p><div class="bigwrap"><img class="nb nb-l" id="d-nl" alt="" aria-hidden="true" hidden><img class="nb nb-r" id="d-nr" alt="" aria-hidden="true" hidden><img class="big noimg" id="d-img" alt=""><button class="b3d" type="button" id="d-3d" aria-label="Karte in 3D ansehen" hidden>3D</button></div>
     <div><h2 id="d-title"></h2><p class="dsub" id="d-sub" hidden></p><div class="chips" id="d-chips"></div><p class="dmeta" id="d-meta"></p><div class="dlinks" id="d-links"></div></div>
     <div class="price" id="d-price" hidden></div>
     <div id="d-body"></div>
@@ -993,6 +1017,7 @@ const CONDS = ["Mint","Near Mint","Excellent","Good","Light Played","Played","Po
 
 /* ---------- Änderungsprotokoll ---------- */
 const CHANGELOG = [
+  {v:"1.34", d:"2026-11-12", items:["Neuer Tab „Tauschmarkt“: doppelte Karten mit Marktwert, Tausch/Verkauf, Cardmarket-Vermerk mit Warnung, Abgabe mit Preis und Notiz, Verlauf mit Rückgängig", "Karten-Sheet: zur vorherigen/nächsten Karte wischen, Nachbarkarten angeschnitten sichtbar", "Album: Varianten-Badges (N, RH, H, Liga), Zahl erst ab 2 Exemplaren je Variante", "Neuer Orden: „Ansehen“ öffnet den Orden direkt über der aktuellen Seite", "Karten-Sheet: Kartenbild erscheint auch, wenn die hohe Auflösung fehlt", "Tab-Leiste sitzt auch auf kurzen Seiten richtig unten", "Am PC: Scannen ausgeblendet, Tab „Mehr“ nur bei Bedarf"]},
   {v:"1.33", d:"2026-11-06", items:["Tab-Leiste wieder an der richtigen Position, Beschriftung nicht mehr abgeschnitten, ohne Lücke darunter", "3D-Orden: Gravur auf der Rückseite nicht mehr spiegelverkehrt"]},
   {v:"1.32", d:"2026-11-06", items:["Verlauf läuft ohne Kante bis unter die Uhrzeit, Titelleiste erscheint passend beim Scrollen", "Tab-Leiste und Bottom Sheets schweben nicht mehr über dem unteren Rand", "3D-Orden funktionieren wieder – jetzt als Relief mit erhabenem Rahmen und Motiv", "Erfolge: Gruppen beim Öffnen des Tabs immer zugeklappt", "Persönliche Alben: Vorschlag öffnet erst eine Vorschau, angelegt wird per „Album anlegen“", "Set-Seite: keine leere Fläche über der Filterleiste, Top-3-Namen nicht mehr abgeschnitten", "Portfolio: „Jetzt aktualisieren“ lädt wirklich neu, mit Rückmeldung und Prüfzeit"]},
   {v:"1.31", d:"2026-11-05", items:["Dark-Modus: Statusleiste durchsichtig – Verlauf und Titelleiste reichen nahtlos bis ganz oben"]},
@@ -1116,7 +1141,7 @@ const LS = {
   works(){ try{ localStorage.setItem("pk-test","1"); localStorage.removeItem("pk-test"); return true; }catch{ return false; } },
   raw(k){ try{ return localStorage.getItem(k); }catch{ return null; } }, put(k,v){ try{ localStorage.setItem(k,v); }catch{} }
 };
-let cards = [], albums = [], settings = {lang:"Deutsch", cond:"Near Mint"}, wish = {}, valHist = {}, notes = {}, ach = {};
+let cards = [], albums = [], settings = {lang:"Deutsch", cond:"Near Mint"}, wish = {}, valHist = {}, notes = {}, ach = {}, tm = {keep:{}, mode:{}, cm:{}, log:[]};
 const rid = () => "l"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
 const saveCards = () => LS.set("pk-cards", cards);
 function setStatus(t){ const el=$("#status"); el.textContent=t||""; el.hidden=!t; }
@@ -1275,7 +1300,7 @@ function stepVariant(setId, num, v, delta){
 /* ---------- Routing ---------- */
 let view = {name:"regal"}, filter = "all", searchQ = "", pendingOpen = null, confirmAlbumDel = false;
 let backTo = null, restore = null, restoreFilt = false, setQ = "", sqOpen = false;
-const VIEW_LBL = {regal:"Alben", dex:"Pokédex", suche:"Suche", wunsch:"Wunschliste", mehr:"Mehr", picker:"Alle Sets", portfolio:"Portfolio", pset:"Portfolio", erfolge:"Erfolge"};
+const VIEW_LBL = {regal:"Alben", dex:"Pokédex", suche:"Suche", wunsch:"Wunschliste", mehr:"Mehr", picker:"Alle Sets", portfolio:"Portfolio", pset:"Portfolio", erfolge:"Erfolge", tausch:"Tauschmarkt"};
 function jumpToSet(setId, num){
   backTo = {setId, hash: location.hash.slice(1) || "regal", view: view.name, y: window.scrollY, reopen: ctx ? {...ctx} : null};
   pendingOpen = {kind:"set", setId, num};
@@ -1313,6 +1338,7 @@ function route(){
   else if(h==="wunsch") view={name:"wunsch"};
   else if(h==="portfolio") view={name:"portfolio"};
   else if(h==="erfolge") view={name:"erfolge"};
+  else if(h==="tausch") view={name:"tausch"};
   else if(h==="palb-vorschau" && pPrev){ if(view?.alb!==pPrev) pQ = ""; view={name:"palb", alb:pPrev}; }
   else if(h.startsWith("palb-") && albums.some(a=>a.kind==="p" && a.id===h.slice(5))){ const pa = albums.find(a=>a.id===h.slice(5)); if(view?.alb?.id!==pa.id){ pQ = ""; } view={name:"palb", alb:pa}; }
   else if(h==="einstellungen"){ if(view && view.name!=="einstellungen") setFrom = location.hash && view.name!=="set" ? (view.name==="pset" ? "portfolio" : view.name==="regal" ? "regal" : view.name) : "regal"; view={name:"einstellungen"}; }
@@ -1363,6 +1389,7 @@ function render(){
   else if(view.name==="wunsch") renderWish();
   else if(view.name==="portfolio") renderPortfolio();
   else if(view.name==="erfolge") renderAch();
+  else if(view.name==="tausch") renderTausch();
   else if(view.name==="palb") renderPAlbum(view.alb);
   else if(view.name==="pset") renderPSet(view.set);
   else renderShelf();
@@ -1467,13 +1494,33 @@ function slotDex(n, list){
   const name = NAMES[n-1], q = list?.length ? sum(list,qtyOf) : 0;
   return `<button class="slot dexs${q?" owned":""}" type="button" data-dex="${n}" id="slot-${n}" aria-label="#${pad4(n)} ${esc(name)}${q?`, ${q} Karte(n)`:", fehlt"}"><span class="dno">${pad4(n)}</span>${q>1?`<span class="badge">${q}×</span>`:""}<img class="art" src="${artUrl(n)}" alt="" loading="lazy" decoding="async" onerror="this.remove()"><span class="dnm">${esc(name)}</span></button>`;
 }
+const VP_SHORT = {pokeball:"PB", masterball:"MB"};
+function vPill(key){
+  const o = vParts(key || "normal");
+  if(o.stamps.includes("1st-edition")) return ["1st", "x", 5];
+  if(o.foil==="league") return ["Liga", "l", 4];
+  if(o.stamps.length) return ["St", "l", 4];
+  if(o.size) return ["J", "x", 6];
+  if(o.type==="reverse") return [VP_SHORT[o.foil] || "RH", "rh", 2];
+  if(o.type==="holo") return ["H", "h", 1];
+  if(o.type==="normal" && !o.foil) return ["N", "n", 0];
+  return [(TYPE_LBL[o.type] || o.type).slice(0,2), "x", 3];
+}
+function vBadges(list){
+  const m = new Map();
+  for(const e of list){ const [t, cls, ord] = vPill(e.v), k = t+"|"+cls, o = m.get(k) || {t, cls, ord, q:0}; o.q += qtyOf(e); m.set(k, o); }
+  const ps = [...m.values()].filter(p=>p.q).sort((a,b)=>a.ord-b.ord || a.t.localeCompare(b.t));
+  if(!ps.length || (ps.length===1 && ps[0].t==="N" && ps[0].q<2)) return "";
+  const show = ps.length > 4 ? ps.slice(0,3) : ps;
+  return `<span class="vb">${show.map(p=>`<i class="${p.cls}">${p.t}${p.q>1?` ${p.q}`:""}</i>`).join("")}${ps.length>show.length?`<i class="x">+${ps.length-show.length}</i>`:""}</span>`;
+}
 function slotSet(s, c, list, noId){
   const nm = cardTitleFor(s, c), sec = isSecret(s,c);
   const attrs = `type="button" data-set="${esc(s.id)}" data-num="${esc(c[0])}"${noId?"":` id="slot-${esc(c[0])}"`}`;
   if(!list?.length) return `<button class="slot${sec?" secret":""}" ${attrs} aria-label="${esc(numDisp(s,c[0]))} ${esc(nm)}, fehlt"><span class="no"><b>${esc(c[0])}</b><span>${esc(nm)}</span></span>${cimg(s,c[0],"low","cimg")}<span class="tag">${esc(c[0])}</span>${wish[wishKey(s.id,c[0])]?`<span class="wtag" title="Auf der Wunschliste">${HEART_SVG}</span>`:""}</button>`;
   const q = sum(list,qtyOf), t = TYPES[c[5]];
   const band = t ? `--tb:${t[1]};--ti:${t[2]}` : c[4]==="T" ? "--tb:#5b6b86;--ti:#fff" : "";
-  return `<button class="slot owned" ${attrs} aria-label="${esc(numDisp(s,c[0]))} ${esc(nm)}, ${q} Karte(n)">${q>1?`<span class="badge">${q}×</span>`:""}${cimg(s, c[0], "low", "cimg", list[0].lang)}<span class="face" style="${band}"><span class="band"><span class="dx">${esc(numDisp(s,c[0]))}</span><span class="nm">${esc(nm)}</span></span></span></button>`;
+  return `<button class="slot owned" ${attrs} aria-label="${esc(numDisp(s,c[0]))} ${esc(nm)}, ${q} Karte(n)">${vBadges(list)}${cimg(s, c[0], "low", "cimg", list[0].lang)}<span class="face" style="${band}"><span class="band"><span class="dx">${esc(numDisp(s,c[0]))}</span><span class="nm">${esc(nm)}</span></span></span></button>`;
 }
 function pages(items, slotFn, labelFn){
   let html = '<div class="binder">';
@@ -1706,7 +1753,7 @@ function renderWish(){
   $("#head").innerHTML = `<h1>Wunschliste</h1>${list.length?`<div class="stats"><div class="stat"><small>Karten</small><b>${list.length}</b></div><div class="stat"><small>Summe</small><b>${eur(total)}</b></div></div>`:""}`;
   $("#tools").innerHTML = list.length ? `<div class="row wish-tools"><button class="btn" type="button" id="wish-share">Als Text teilen</button>${missing?`<span class="hint">Preise werden geladen …</span>`:`<span class="hint">Preise: günstigste Variante, Cardmarket-Trend</span>`}</div>` : "";
   const row = ({k,w,s,c}) => `<div class="wrow">
-      <button class="wcard" type="button" data-wopen="${esc(k)}" aria-label="${esc(cardTitleFor(s,c))} öffnen">${cimg(s,c[0],"low","cimg")}</button>
+      <button class="wcard" type="button" data-wopen="${esc(k)}" data-navk="${esc(k)}" aria-label="${esc(cardTitleFor(s,c))} öffnen">${cimg(s,c[0],"low","cimg")}</button>
       <button class="winfo" type="button" data-wopen="${esc(k)}"><b>${esc(cardTitleFor(s,c))}</b>${cardSubFor(s,c)?`<span>${esc(cardSubFor(s,c))}</span>`:""}<span>${esc(setTitle(s))} · ${esc(s.abbr)} ${esc(numDisp(s,c[0]))}</span><span class="wpr">${w.pr==null?"Preis wird geladen …":w.pr?`ab ${eur(w.pr)}`:"kein Preis verfügbar"}</span></button>
       <button class="wprio p${w.p||0}" type="button" data-wprio="${esc(k)}" aria-label="Priorität ${prioLbl(w.p)} ändern">${prioLbl(w.p)}</button>
       <button class="wdel" type="button" data-wdel="${esc(k)}" aria-label="Von der Wunschliste entfernen">×</button>
@@ -1868,16 +1915,22 @@ function achStats(){
   const allTypes = Object.keys(TYPES); st.types = allTypes.filter(t=>types.has(t)).length; st.typesAll = allTypes.length;
   return st;
 }
-let achBusy = false;
+let achBusy = false, achQ = null;
+function openAchQ(i){
+  if(!achQ?.length) return;
+  openAchSheet(achQ[i]);
+  if(achQ.length > 1){ const b = document.createElement("div"); b.className = "achq"; b.innerHTML = `<span>Neuer Erfolg ${i+1} von ${achQ.length}</span>${i>0?`<button class="btn" type="button" data-aq="${i-1}">Zurück</button>`:""}${i<achQ.length-1?`<button class="btn primary" type="button" data-aq="${i+1}">Nächster</button>`:""}`; $("#ws-body").prepend(b); b.querySelectorAll("[data-aq]").forEach(x=>x.addEventListener("click", ()=>{ stopMedal3D(); openAchQ(+x.dataset.aq); })); }
+}
 function checkAch(){
   if(achBusy || !cards.length) return; achBusy = true;
   try{
     const st = achStats(), today = localDay(), neu = [];
-    for(const [id, name,, fn] of ACH){ if(ach[id]) continue; const [v, goal] = fn(st); if(v >= goal){ ach[id] = today; neu.push(name); } }
+    const ids = [];
+    for(const [id, name,, fn] of ACH){ if(ach[id]) continue; const [v, goal] = fn(st); if(v >= goal){ ach[id] = today; neu.push(name); ids.push(id); } }
     if(neu.length){
       LS.set("pk-ach", ach);
       toast(`<span>${neu.length===1 ? `Erfolg freigeschaltet: <b>${esc(neu[0])}</b>` : `${neu.length} Erfolge freigeschaltet`}</span><button class="btn" type="button" id="t-ach">Ansehen</button><button class="tx" type="button" data-tclose aria-label="Schließen">×</button>`, 5000);
-      $("#t-ach")?.addEventListener("click", ()=>go("erfolge"));
+      $("#t-ach")?.addEventListener("click", ()=>{ hideToast(); achQ = ids.slice(); openAchQ(0); });
     }
   } finally { achBusy = false; }
 }
@@ -2369,16 +2422,20 @@ document.addEventListener("click", e=>{ const b = e.target.closest("[data-scan]"
 document.addEventListener("keydown", e=>{ if(SC.open && e.key==="Escape"){ e.stopImmediatePropagation(); closeScanner(); } }, true);
 
 /* ---------- Tab-Leiste ---------- */
-const TAB_ALL = ["regal","dex","suche","wunsch","portfolio","erfolge","scan"];
-const TAB_LBL = {regal:"Alben", dex:"Pokédex", suche:"Suche", wunsch:"Wunschliste", portfolio:"Portfolio", erfolge:"Erfolge", scan:"Scannen"};
+const TAB_ALL0 = ["regal","dex","suche","wunsch","portfolio","erfolge","tausch","scan"];
+const CAN_SCAN = matchMedia("(pointer: coarse)").matches || (navigator.maxTouchPoints||0) > 0;
+if(!CAN_SCAN) document.body.classList.add("noscan");
+const TAB_ALL = TAB_ALL0.filter(t=>t!=="scan" || CAN_SCAN);
+const TAB_LBL = {regal:"Alben", dex:"Pokédex", suche:"Suche", wunsch:"Wunschliste", portfolio:"Portfolio", erfolge:"Erfolge", tausch:"Tauschmarkt", scan:"Scannen"};
 const DEF_TABS = ["regal","dex","suche","wunsch"];
 const TAB_LOCK = ["regal","dex"];
 const curTabs = () => { let t = (settings.tabs||DEF_TABS).filter(x=>TAB_ALL.includes(x)); TAB_LOCK.forEach((x,i)=>{ if(!t.includes(x)) t.splice(Math.min(i,t.length), 0, x); }); if(t.length>5) t = [...t.filter(x=>TAB_LOCK.includes(x)), ...t.filter(x=>!TAB_LOCK.includes(x))].slice(0,5); return t.length>=3 ? t : DEF_TABS; };
 const LOCK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2" fill="currentColor"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
 function applyTabs(){
   const sel = curTabs(), nav = document.querySelector(".tabbar nav"); if(!nav) return;
-  nav.style.setProperty("--n", sel.length + 1);
-  nav.querySelectorAll(".tab").forEach(a=>{ const t = a.dataset.tab; if(t==="mehr"){ a.style.setProperty("--o", 99); return; } const i = sel.indexOf(t); a.classList.toggle("hid", i<0); a.style.setProperty("--o", i<0 ? 50 : i); });
+  const hasMore = TAB_ALL.some(t=>!sel.includes(t));
+  nav.style.setProperty("--n", sel.length + (hasMore ? 1 : 0));
+  nav.querySelectorAll(".tab").forEach(a=>{ const t = a.dataset.tab; if(t==="mehr"){ a.style.setProperty("--o", 99); a.classList.toggle("hid", !hasMore); return; } const i = sel.indexOf(t); a.classList.toggle("hid", i<0); a.style.setProperty("--o", i<0 ? 50 : i); });
 }
 function tabIcon(t){ const a = document.querySelector(`.tabbar .tab[data-tab="${t}"] svg`); return a ? a.outerHTML : ""; }
 function openTabs(first){
@@ -2387,9 +2444,9 @@ function openTabs(first){
   $("#ws-title").textContent = first ? "Deine Tab-Leiste" : "Tab-Leiste anpassen";
   const draw = () => {
     const order = [...sel, ...TAB_ALL.filter(t=>!sel.includes(t))], ok = sel.length>=3 && sel.length<=5;
-    $("#ws-body").innerHTML = `<p class="hint" style="margin:0">${first ? "Wähle, welche Bereiche unten in der Leiste stehen sollen. " : ""}Alben, Pokédex und Mehr sind immer dabei, dazu 1 bis 3 weitere Bereiche. Ausgeblendete findest du unter Mehr. Die Einstellungen erreichst du immer über das Zahnrad oben rechts. Am Rechner zeigt die Seitenleiste immer alle.</p>
+    $("#ws-body").innerHTML = `<p class="hint" style="margin:0">${first ? "Wähle, welche Bereiche unten in der Leiste stehen sollen. " : ""}Alben und Pokédex sind immer dabei, dazu 1 bis 3 weitere Bereiche. Ausgeblendete findest du unter Mehr – der Tab erscheint nur, wenn dort etwas liegt. Die Einstellungen erreichst du immer über das Zahnrad oben rechts. Am Rechner zeigt die Seitenleiste immer alle.</p>
       <div class="tabcfg">${order.map(t=>{ const on = sel.includes(t), i = sel.indexOf(t); const lk = TAB_LOCK.includes(t); return `<div class="tcrow${on?" on":""}"><button class="tctog" type="button" data-tt="${t}" aria-pressed="${on}" ${lk?'aria-disabled="true" title="Immer dabei"':""}><span class="tcchk${lk?" lock":""}" aria-hidden="true">${lk?LOCK_SVG:on?"✓":""}</span>${tabIcon(t)}<span>${TAB_LBL[t]}</span></button>${on?`<button class="tcmv" type="button" data-tm="${t}|-1" aria-label="${TAB_LBL[t]} nach oben" ${i===0?"disabled":""}>↑</button><button class="tcmv" type="button" data-tm="${t}|1" aria-label="${TAB_LBL[t]} nach unten" ${i===sel.length-1?"disabled":""}>↓</button>`:""}</div>`; }).join("")}
-        <div class="tcrow fixed"><span class="tctog"><span class="tcchk lock" aria-hidden="true">${LOCK_SVG}</span>${tabIcon("mehr")}<span>Mehr</span></span><small>immer dabei</small></div></div>
+        <div class="tcrow fixed"><span class="tctog"><span class="tcchk lock" aria-hidden="true">${LOCK_SVG}</span>${tabIcon("mehr")}<span>Mehr</span></span><small>bei ausgeblendeten Bereichen</small></div></div>
       <p class="hint" style="margin:0;${ok?"":"color:var(--accent)"}">${sel.length} von 5 gewählt${ok?"":" – bitte mindestens einen weiteren Bereich wählen"}</p>
       <button class="btn primary" type="button" id="tc-save" ${ok?"":"disabled"}>Speichern</button>`;
     $("#ws-body").querySelectorAll("[data-tt]").forEach(b=>b.addEventListener("click", ()=>{ const t = b.dataset.tt; if(TAB_LOCK.includes(t)) return; if(sel.includes(t)) sel = sel.filter(x=>x!==t); else if(sel.length<5) sel.push(t); draw(); }));
@@ -2467,8 +2524,8 @@ function openReset(step){
     $("#rs-in").addEventListener("input", e=>{ $("#rs-go").disabled = e.target.value.trim().toUpperCase() !== "LÖSCHEN"; });
     $("#rs-cancel").addEventListener("click", ()=>wishSheet.close());
     $("#rs-go").addEventListener("click", ()=>{
-      cards = []; albums = []; wish = {}; notes = {}; ach = {}; valHist = {};
-      saveCards(); LS.set("pk-albums", albums); LS.set("pk-wish", wish); LS.set("pk-notes", notes); LS.set("pk-ach", ach); LS.set("pk-valhist", valHist);
+      cards = []; albums = []; wish = {}; notes = {}; ach = {}; valHist = {}; tm = {keep:{}, mode:{}, cm:{}, log:[]};
+      saveCards(); LS.set("pk-albums", albums); LS.set("pk-wish", wish); LS.set("pk-notes", notes); LS.set("pk-ach", ach); LS.set("pk-valhist", valHist); LS.set("pk-tm", tm);
       ["pk-searched","pk-wishopen","pk-pricehist","pk-lastbackup","pk-setval","pk-autoprice"].forEach(k=>{ try{ localStorage.removeItem(k); }catch{} });
       wishSheet.close(); go("regal"); render();
       toast(`<span>Sammlung zurückgesetzt</span><button class="tx" type="button" data-tclose aria-label="Schließen">×</button>`, 3500);
@@ -2560,7 +2617,7 @@ const TIPS = [
 ];
 function renderMore(){
   $("#bar-title").textContent = "Mehr";
-  const hid = TAB_ALL.filter(x=>!curTabs().includes(x)), DESC = {regal:"Deine Alben", dex:"Alle Pokémon", suche:"Karten finden", wunsch:"Gemerkte Karten", portfolio:"Wert & Analyse", erfolge:"Orden & Fortschritt", scan:"Karten per Kamera"};
+  const hid = TAB_ALL.filter(x=>!curTabs().includes(x)), DESC = {regal:"Deine Alben", dex:"Alle Pokémon", suche:"Karten finden", wunsch:"Gemerkte Karten", portfolio:"Wert & Analyse", erfolge:"Orden & Fortschritt", tausch:"Doppelte tauschen & verkaufen", scan:"Karten per Kamera"};
   $("#head").innerHTML = `<h1>Mehr</h1>`;
   $("#tools").innerHTML = "";
   $("#view").innerHTML = `<div class="mtiles mob-only">${hid.map(x=>x==="scan" ? `<button class="mtile" type="button" data-scan>${tabIcon(x)}<span>${TAB_LBL[x]}<br><small>${DESC[x]}</small></span></button>` : `<a class="mtile" href="#${x}">${tabIcon(x)}<span>${TAB_LBL[x]}<br><small>${DESC[x]}</small></span></a>`).join("")}</div>
@@ -2739,7 +2796,7 @@ const menuSheet = makeSheet($("#menusheet"));
 const filtSheet = makeSheet($("#filt"));
 function rememberRecent(c){ if(c.kind!=="set") return; const k = c.setId+"|"+c.num; const l = LS.get("pk-searched", []).filter(x=>x!==k); l.unshift(k); LS.set("pk-searched", l.slice(0,12)); }
 try{ localStorage.removeItem("pk-recent"); }catch{}
-function openCtx(c){ ctx=c; markSel(c); openDet = new Set(); showMore=false; confirmDel=null; priceVar=null; $("#d-img").dataset.key=""; renderDialog(); if(cardSheet.state==="closed") openSheet(); else { sScroll.scrollTop = 0; cardSheet.set("half"); } }
+function openCtx(c){ ctx=c; markSel(c); openDet = new Set(); showMore=false; confirmDel=null; priceVar=null; $("#d-img").dataset.key=""; renderDialog(); updNeighbors(); if(cardSheet.state==="closed") openSheet(); else { sScroll.scrollTop = 0; cardSheet.set("half"); } }
 
 function renderDialog(){
   if(ctx.kind==="dex") return renderDexDialog();
@@ -2764,7 +2821,10 @@ function renderDialog(){
     cardInfo(s, c[0], (mine[0]?.lang || defLang(s.id)) === "Englisch").then(info => {
       if(req !== infoReq || !ctx) return;
       lastInfo.set(key, info);
-      if(info.image){ im.onerror = () => { im.classList.add("noimg"); $("#d-3d").hidden = true; }; im.onload = () => { $("#d-3d").hidden = ctx?.kind!=="set"; }; im.src = info.image + "/high.webp"; } else showFallbackImg(im, s, c);
+      if(info.image){ const tile = document.querySelector(`.slot[data-set="${CSS.escape(s.id)}"][data-num="${CSS.escape(c[0])}"] img`)?.currentSrc || "";
+        const urls = [info.image + "/high.webp", info.image + "/low.webp", tile, imgUrl(s, c[0], "en", "high"), imgUrl(s, c[0], "en", "low")].filter((u,i,a)=>u && a.indexOf(u)===i);
+        let ui = 0; im.onerror = () => { if(im.dataset.key !== key) return; if(++ui < urls.length) im.src = urls[ui]; else { im.onerror = null; showFallbackImg(im, s, c); $("#d-3d").hidden = true; } };
+        im.onload = () => { $("#d-3d").hidden = ctx?.kind!=="set"; if(cardSheet.state==="half") cardSheet.set("half"); }; im.src = urls[0]; } else showFallbackImg(im, s, c);
       recordVariants(key, info); renderPrice();
       if(applyPrices(s.id, c[0], info)) render(); else renderVariants();
       if(cardSheet.state==="half") cardSheet.set("half");
@@ -2990,6 +3050,110 @@ function openAddToAlbum(setId, num){
   if(wishSheet.state==="closed") wishSheet.open("half"); else wishSheet.set("half");
 }
 
+
+/* ---------- Tauschmarkt ---------- */
+let tmFilt = "all", tmQ = "", tmShowKept = false;
+const tmKey = e => [e.setId, e.num, e.v, e.lang||""].join("|");
+const saveTm = () => LS.set("pk-tm", tm);
+const tmMode = k => tm.mode[k] || "tv";
+const tmCm = k => Math.max(0, +tm.cm[k] || 0);
+function tmItems(){
+  const m = new Map();
+  for(const e of cards){ if(!e.setId || !qtyOf(e)) continue; const s = SET.get(e.setId), c = cardAt(e.setId, e.num); if(!s || !c) continue;
+    const k = tmKey(e), o = m.get(k) || {k, s, c, setId:e.setId, num:e.num, v:e.v, lang:e.lang||"", qty:0, val:0, list:[]};
+    o.qty += qtyOf(e); o.val = Math.max(o.val, +e.val||0); o.list.push(e); m.set(k, o); }
+  return [...m.values()].filter(x=>x.qty > 1 || tmCm(x.k) > 0).map(x=>({...x, sur:Math.max(0, x.qty-1), cm:tmCm(x.k), kept:!!tm.keep[x.k], mode:tmMode(x.k)}))
+    .sort((a,b)=>b.val-a.val || a.s.id.localeCompare(b.s.id) || a.num.localeCompare(b.num, undefined, {numeric:true}));
+}
+const tmLog = () => tm.log.filter(e=>!e.del).sort((a,b)=>b.d.localeCompare(a.d) || b.t-a.t);
+const KIND_LBL = {sold:"verkauft", cm:"über Cardmarket verkauft", trade:"getauscht"};
+function renderTausch(){
+  $("#bar-title").textContent = "Tauschmarkt";
+  const all = tmItems(), act = all.filter(x=>!x.kept), log = tmLog();
+  const abz = sum(act, x=>x.sur), wert = sum(act, x=>x.sur*x.val), erl = sum(log.filter(e=>e.kind!=="trade"), e=>+e.price||0), cmN = sum(act, x=>x.cm);
+  $("#head").innerHTML = `<h1>Tauschmarkt</h1><div class="stats"><div class="stat"><small>Abzugeben</small><b>${abz}</b></div><div class="stat"><small>Marktwert</small><b>${eur(wert)}</b></div><div class="stat"><small>Verkauft</small><b>${eur(erl)}</b></div>${cmN?`<div class="stat"><small>Cardmarket</small><b>${cmN}</b></div>`:""}</div>`;
+  const F = [["all","Alle"],["t","Tausch"],["v","Verkauf"],["cm","Cardmarket"],["log","Verlauf"]];
+  if(!$("#tm-q")) $("#tools").innerHTML = `<div class="seg tmseg" role="group" aria-label="Filter">${F.map(([k,l])=>`<button type="button" data-tmf="${k}">${l}</button>`).join("")}</div><input class="field" id="tm-q" type="search" placeholder="Karte suchen" autocomplete="off" value="${esc(tmQ)}">`;
+  $("#tools").querySelectorAll("[data-tmf]").forEach(b=>{ b.setAttribute("aria-pressed", String(b.dataset.tmf===tmFilt)); b.onclick = ()=>{ tmFilt = b.dataset.tmf; renderTausch(); }; });
+  const qi = $("#tm-q"); qi.hidden = tmFilt==="log"; qi.oninput = ()=>{ tmQ = qi.value; renderTausch(); };
+  const q = tmQ.trim().toLowerCase(), hit = x => !q || [cardTitleFor(x.s,x.c), cName(x.c), x.s.abbr, x.s.de, x.num].join(" ").toLowerCase().includes(q);
+  if(tmFilt==="log"){
+    if(!log.length){ $("#view").innerHTML = `<p class="empty">Noch nichts abgegeben. Tippe auf eine Karte und wähle „Abgeben“.</p>`; return; }
+    const byM = new Map(); for(const e of log){ const mk = e.d.slice(0,7); if(!byM.has(mk)) byM.set(mk, []); byM.get(mk).push(e); }
+    const MON = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
+    $("#view").innerHTML = [...byM].map(([mk, l])=>`<h3 class="tmh">${MON[+mk.slice(5)-1]} ${mk.slice(0,4)}</h3>${l.map(e=>{ const sx = SET.get(e.setId), cx = cardAt(e.setId, e.num); if(!sx || !cx) return ""; return `<div class="wrow tmrow"><button class="wcard" type="button" data-navk="${esc(e.setId+"|"+e.num)}" data-tmc="${esc(e.setId+"|"+e.num)}">${cimg(sx, e.num, "low", "cimg", e.lang)}</button><div class="winfo"><b>${esc(cardTitleFor(sx,cx))}${e.n>1?` · ${e.n}×`:""}</b><span>${deDate(e.d)} · ${KIND_LBL[e.kind]}${e.note?` · ${esc(e.note)}`:""}</span><span>${esc(sx.abbr)} ${esc(numDisp(sx,e.num))} · ${esc(vLabel(e.v))}</span></div><div class="tmr"><b>${e.kind==="trade" ? "⇄" : "+"+eur(+e.price||0)}</b><small>Markt ${eur((+e.mkt||0)*e.n)}</small><button class="lnk" type="button" data-tmundo="${esc(e.id)}">Rückgängig</button></div></div>`; }).join("")}`).join("");
+  } else {
+    let list = all.filter(x=>tmShowKept ? x.kept : !x.kept).filter(hit);
+    if(tmFilt==="t") list = list.filter(x=>x.mode.includes("t")); else if(tmFilt==="v") list = list.filter(x=>x.mode.includes("v")); else if(tmFilt==="cm") list = list.filter(x=>x.cm>0);
+    const kept = all.filter(x=>x.kept).length;
+    $("#view").innerHTML = (list.length ? `<div class="tmlist">${list.map(x=>`<div class="wrow tmrow${x.kept?" kept":""}"><button class="wcard" type="button" data-navk="${esc(x.setId+"|"+x.num)}" data-tmc="${esc(x.setId+"|"+x.num)}" aria-label="${esc(cardTitleFor(x.s,x.c))} öffnen">${cimg(x.s, x.num, "low", "cimg", x.lang)}</button><button class="winfo" type="button" data-tm="${esc(x.k)}"><b>${esc(cardTitleFor(x.s,x.c))}</b><span>${esc(x.s.abbr)} ${esc(numDisp(x.s,x.num))} · ${esc(vLabel(x.v))} ${flag(LANGFLAG[x.lang])}</span><span class="tmch">${x.kept?`<i class="ch k">Behalten</i>`:`${x.mode.includes("t")?`<i class="ch t">Tausch</i>`:""}${x.mode.includes("v")?`<i class="ch v">Verkauf</i>`:""}`}${x.cm?`<i class="ch cm">CM ${x.cm}</i>`:""}</span></button><button class="tmr" type="button" data-tm="${esc(x.k)}"><b>${x.sur}×</b><small>${eur(x.val)}</small></button></div>`).join("")}</div>`
+      : `<p class="empty">${all.length ? "Keine passenden Karten." : "Noch keine doppelten Karten. Sobald du eine Karte mehrfach hast, erscheint sie hier."}</p>`)
+      + (kept && tmFilt!=="log" ? `<p class="tmkept"><button class="lnk" type="button" id="tm-kept">${tmShowKept ? "Zurück zum Tauschmarkt" : `${kept} behaltene ${kept===1?"Karte":"Karten"} anzeigen`}</button></p>` : "");
+  }
+  $("#view").querySelectorAll("[data-tm]").forEach(b=>b.addEventListener("click", ()=>openTmSheet(b.dataset.tm)));
+  $("#view").querySelectorAll("[data-tmc]").forEach(b=>b.addEventListener("click", ()=>{ const [setId, num] = b.dataset.tmc.split("|"); openCtx({kind:"set", setId, num}); }));
+  $("#view").querySelectorAll("[data-tmundo]").forEach(b=>b.addEventListener("click", ()=>tmUndo(b.dataset.tmundo)));
+  $("#tm-kept")?.addEventListener("click", ()=>{ tmShowKept = !tmShowKept; renderTausch(); });
+}
+function tmTake(x, n){
+  // vom Exemplar mit der größten Menge abziehen, Sprache/Variante bleiben gleich
+  const out = []; let rest = n;
+  const bs = x.list.slice().sort((a,b)=>qtyOf(b)-qtyOf(a));
+  for(const b of bs){ if(rest<=0) break; const t = Math.min(rest, qtyOf(b)); if(t>0){ out.push({cond:b.cond, n:t}); rest -= t; } }
+  for(const o of out) changeQty(x.setId, x.num, x.v, x.lang, o.cond, -o.n);
+  return out;
+}
+function tmUndo(id){
+  const e = tm.log.find(x=>x.id===id); if(!e || e.del) return;
+  for(const o of (e.take||[])) changeQty(e.setId, e.num, e.v, e.lang, o.cond, o.n);
+  if(e.kind==="cm"){ const k = [e.setId,e.num,e.v,e.lang].join("|"); tm.cm[k] = tmCm(k) + (e.cmN||0); }
+  e.del = true; saveTm(); render();
+  toast(`<span>Rückgängig gemacht – ${e.n}× zurück in der Sammlung</span><button class="tx" type="button" data-tclose aria-label="Schließen">×</button>`, 3000);
+}
+function openTmSheet(k){
+  const x = tmItems().find(y=>y.k===k); if(!x) return;
+  wsMode = {kind:"tm", k};
+  let kind = x.mode.includes("v") ? "sold" : "trade", n = 1;
+  $("#ws-title").textContent = cardTitleFor(x.s, x.c);
+  const draw = () => {
+    const y = tmItems().find(z=>z.k===k); if(!y){ wishSheet.close(); return; }
+    const free = Math.max(0, y.sur - y.cm), over = kind!=="cm" && n > free, last = n > y.sur;
+    n = Math.min(Math.max(1, n), y.qty);
+    $("#ws-body").innerHTML = `<p class="hint" style="margin:0">${esc(y.s.abbr)} ${esc(numDisp(y.s,y.num))} · ${esc(vLabel(y.v))} · ${esc(y.lang)} · ${y.qty} ${y.qty===1?"Exemplar":"Exemplare"}, ${y.sur} doppelt · ${eur(y.val)} je Karte</p>
+      <div class="tmset">
+        <div class="tmline"><span>Anbieten für</span><div class="seg sm"><button type="button" data-md="t" aria-pressed="${y.mode==="t"}">Tausch</button><button type="button" data-md="tv" aria-pressed="${y.mode==="tv"}">Beides</button><button type="button" data-md="v" aria-pressed="${y.mode==="v"}">Verkauf</button></div></div>
+        <div class="tmline"><span>Bei Cardmarket eingestellt</span><div class="step sm"><button type="button" data-cm="-1" ${y.cm?"":"disabled"} aria-label="eins weniger">−</button><span>${y.cm}</span><button type="button" data-cm="1" ${y.cm < y.qty?"":"disabled"} aria-label="eins mehr">+</button></div></div>
+        <button class="lnk" type="button" id="tm-keep">${y.kept ? "Wieder im Tauschmarkt anbieten" : "Behalten – aus dem Tauschmarkt ausblenden"}</button>
+      </div>
+      <p class="sec-h">Abgeben</p>
+      <div class="seg" role="group"><button type="button" data-kd="sold" aria-pressed="${kind==="sold"}">Verkauft</button><button type="button" data-kd="cm" aria-pressed="${kind==="cm"}">Über Cardmarket</button><button type="button" data-kd="trade" aria-pressed="${kind==="trade"}">Getauscht</button></div>
+      <div class="row tmform"><div class="fld"><label>Anzahl</label><div class="step"><button type="button" data-n="-1" ${n>1?"":"disabled"} aria-label="eins weniger">−</button><span>${n}</span><button type="button" data-n="1" ${n<y.qty?"":"disabled"} aria-label="eins mehr">+</button></div></div>
+        ${kind==="trade" ? "" : `<div class="fld"><label for="tm-pr">Preis gesamt (€)</label><input class="field" id="tm-pr" type="text" inputmode="decimal" placeholder="${(y.val*n).toFixed(2).replace(".",",")}"></div>`}</div>
+      <div class="fld"><label for="tm-note">${kind==="trade" ? "Getauscht gegen / mit wem" : "Notiz (z. B. an wen)"}</label><input class="field" id="tm-note" type="text" maxlength="80" autocomplete="off" placeholder="optional"></div>
+      ${over ? `<p class="tmwarn">Achtung: ${y.cm} ${y.cm===1?"Exemplar ist":"Exemplare sind"} bei Cardmarket eingestellt. Frei ${free===1?"ist":"sind"} nur ${free}. Lösche das Angebot dort, bevor du die Karte woanders abgibst.</p>` : ""}
+      ${last ? `<p class="tmwarn">Damit gibst du auch dein letztes Exemplar dieser Variante ab.</p>` : ""}
+      <button class="btn primary" type="button" id="tm-go">${over ? "Trotzdem abgeben" : "Abgeben"} – Sammlung: ${y.qty} → ${y.qty-n}</button>`;
+    const B = $("#ws-body");
+    B.querySelectorAll("[data-md]").forEach(b=>b.addEventListener("click", ()=>{ tm.mode[k] = b.dataset.md; saveTm(); draw(); render(); }));
+    B.querySelectorAll("[data-cm]").forEach(b=>b.addEventListener("click", ()=>{ tm.cm[k] = Math.max(0, Math.min(y.qty, y.cm + (+b.dataset.cm))); saveTm(); draw(); render(); }));
+    B.querySelectorAll("[data-kd]").forEach(b=>b.addEventListener("click", ()=>{ kind = b.dataset.kd; draw(); }));
+    B.querySelectorAll("[data-n]").forEach(b=>b.addEventListener("click", ()=>{ n += +b.dataset.n; draw(); }));
+    $("#tm-keep").addEventListener("click", ()=>{ tm.keep[k] = y.kept ? 0 : 1; saveTm(); wishSheet.close(); render(); });
+    $("#tm-go").addEventListener("click", ()=>{
+      const pr = parseFloat(String($("#tm-pr")?.value || "").replace(",", ".")), price = kind==="trade" ? 0 : Math.round((isNaN(pr) ? y.val*n : pr)*100)/100;
+      const cmN = kind==="cm" ? Math.min(n, y.cm) : 0;
+      const e = {id:rid(), d:localDay(), t:Date.now(), kind, setId:y.setId, num:y.num, v:y.v, lang:y.lang, n, price, mkt:y.val, note:($("#tm-note").value||"").trim(), cmN};
+      if(cmN) tm.cm[k] = y.cm - cmN;
+      e.take = tmTake(y, n);
+      tm.log.push(e); saveTm(); wishSheet.close(); render();
+      toast(`<span>${n}× ${esc(cardTitleFor(y.s,y.c))} ${KIND_LBL[kind]}</span><button class="btn" type="button" id="t-tmundo">Rückgängig</button><button class="tx" type="button" data-tclose aria-label="Schließen">×</button>`, 5000);
+      $("#t-tmundo")?.addEventListener("click", ()=>{ hideToast(); tmUndo(e.id); });
+    });
+  };
+  draw();
+  if(wishSheet.state==="closed") wishSheet.open("full"); else wishSheet.set("full");
+}
+
 /* ---------- Tägliche Preisaktualisierung ---------- */
 const AP = {run:false, done:0, total:0};
 async function autoPrices(force){
@@ -3126,7 +3290,7 @@ function renderPSet(s){
 /* ---------- Sicherung ---------- */
 async function exportBackup(){
   const iso = new Date().toISOString();
-  const data = JSON.stringify({app:"kartenalbum", version:2, exported:iso, cards, albums, settings, wish, valHist, notes, ach}, null, 1);
+  const data = JSON.stringify({app:"kartenalbum", version:2, exported:iso, cards, albums, settings, wish, valHist, notes, ach, tm}, null, 1);
   const name = `kartenalbum-${deDate(iso)}.json`;
   const file = new File([data], name, {type:"application/json"});
   try{
@@ -3149,6 +3313,7 @@ async function importBackup(e){
     if(d.valHist) valHist = {...d.valHist, ...valHist};
     if(d.notes) notes = {...d.notes, ...notes};
     if(d.ach) ach = {...d.ach, ...ach};
+    if(d.tm) { tm = mergeTm(tm, d.tm); LS.set("pk-tm", tm); }
     LS.set("pk-wish", wish); LS.set("pk-valhist", valHist); LS.set("pk-notes", notes); LS.set("pk-ach", ach);
     saveCards(); LS.set("pk-albums",albums); LS.set("pk-settings",settings); render();
     $("#bk-msg").textContent = `Import vom ${deDate(d.exported)}: ${sum(cards,qtyOf)-before} Karten hinzugekommen.`;
@@ -3382,14 +3547,49 @@ function closeViewer(){ if(!V.open) return; V.open = false; setTilt(false); vEl.
 function vFlip(){ V.base += 180; V.rx = 0; V.ry = 0; vApply(true); }
 $("#d-img").addEventListener("click", ()=>{ if(ctx?.kind==="set" && !$("#d-img").classList.contains("noimg")) openViewer(); });
 $("#d-3d").addEventListener("click", openViewer);
+function navList(){
+  const root = album.open ? alStage : $("#view"), out = [], seen = new Set();
+  root.querySelectorAll(".slot[data-set][data-num],[data-navk]").forEach(el=>{ const k = el.dataset.navk || (el.dataset.set+"|"+el.dataset.num); if(seen.has(k) || !k.includes("|")) return; seen.add(k); out.push({k, el}); });
+  return out;
+}
+function navNeighbors(){
+  if(ctx?.kind!=="set") return [null, null];
+  const l = navList(), i = l.findIndex(x=>x.k===ctx.setId+"|"+ctx.num); if(i<0) return [null, null];
+  const src = it => { if(!it) return null; const im = it.el.querySelector("img"); const [sid, num] = it.k.split("|"), sx = SET.get(sid); it.src = im?.currentSrc || im?.src || (sx ? imgUrl(sx, num, sx.ja ? "ja" : "de", "low") : ""); return it; };
+  return [src(l[i-1]), src(l[i+1])];
+}
+function updNeighbors(){
+  const [p, n] = navNeighbors();
+  for(const [el, it] of [[$("#d-nl"), p], [$("#d-nr"), n]]){ if(!it || !it.src){ el.hidden = true; el.removeAttribute("src"); continue; } el.hidden = false; if(el.getAttribute("src") !== it.src) el.src = it.src; }
+}
+function stepTo(it, smooth){
+  const [sid, num] = it.k.split("|"), im = $("#d-img"), pre = it.src;
+  openCtx({kind:"set", setId:sid, num});
+  if(pre && !im.getAttribute("src")){ im.onerror = null; im.classList.remove("noimg"); im.src = pre; }
+  if(!album.open) it.el.scrollIntoView({block:"nearest", behavior: smooth ? "smooth" : "auto"});
+}
 function stepCard(dir){
   if(ctx?.kind!=="set") return;
-  const root = album.open ? alStage : $("#view");
-  const list = [...root.querySelectorAll(".slot[data-set][data-num]")].filter((x,i,a)=>a.findIndex(y=>y.dataset.set===x.dataset.set && y.dataset.num===x.dataset.num)===i);
-  const i = list.findIndex(x=>x.dataset.set===ctx.setId && x.dataset.num===ctx.num);
-  const nx = list[i + dir]; if(i<0 || !nx) return;
-  openCtx({kind:"set", setId:nx.dataset.set, num:nx.dataset.num});
-  if(!album.open) nx.scrollIntoView({block:"nearest", behavior:"smooth"});
+  const nb = navNeighbors()[dir>0 ? 1 : 0]; if(nb) stepTo(nb, true);
+}
+{ // Wischen im Karten-Sheet
+  const bw = $("#d-img").closest(".bigwrap"); let sw = null;
+  bw.addEventListener("touchstart", e=>{ if(DESK.matches || ctx?.kind!=="set" || e.touches.length>1) return; const t = e.touches[0]; sw = {x0:t.clientX, y0:t.clientY, dx:0, on:false}; }, {passive:true});
+  bw.addEventListener("touchmove", e=>{
+    if(!sw) return; const t = e.touches[0], dx = t.clientX - sw.x0, dy = t.clientY - sw.y0;
+    if(!sw.on){ if(Math.abs(dx) < 8 && Math.abs(dy) < 8) return; if(Math.abs(dy) >= Math.abs(dx)){ sw = null; return; } sw.on = true; sw.nb = navNeighbors(); bw.classList.add("sw"); }
+    e.preventDefault(); e.stopPropagation();
+    sw.dx = (dx > 0 && !sw.nb[0]) || (dx < 0 && !sw.nb[1]) ? dx * .3 : dx;
+    bw.style.transform = `translateX(${sw.dx}px)`;
+  }, {passive:false});
+  const end = () => {
+    const s = sw; sw = null; if(!s?.on) return; bw.classList.remove("sw");
+    const dir = s.dx < -50 && s.nb[1] ? 1 : s.dx > 50 && s.nb[0] ? -1 : 0;
+    if(!dir){ bw.style.transform = ""; return; }
+    bw.style.transform = `translateX(${-dir*(bw.offsetWidth + 16)}px)`;
+    setTimeout(()=>{ bw.classList.add("sw"); bw.style.transform = ""; stepTo(s.nb[dir>0 ? 1 : 0], false); requestAnimationFrame(()=>requestAnimationFrame(()=>bw.classList.remove("sw"))); }, 230);
+  };
+  bw.addEventListener("touchend", end); bw.addEventListener("touchcancel", end);
 }
 $("#d-prev").addEventListener("click", ()=>stepCard(-1));
 $("#d-next").addEventListener("click", ()=>stepCard(1));
@@ -3506,7 +3706,7 @@ const FIREBASE_CONFIG = {
   appId: "1:907792237018:web:814fd32dea220b448d80e3"
 };
 const FB_VER = "10.14.1";
-const SYNC_KEYS = new Set(["pk-cards","pk-albums","pk-settings","pk-wish","pk-valhist","pk-notes","pk-ach"]);
+const SYNC_KEYS = new Set(["pk-cards","pk-albums","pk-settings","pk-wish","pk-valhist","pk-notes","pk-ach","pk-tm"]);
 const Sync = {fb:null, loading:null, started:false, user:null, status:"off", msg:"", unsub:[], pushT:0, applying:false, busy:false};
 const DEV = (()=>{ let d = LS.raw("pk-dev"); if(!d){ d = rid(); LS.put("pk-dev", d); } return d; })();
 let synced = LS.get("pk-synchash", {});
@@ -3516,8 +3716,9 @@ const bucketKey = e => e.setId ? [e.setId,e.num,e.v,e.lang,e.cond].join("|") : "
 const sortE = l => l.slice().sort((a,b)=>{ const x = bucketKey(a), y = bucketKey(b); return x<y?-1:x>y?1:0; });
 const hashE = l => hashOf(canon(sortE(l)));
 const plain = x => JSON.parse(JSON.stringify(x));
-const metaOf = () => ({albums: plain(albums), settings: plain(settings), wish: plain(wish), vh: plain(valHist), notes: plain(notes), ach: plain(ach)});
-const hashMeta = m => hashOf(canon({albums:m.albums||[], settings:m.settings||{}, wish:m.wish||{}, vh:m.vh||{}, notes:m.notes||{}, ach:m.ach||{}}));
+const metaOf = () => ({albums: plain(albums), settings: plain(settings), wish: plain(wish), vh: plain(valHist), notes: plain(notes), ach: plain(ach), tm: plain(tm)});
+function mergeTm(a, b){ a = a||{}; b = b||{}; const L = new Map(); for(const e of [...(b.log||[]), ...(a.log||[])]){ const o = L.get(e.id); if(!o || (e.del && !o.del)) L.set(e.id, e); } return {keep:{...b.keep, ...a.keep}, mode:{...b.mode, ...a.mode}, cm:{...b.cm, ...a.cm}, log:[...L.values()]}; }
+const hashMeta = m => hashOf(canon({albums:m.albums||[], settings:m.settings||{}, wish:m.wish||{}, vh:m.vh||{}, notes:m.notes||{}, ach:m.ach||{}, ...(m.tm && (m.tm.log?.length || Object.keys(m.tm.keep||{}).length || Object.keys(m.tm.mode||{}).length || Object.keys(m.tm.cm||{}).length) ? {tm:m.tm} : {})}));
 function groupLocal(){ const m = new Map(); for(const e of cards){ const k = e.setId || "_frei"; if(!m.has(k)) m.set(k,[]); m.get(k).push(e); } return m; }
 function mergeE(a, b){ const m = new Map(); for(const e of [...a, ...b]){ const k = bucketKey(e), o = m.get(k); if(!o || qtyOf(e) > qtyOf(o)) m.set(k, e); } return [...m.values()]; }
 // Alben aus der Zeit vor der Sprachwahl (bis 1.18) sind deutsche Alben – einmalig auf Deutsch stellen
@@ -3598,17 +3799,17 @@ function applyRemote(remote, rmeta, mode){
   }
   if(mode==="replace") for(const k of local.keys()) if(!remote.has(k)){ out.delete(k); changed = true; }
   if(rmeta || mode==="replace"){
-    const rm = {albums: rmeta?.albums || [], settings: rmeta?.settings || {}, wish: rmeta?.wish || {}, vh: rmeta?.vh || {}, notes: rmeta?.notes || {}, ach: rmeta?.ach || {}};
+    const rm = {albums: rmeta?.albums || [], settings: rmeta?.settings || {}, wish: rmeta?.wish || {}, vh: rmeta?.vh || {}, notes: rmeta?.notes || {}, ach: rmeta?.ach || {}, tm: rmeta?.tm || {keep:{}, mode:{}, cm:{}, log:[]}};
     const lm = metaOf(), hl = hashMeta(lm), hr = hashMeta(rm), base = synced._meta;
     if(hl === hr) synced._meta = hr;
-    else if(mode==="replace" || (mode==="sync" && hl===base)){ albums = rm.albums; settings = {...settings, ...rm.settings}; wish = rm.wish; valHist = rm.vh; notes = rm.notes; ach = rm.ach; synced._meta = hr; metaChanged = true; }
-    else if(mode==="merge" || hr!==base){ albums = mergeAlbums(lm.albums, rm.albums); settings = {...rm.settings, ...lm.settings}; wish = {...rm.wish, ...lm.wish}; valHist = {...rm.vh, ...lm.vh}; notes = {...rm.notes, ...lm.notes}; ach = {...lm.ach, ...rm.ach}; metaChanged = true; }
+    else if(mode==="replace" || (mode==="sync" && hl===base)){ albums = rm.albums; settings = {...settings, ...rm.settings}; wish = rm.wish; valHist = rm.vh; notes = rm.notes; ach = rm.ach; tm = mergeTm({}, rm.tm); synced._meta = hr; metaChanged = true; }
+    else if(mode==="merge" || hr!==base){ albums = mergeAlbums(lm.albums, rm.albums); settings = {...rm.settings, ...lm.settings}; wish = {...rm.wish, ...lm.wish}; valHist = {...rm.vh, ...lm.vh}; notes = {...rm.notes, ...lm.notes}; ach = {...lm.ach, ...rm.ach}; tm = mergeTm(lm.tm, rm.tm); metaChanged = true; }
   }
   if(changed) cards = [...out.values()].flat();
   Sync.applying = true;
   try{
     if(changed) saveCards();
-    if(metaChanged){ LS.set("pk-albums", albums); LS.set("pk-settings", settings); LS.set("pk-wish", wish); LS.set("pk-valhist", valHist); LS.set("pk-notes", notes); LS.set("pk-ach", ach); }
+    if(metaChanged){ LS.set("pk-albums", albums); LS.set("pk-settings", settings); LS.set("pk-wish", wish); LS.set("pk-valhist", valHist); LS.set("pk-notes", notes); LS.set("pk-ach", ach); LS.set("pk-tm", tm); }
   } finally { Sync.applying = false; }
   if(migAlbums()){ LS.set("pk-albums", albums); metaChanged = true; }
   LS.set("pk-synchash", synced);
@@ -3727,7 +3928,7 @@ function init(){
   applyTheme();
   albums = LS.get("pk-albums", []);
   settings = {...settings, ...LS.get("pk-settings", {})};
-  wish = LS.get("pk-wish", {}); valHist = LS.get("pk-valhist", {}); notes = LS.get("pk-notes", {}); ach = LS.get("pk-ach", {});
+  wish = LS.get("pk-wish", {}); valHist = LS.get("pk-valhist", {}); notes = LS.get("pk-notes", {}); ach = LS.get("pk-ach", {}); tm = mergeTm({}, LS.get("pk-tm", {}));
   const raw = LS.get("pk-cards", []);
   cards = migrate(raw);
   if(JSON.stringify(cards) !== JSON.stringify(raw)) saveCards();

@@ -4,7 +4,7 @@ Private Web-App für meine Pokémon-Sammelkarten – als digitales Album fürs i
 
 **App öffnen:** https://faabnatic.github.io/Kartenalbum/
 
-Aktuelle Version: **1.33** · Änderungen je Version stehen in [`CHANGELOG.md`](CHANGELOG.md).
+Aktuelle Version: **1.34** · Änderungen je Version stehen in [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Funktionen
 
@@ -14,14 +14,16 @@ Aktuelle Version: **1.33** · Änderungen je Version stehen in [`CHANGELOG.md`](
 - **Set-Alben** – deutsche/englische Sets vom Basis-Set (1999) bis Mega-Entwicklung (181 Sets) und japanische Sets ab Sonne & Mond (91 Sets)
 - **Album-Sprache** – Deutsch, Englisch oder Gemischt; dasselbe Set auch als zwei getrennte Alben, erkennbar an der Flagge. Englische Alben zeigen englische Karten- und Set-Namen, japanische Sets den japanischen Namen – der deutsche steht jeweils klein darunter
 - **Kamera-Scan** – Bereich „Scannen“: erkennt Set-Kürzel und Kartennummer, Serien-Scan mit Liste zum Bestätigen, Nummer auch eintippbar (Texterkennung wird beim ersten Scan geladen)
-- **Varianten zählen** – Normal, Holo, Reverse, Poké-Ball-/Meisterball-Reverse, 1. Edition usw., je Sprache und Zustand
+- **Varianten zählen** – Normal, Holo, Reverse, Poké-Ball-/Meisterball-Reverse, 1. Edition usw., je Sprache und Zustand · im Album als kleine Pillen (N, RH, H, Liga), Zahl ab dem zweiten Exemplar
 - **Filter im Set** – Alle · Gesammelt · Fehlend · Doppelt, dazu Kategorie, Typ, Region, Variante, Seltenheit und Suche nach Name oder Nummer
 - **Wunschliste** – eigener Tab, Priorität Niedrig/Normal/Hoch, nach Sets gruppiert, Preis und Summe, als Text teilbar; gezählte Karten verschwinden automatisch
+- **Tauschmarkt** – alle doppelten Karten automatisch mit Marktwert, Markierung Tausch/Verkauf, Cardmarket-Angebote vermerken (mit Warnung vor Doppelverkauf), Abgaben als verkauft/getauscht mit Preis und Notiz, Verlauf mit Rückgängig
 - **Notiz & Grading** – pro Karte, z. B. „PSA 9“
 
 **Ansehen**
 - **Album-Modus** – Blättern mit 3D-Seitenwechsel, Doppelseite im Querformat und am Rechner
 - **3D-Kartenansicht** – Karte drehen, mit Glanzeffekt (am iPhone auch per Neigung)
+- **Karten durchwischen** – im Karten-Sheet links/rechts zur nächsten Karte, Nachbarkarten angeschnitten sichtbar; Reihenfolge wie im Album inkl. Filter
 - **Pokédex** – alle 1025 Pokémon, Filter nach Region und Generation
 - **Suche** – Karten nach Name über alle Sets (deutsch, englisch, japanisch), „Zuletzt gesucht“
 
@@ -33,7 +35,7 @@ Aktuelle Version: **1.33** · Änderungen je Version stehen in [`CHANGELOG.md`](
 
 **Allgemein**
 - **Einstellungen** – über das Zahnrad oben rechts: Konto, Darstellung, Sicherung, Tab-Leiste u. v. m.
-- **Tab-Leiste anpassbar** – Alben, Pokédex und Mehr fest, dazu 1 bis 3 weitere Bereiche; Reihenfolge frei, ausgeblendete Bereiche unter Mehr
+- **Tab-Leiste anpassbar** – Alben und Pokédex fest (Mehr erscheint nur bei ausgeblendeten Bereichen), dazu 1 bis 3 weitere Bereiche; Reihenfolge frei, ausgeblendete Bereiche unter Mehr
 - **Top 3 im Album** – deine wertvollsten Karten oder die des ganzen Sets
 - **Konto & Abgleich** – Anmeldung mit E-Mail/Passwort oder Google; Sammlung live auf allen Geräten
 - **Browser-Version** – eigenes Layout ab 900 px mit Seitenleiste, Karten-Panel und Tastatur (← → · Esc · /)

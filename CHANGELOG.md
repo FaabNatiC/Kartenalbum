@@ -1,5 +1,14 @@
 # Kartenalbum – Änderungen
 
+## Version 1.34 · 12.11.2026
+- Neuer Tab „Tauschmarkt“: doppelte Karten mit Marktwert, Tausch/Verkauf, Cardmarket-Vermerk mit Warnung, Abgabe mit Preis und Notiz, Verlauf mit Rückgängig
+- Karten-Sheet: zur vorherigen/nächsten Karte wischen, Nachbarkarten angeschnitten sichtbar
+- Album: Varianten-Badges (N, RH, H, Liga), Zahl erst ab 2 Exemplaren je Variante
+- Neuer Orden: „Ansehen“ öffnet den Orden direkt über der aktuellen Seite
+- Karten-Sheet: Kartenbild erscheint auch, wenn die hohe Auflösung fehlt
+- Tab-Leiste sitzt auch auf kurzen Seiten richtig unten
+- Am PC: Scannen ausgeblendet, Tab „Mehr“ nur bei Bedarf
+
 ## Version 1.33 · 06.11.2026
 - Tab-Leiste wieder an der richtigen Position, Beschriftung nicht mehr abgeschnitten, ohne Lücke darunter
 - 3D-Orden: Gravur auf der Rückseite nicht mehr spiegelverkehrt
