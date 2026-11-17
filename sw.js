@@ -1,5 +1,5 @@
 // Offline-Fähigkeit: App-Dateien und bereits angesehene Kartenbilder werden auf dem Gerät zwischengespeichert.
-const APP = "kartenalbum-v37";
+const APP = "kartenalbum-v38";
 const IMG = "kartenbilder-v2";
 const MAXIMG = 3000;
 let trimT = 0;

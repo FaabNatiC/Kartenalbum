@@ -1,5 +1,13 @@
 # Kartenalbum – Änderungen
 
+## Version 1.36 · 17.11.2026
+- Preisbox verständlicher: Trendpreis mit Erklärung, Ø Verkaufspreis 7 und 30 Tage, Vergleich zum 30-Tage-Schnitt
+- „Höchster Trend“ statt Höchstwert – nur noch aus dem Trendpreis, einmalig neu gestartet
+- Karten-Sheet: Karte deutlich größer, Nachbarkarten schmaler angeschnitten
+- Sets gleichen sich täglich mit TCGdex ab: nachgetragene Karten erscheinen automatisch
+- Karten mit Sondernummern (z. B. RGB-Mews R/G/B) zählen nicht mehr ins Grundset
+- Sortierung heißt jetzt „Trendpreis“
+
 ## Version 1.35 · 17.11.2026
 - Wertverlauf je Karte: Cardmarket-Durchschnitt 1/7/30 Tage im Karten-Sheet, Verlauf 7 Tage bis 12 Monate (wird ab jetzt täglich aufgezeichnet)
 - Preisverläufe und Set-Verläufe werden zwischen Geräten abgeglichen

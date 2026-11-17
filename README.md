@@ -4,7 +4,7 @@ Private Web-App für meine Pokémon-Sammelkarten – als digitales Album fürs i
 
 **App öffnen:** https://faabnatic.github.io/Kartenalbum/
 
-Aktuelle Version: **1.35** · Änderungen je Version stehen in [`CHANGELOG.md`](CHANGELOG.md).
+Aktuelle Version: **1.36** · Änderungen je Version stehen in [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Funktionen
 
@@ -19,7 +19,8 @@ Aktuelle Version: **1.35** · Änderungen je Version stehen in [`CHANGELOG.md`](
 - **Wunschliste** – eigener Tab, Priorität Niedrig/Normal/Hoch, nach Sets gruppiert, Preis und Summe, als Text teilbar; gezählte Karten verschwinden automatisch
 - **Tauschmarkt** – alle doppelten Karten automatisch mit Marktwert, Markierung Tausch/Verkauf, Cardmarket-Angebote vermerken (mit Warnung vor Doppelverkauf), Abgaben als verkauft/getauscht mit Preis und Notiz, Verlauf mit Rückgängig
 - **Wertverlauf** – im Karten-Sheet Cardmarket-Durchschnitt (1/7/30 Tage) und eigener Tagesverlauf bis 12 Monate, abgeglichen über Firebase (Sammlung `hist`)
-- **Sortierung im Set** – nach Nummer oder Cardmarket-Preis ab-/aufsteigend, mit Filtern kombinierbar
+- **Sortierung im Set** – nach Nummer oder Cardmarket-Trendpreis (günstigste Variante) ab-/aufsteigend, mit Filtern kombinierbar
+- **Set-Abgleich** – beim Öffnen eines Sets prüft die App einmal täglich die TCGdex-Setliste und ergänzt nachgetragene Karten
 - **Notiz & Grading** – pro Karte, z. B. „PSA 9“
 
 **Ansehen**

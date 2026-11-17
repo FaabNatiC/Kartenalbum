@@ -347,6 +347,7 @@ html{min-height:calc(100% + env(safe-area-inset-top,0px))}body{min-height:calc(1
 .big{display:block;width:min(100%,250px);aspect-ratio:63/88;margin:0 auto;border-radius:12px;object-fit:cover;background:var(--pocket);box-shadow:var(--shadow)}
 .big.noimg{display:none}
 .bigwrap{position:relative;width:min(100%,250px);margin:0 auto}
+@media (max-width:899px){.bigwrap{width:min(75vw,340px)}}
 .bigwrap .big{width:100%;cursor:zoom-in}
 .bigwrap{transition:transform .24s cubic-bezier(.2,.8,.2,1)}.bigwrap .nb,.bigwrap .big{transition:transform .24s cubic-bezier(.2,.8,.2,1),opacity .24s}
 .bigwrap.sw,.bigwrap.sw .nb,.bigwrap.sw .big{transition:none}.bigwrap .big{transform-origin:center}
@@ -659,7 +660,9 @@ button.achp{border:0;font:600 12.5px var(--f-body);cursor:pointer}
 .tmline{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:14px}.seg.sm button{padding:6px 10px;font-size:13px}
 .tmform{gap:10px;align-items:end}.tmform .fld{flex:1}.tmwarn{margin:0;padding:10px 12px;border-radius:10px;background:color-mix(in srgb,var(--accent) 14%,transparent);color:var(--ink);font-size:13px}
 #ws-body .tmset + .sec-h{margin-top:4px}
-.pavg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.pavg>div{display:grid;gap:1px;padding:8px 10px;border-radius:10px;background:var(--pocket)}
+.pavg{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}
+.pcmp{margin:8px 0 0;font-size:13.5px;color:var(--muted)}.pcmp b{font-weight:700}.pexp{margin:8px 0 0;padding:10px 12px;border-radius:10px;background:var(--pocket);font-size:13px;color:var(--ink);line-height:1.4}
+.pinf{display:inline-grid;place-items:center;width:17px;height:17px;margin-left:4px;border-radius:50%;border:1px solid var(--muted);background:none;color:var(--muted);font:700 10.5px/1 var(--f-body);font-style:italic;cursor:pointer;vertical-align:1px;padding:0}.pavg>div{display:grid;gap:1px;padding:8px 10px;border-radius:10px;background:var(--pocket)}
 .pavg small{font-size:11px;color:var(--muted)}.pavg b{font:700 15px var(--f-num)}.pavg i,.phnow i{font:600 11.5px var(--f-num);font-style:normal;color:var(--muted)}
 .up{color:#2f9a58!important}.dn{color:#e0534a!important}
 .phbtn{margin-top:10px;width:100%;justify-content:center;gap:8px}.phbtn svg{width:18px;height:18px}
@@ -1026,6 +1029,7 @@ const CONDS = ["Mint","Near Mint","Excellent","Good","Light Played","Played","Po
 
 /* ---------- Änderungsprotokoll ---------- */
 const CHANGELOG = [
+  {v:"1.36", d:"2026-11-17", items:["Preisbox verständlicher: Trendpreis mit Erklärung, Ø Verkaufspreis 7 und 30 Tage, Vergleich zum 30-Tage-Schnitt", "„Höchster Trend“ statt Höchstwert – nur noch aus dem Trendpreis, einmalig neu gestartet", "Karten-Sheet: Karte deutlich größer, Nachbarkarten schmaler angeschnitten", "Sets gleichen sich täglich mit TCGdex ab: nachgetragene Karten erscheinen automatisch", "Karten mit Sondernummern (z. B. RGB-Mews R/G/B) zählen nicht mehr ins Grundset", "Sortierung heißt jetzt „Trendpreis“"]},
   {v:"1.35", d:"2026-11-17", items:["Wertverlauf je Karte: Cardmarket-Durchschnitt 1/7/30 Tage im Karten-Sheet, Verlauf 7 Tage bis 12 Monate (wird ab jetzt täglich aufgezeichnet)", "Preisverläufe und Set-Verläufe werden zwischen Geräten abgeglichen", "Set-Album: Sortierung nach Nummer oder Cardmarket-Preis (ab-/aufsteigend), persönliche Alben zusätzlich „Günstigste zuerst“", "Bilder-Speicher speichert keine Fehler mehr – fehlende oder unscharfe Bilder laden wieder richtig", "Wischen im Karten-Sheet ohne Ruckeln"]},
   {v:"1.34", d:"2026-11-12", items:["Neuer Tab „Tauschmarkt“: doppelte Karten mit Marktwert, Tausch/Verkauf, Cardmarket-Vermerk mit Warnung, Abgabe mit Preis und Notiz, Verlauf mit Rückgängig", "Karten-Sheet: zur vorherigen/nächsten Karte wischen, Nachbarkarten angeschnitten sichtbar", "Album: Varianten-Badges (N, RH, H, Liga), Zahl erst ab 2 Exemplaren je Variante", "Neuer Orden: „Ansehen“ öffnet den Orden direkt über der aktuellen Seite", "Karten-Sheet: Kartenbild erscheint auch, wenn die hohe Auflösung fehlt", "Tab-Leiste sitzt auch auf kurzen Seiten richtig unten", "Am PC: Scannen ausgeblendet, Tab „Mehr“ nur bei Bedarf"]},
   {v:"1.33", d:"2026-11-06", items:["Tab-Leiste wieder an der richtigen Position, Beschriftung nicht mehr abgeschnitten, ohne Lücke darunter", "3D-Orden: Gravur auf der Rückseite nicht mehr spiegelverkehrt"]},
@@ -1094,6 +1098,31 @@ function indexSet(s){
   s.cards.forEach((c,i)=>{ if(c[7]){ if(!DEXCARDS.has(c[7])) DEXCARDS.set(c[7],[]); DEXCARDS.get(c[7]).push([s.id,i]); } });
 }
 for(const s of SETS) indexSet(s);
+/* Nachgetragene Karten: TCGdex-Setliste einmal am Tag abgleichen (z. B. RGB-Mews, späte Promos) */
+function applySetX(s){
+  const e = LS.get("pk-setx", {})[s.id]; if(!e?.c) return 0; let n = 0;
+  for(const [lid, de, en, img, id] of e.c){ if(s.idx.has(lid)) continue;
+    const c = [lid, de && de !== en ? de : "", en || de || lid, "", "P", "", 0, 0, "0"]; c.x = 1;
+    s.cards.push(c); s.idx.set(lid, s.cards.length - 1); if(img) (s.ximg ||= {})[lid] = img; if(id) (s.xid ||= {})[lid] = id; n++; }
+  return n;
+}
+const setxBusy = new Set();
+async function syncSetCards(s){
+  if(!s || s.ja || setxBusy.has(s.id)) return;
+  const all = LS.get("pk-setx", {}); if(all[s.id]?.d === localDay()) return;
+  setxBusy.add(s.id);
+  try{
+    const [en, de] = await Promise.all(["en","de"].map(l=>fetch(`${API}/${l}/sets/${encodeURIComponent(s.id)}`).then(r=>r.ok ? r.json() : null).catch(()=>null)));
+    if(!en && !de) return;
+    const m = new Map();
+    for(const c of (en?.cards || [])) m.set(c.localId, {en:c.name, img:c.image, id:c.id});
+    for(const c of (de?.cards || [])){ const o = m.get(c.localId) || {}; o.de = c.name; o.img ||= c.image; o.id ||= c.id; m.set(c.localId, o); }
+    const has = lid => s.idx.has(lid) || (/^\d+$/.test(lid) && [...s.idx.keys()].some(k=>/^\d+$/.test(k) && +k === +lid));
+    const add = []; for(const [lid, o] of m) if(lid && !has(lid)) add.push([lid, o.de || "", o.en || o.de || lid, o.img || "", o.id || ""]);
+    const cur = LS.get("pk-setx", {}); cur[s.id] = {d: localDay(), c: add}; LS.put("pk-setx", JSON.stringify(cur));
+    if(applySetX(s) && (view.name==="set" || view.name==="pset") && view.set===s) render();
+  } finally { setxBusy.delete(s.id); }
+}
 /* Japanische Sets: eigene Datei, wird erst bei Bedarf geladen */
 let jaReady = false, jaLoading = null;
 function loadJA(){
@@ -1120,7 +1149,7 @@ const FLAGNAME = {de:"Deutsch", en:"Englisch", ja:"Japanisch"};
 const flag = k => FLAGS[k] ? `<svg class="flag" viewBox="0 0 30 21" preserveAspectRatio="none" role="img" aria-label="${FLAGNAME[k]}">${FLAGS[k]}</svg>` : "";
 const cardAt = (setId,num) => { const s = SET.get(setId); if(!s) return null; const i = s.idx.get(num); return i==null ? null : s.cards[i]; };
 const cName = c => c[1] || c[2];
-const isSecret = (s,c) => !s.promo && /^\d+$/.test(c[0]) && +c[0] > s.off;
+const isSecret = (s,c) => !s.promo && (/^\d+$/.test(c[0]) ? +c[0] > s.off : true);
 const numDisp = (s,n) => s.promo || !/^\d+$/.test(n) ? n : `${n}/${String(s.off).padStart(Math.max(3,n.length),"0")}`;
 const cmSearch = (s, c) => "https://www.cardmarket.com/de/Pokemon/Products/Search?searchString=" + encodeURIComponent(c[2] + (s && s.abbr && !s.ja ? " " + s.abbr + " " + c[0] : ""));
 const cmLink = (s, c, id) => id ? "https://www.cardmarket.com/de/Pokemon/Products?idProduct=" + id : cmSearch(s, c);
@@ -1202,7 +1231,7 @@ function shelfSets(){ return [...new Set(shelfAlbums().map(x=>x.s))]; }
 const spineColor = s => `hsl(${[...s.id].reduce((a,ch)=>(a*31+ch.charCodeAt(0))%360,7)} 45% 45%)`;
 
 /* ---------- Bilder ---------- */
-const imgUrl = (s,num,lang,q) => `https://assets.tcgdex.net/${lang}/${s.sr}/${s.id}/${encodeURIComponent(num)}/${q}.webp`;
+const imgUrl = (s,num,lang,q) => s.ximg?.[num] ? s.ximg[num].replace(/^(https:\/\/assets\.tcgdex\.net\/)[a-z-]+\//, `$1${lang}/`) + `/${q}.webp` : `https://assets.tcgdex.net/${lang}/${s.sr}/${s.id}/${encodeURIComponent(num)}/${q}.webp`;
 function cimg(s, num, q, cls, lang){
   const dx = cardAt(s.id, num)?.[7] || "";
   if(s.ja) return `<img class="${cls}" src="${imgUrl(s,num,"ja",q)}" data-dex="${dx}" alt="" loading="lazy" decoding="async" onload="imgOk(this)" onerror="imgErr(this)">`;
@@ -1221,11 +1250,12 @@ const typeIcon = t => TYPE_ICON[t] ? `<span class="ticon" aria-hidden="true" sty
 
 /* ---------- TCGdex-API: Bild + Preise je Variante ---------- */
 const API = "https://api.tcgdex.net/v2";
+for(const s of SETS) applySetX(s);
 const infoCache = new Map(), lastInfo = new Map(); let noStore = false;
 function cardInfo(s, num, preferEn){
   const k = s.id + "|" + num + (preferEn ? "|en" : "");
   if(infoCache.has(k)) return infoCache.get(k);
-  const get = async l => { const r = await fetch(`${API}/${l}/cards/${encodeURIComponent(s.id + "-" + num)}`, noStore ? {cache:"no-store"} : undefined); if(!r.ok) throw new Error("HTTP " + r.status); return r.json(); };
+  const get = async l => { const r = await fetch(`${API}/${l}/cards/${encodeURIComponent(s.xid?.[num] || (s.id + "-" + num))}`, noStore ? {cache:"no-store"} : undefined); if(!r.ok) throw new Error("HTTP " + r.status); return r.json(); };
   const p = (async () => {
     const first = s.ja ? "ja" : preferEn ? "en" : "de", second = s.ja ? null : preferEn ? "de" : "en";
     let a = null, b = null;
@@ -1272,13 +1302,14 @@ function applyPrices(setId, num, info){
   return changed;
 }
 function priceHist(){ try{ return JSON.parse(LS.raw("pk-pricehist")||"{}"); }catch{ return {}; } }
+try{ if(!LS.raw("pk-peak136")){ localStorage.removeItem("pk-pricehist"); LS.put("pk-peak136", "1"); } }catch{}
 function recordPrice(key, p){
   if(!p) return null;
   const h = priceHist(), today = (p.updated || new Date().toISOString()).slice(0,10), cur = h[key];
-  const cands = [p.trend, p.peak || 0]; if(!cur && p.avg30) cands.push(p.avg30);
+  const cands = [p.trend];
   if(!p.trend && !cur) return null;
   // erster Abruf: die 30-Tage-Durchschnitte decken die letzten 30 Tage mit ab
-  const since = p.peak || p.avg30 ? new Date(new Date(today).getTime() - 30*864e5).toISOString().slice(0,10) : today;
+  const since = today;
   const best = cur ? {...cur} : {max:0, d:today, since};
   for(const v of cands) if(v && v > best.max){ best.max = v; best.d = today; }
   h[key] = best; LS.put("pk-pricehist", JSON.stringify(h));
@@ -1583,7 +1614,7 @@ function renderDex(){
 /* ---------- Set-Album ---------- */
 let filt = {cat:new Set(), type:new Set(), reg:new Set(), var:new Set(), rar:new Set()};
 let setSort = "num", setSortFor = null;
-const SORT_LBL = {num:"Nummer", pd:"Preis absteigend", pa:"Preis aufsteigend"};
+const SORT_LBL = {num:"Nummer", pd:"Trendpreis absteigend", pa:"Trendpreis aufsteigend"};
 const BOOK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5.5C5.5 4 8.5 4 12 6c3.5-2 6.5-2 9-.5v13c-2.5-1.5-5.5-1.5-9 .5-3.5-2-6.5-2-9-.5z"/><path d="M12 6v13"/></svg>';
 const FILTER_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>';
 const RAR_ORDER = ["C","U","R","RH","LVX","LEG","RR","RRR","CHR","CSR","V","VMAX","VSTAR","ACE","RAD","AR","UR","IR","SR","SRV","SRVMAX","SIR","SUR","BWR","HR","MAR","MHR","PIK","FUR","RGB","CC","SEC","FA","PR",""];
@@ -1623,6 +1654,7 @@ function ringSVG(p, mini){
 function renderSet(s){
   $("#bar-title").textContent = "";
   if(setSortFor !== s.id){ setSort = "num"; setSortFor = s.id; }
+  setTimeout(()=>syncSetCards(s), 600);
   const owned = setOwned(s, view.lang), p = setProgress(s, owned), list = [...owned.values()].flat(), value = sum(list,valOf);
   const hasAlbum = albums.some(a=>a.setId===s.id && (a.lang||null)===(view.lang||null)), fc = filtCount(), vl = view.lang==="en" ? "en" : "de";
   $("#head").innerHTML = `<div class="sethead" id="sethead" style="--spine:${spineColor(s)}"><div class="slogo"><img src="${logoUrl(s,vl)}" data-alt="${logoUrl(s,vl==="de"?"en":"de")}" alt="${esc(setTitle(s))}" onerror="logoErr(this)" onload="if(this.naturalWidth/this.naturalHeight>3.2)this.parentNode.classList.add('wide')"><b class="logo-t">${esc(setTitle(s))}<small>${s.jn && s.jn!==s.de ? esc(s.jn) + " · " : ""}${esc(s.abbr)}</small></b></div>
@@ -1632,7 +1664,7 @@ function renderSet(s){
   const chips = FGROUPS.flatMap(([g])=>[...filt[g]].map(v=>{ const o = opts[g].find(x=>x[0]===v); return `<button class="chip" type="button" data-funset="${g}|${esc(v)}" aria-label="Filter ${esc(o?o[1]:v)} entfernen">${o&&o[2]?o[2]:""}${esc(o?o[1]:v)} ✕</button>`; })).join("");
   const filtered = fc>0;
   $("#tools").innerHTML = `<div class="stick" id="stick"><div class="mini" id="mini">${ringSVG(p, true)}<span class="mlogo"><img src="${logoUrl(s,"de")}" data-alt="${logoUrl(s,"en")}" alt="${esc(setTitle(s))}" onerror="logoErr(this)"><b class="logo-t">${esc(setTitle(s))}</b></span><span class="mv"><b>${p.base}/${p.baseTotal}</b> · ${eur(value)}</span></div>
-    <div class="segrow"><label class="fsel"><span class="sr">Anzeige</span><select id="fsel">${[["all","Alle"],["owned","Gesammelt"],["missing","Fehlend"],["dup","Doppelt"]].map(([k,l])=>`<option value="${k}"${filter===k?" selected":""}>${l}</option>`).join("")}</select></label><button class="fbtn${fc||setSort!=="num"?" on":""}" type="button" id="open-filter" aria-label="Filter${fc?`, ${fc} aktiv`:""}${setSort!=="num"?", sortiert nach Preis":""}">${FILTER_SVG}${fc?fc:""}</button><button class="fbtn${setQ?" on":""}" type="button" id="open-sq" aria-label="Im Set suchen" aria-expanded="${sqOpen||!!setQ}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></button><button class="fbtn alb" type="button" id="open-album" aria-label="Album öffnen">${BOOK_SVG}<span class="albt">Album</span></button></div>
+    <div class="segrow"><label class="fsel"><span class="sr">Anzeige</span><select id="fsel">${[["all","Alle"],["owned","Gesammelt"],["missing","Fehlend"],["dup","Doppelt"]].map(([k,l])=>`<option value="${k}"${filter===k?" selected":""}>${l}</option>`).join("")}</select></label><button class="fbtn${fc||setSort!=="num"?" on":""}" type="button" id="open-filter" aria-label="Filter${fc?`, ${fc} aktiv`:""}${setSort!=="num"?", sortiert nach Trendpreis":""}">${FILTER_SVG}${fc?fc:""}</button><button class="fbtn${setQ?" on":""}" type="button" id="open-sq" aria-label="Im Set suchen" aria-expanded="${sqOpen||!!setQ}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></button><button class="fbtn alb" type="button" id="open-album" aria-label="Album öffnen">${BOOK_SVG}<span class="albt">Album</span></button></div>
     ${sqOpen||setQ?`<div class="sqwrap"><input class="field" id="sq" type="search" placeholder="Pokémon oder Nummer im Set suchen" autocomplete="off" autocorrect="off" enterkeyhint="search" value="${esc(setQ)}"></div>`:""}
     ${fc?`<div class="fchips">${chips}<button class="chip" type="button" id="f-clear">Alle zurücksetzen</button></div>`:""}</div>
 `;
@@ -1648,7 +1680,7 @@ function renderSet(s){
       if(!sp && !spLoading) setTimeout(()=>loadSetPrices(s, view.lang), 0);
       if(sp){ const pr = c => sp.m?.[c[0]] ?? sp.p?.[c[0]] ?? null, dir = setSort==="pd" ? -1 : 1;
         f.sort((a,b)=>{ const x = pr(a), y = pr(b); if(x == null && y == null) return 0; if(x == null) return 1; if(y == null) return -1; return (x - y) * dir; }); }
-      sortNote = ` · ${sp ? `nach Preis ${setSort==="pd" ? "↓" : "↑"}` : `Preise werden geladen …`}`;
+      sortNote = ` · ${sp ? `nach Trendpreis ${setSort==="pd" ? "↓" : "↑"}` : `Preise werden geladen …`}`;
     }
     html = `<p class="cnt">${f.length} ${f.length===1?"Karte":"Karten"}${sortNote}</p>` + (f.length ? `<div class="flat">${f.map(c=>slotSet(s,c,owned.get(c[0]))).join("")}</div>` : `<p class="empty">${filtered?"Keine Karte passt zu diesen Filtern.":filter==="owned"?"Noch keine Karte aus diesem Set. Tippe auf eine Tasche.":"Set komplett – keine Lücken mehr."}</p>`);
   }
@@ -1688,7 +1720,7 @@ function renderFilter(){
     return;
   }
   const o = setFilterOptions(s);
-  $("#f-body").innerHTML = `<div class="fgroup"><h3>Sortierung</h3><div class="fopts">${Object.entries(SORT_LBL).map(([k,l])=>`<button class="fopt" type="button" data-fsort="${k}" aria-pressed="${setSort===k}">${l}</button>`).join("")}</div>${setSort!=="num" ? `<p class="hint" style="margin:6px 0 0">Nach aktuellem Cardmarket-Preis der Standard-Version, auch für fehlende Karten.</p>` : ""}</div>` + FGROUPS.filter(([g])=>o[g].length>1).map(([g,lbl])=>`<div class="fgroup"><h3>${lbl}</h3><div class="fopts">${o[g].map(([v,l,ic,n])=>`<button class="fopt" type="button" data-fopt="${g}|${esc(v)}" aria-pressed="${filt[g].has(v)}">${ic||""}${esc(l)}${n!=null?`<small class="fcnt">${n}</small>`:""}</button>`).join("")}</div></div>`).join("");
+  $("#f-body").innerHTML = `<div class="fgroup"><h3>Sortierung</h3><div class="fopts">${Object.entries(SORT_LBL).map(([k,l])=>`<button class="fopt" type="button" data-fsort="${k}" aria-pressed="${setSort===k}">${l}</button>`).join("")}</div>${setSort!=="num" ? `<p class="hint" style="margin:6px 0 0">Cardmarket-Trendpreis, bei mehreren Varianten der der günstigsten – auch für fehlende Karten.</p>` : ""}</div>` + FGROUPS.filter(([g])=>o[g].length>1).map(([g,lbl])=>`<div class="fgroup"><h3>${lbl}</h3><div class="fopts">${o[g].map(([v,l,ic,n])=>`<button class="fopt" type="button" data-fopt="${g}|${esc(v)}" aria-pressed="${filt[g].has(v)}">${ic||""}${esc(l)}${n!=null?`<small class="fcnt">${n}</small>`:""}</button>`).join("")}</div></div>`).join("");
 }
 $("#f-body").addEventListener("click", e=>{ const so = e.target.closest("[data-fsort]"); if(so){ setSort = so.dataset.fsort; renderFilter(); render(); return; } const b = e.target.closest("[data-fopt]"); if(!b) return; const [g,v] = b.dataset.fopt.split("|"); const S = !filtSet && g==="reg" ? dexReg : filt[g]; S.has(v) ? S.delete(v) : S.add(v); renderFilter(); render(); });
 $("#f-reset").addEventListener("click", ()=>{ if(filtSet){ FGROUPS.forEach(([g])=>filt[g].clear()); setSort = "num"; } else dexReg.clear(); renderFilter(); render(); });
@@ -2805,7 +2837,7 @@ const cardSheet = makeSheet($("#dlg"), {
     bw.style.width = "";
     const measure = () => { const pr = $("#d-price"), l = $("#d-links"); const ref = pr && !pr.hidden && pr.offsetHeight ? pr : (l && l.offsetHeight ? l : $("#d-chips")); return ref.getBoundingClientRect().bottom - S.el.getBoundingClientRect().top + 14; };
     let vis = measure(); const room = h - Math.max(70, h*0.1);
-    if(vis > room && !$("#d-img").classList.contains("noimg")){ const w = bw.offsetWidth, nw = Math.max(150, w - (vis - room)*63/88); if(nw < w){ bw.style.width = nw + "px"; vis = measure(); } }
+    if(vis > room) vis = room;
     S.setHalfVis = vis; return h - vis;
   }
 });
@@ -2907,21 +2939,24 @@ function renderPrice(){
   const cmA = $("#d-cm"); if(cmA) cmA.href = cmLink(s, c, cmIdFor(s, c));
   const h = priceHist()[key+"|"+priceVar];
   box.innerHTML = `${keys.length>1?`<div class="pchips" role="group" aria-label="Variante für den Preis">${keys.map(v=>`<button class="pchip" type="button" data-pvar="${esc(v)}" aria-pressed="${v===priceVar}">${esc(vLabel(v))}</button>`).join("")}</div>`:""}
-    <div class="pmain"><div class="now"><small>Aktueller Preis${keys.length>1?"":` · ${esc(vLabel(priceVar))}`}</small><b>${fmtPrice(info.vprice[priceVar])}</b></div>
-    <div class="ath"><small>${h?`Höchstwert seit ${deDate(h.since)}`:"Höchstwert"}</small><b>${fmtPrice(h?.max)}</b></div></div>
+    <div class="pmain"><div class="now"><small>Trendpreis${keys.length>1?"":` · ${esc(vLabel(priceVar))}`} <button class="pinf" type="button" id="d-pinf" aria-label="Was ist der Trendpreis?">i</button></small><b>${fmtPrice(info.vprice[priceVar])}</b></div>
+    <div class="ath"><small>${h?`Höchster Trend seit ${deDate(h.since)}`:"Höchster Trend"}</small><b>${fmtPrice(h?.max)}</b></div></div>
+    <p class="pexp" id="d-pexp" hidden>Der Trendpreis ist der Richtwert von Cardmarket, geglättet aus den letzten Verkäufen – die beste Schätzung des aktuellen Werts. Mit ihm rechnet die App überall (Sammlungswert, Portfolio, Sortierung). Die Durchschnitte darunter sind echte Verkaufspreise.</p>
     ${avgRow(info, priceVar)}
-    <div class="pinfo">${h?`Höchstwert erfasst am ${deDate(h.d)} · `:""}Cardmarket-Trend, Stand ${deDate(info.price?.updated)}</div>
+    <div class="pinfo">${h?`Höchster Trend am ${deDate(h.d)} · `:""}Stand ${deDate(info.price?.updated)}</div>
     <button class="btn phbtn" type="button" id="d-hist">${CHART_SVG}Wertverlauf</button>`;
   box.hidden = false;
 }
 const CHART_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l5-5 4 3 8-8"/><path d="M15 7h5v5"/></svg>';
 function pctTxt(now, ref){ if(!now || !ref) return ""; const p = (now - ref) / ref * 100; return `<i class="${p>0.5?"up":p<-0.5?"dn":""}">${p>0?"+":""}${p.toLocaleString("de-DE",{maximumFractionDigits:0})} %</i>`; }
 function avgRow(info, v){
-  const now = info.vprice[v], a = [["1 Tag", info.va1?.[v]], ["7 Tage", info.va7?.[v]], ["30 Tage", info.vavg?.[v]]].filter(x=>x[1]);
+  const now = info.vprice[v], a7 = info.va7?.[v], a30 = info.vavg?.[v], a = [["7 Tage", a7], ["30 Tage", a30]].filter(x=>x[1]);
   if(!a.length) return "";
-  return `<div class="pavg">${a.map(([l, x])=>`<div><small>Ø ${l}</small><b>${fmtPrice(x)}</b>${pctTxt(now, x)}</div>`).join("")}</div>`;
+  let cmp = "";
+  if(now && a30){ const p = (now - a30) / a30 * 100, r = Math.round(Math.abs(p)); cmp = `<p class="pcmp">${r < 1 ? "Trend entspricht etwa dem 30-Tage-Schnitt" : `Trend <b class="${p>0?"up":"dn"}">${r} % ${p>0?"über":"unter"}</b> dem 30-Tage-Schnitt`}</p>`; }
+  return `<div class="pavg">${a.map(([l, x])=>`<div><small>Ø Verkaufspreis ${l}</small><b>${fmtPrice(x)}</b></div>`).join("")}</div>${cmp}`;
 }
-$("#d-price").addEventListener("click", e=>{ if(e.target.closest("#d-hist")){ openHist(); return; } const b = e.target.closest("[data-pvar]"); if(!b) return; priceVar = b.dataset.pvar; renderPrice(); });
+$("#d-price").addEventListener("click", e=>{ if(e.target.closest("#d-hist")){ openHist(); return; } if(e.target.closest("#d-pinf")){ const x = $("#d-pexp"); x.hidden = !x.hidden; return; } const b = e.target.closest("[data-pvar]"); if(!b) return; priceVar = b.dataset.pvar; renderPrice(); });
 let histRange = 30;
 function openHist(){
   if(!ctx || ctx.kind!=="set") return;
@@ -2951,7 +2986,7 @@ function openHist(){
       ${chart || `<p class="phempty">${since != null ? `Der Verlauf wird seit ${deDate(dayIso(since))} täglich aufgezeichnet. Ab dem zweiten Tag erscheint hier die Kurve.` : "Für diese Karte gibt es noch keinen aufgezeichneten Verlauf. Die App speichert ab jetzt bei jedem Preisabgleich den Tagespreis – für deine Karten täglich automatisch."}</p>`}
       ${partial && chart ? `<p class="hint" style="margin:0">Daten seit ${deDate(dayIso(since))} – der Zeitraum füllt sich mit jedem Tag.</p>` : ""}
       <p class="sec-h">Cardmarket-Durchschnitt</p>${avgRow(info, v) || `<p class="hint">Keine Durchschnittswerte verfügbar.</p>`}
-      <p class="hint" style="margin:0">Durchschnitte für 1, 7 und 30 Tage liefert Cardmarket (über TCGdex). Längere Zeiträume zeichnet die App selbst auf.</p>`;
+      <p class="hint" style="margin:0">Durchschnitte echter Verkäufe der letzten 7 und 30 Tage liefert Cardmarket (über TCGdex). Die Kurve zeigt den Trendpreis, den die App täglich selbst aufzeichnet.</p>`;
     $("#ws-body").querySelectorAll("[data-hr]").forEach(b=>b.addEventListener("click", ()=>{ histRange = +b.dataset.hr; draw(); }));
   };
   draw();
