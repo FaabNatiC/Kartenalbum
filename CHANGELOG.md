@@ -1,5 +1,12 @@
 # Kartenalbum – Änderungen
 
+## Version 1.35 · 17.11.2026
+- Wertverlauf je Karte: Cardmarket-Durchschnitt 1/7/30 Tage im Karten-Sheet, Verlauf 7 Tage bis 12 Monate (wird ab jetzt täglich aufgezeichnet)
+- Preisverläufe und Set-Verläufe werden zwischen Geräten abgeglichen
+- Set-Album: Sortierung nach Nummer oder Cardmarket-Preis (ab-/aufsteigend), persönliche Alben zusätzlich „Günstigste zuerst“
+- Bilder-Speicher speichert keine Fehler mehr – fehlende oder unscharfe Bilder laden wieder richtig
+- Wischen im Karten-Sheet ohne Ruckeln
+
 ## Version 1.34 · 12.11.2026
 - Neuer Tab „Tauschmarkt“: doppelte Karten mit Marktwert, Tausch/Verkauf, Cardmarket-Vermerk mit Warnung, Abgabe mit Preis und Notiz, Verlauf mit Rückgängig
 - Karten-Sheet: zur vorherigen/nächsten Karte wischen, Nachbarkarten angeschnitten sichtbar

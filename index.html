@@ -348,7 +348,8 @@ html{min-height:calc(100% + env(safe-area-inset-top,0px))}body{min-height:calc(1
 .big.noimg{display:none}
 .bigwrap{position:relative;width:min(100%,250px);margin:0 auto}
 .bigwrap .big{width:100%;cursor:zoom-in}
-.bigwrap{transition:transform .23s cubic-bezier(.2,.8,.2,1)}.bigwrap.sw{transition:none}
+.bigwrap{transition:transform .24s cubic-bezier(.2,.8,.2,1)}.bigwrap .nb,.bigwrap .big{transition:transform .24s cubic-bezier(.2,.8,.2,1),opacity .24s}
+.bigwrap.sw,.bigwrap.sw .nb,.bigwrap.sw .big{transition:none}.bigwrap .big{transform-origin:center}
 .bigwrap .nb{position:absolute;top:0;width:100%;aspect-ratio:63/88;border-radius:12px;object-fit:cover;background:var(--pocket);opacity:.5;transform:scale(.86);pointer-events:none;box-shadow:var(--shadow)}
 .bigwrap .nb-l{right:calc(100% + 16px);transform-origin:right center}.bigwrap .nb-r{left:calc(100% + 16px);transform-origin:left center}
 .bigwrap .nb[hidden]{display:none}
@@ -658,6 +659,14 @@ button.achp{border:0;font:600 12.5px var(--f-body);cursor:pointer}
 .tmline{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:14px}.seg.sm button{padding:6px 10px;font-size:13px}
 .tmform{gap:10px;align-items:end}.tmform .fld{flex:1}.tmwarn{margin:0;padding:10px 12px;border-radius:10px;background:color-mix(in srgb,var(--accent) 14%,transparent);color:var(--ink);font-size:13px}
 #ws-body .tmset + .sec-h{margin-top:4px}
+.pavg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.pavg>div{display:grid;gap:1px;padding:8px 10px;border-radius:10px;background:var(--pocket)}
+.pavg small{font-size:11px;color:var(--muted)}.pavg b{font:700 15px var(--f-num)}.pavg i,.phnow i{font:600 11.5px var(--f-num);font-style:normal;color:var(--muted)}
+.up{color:#2f9a58!important}.dn{color:#e0534a!important}
+.phbtn{margin-top:10px;width:100%;justify-content:center;gap:8px}.phbtn svg{width:18px;height:18px}
+.phseg{margin:4px 0}.phnow{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}.phnow b{font:800 30px var(--f-num)}.phnow span{font:600 14px var(--f-num)}
+.phc{width:100%;height:170px;display:block;overflow:visible}.phc .ln{fill:none;stroke:var(--accent);stroke-width:2.2;vector-effect:non-scaling-stroke;stroke-linejoin:round}
+.phc .ar{fill:color-mix(in srgb,var(--accent) 16%,transparent)}.phc .dt{fill:var(--accent)}
+.phax{display:flex;justify-content:space-between;font:500 11.5px var(--f-num);color:var(--muted)}.phempty{margin:6px 0;padding:18px 14px;border:1px dashed var(--line);border-radius:12px;color:var(--muted);font-size:14px;text-align:center}
 .pgrp{border:1px solid var(--line);border-radius:12px;background:var(--page);overflow:hidden}
 .pgh{display:flex;align-items:center;gap:8px;width:100%;border:0;background:none;padding:12px 14px;color:var(--ink);font:inherit;cursor:pointer;text-align:left}
 .pgh b{flex:1;font:700 15px var(--f-body)}.pgh span{font:600 12px var(--f-num);color:var(--muted)}.pgh .chev{font-size:20px;transition:transform .2s}
@@ -1017,6 +1026,7 @@ const CONDS = ["Mint","Near Mint","Excellent","Good","Light Played","Played","Po
 
 /* ---------- Änderungsprotokoll ---------- */
 const CHANGELOG = [
+  {v:"1.35", d:"2026-11-17", items:["Wertverlauf je Karte: Cardmarket-Durchschnitt 1/7/30 Tage im Karten-Sheet, Verlauf 7 Tage bis 12 Monate (wird ab jetzt täglich aufgezeichnet)", "Preisverläufe und Set-Verläufe werden zwischen Geräten abgeglichen", "Set-Album: Sortierung nach Nummer oder Cardmarket-Preis (ab-/aufsteigend), persönliche Alben zusätzlich „Günstigste zuerst“", "Bilder-Speicher speichert keine Fehler mehr – fehlende oder unscharfe Bilder laden wieder richtig", "Wischen im Karten-Sheet ohne Ruckeln"]},
   {v:"1.34", d:"2026-11-12", items:["Neuer Tab „Tauschmarkt“: doppelte Karten mit Marktwert, Tausch/Verkauf, Cardmarket-Vermerk mit Warnung, Abgabe mit Preis und Notiz, Verlauf mit Rückgängig", "Karten-Sheet: zur vorherigen/nächsten Karte wischen, Nachbarkarten angeschnitten sichtbar", "Album: Varianten-Badges (N, RH, H, Liga), Zahl erst ab 2 Exemplaren je Variante", "Neuer Orden: „Ansehen“ öffnet den Orden direkt über der aktuellen Seite", "Karten-Sheet: Kartenbild erscheint auch, wenn die hohe Auflösung fehlt", "Tab-Leiste sitzt auch auf kurzen Seiten richtig unten", "Am PC: Scannen ausgeblendet, Tab „Mehr“ nur bei Bedarf"]},
   {v:"1.33", d:"2026-11-06", items:["Tab-Leiste wieder an der richtigen Position, Beschriftung nicht mehr abgeschnitten, ohne Lücke darunter", "3D-Orden: Gravur auf der Rückseite nicht mehr spiegelverkehrt"]},
   {v:"1.32", d:"2026-11-06", items:["Verlauf läuft ohne Kante bis unter die Uhrzeit, Titelleiste erscheint passend beim Scrollen", "Tab-Leiste und Bottom Sheets schweben nicht mehr über dem unteren Rand", "3D-Orden funktionieren wieder – jetzt als Relief mit erhabenem Rahmen und Motiv", "Erfolge: Gruppen beim Öffnen des Tabs immer zugeklappt", "Persönliche Alben: Vorschlag öffnet erst eine Vorschau, angelegt wird per „Album anlegen“", "Set-Seite: keine leere Fläche über der Filterleiste, Top-3-Namen nicht mehr abgeschnitten", "Portfolio: „Jetzt aktualisieren“ lädt wirklich neu, mit Rückmeldung und Prüfzeit"]},
@@ -1227,7 +1237,7 @@ function cardInfo(s, num, preferEn){
     const vd = Array.isArray(src.variants_detailed) ? src.variants_detailed : [];
     const base = src.pricing?.cardmarket || null;
     const normalId = vd.find(x=>x?.type==="normal")?.thirdParty?.cardmarket;
-    const vprice = {}, vavg = {}, vpeak = {}, vcm = {};
+    const vprice = {}, vavg = {}, vpeak = {}, vcm = {}, va1 = {}, va7 = {};
     const peakOf = (o, holo) => Math.max(0, ...["avg1","avg7","avg30"].map(k=>(holo ? o?.[k+"-holo"] : o?.[k]) || 0));
     keys.forEach((key, i) => {
       const d = vd.length === keys.length ? vd[i] : null;
@@ -1239,9 +1249,12 @@ function cardInfo(s, num, preferEn){
       if(!v && base){ v = rev ? (base["trend-holo"] || 0) : (vMain(key) ? (base.trend || base.avg || 0) : 0); a30 = rev ? (base["avg30-holo"] || 0) : (vMain(key) ? (base.avg30 || 0) : 0); }
       const holoSrc = rev && (!normalId || d?.thirdParty?.cardmarket === normalId) && pc?.["trend-holo"];
       const pk = pc && (pc.trend || pc.avg || pc["trend-holo"]) ? peakOf(pc, !!holoSrc) : (base ? (rev ? peakOf(base, true) : vMain(key) ? peakOf(base, false) : 0) : 0);
+      const so = pc && (pc.trend || pc.avg || pc["trend-holo"]) ? [pc, !!holoSrc] : (base ? (rev ? [base, true] : vMain(key) ? [base, false] : null) : null);
+      const g = k => so ? (+(so[1] ? so[0][k+"-holo"] : so[0][k]) || 0) : 0;
+      va1[key] = v ? g("avg1") : 0; va7[key] = v ? g("avg7") : 0;
       vprice[key] = v; vavg[key] = a30; vpeak[key] = v ? pk : 0; vcm[key] = (d?.thirdParty?.cardmarket || pc?.idProduct || base?.idProduct || 0);
     });
-    return { image: a?.image || b?.image || null, price: base, vprice, vavg, vpeak, vcm, cm: base?.idProduct || normalId || 0 };
+    return { image: a?.image || b?.image || null, price: base, vprice, vavg, vpeak, vcm, va1, va7, cm: base?.idProduct || normalId || 0 };
   })();
   infoCache.set(k, p); p.catch(() => infoCache.delete(k));
   return p;
@@ -1569,6 +1582,8 @@ function renderDex(){
 
 /* ---------- Set-Album ---------- */
 let filt = {cat:new Set(), type:new Set(), reg:new Set(), var:new Set(), rar:new Set()};
+let setSort = "num", setSortFor = null;
+const SORT_LBL = {num:"Nummer", pd:"Preis absteigend", pa:"Preis aufsteigend"};
 const BOOK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5.5C5.5 4 8.5 4 12 6c3.5-2 6.5-2 9-.5v13c-2.5-1.5-5.5-1.5-9 .5-3.5-2-6.5-2-9-.5z"/><path d="M12 6v13"/></svg>';
 const FILTER_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>';
 const RAR_ORDER = ["C","U","R","RH","LVX","LEG","RR","RRR","CHR","CSR","V","VMAX","VSTAR","ACE","RAD","AR","UR","IR","SR","SRV","SRVMAX","SIR","SUR","BWR","HR","MAR","MHR","PIK","FUR","RGB","CC","SEC","FA","PR",""];
@@ -1607,6 +1622,7 @@ function ringSVG(p, mini){
 }
 function renderSet(s){
   $("#bar-title").textContent = "";
+  if(setSortFor !== s.id){ setSort = "num"; setSortFor = s.id; }
   const owned = setOwned(s, view.lang), p = setProgress(s, owned), list = [...owned.values()].flat(), value = sum(list,valOf);
   const hasAlbum = albums.some(a=>a.setId===s.id && (a.lang||null)===(view.lang||null)), fc = filtCount(), vl = view.lang==="en" ? "en" : "de";
   $("#head").innerHTML = `<div class="sethead" id="sethead" style="--spine:${spineColor(s)}"><div class="slogo"><img src="${logoUrl(s,vl)}" data-alt="${logoUrl(s,vl==="de"?"en":"de")}" alt="${esc(setTitle(s))}" onerror="logoErr(this)" onload="if(this.naturalWidth/this.naturalHeight>3.2)this.parentNode.classList.add('wide')"><b class="logo-t">${esc(setTitle(s))}<small>${s.jn && s.jn!==s.de ? esc(s.jn) + " · " : ""}${esc(s.abbr)}</small></b></div>
@@ -1616,7 +1632,7 @@ function renderSet(s){
   const chips = FGROUPS.flatMap(([g])=>[...filt[g]].map(v=>{ const o = opts[g].find(x=>x[0]===v); return `<button class="chip" type="button" data-funset="${g}|${esc(v)}" aria-label="Filter ${esc(o?o[1]:v)} entfernen">${o&&o[2]?o[2]:""}${esc(o?o[1]:v)} ✕</button>`; })).join("");
   const filtered = fc>0;
   $("#tools").innerHTML = `<div class="stick" id="stick"><div class="mini" id="mini">${ringSVG(p, true)}<span class="mlogo"><img src="${logoUrl(s,"de")}" data-alt="${logoUrl(s,"en")}" alt="${esc(setTitle(s))}" onerror="logoErr(this)"><b class="logo-t">${esc(setTitle(s))}</b></span><span class="mv"><b>${p.base}/${p.baseTotal}</b> · ${eur(value)}</span></div>
-    <div class="segrow"><label class="fsel"><span class="sr">Anzeige</span><select id="fsel">${[["all","Alle"],["owned","Gesammelt"],["missing","Fehlend"],["dup","Doppelt"]].map(([k,l])=>`<option value="${k}"${filter===k?" selected":""}>${l}</option>`).join("")}</select></label><button class="fbtn${fc?" on":""}" type="button" id="open-filter" aria-label="Filter${fc?`, ${fc} aktiv`:""}">${FILTER_SVG}${fc?fc:""}</button><button class="fbtn${setQ?" on":""}" type="button" id="open-sq" aria-label="Im Set suchen" aria-expanded="${sqOpen||!!setQ}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></button><button class="fbtn alb" type="button" id="open-album" aria-label="Album öffnen">${BOOK_SVG}<span class="albt">Album</span></button></div>
+    <div class="segrow"><label class="fsel"><span class="sr">Anzeige</span><select id="fsel">${[["all","Alle"],["owned","Gesammelt"],["missing","Fehlend"],["dup","Doppelt"]].map(([k,l])=>`<option value="${k}"${filter===k?" selected":""}>${l}</option>`).join("")}</select></label><button class="fbtn${fc||setSort!=="num"?" on":""}" type="button" id="open-filter" aria-label="Filter${fc?`, ${fc} aktiv`:""}${setSort!=="num"?", sortiert nach Preis":""}">${FILTER_SVG}${fc?fc:""}</button><button class="fbtn${setQ?" on":""}" type="button" id="open-sq" aria-label="Im Set suchen" aria-expanded="${sqOpen||!!setQ}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></button><button class="fbtn alb" type="button" id="open-album" aria-label="Album öffnen">${BOOK_SVG}<span class="albt">Album</span></button></div>
     ${sqOpen||setQ?`<div class="sqwrap"><input class="field" id="sq" type="search" placeholder="Pokémon oder Nummer im Set suchen" autocomplete="off" autocorrect="off" enterkeyhint="search" value="${esc(setQ)}"></div>`:""}
     ${fc?`<div class="fchips">${chips}<button class="chip" type="button" id="f-clear">Alle zurücksetzen</button></div>`:""}</div>
 `;
@@ -1626,7 +1642,15 @@ function renderSet(s){
     const sq = setQ.trim().toLowerCase(), sqn = sq.replace(/^0+/,"");
     const qPass = c => !sq || (c[1]||"").toLowerCase().includes(sq) || (c[2]||"").toLowerCase().includes(sq) || c[0].toLowerCase()===sq || (sqn && c[0].replace(/^0+/,"")===sqn);
     const f = s.cards.filter(c=>cardPasses(s,c) && qPass(c) && (filter==="all" || (filter==="dup" ? dupState(c) : filter==="owned" ? ownState(s,c,owned) : missingState(s,c,owned))));
-    html = `<p class="cnt">${f.length} ${f.length===1?"Karte":"Karten"}</p>` + (f.length ? `<div class="flat">${f.map(c=>slotSet(s,c,owned.get(c[0]))).join("")}</div>` : `<p class="empty">${filtered?"Keine Karte passt zu diesen Filtern.":filter==="owned"?"Noch keine Karte aus diesem Set. Tippe auf eine Tasche.":"Set komplett – keine Lücken mehr."}</p>`);
+    let sortNote = "";
+    if(setSort !== "num"){
+      const sp = setPrices(s);
+      if(!sp && !spLoading) setTimeout(()=>loadSetPrices(s, view.lang), 0);
+      if(sp){ const pr = c => sp.m?.[c[0]] ?? sp.p?.[c[0]] ?? null, dir = setSort==="pd" ? -1 : 1;
+        f.sort((a,b)=>{ const x = pr(a), y = pr(b); if(x == null && y == null) return 0; if(x == null) return 1; if(y == null) return -1; return (x - y) * dir; }); }
+      sortNote = ` · ${sp ? `nach Preis ${setSort==="pd" ? "↓" : "↑"}` : `Preise werden geladen …`}`;
+    }
+    html = `<p class="cnt">${f.length} ${f.length===1?"Karte":"Karten"}${sortNote}</p>` + (f.length ? `<div class="flat">${f.map(c=>slotSet(s,c,owned.get(c[0]))).join("")}</div>` : `<p class="empty">${filtered?"Keine Karte passt zu diesen Filtern.":filter==="owned"?"Noch keine Karte aus diesem Set. Tippe auf eine Tasche.":"Set komplett – keine Lücken mehr."}</p>`);
   }
   const preview = !hasAlbum && (!list.length || albums.some(a=>a.setId===s.id));
   if(preview) html += `<div class="pv-space"></div><div class="pvbar" role="region" aria-label="Vorschau"><span><b>Vorschau</b> · noch nicht in deinen Alben</span><button class="btn primary" type="button" id="pv-add">Album anlegen</button></div>`;
@@ -1664,10 +1688,10 @@ function renderFilter(){
     return;
   }
   const o = setFilterOptions(s);
-  $("#f-body").innerHTML = FGROUPS.filter(([g])=>o[g].length>1).map(([g,lbl])=>`<div class="fgroup"><h3>${lbl}</h3><div class="fopts">${o[g].map(([v,l,ic,n])=>`<button class="fopt" type="button" data-fopt="${g}|${esc(v)}" aria-pressed="${filt[g].has(v)}">${ic||""}${esc(l)}${n!=null?`<small class="fcnt">${n}</small>`:""}</button>`).join("")}</div></div>`).join("");
+  $("#f-body").innerHTML = `<div class="fgroup"><h3>Sortierung</h3><div class="fopts">${Object.entries(SORT_LBL).map(([k,l])=>`<button class="fopt" type="button" data-fsort="${k}" aria-pressed="${setSort===k}">${l}</button>`).join("")}</div>${setSort!=="num" ? `<p class="hint" style="margin:6px 0 0">Nach aktuellem Cardmarket-Preis der Standard-Version, auch für fehlende Karten.</p>` : ""}</div>` + FGROUPS.filter(([g])=>o[g].length>1).map(([g,lbl])=>`<div class="fgroup"><h3>${lbl}</h3><div class="fopts">${o[g].map(([v,l,ic,n])=>`<button class="fopt" type="button" data-fopt="${g}|${esc(v)}" aria-pressed="${filt[g].has(v)}">${ic||""}${esc(l)}${n!=null?`<small class="fcnt">${n}</small>`:""}</button>`).join("")}</div></div>`).join("");
 }
-$("#f-body").addEventListener("click", e=>{ const b = e.target.closest("[data-fopt]"); if(!b) return; const [g,v] = b.dataset.fopt.split("|"); const S = !filtSet && g==="reg" ? dexReg : filt[g]; S.has(v) ? S.delete(v) : S.add(v); renderFilter(); render(); });
-$("#f-reset").addEventListener("click", ()=>{ if(filtSet) FGROUPS.forEach(([g])=>filt[g].clear()); else dexReg.clear(); renderFilter(); render(); });
+$("#f-body").addEventListener("click", e=>{ const so = e.target.closest("[data-fsort]"); if(so){ setSort = so.dataset.fsort; renderFilter(); render(); return; } const b = e.target.closest("[data-fopt]"); if(!b) return; const [g,v] = b.dataset.fopt.split("|"); const S = !filtSet && g==="reg" ? dexReg : filt[g]; S.has(v) ? S.delete(v) : S.add(v); renderFilter(); render(); });
+$("#f-reset").addEventListener("click", ()=>{ if(filtSet){ FGROUPS.forEach(([g])=>filt[g].clear()); setSort = "num"; } else dexReg.clear(); renderFilter(); render(); });
 $("#f-done").addEventListener("click", ()=>filtSheet.close());
 
 /* ---------- Album-Menü ---------- */
@@ -2526,7 +2550,7 @@ function openReset(step){
     $("#rs-go").addEventListener("click", ()=>{
       cards = []; albums = []; wish = {}; notes = {}; ach = {}; valHist = {}; tm = {keep:{}, mode:{}, cm:{}, log:[]};
       saveCards(); LS.set("pk-albums", albums); LS.set("pk-wish", wish); LS.set("pk-notes", notes); LS.set("pk-ach", ach); LS.set("pk-valhist", valHist); LS.set("pk-tm", tm);
-      ["pk-searched","pk-wishopen","pk-pricehist","pk-lastbackup","pk-setval","pk-autoprice"].forEach(k=>{ try{ localStorage.removeItem(k); }catch{} });
+      ["pk-searched","pk-wishopen","pk-pricehist","pk-lastbackup","pk-setval","pk-autoprice","pk-ph","pk-histhash"].forEach(k=>{ try{ localStorage.removeItem(k); }catch{} });
       wishSheet.close(); go("regal"); render();
       toast(`<span>Sammlung zurückgesetzt</span><button class="tx" type="button" data-tclose aria-label="Schließen">×</button>`, 3500);
     });
@@ -2664,8 +2688,8 @@ function renderSettings(){
   $("#open-log").addEventListener("click", openLog);
   $("#reset-all").addEventListener("click", ()=>openReset(1));
   $("#tabs-cfg")?.addEventListener("click", ()=>openTabs(false));
-  (async()=>{ try{ const c = await caches.open("kartenbilder-v1"), n = (await c.keys()).length; let mb = ""; try{ const est = await navigator.storage?.estimate?.(); if(est?.usage) mb = ` · ${(est.usage/1048576).toLocaleString("de-DE",{maximumFractionDigits:0})} MB gesamt`; }catch{} const el = $("#img-cnt"); if(el) el.textContent = n.toLocaleString("de-DE") + " Bilder" + mb; }catch{ const el = $("#img-cnt"); if(el) el.textContent = "–"; } })();
-  $("#img-clear")?.addEventListener("click", async()=>{ try{ await caches.delete("kartenbilder-v1"); }catch{} const el = $("#img-cnt"); if(el) el.textContent = "0 Bilder"; });
+  (async()=>{ try{ const c = await caches.open("kartenbilder-v2"), n = (await c.keys()).length; let mb = ""; try{ const est = await navigator.storage?.estimate?.(); if(est?.usage) mb = ` · ${(est.usage/1048576).toLocaleString("de-DE",{maximumFractionDigits:0})} MB gesamt`; }catch{} const el = $("#img-cnt"); if(el) el.textContent = n.toLocaleString("de-DE") + " Bilder" + mb; }catch{ const el = $("#img-cnt"); if(el) el.textContent = "–"; } })();
+  $("#img-clear")?.addEventListener("click", async()=>{ try{ await caches.delete("kartenbilder-v2"); }catch{} const el = $("#img-cnt"); if(el) el.textContent = "0 Bilder"; });
   bindKonto();
 }
 function openLog(){
@@ -2776,7 +2800,9 @@ const cardSheet = makeSheet($("#dlg"), {
       const w = Math.min(250, S.el.clientWidth - 32), hd = $("#d-title").parentElement.offsetHeight;
       return h - (26 + w*88/63 + 16 + hd + 50 + 18);
     }
-    const bw = $("#d-img").closest(".bigwrap"); bw.style.width = "";
+    const bw = $("#d-img").closest(".bigwrap");
+    if(navHold && S.setHalfVis){ bw.style.width = navHold.w; return h - navHold.vis; }
+    bw.style.width = "";
     const measure = () => { const pr = $("#d-price"), l = $("#d-links"); const ref = pr && !pr.hidden && pr.offsetHeight ? pr : (l && l.offsetHeight ? l : $("#d-chips")); return ref.getBoundingClientRect().bottom - S.el.getBoundingClientRect().top + 14; };
     let vis = measure(); const room = h - Math.max(70, h*0.1);
     if(vis > room && !$("#d-img").classList.contains("noimg")){ const w = bw.offsetWidth, nw = Math.max(150, w - (vis - room)*63/88); if(nw < w){ bw.style.width = nw + "px"; vis = measure(); } }
@@ -2796,7 +2822,7 @@ const menuSheet = makeSheet($("#menusheet"));
 const filtSheet = makeSheet($("#filt"));
 function rememberRecent(c){ if(c.kind!=="set") return; const k = c.setId+"|"+c.num; const l = LS.get("pk-searched", []).filter(x=>x!==k); l.unshift(k); LS.set("pk-searched", l.slice(0,12)); }
 try{ localStorage.removeItem("pk-recent"); }catch{}
-function openCtx(c){ ctx=c; markSel(c); openDet = new Set(); showMore=false; confirmDel=null; priceVar=null; $("#d-img").dataset.key=""; renderDialog(); updNeighbors(); if(cardSheet.state==="closed") openSheet(); else { sScroll.scrollTop = 0; cardSheet.set("half"); } }
+function openCtx(c){ if(!stepping){ navHold = null; const pr = $("#d-price"); if(pr) pr.style.minHeight = ""; } ctx=c; markSel(c); openDet = new Set(); showMore=false; confirmDel=null; priceVar=null; $("#d-img").dataset.key=""; renderDialog(); updNeighbors(); if(cardSheet.state==="closed") openSheet(); else { sScroll.scrollTop = 0; cardSheet.set("half"); } }
 
 function renderDialog(){
   if(ctx.kind==="dex") return renderDexDialog();
@@ -2838,7 +2864,32 @@ function renderDialog(){
 }
 let priceVar = null;
 function cmIdFor(s, c){ const info = lastInfo.get(s.id+"|"+c[0]); if(!info) return 0; return (priceVar && info.vcm?.[priceVar]) || info.cm || 0; }
+/* Preisverlauf: ein Wert pro Karte, Variante und Tag (Cent), gruppiert nach Set */
+const dayNum = iso => Math.floor(Date.parse(iso.slice(0,10) + "T00:00:00Z") / 864e5);
+const dayIso = n => new Date(n * 864e5).toISOString().slice(0,10);
+const PH_MAX = 420;
+function phMerge(a, b){
+  if(!a?.v) return b; if(!b?.v) return a;
+  const d0 = Math.min(a.d, b.d), end = Math.max(a.d + a.v.length, b.d + b.v.length), v = new Array(end - d0).fill(null);
+  for(const x of [b, a]) x.v.forEach((c, i)=>{ if(c != null) v[x.d - d0 + i] = c; });
+  return phTrim({d:d0, v});
+}
+function phTrim(x){ if(x.v.length > PH_MAX){ const cut = x.v.length - PH_MAX; x.v = x.v.slice(cut); x.d += cut; } return x; }
+function recordSeries(key, info){
+  const [sid, num] = key.split("|"), day = dayNum(info.price?.updated || localDay()), ph = LS.get("pk-ph", {}), o = ph[sid] ||= {};
+  let ch = false;
+  for(const v of Object.keys(info.vprice)){ const c = Math.round((+info.vprice[v]||0)*100); if(!c) continue;
+    const k = num + "|" + v, x = o[k];
+    if(!x){ o[k] = {d:day, v:[c]}; ch = true; continue; }
+    const i = day - x.d; if(i < 0) continue;
+    while(x.v.length <= i) x.v.push(null);
+    if(x.v[i] !== c){ x.v[i] = c; ch = true; } phTrim(x);
+  }
+  if(ch){ LS.put("pk-ph", JSON.stringify(ph)); syncDirty(); }
+}
+function seriesOf(sid, num, v){ return LS.get("pk-ph", {})[sid]?.[num + "|" + v] || null; }
 function recordVariants(key, info){
+  try{ recordSeries(key, info); }catch{}
   const upd = info.price?.updated;
   for(const v of Object.keys(info.vprice)) if(info.vprice[v]) recordPrice(key+"|"+v, {trend:info.vprice[v], avg30:info.vavg?.[v]||0, peak:info.vpeak?.[v]||0, updated:upd});
 }
@@ -2858,10 +2909,54 @@ function renderPrice(){
   box.innerHTML = `${keys.length>1?`<div class="pchips" role="group" aria-label="Variante für den Preis">${keys.map(v=>`<button class="pchip" type="button" data-pvar="${esc(v)}" aria-pressed="${v===priceVar}">${esc(vLabel(v))}</button>`).join("")}</div>`:""}
     <div class="pmain"><div class="now"><small>Aktueller Preis${keys.length>1?"":` · ${esc(vLabel(priceVar))}`}</small><b>${fmtPrice(info.vprice[priceVar])}</b></div>
     <div class="ath"><small>${h?`Höchstwert seit ${deDate(h.since)}`:"Höchstwert"}</small><b>${fmtPrice(h?.max)}</b></div></div>
-    <div class="pinfo">${h?`Höchstwert erfasst am ${deDate(h.d)} · `:""}Cardmarket-Trend, Stand ${deDate(info.price?.updated)}</div>`;
+    ${avgRow(info, priceVar)}
+    <div class="pinfo">${h?`Höchstwert erfasst am ${deDate(h.d)} · `:""}Cardmarket-Trend, Stand ${deDate(info.price?.updated)}</div>
+    <button class="btn phbtn" type="button" id="d-hist">${CHART_SVG}Wertverlauf</button>`;
   box.hidden = false;
 }
-$("#d-price").addEventListener("click", e=>{ const b = e.target.closest("[data-pvar]"); if(!b) return; priceVar = b.dataset.pvar; renderPrice(); });
+const CHART_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l5-5 4 3 8-8"/><path d="M15 7h5v5"/></svg>';
+function pctTxt(now, ref){ if(!now || !ref) return ""; const p = (now - ref) / ref * 100; return `<i class="${p>0.5?"up":p<-0.5?"dn":""}">${p>0?"+":""}${p.toLocaleString("de-DE",{maximumFractionDigits:0})} %</i>`; }
+function avgRow(info, v){
+  const now = info.vprice[v], a = [["1 Tag", info.va1?.[v]], ["7 Tage", info.va7?.[v]], ["30 Tage", info.vavg?.[v]]].filter(x=>x[1]);
+  if(!a.length) return "";
+  return `<div class="pavg">${a.map(([l, x])=>`<div><small>Ø ${l}</small><b>${fmtPrice(x)}</b>${pctTxt(now, x)}</div>`).join("")}</div>`;
+}
+$("#d-price").addEventListener("click", e=>{ if(e.target.closest("#d-hist")){ openHist(); return; } const b = e.target.closest("[data-pvar]"); if(!b) return; priceVar = b.dataset.pvar; renderPrice(); });
+let histRange = 30;
+function openHist(){
+  if(!ctx || ctx.kind!=="set") return;
+  const s = SET.get(ctx.setId), c = cardAt(ctx.setId, ctx.num), info = lastInfo.get(s.id+"|"+c[0]); if(!info) return;
+  const v = priceVar;
+  wsMode = {kind:"hist"};
+  $("#ws-title").textContent = cardTitleFor(s, c);
+  const draw = () => {
+    const ser = seriesOf(s.id, c[0], v), now = info.vprice[v], today = dayNum(info.price?.updated || localDay());
+    const pts = []; if(ser) ser.v.forEach((x, i)=>{ if(x != null && ser.d + i > today - histRange) pts.push([ser.d + i, x/100]); });
+    const first = ser ? ser.v.findIndex(x=>x!=null) : -1, since = ser && first >= 0 ? ser.d + first : null;
+    const R = [[7,"7 T"],[30,"30 T"],[91,"3 M"],[182,"6 M"],[365,"12 M"]];
+    let chart = "";
+    if(pts.length >= 2){
+      const W = 320, H = 150, xs = pts.map(p=>p[0]), ys = pts.map(p=>p[1]);
+      const x0 = Math.max(today - histRange + 1, Math.min(...xs)), x1 = Math.max(today, Math.max(...xs)), lo = Math.min(...ys), hi = Math.max(...ys), pad = (hi - lo) * .12 || hi * .05 || 1;
+      const X = d => (d - x0) / Math.max(1, x1 - x0) * W, Y = y => H - ((y - (lo - pad)) / ((hi + pad) - (lo - pad))) * H;
+      const line = pts.map((p,i)=>`${i?"L":"M"}${X(p[0]).toFixed(1)},${Y(p[1]).toFixed(1)}`).join("");
+      chart = `<svg class="phc" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="Preisverlauf"><path d="${line}L${X(pts.at(-1)[0]).toFixed(1)},${H}L${X(pts[0][0]).toFixed(1)},${H}Z" class="ar"/><path d="${line}" class="ln"/><circle cx="${X(pts.at(-1)[0]).toFixed(1)}" cy="${Y(pts.at(-1)[1]).toFixed(1)}" r="3.5" class="dt"/></svg>
+        <div class="phax"><span>${deDate(dayIso(x0))}</span><span>${fmtPrice(lo)} – ${fmtPrice(hi)}</span><span>${deDate(dayIso(x1))}</span></div>`;
+    }
+    const ref = pts.length ? pts[0][1] : null, diff = ref != null && now ? now - ref : null;
+    const partial = since != null && since > today - histRange + 1;
+    $("#ws-body").innerHTML = `<p class="hint" style="margin:0">${esc(s.abbr)} ${esc(numDisp(s,c[0]))} · ${esc(vLabel(v))} · Cardmarket-Trend</p>
+      <div class="seg phseg" role="group" aria-label="Zeitraum">${R.map(([d,l])=>`<button type="button" data-hr="${d}" aria-pressed="${d===histRange}">${l}</button>`).join("")}</div>
+      <div class="phnow"><b>${fmtPrice(now)}</b>${diff != null && pts.length >= 2 ? `<span class="${diff>0.004?"up":diff<-0.004?"dn":""}">${diff>0?"+":""}${fmtPrice(diff)} ${pctTxt(now, ref)}</span>` : ""}</div>
+      ${chart || `<p class="phempty">${since != null ? `Der Verlauf wird seit ${deDate(dayIso(since))} täglich aufgezeichnet. Ab dem zweiten Tag erscheint hier die Kurve.` : "Für diese Karte gibt es noch keinen aufgezeichneten Verlauf. Die App speichert ab jetzt bei jedem Preisabgleich den Tagespreis – für deine Karten täglich automatisch."}</p>`}
+      ${partial && chart ? `<p class="hint" style="margin:0">Daten seit ${deDate(dayIso(since))} – der Zeitraum füllt sich mit jedem Tag.</p>` : ""}
+      <p class="sec-h">Cardmarket-Durchschnitt</p>${avgRow(info, v) || `<p class="hint">Keine Durchschnittswerte verfügbar.</p>`}
+      <p class="hint" style="margin:0">Durchschnitte für 1, 7 und 30 Tage liefert Cardmarket (über TCGdex). Längere Zeiträume zeichnet die App selbst auf.</p>`;
+    $("#ws-body").querySelectorAll("[data-hr]").forEach(b=>b.addEventListener("click", ()=>{ histRange = +b.dataset.hr; draw(); }));
+  };
+  draw();
+  if(wishSheet.state==="closed") wishSheet.open("full"); else wishSheet.set("full");
+}
 function renderVariants(){
   if(!ctx || ctx.kind!=="set") return;
   const s = SET.get(ctx.setId), c = cardAt(ctx.setId, ctx.num), keys = cardVariants(c);
@@ -3024,14 +3119,14 @@ function renderPAlbum(a){
   $("#head").innerHTML = `<div class="phead"><h1 class="ph1">${esc(persName(a))}</h1><p class="hint"><i class="pbadge pers">Persönlich</i> ${esc(d.sub)}</p><div class="stats" style="justify-content:center"><div class="stat"><small>Karten</small><b>${st.n}</b></div><div class="stat"><small>Wert</small><b>${eur(st.v)}</b></div></div>${a.preview ? `<div class="pprev"><span>Vorschau – noch nicht angelegt</span><button class="btn primary" type="button" id="pprev-add">Album anlegen</button></div>` : ""}</div>`;
   $("#pprev-add")?.addEventListener("click", ()=>{ pPrevBack = null; const x = pPrev; pPrev = null; createPersonal(x.ptype, x.pval); });
   if(!$("#pq")){
-    $("#tools").innerHTML = `<div class="segrow"><label class="fsel"><span class="sr">Sortierung</span><select id="psort">${[["rel","Neueste zuerst"],["val","Wertvollste zuerst"],["set","Nach Set"]].map(([k,l])=>`<option value="${k}"${pSort===k?" selected":""}>${l}</option>`).join("")}</select></label></div><div class="qwrap"><input class="field" id="pq" type="search" placeholder="Im Album suchen" autocomplete="off" value="${esc(pQ)}"></div>`;
+    $("#tools").innerHTML = `<div class="segrow"><label class="fsel"><span class="sr">Sortierung</span><select id="psort">${[["rel","Neueste zuerst"],["val","Wertvollste zuerst"],["cheap","Günstigste zuerst"],["set","Nach Set"]].map(([k,l])=>`<option value="${k}"${pSort===k?" selected":""}>${l}</option>`).join("")}</select></label></div><div class="qwrap"><input class="field" id="pq" type="search" placeholder="Im Album suchen" autocomplete="off" value="${esc(pQ)}"></div>`;
     $("#psort").addEventListener("change", e=>{ pSort = e.target.value; renderPAlbum(a); });
     $("#pq").addEventListener("input", e=>{ pQ = e.target.value; renderPAlbum(a); });
   }
   const q = pQ.trim().toLowerCase();
   let it = persItems(a).filter(x=>!q || `${cName(x.c)} ${x.c[2]} ${x.s.abbr} ${x.c[0]}`.toLowerCase().includes(q));
   const val = x => Math.max(...x.list.map(e=>+e.val||0));
-  it.sort(pSort==="val" ? (x,y)=>val(y)-val(x) : pSort==="set" ? (x,y)=>(x.s.rel||"").localeCompare(y.s.rel||"") || x.s.idx.get(x.c[0]) - y.s.idx.get(y.c[0]) : (x,y)=>(y.s.rel||"").localeCompare(x.s.rel||"") || x.s.idx.get(x.c[0]) - y.s.idx.get(y.c[0]));
+  it.sort(pSort==="val" ? (x,y)=>val(y)-val(x) : pSort==="cheap" ? (x,y)=>(val(x)||1e9)-(val(y)||1e9) : pSort==="set" ? (x,y)=>(x.s.rel||"").localeCompare(y.s.rel||"") || x.s.idx.get(x.c[0]) - y.s.idx.get(y.c[0]) : (x,y)=>(y.s.rel||"").localeCompare(x.s.rel||"") || x.s.idx.get(x.c[0]) - y.s.idx.get(y.c[0]));
   $("#view").innerHTML = it.length ? pages(it, x=>slotSet(x.s, x.c, x.list, true).replace('class="slot owned"', 'class="slot owned"') , chunk=>[...new Set(chunk.map(x=>x.s.abbr))].join(" · ")) : `<p class="empty">${a.ptype==="free" ? "Noch leer. Öffne eine Karte und tippe auf „Zu Album“." : q ? "Keine Karte passt zur Suche." : "Noch keine passenden Karten gesammelt."}</p>`;
 }
 function openPMenu(a){
@@ -3290,7 +3385,7 @@ function renderPSet(s){
 /* ---------- Sicherung ---------- */
 async function exportBackup(){
   const iso = new Date().toISOString();
-  const data = JSON.stringify({app:"kartenalbum", version:2, exported:iso, cards, albums, settings, wish, valHist, notes, ach, tm}, null, 1);
+  const data = JSON.stringify({app:"kartenalbum", version:2, exported:iso, cards, albums, settings, wish, valHist, notes, ach, tm, ph: LS.get("pk-ph", {})}, null, 1);
   const name = `kartenalbum-${deDate(iso)}.json`;
   const file = new File([data], name, {type:"application/json"});
   try{
@@ -3314,6 +3409,7 @@ async function importBackup(e){
     if(d.notes) notes = {...d.notes, ...notes};
     if(d.ach) ach = {...d.ach, ...ach};
     if(d.tm) { tm = mergeTm(tm, d.tm); LS.set("pk-tm", tm); }
+    if(d.ph && typeof d.ph === "object"){ for(const [sid, o] of Object.entries(d.ph)) applyHist(sid, {ph: JSON.stringify(o)}); }
     LS.set("pk-wish", wish); LS.set("pk-valhist", valHist); LS.set("pk-notes", notes); LS.set("pk-ach", ach);
     saveCards(); LS.set("pk-albums",albums); LS.set("pk-settings",settings); render();
     $("#bk-msg").textContent = `Import vom ${deDate(d.exported)}: ${sum(cards,qtyOf)-before} Karten hinzugekommen.`;
@@ -3562,9 +3658,12 @@ function updNeighbors(){
   const [p, n] = navNeighbors();
   for(const [el, it] of [[$("#d-nl"), p], [$("#d-nr"), n]]){ if(!it || !it.src){ el.hidden = true; el.removeAttribute("src"); continue; } el.hidden = false; if(el.getAttribute("src") !== it.src) el.src = it.src; }
 }
+let navHold = null, stepping = false;
 function stepTo(it, smooth){
-  const [sid, num] = it.k.split("|"), im = $("#d-img"), pre = it.src;
-  openCtx({kind:"set", setId:sid, num});
+  const [sid, num] = it.k.split("|"), im = $("#d-img"), pre = it.src, pr = $("#d-price");
+  if(!navHold && cardSheet.state==="half" && cardSheet.setHalfVis) navHold = {vis:cardSheet.setHalfVis, w:$("#d-img").closest(".bigwrap").style.width};
+  if(pr && !pr.hidden && pr.offsetHeight) pr.style.minHeight = pr.offsetHeight + "px";
+  stepping = true; try{ openCtx({kind:"set", setId:sid, num}); } finally { stepping = false; }
   if(pre && !im.getAttribute("src")){ im.onerror = null; im.classList.remove("noimg"); im.src = pre; }
   if(!album.open) it.el.scrollIntoView({block:"nearest", behavior: smooth ? "smooth" : "auto"});
 }
@@ -3573,7 +3672,7 @@ function stepCard(dir){
   const nb = navNeighbors()[dir>0 ? 1 : 0]; if(nb) stepTo(nb, true);
 }
 { // Wischen im Karten-Sheet
-  const bw = $("#d-img").closest(".bigwrap"); let sw = null;
+  const bw = $("#d-img").closest(".bigwrap"), nbL = $("#d-nl"), nbR = $("#d-nr"), bigI = $("#d-img"); let sw = null;
   bw.addEventListener("touchstart", e=>{ if(DESK.matches || ctx?.kind!=="set" || e.touches.length>1) return; const t = e.touches[0]; sw = {x0:t.clientX, y0:t.clientY, dx:0, on:false}; }, {passive:true});
   bw.addEventListener("touchmove", e=>{
     if(!sw) return; const t = e.touches[0], dx = t.clientX - sw.x0, dy = t.clientY - sw.y0;
@@ -3581,13 +3680,20 @@ function stepCard(dir){
     e.preventDefault(); e.stopPropagation();
     sw.dx = (dx > 0 && !sw.nb[0]) || (dx < 0 && !sw.nb[1]) ? dx * .3 : dx;
     bw.style.transform = `translateX(${sw.dx}px)`;
+    const pz = Math.min(1, Math.abs(sw.dx) / (bw.offsetWidth + 16)), tgt = sw.dx < 0 ? nbR : nbL, oth = sw.dx < 0 ? nbL : nbR;
+    if((sw.dx < 0 && sw.nb[1]) || (sw.dx > 0 && sw.nb[0])){ tgt.style.transform = `scale(${(.86 + .14*pz).toFixed(3)})`; tgt.style.opacity = (.5 + .5*pz).toFixed(3); }
+    oth.style.transform = ""; oth.style.opacity = "";
+    bigI.style.transform = `scale(${(1 - .14*pz).toFixed(3)})`; bigI.style.opacity = (1 - .5*pz).toFixed(3);
   }, {passive:false});
   const end = () => {
     const s = sw; sw = null; if(!s?.on) return; bw.classList.remove("sw");
     const dir = s.dx < -50 && s.nb[1] ? 1 : s.dx > 50 && s.nb[0] ? -1 : 0;
-    if(!dir){ bw.style.transform = ""; return; }
+    const reset = () => { for(const el of [nbL, nbR, bigI]){ el.style.transform = ""; el.style.opacity = ""; } };
+    if(!dir){ bw.style.transform = ""; reset(); return; }
+    const tgt = dir > 0 ? nbR : nbL;
     bw.style.transform = `translateX(${-dir*(bw.offsetWidth + 16)}px)`;
-    setTimeout(()=>{ bw.classList.add("sw"); bw.style.transform = ""; stepTo(s.nb[dir>0 ? 1 : 0], false); requestAnimationFrame(()=>requestAnimationFrame(()=>bw.classList.remove("sw"))); }, 230);
+    tgt.style.transform = "scale(1)"; tgt.style.opacity = "1"; bigI.style.transform = "scale(.86)"; bigI.style.opacity = ".5";
+    setTimeout(()=>{ bw.classList.add("sw"); bw.style.transform = ""; reset(); stepTo(s.nb[dir>0 ? 1 : 0], false); requestAnimationFrame(()=>requestAnimationFrame(()=>bw.classList.remove("sw"))); }, 240);
   };
   bw.addEventListener("touchend", end); bw.addEventListener("touchcancel", end);
 }
@@ -3710,6 +3816,34 @@ const SYNC_KEYS = new Set(["pk-cards","pk-albums","pk-settings","pk-wish","pk-va
 const Sync = {fb:null, loading:null, started:false, user:null, status:"off", msg:"", unsub:[], pushT:0, applying:false, busy:false};
 const DEV = (()=>{ let d = LS.raw("pk-dev"); if(!d){ d = rid(); LS.put("pk-dev", d); } return d; })();
 let synced = LS.get("pk-synchash", {});
+let histHash = LS.get("pk-histhash", {}), histDenied = false;
+function applyHist(sid, d){
+  try{
+    const ph = LS.get("pk-ph", {}), sv = LS.get("pk-setval", {});
+    const rph = d.ph ? JSON.parse(d.ph) : {}, rsv = d.sv ? JSON.parse(d.sv) : {};
+    const o = ph[sid] ||= {}; for(const [k, x] of Object.entries(rph)) o[k] = phMerge(o[k], x);
+    sv[sid] = {...rsv, ...(sv[sid]||{})};
+    LS.put("pk-ph", JSON.stringify(ph)); LS.put("pk-setval", JSON.stringify(sv));
+  }catch{}
+}
+async function pullHist(F, db, uid){
+  try{ const sn = await F.getDocs(F.collection(db, "users", uid, "hist")); sn.forEach(d=>applyHist(d.id, d.data())); }
+  catch(e){ if(e?.code==="permission-denied") histDenied = true; }
+}
+async function pushHist(F, db, uid){
+  if(histDenied) return;
+  const ph = LS.get("pk-ph", {}), sv = LS.get("pk-setval", {}), batch = F.writeBatch(db), pend = {};
+  let n = 0;
+  for(const sid of new Set([...Object.keys(ph), ...Object.keys(sv)])){
+    const doc = {ph: JSON.stringify(ph[sid]||{}), sv: JSON.stringify(sv[sid]||{})}, h = hashOf(doc.ph + "|" + doc.sv);
+    if(histHash[sid] === h) continue;
+    batch.set(F.doc(db, "users", uid, "hist", sid), {...doc, t: Date.now()}); pend[sid] = h;
+    if(++n >= 400) break;
+  }
+  if(!n) return;
+  try{ await batch.commit(); Object.assign(histHash, pend); LS.set("pk-histhash", histHash); }
+  catch(e){ if(e?.code==="permission-denied") histDenied = true; }
+}
 const canon = v => Array.isArray(v) ? "["+v.map(canon).join(",")+"]" : v && typeof v==="object" ? "{"+Object.keys(v).sort().filter(k=>v[k]!==undefined).map(k=>JSON.stringify(k)+":"+canon(v[k])).join(",")+"}" : JSON.stringify(v ?? null);
 const hashOf = s => { let h = 0; for(let i=0;i<s.length;i++) h = (h*31 + s.charCodeAt(i))|0; return s.length+":"+h; };
 const bucketKey = e => e.setId ? [e.setId,e.num,e.v,e.lang,e.cond].join("|") : "frei|"+e.id;
@@ -3831,6 +3965,7 @@ async function beginSync(){
     const prev = LS.raw("pk-syncuid");
     if(prev !== uid){ synced = {}; applyRemote(remote, rmeta, prev ? "replace" : "merge"); LS.put("pk-syncuid", uid); }
     else applyRemote(remote, rmeta, "sync");
+    await pullHist(F, db, uid);
     await pushNow();
     listen();
     markSynced();
@@ -3840,6 +3975,7 @@ async function beginSync(){
 async function pushNow(){
   if(!Sync.fb || !Sync.user?.emailVerified || Sync.status==="denied") return;
   const {F, db} = Sync.fb, uid = Sync.user.uid;
+  pushHist(F, db, uid).catch(()=>{});
   const local = groupLocal(), batch = F.writeBatch(db), pend = {};
   let n = 0;
   for(const k of new Set([...local.keys(), ...Object.keys(synced).filter(k=>k!=="_meta")])){

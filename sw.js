@@ -1,6 +1,6 @@
 // Offline-Fähigkeit: App-Dateien und bereits angesehene Kartenbilder werden auf dem Gerät zwischengespeichert.
-const APP = "kartenalbum-v36";
-const IMG = "kartenbilder-v1";
+const APP = "kartenalbum-v37";
+const IMG = "kartenbilder-v2";
 const MAXIMG = 3000;
 let trimT = 0;
 function trim(){ clearTimeout(trimT); trimT = setTimeout(async () => { try { const c = await caches.open(IMG), ks = await c.keys(); for (let i = 0; i < ks.length - MAXIMG; i++) await c.delete(ks[i]); } catch {} }, 4000); }
@@ -15,11 +15,12 @@ self.addEventListener("fetch", e => {
     e.respondWith(caches.open(IMG).then(async c => {
       const hit = await c.match(e.request.url);
       if (hit) return hit;
-      let res;
-      try { res = await fetch(e.request.url, {mode: "cors", credentials: "omit"}); } catch { res = null; }
-      if (!res || (!res.ok && res.type !== "opaque")) res = await fetch(e.request);
-      if (res.ok || res.type === "opaque") { c.put(e.request.url, res.clone()).then(trim).catch(() => {}); }
-      return res;
+      // Nur echte Erfolge speichern. Undurchsichtige (no-cors) Antworten können Fehler verbergen
+      // und würden sonst dauerhaft als „Bild“ ausgeliefert.
+      let res = null;
+      try { res = await fetch(e.request.url, {mode: "cors", credentials: "omit"}); } catch {}
+      if (res) { if (res.ok) c.put(e.request.url, res.clone()).then(trim).catch(() => {}); return res; }
+      return fetch(e.request);
     }));
     return;
   }
