@@ -4,7 +4,7 @@ Private Web-App für meine Pokémon-Sammelkarten – als digitales Album fürs i
 
 **App öffnen:** https://faabnatic.github.io/Kartenalbum/
 
-Aktuelle Version: **1.36** · Änderungen je Version stehen in [`CHANGELOG.md`](CHANGELOG.md).
+Aktuelle Version: **1.37** · Änderungen je Version stehen in [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Funktionen
 
@@ -18,14 +18,15 @@ Aktuelle Version: **1.36** · Änderungen je Version stehen in [`CHANGELOG.md`](
 - **Filter im Set** – Alle · Gesammelt · Fehlend · Doppelt, dazu Kategorie, Typ, Region, Variante, Seltenheit und Suche nach Name oder Nummer
 - **Wunschliste** – eigener Tab, Priorität Niedrig/Normal/Hoch, nach Sets gruppiert, Preis und Summe, als Text teilbar; gezählte Karten verschwinden automatisch
 - **Tauschmarkt** – alle doppelten Karten automatisch mit Marktwert, Markierung Tausch/Verkauf, Cardmarket-Angebote vermerken (mit Warnung vor Doppelverkauf), Abgaben als verkauft/getauscht mit Preis und Notiz, Verlauf mit Rückgängig
-- **Wertverlauf** – im Karten-Sheet Cardmarket-Durchschnitt (1/7/30 Tage) und eigener Tagesverlauf bis 12 Monate, abgeglichen über Firebase (Sammlung `hist`)
+- **Wertverlauf** – im Karten-Sheet Trendpreis und Ø Verkaufspreis 7/30 Tage, eigener Tagesverlauf bis 12 Monate mit Hoch/Tief je Zeitraum, abgeglichen über Firebase (Sammlung `hist`)
+- **Ziehchancen** – „≈ 1 von X Packs“ je Karte aus gezählten Pack-Öffnungen (TCGplayer u. a.), mit Quelle; ohne eigene Zählung als Ära-Schätzung markiert, für japanische Sets keine Angabe
 - **Sortierung im Set** – nach Nummer oder Cardmarket-Trendpreis (günstigste Variante) ab-/aufsteigend, mit Filtern kombinierbar
 - **Set-Abgleich** – beim Öffnen eines Sets prüft die App einmal täglich die TCGdex-Setliste und ergänzt nachgetragene Karten
 - **Notiz & Grading** – pro Karte, z. B. „PSA 9“
 
 **Ansehen**
 - **Album-Modus** – Blättern mit 3D-Seitenwechsel, Doppelseite im Querformat und am Rechner
-- **3D-Kartenansicht** – Karte drehen, mit Glanzeffekt (am iPhone auch per Neigung)
+- **3D-Kartenansicht** – Karte drehen, mit Glanzeffekt (am iPhone auch per Neigung), offizielle Kartenrückseite
 - **Karten durchwischen** – im Karten-Sheet links/rechts zur nächsten Karte, Nachbarkarten angeschnitten sichtbar; Reihenfolge wie im Album inkl. Filter
 - **Pokédex** – alle 1025 Pokémon, Filter nach Region und Generation
 - **Suche** – Karten nach Name über alle Sets (deutsch, englisch, japanisch), „Zuletzt gesucht“
@@ -86,6 +87,8 @@ Neue Versionen meldet die App selbst („Version x verfügbar · Aktualisieren�
 - Pokémon-Artworks und Typ-Symbole: [PokeAPI](https://pokeapi.co)
 - Anmeldung und Abgleich: [Firebase](https://firebase.google.com)
 - Ersatzbilder für McDonald’s-Karten: [pokemontcg.io](https://pokemontcg.io)
+- 30 Jahre: Kartenbilder, Logo, Booster und Kartenrückseite aus der offiziellen Galerie auf [pokemon.com](https://tcg.pokemon.com/de-de/galleries/30th-celebration/), RGB-Mews vorläufig von [Scrydex](https://scrydex.com)
+- Ziehchancen (inoffiziell): gezählte Pack-Öffnungen von TCGplayer, TCGTalk und Tommy13 – Quelle steht bei jeder Karte
 - Texterkennung beim Kamera-Scan: [Tesseract.js](https://github.com/naptha/tesseract.js) (über jsDelivr)
 - 3D-Darstellung der Orden: [Three.js](https://threejs.org) (über cdnjs, wird erst beim Öffnen eines Ordens geladen)
 

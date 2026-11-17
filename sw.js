@@ -1,5 +1,5 @@
 // Offline-Fähigkeit: App-Dateien und bereits angesehene Kartenbilder werden auf dem Gerät zwischengespeichert.
-const APP = "kartenalbum-v38";
+const APP = "kartenalbum-v39";
 const IMG = "kartenbilder-v2";
 const MAXIMG = 3000;
 let trimT = 0;
@@ -10,7 +10,7 @@ self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(ks => Pr
 self.addEventListener("fetch", e => {
   const url = new URL(e.request.url);
   if (e.request.method !== "GET") return;
-  const IMGHOST = url.hostname === "assets.tcgdex.net" || url.hostname === "images.pokemontcg.io" || (url.hostname === "raw.githubusercontent.com" && url.pathname.startsWith("/PokeAPI/sprites/"));
+  const IMGHOST = url.hostname === "assets.tcgdex.net" || url.hostname === "images.pokemontcg.io" || (url.hostname === "raw.githubusercontent.com" && url.pathname.startsWith("/PokeAPI/sprites/")) || url.hostname === "dz3we2x72f7ol.cloudfront.net" || url.hostname === "d1i787aglh9bmb.cloudfront.net" || url.hostname === "images.scrydex.com";
   if (IMGHOST) {
     e.respondWith(caches.open(IMG).then(async c => {
       const hit = await c.match(e.request.url);

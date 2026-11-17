@@ -1,5 +1,16 @@
 # Kartenalbum – Änderungen
 
+## Version 1.37 · 18.11.2026
+- Ziehchance je Karte im Karten-Sheet („≈ 1 von X Packs“) mit ⓘ: Quelle, Stichprobe und Hinweis „inoffiziell“; Schätzungen sind markiert
+- Preisbox ohne „Höchster Trend“ – dafür Hoch und Tief mit Datum im Wertverlauf, passend zum gewählten Zeitraum
+- 30 Jahre: offizielle deutsche Kartenbilder aus der pokemon.com-Galerie, solange TCGdex keine hat
+- RGB-Mews vorläufig mit englischem Bild (Scrydex), mit Hinweis im Karten-Sheet
+- Klassische Sammlung: Karten sind jetzt Holo (vorhandene Einträge werden automatisch umgestellt)
+- Set-Logos direkt aus den TCGdex-Setdaten, 30 Jahre mit offiziellem Logo
+- Hinweis „Kartenbilder folgen“, wenn TCGdex für ein Set noch keine Bilder hat
+- Querformat-Karten (z. B. TURBO) werden gedreht eingepasst
+- 3D-Ansicht: offizielle Kartenrückseite
+
 ## Version 1.36 · 17.11.2026
 - Preisbox verständlicher: Trendpreis mit Erklärung, Ø Verkaufspreis 7 und 30 Tage, Vergleich zum 30-Tage-Schnitt
 - „Höchster Trend“ statt Höchstwert – nur noch aus dem Trendpreis, einmalig neu gestartet

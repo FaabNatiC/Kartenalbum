@@ -366,6 +366,12 @@ html{min-height:calc(100% + env(safe-area-inset-top,0px))}body{min-height:calc(1
 .c3d .side{position:absolute;inset:0;border-radius:4.5%/3.3%;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;box-shadow:0 20px 50px rgba(0,0,0,.55);background:#222}
 .c3d .side img{width:100%;height:100%;object-fit:cover;display:block}
 .c3d .backs{transform:rotateY(180deg)}
+/* Querformat-Karten (z. B. TURBO) gedreht einpassen */
+.achc,.pthumb{position:relative}
+.slot img.cimg.land,.fc img.land,.wcard .cimg.land,.achc .cimg.land,.pthumb .cimg.land,.c3d .side img.land{position:absolute;inset:auto;left:50%;top:50%;width:139.7%;height:71.6%;max-width:none;transform:translate(-50%,-50%) rotate(90deg)}
+.bigwrap .big.land{width:139.7%;max-width:none;aspect-ratio:88/63;margin:19.85% 0 19.85% -19.85%;rotate:90deg}
+.c3d .backs img{object-fit:cover}
+.imghint{margin:10px 0 0;font-size:12.5px;line-height:1.4;color:var(--muted);background:var(--pocket);border-radius:10px;padding:8px 11px}
 .glare{position:absolute;inset:0;pointer-events:none;mix-blend-mode:soft-light;background:radial-gradient(circle at var(--gx,50%) var(--gy,30%),rgba(255,255,255,.75),rgba(255,255,255,0) 55%)}
 .holo{position:absolute;inset:0;pointer-events:none;mix-blend-mode:color-dodge;opacity:.35;background:linear-gradient(var(--ga,115deg),transparent 20%,rgba(255,0,120,.5) 32%,rgba(255,220,0,.5) 42%,rgba(0,255,170,.5) 52%,rgba(0,140,255,.5) 62%,transparent 75%);background-size:220% 220%;background-position:var(--hp,50%) 50%}
 .bdesign{position:absolute;inset:0;display:grid;align-content:center;justify-items:center;gap:12px;padding:12%;text-align:center;color:#fff;background:radial-gradient(circle at 50% 35%,#2b3550,#0f1320 70%);border:6px solid #c9a227;border-radius:inherit}
@@ -394,8 +400,9 @@ html{min-height:calc(100% + env(safe-area-inset-top,0px))}body{min-height:calc(1
 .pinfo{font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:8px}
 .pmain b{display:block;font-family:var(--f-num);color:var(--ink);font-variant-numeric:tabular-nums}
 .pmain .now b{font-weight:700;font-size:32px;line-height:1.05;white-space:nowrap}
-.pmain .ath{text-align:right}
-.pmain .ath b{font-weight:700;font-size:20px;line-height:1.3;white-space:nowrap}
+.phhl{display:grid;grid-template-columns:1fr 1fr;gap:10px}.phhl>div{background:var(--pocket);border-radius:10px;padding:8px 11px}.phhl small{display:block;color:var(--muted);font-size:12px}.phhl b{display:block;font-family:var(--f-num);font-size:18px;font-variant-numeric:tabular-nums}.phhl span{font-size:12px;color:var(--muted)}
+.pmain .odds{text-align:right}.pmain .odds b{display:block;font-weight:700;font-size:18px;line-height:1.3;white-space:nowrap}.pmain .odds small{display:block}
+.oexp{display:flex;gap:12px;align-items:flex-start}.oexp[hidden]{display:none}.opack{width:64px;flex:0 0 64px;height:auto;border-radius:6px}.osrc{display:block;margin-top:6px;color:var(--muted);font-size:12.5px}.osrc a{color:inherit;text-decoration:underline}
 .pmain small{font-size:11px;text-transform:uppercase;letter-spacing:.06em}
 .pmain em{font-style:normal;font-size:12px}
 .sec-h{margin:0;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
@@ -924,7 +931,7 @@ body.noscan [data-scan]{display:none!important}
   <div class="grab" aria-hidden="true"><span></span></div>
   <div class="sheet-scroll" id="sheet-scroll"><div class="dlg">
     <div class="dlg-x"><span class="pnav"><button class="x" type="button" id="d-prev" aria-label="Vorherige Karte"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><button class="x" type="button" id="d-next" aria-label="Nächste Karte"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button><small>← → · Esc</small></span><button class="x" type="button" data-sheet-close aria-label="Schließen">×</button></div>
-    <p class="imgnote" id="d-imgnote" hidden>Kein Kartenbild verfügbar – Pokémon-Artwork als Ersatz</p><div class="bigwrap"><img class="nb nb-l" id="d-nl" alt="" aria-hidden="true" hidden><img class="nb nb-r" id="d-nr" alt="" aria-hidden="true" hidden><img class="big noimg" id="d-img" alt=""><button class="b3d" type="button" id="d-3d" aria-label="Karte in 3D ansehen" hidden>3D</button></div>
+    <p class="imgnote" id="d-imgnote" hidden>Kartenbild folgt – bis dahin Pokémon-Artwork als Ersatz</p><div class="bigwrap"><img class="nb nb-l" id="d-nl" alt="" aria-hidden="true" hidden><img class="nb nb-r" id="d-nr" alt="" aria-hidden="true" hidden><img class="big noimg" id="d-img" alt=""><button class="b3d" type="button" id="d-3d" aria-label="Karte in 3D ansehen" hidden>3D</button></div>
     <div><h2 id="d-title"></h2><p class="dsub" id="d-sub" hidden></p><div class="chips" id="d-chips"></div><p class="dmeta" id="d-meta"></p><div class="dlinks" id="d-links"></div></div>
     <div class="price" id="d-price" hidden></div>
     <div id="d-body"></div>
@@ -1029,6 +1036,7 @@ const CONDS = ["Mint","Near Mint","Excellent","Good","Light Played","Played","Po
 
 /* ---------- Änderungsprotokoll ---------- */
 const CHANGELOG = [
+  {v:"1.37", d:"2026-11-18", items:["Ziehchance je Karte im Karten-Sheet („≈ 1 von X Packs“) mit ⓘ: Quelle, Stichprobe und Hinweis „inoffiziell“; Schätzungen sind markiert", "Preisbox ohne „Höchster Trend“ – dafür Hoch und Tief mit Datum im Wertverlauf, passend zum gewählten Zeitraum", "30 Jahre: offizielle deutsche Kartenbilder aus der pokemon.com-Galerie, solange TCGdex keine hat", "RGB-Mews vorläufig mit englischem Bild (Scrydex), mit Hinweis im Karten-Sheet", "Klassische Sammlung: Karten sind jetzt Holo (vorhandene Einträge werden automatisch umgestellt)", "Set-Logos direkt aus den TCGdex-Setdaten, 30 Jahre mit offiziellem Logo", "Hinweis „Kartenbilder folgen“, wenn TCGdex für ein Set noch keine Bilder hat", "Querformat-Karten (z. B. TURBO) werden gedreht eingepasst", "3D-Ansicht: offizielle Kartenrückseite"]},
   {v:"1.36", d:"2026-11-17", items:["Preisbox verständlicher: Trendpreis mit Erklärung, Ø Verkaufspreis 7 und 30 Tage, Vergleich zum 30-Tage-Schnitt", "„Höchster Trend“ statt Höchstwert – nur noch aus dem Trendpreis, einmalig neu gestartet", "Karten-Sheet: Karte deutlich größer, Nachbarkarten schmaler angeschnitten", "Sets gleichen sich täglich mit TCGdex ab: nachgetragene Karten erscheinen automatisch", "Karten mit Sondernummern (z. B. RGB-Mews R/G/B) zählen nicht mehr ins Grundset", "Sortierung heißt jetzt „Trendpreis“"]},
   {v:"1.35", d:"2026-11-17", items:["Wertverlauf je Karte: Cardmarket-Durchschnitt 1/7/30 Tage im Karten-Sheet, Verlauf 7 Tage bis 12 Monate (wird ab jetzt täglich aufgezeichnet)", "Preisverläufe und Set-Verläufe werden zwischen Geräten abgeglichen", "Set-Album: Sortierung nach Nummer oder Cardmarket-Preis (ab-/aufsteigend), persönliche Alben zusätzlich „Günstigste zuerst“", "Bilder-Speicher speichert keine Fehler mehr – fehlende oder unscharfe Bilder laden wieder richtig", "Wischen im Karten-Sheet ohne Ruckeln"]},
   {v:"1.34", d:"2026-11-12", items:["Neuer Tab „Tauschmarkt“: doppelte Karten mit Marktwert, Tausch/Verkauf, Cardmarket-Vermerk mit Warnung, Abgabe mit Preis und Notiz, Verlauf mit Rückgängig", "Karten-Sheet: zur vorherigen/nächsten Karte wischen, Nachbarkarten angeschnitten sichtbar", "Album: Varianten-Badges (N, RH, H, Liga), Zahl erst ab 2 Exemplaren je Variante", "Neuer Orden: „Ansehen“ öffnet den Orden direkt über der aktuellen Seite", "Karten-Sheet: Kartenbild erscheint auch, wenn die hohe Auflösung fehlt", "Tab-Leiste sitzt auch auf kurzen Seiten richtig unten", "Am PC: Scannen ausgeblendet, Tab „Mehr“ nur bei Bedarf"]},
@@ -1101,6 +1109,7 @@ for(const s of SETS) indexSet(s);
 /* Nachgetragene Karten: TCGdex-Setliste einmal am Tag abgleichen (z. B. RGB-Mews, späte Promos) */
 function applySetX(s){
   const e = LS.get("pk-setx", {})[s.id]; if(!e?.c) return 0; let n = 0;
+  if(e.lg) s.xlogo = e.lg; s.noimg = (e.ni || []).filter(l=>!offImg(s, l));
   for(const [lid, de, en, img, id] of e.c){ if(s.idx.has(lid)) continue;
     const c = [lid, de && de !== en ? de : "", en || de || lid, "", "P", "", 0, 0, "0"]; c.x = 1;
     s.cards.push(c); s.idx.set(lid, s.cards.length - 1); if(img) (s.ximg ||= {})[lid] = img; if(id) (s.xid ||= {})[lid] = id; n++; }
@@ -1119,8 +1128,9 @@ async function syncSetCards(s){
     for(const c of (de?.cards || [])){ const o = m.get(c.localId) || {}; o.de = c.name; o.img ||= c.image; o.id ||= c.id; m.set(c.localId, o); }
     const has = lid => s.idx.has(lid) || (/^\d+$/.test(lid) && [...s.idx.keys()].some(k=>/^\d+$/.test(k) && +k === +lid));
     const add = []; for(const [lid, o] of m) if(lid && !has(lid)) add.push([lid, o.de || "", o.en || o.de || lid, o.img || "", o.id || ""]);
-    const cur = LS.get("pk-setx", {}); cur[s.id] = {d: localDay(), c: add}; LS.put("pk-setx", JSON.stringify(cur));
-    if(applySetX(s) && (view.name==="set" || view.name==="pset") && view.set===s) render();
+    const ni = [...m].filter(([lid,o])=>lid && !o.img).map(([lid])=>lid);
+    const cur = LS.get("pk-setx", {}); cur[s.id] = {d: localDay(), c: add, lg: de?.logo || en?.logo || "", ni}; LS.put("pk-setx", JSON.stringify(cur));
+    applySetX(s); if((view.name==="set" || view.name==="pset") && view.set===s) render();
   } finally { setxBusy.delete(s.id); }
 }
 /* Japanische Sets: eigene Datei, wird erst bei Bedarf geladen */
@@ -1232,16 +1242,35 @@ const spineColor = s => `hsl(${[...s.id].reduce((a,ch)=>(a*31+ch.charCodeAt(0))%
 
 /* ---------- Bilder ---------- */
 const imgUrl = (s,num,lang,q) => s.ximg?.[num] ? s.ximg[num].replace(/^(https:\/\/assets\.tcgdex\.net\/)[a-z-]+\//, `$1${lang}/`) + `/${q}.webp` : `https://assets.tcgdex.net/${lang}/${s.sr}/${s.id}/${encodeURIComponent(num)}/${q}.webp`;
+/* Offizielle Ersatzbilder (pokemon.com-Galerie) bzw. vorläufige Quelle, wenn TCGdex noch keine Bilder hat */
+const OFFCDN = "https://dz3we2x72f7ol.cloudfront.net/expansions/30th-celebration/de-de/";
+const OFF_BACK = "https://d1i787aglh9bmb.cloudfront.net/assets/img/global/tcg-card-back-2x.jpg";
+const OFF_LOGO = {"30th":"https://d1i787aglh9bmb.cloudfront.net/assets/img/me-expansions/thirty/logo/de-de/Logo-30th-2x.png"};
+OFF_LOGO["30th-c"] = OFF_LOGO["30th"];
+const OFF_PACK = {"30th":"https://d1i787aglh9bmb.cloudfront.net/assets/img/me-expansions/thirty/expansion_highlights/de-de/booster-packs.png"};
+OFF_PACK["30th-c"] = OFF_PACK["30th"];
+function offImg(s, num){
+  const n = String(num);
+  if(s.id==="30th"){ if(/^[RGB]$/.test(n)) return {u:`https://images.scrydex.com/pokemon/me55-${n}/large`, first:true, note:"Englische Version (Scrydex) – vorläufig, bis ein offizielles deutsches Bild verfügbar ist"};
+    if(/^\d+$/.test(n)) return {u:`${OFFCDN}2M6P_DE_${+n}-2x.png`, first:false, note:"Bild aus der offiziellen Galerie von pokemon.com"}; }
+  if(s.id==="30th-c" && /^\d+$/.test(n)) return {u:`${OFFCDN}2M6P_Classic_DE_${+n}-2x.png`, first:true, note:"Bild aus der offiziellen Galerie von pokemon.com"};
+  return null;
+}
 function cimg(s, num, q, cls, lang){
   const dx = cardAt(s.id, num)?.[7] || "";
   if(s.ja) return `<img class="${cls}" src="${imgUrl(s,num,"ja",q)}" data-dex="${dx}" alt="" loading="lazy" decoding="async" onload="imgOk(this)" onerror="imgErr(this)">`;
   if(!lang){ const l = viewLangFor(s); if(l) lang = LANGNAME[l]; }
   const first = lang==="Englisch" ? "en" : "de", second = first==="de" ? "en" : "de";
-  return `<img class="${cls}" src="${imgUrl(s,num,first,q)}" data-alt="${imgUrl(s,num,second,q)}" data-alt2="${s.ptcg ? (s.ptcg && `https://images.pokemontcg.io/${s.ptcg}/${String(num).replace(/^0+/,"")}${q==="high"?"_hires":""}.png`) : ""}" data-dex="${dx}" alt="" loading="lazy" decoding="async" onload="imgOk(this)" onerror="imgErr(this)">`;
+  const off = offImg(s, num);
+  if(off?.first) return `<img class="${cls}" src="${off.u}" data-alt="${imgUrl(s,num,first,q)}" data-alt2="${imgUrl(s,num,second,q)}" data-dex="${dx}" alt="" loading="lazy" decoding="async" onload="imgOk(this)" onerror="imgErr(this)">`;
+  return `<img class="${cls}" src="${imgUrl(s,num,first,q)}" data-alt="${off ? off.u : imgUrl(s,num,second,q)}" data-alt3="${off ? imgUrl(s,num,second,q) : ""}" data-alt2="${s.ptcg ? (s.ptcg && `https://images.pokemontcg.io/${s.ptcg}/${String(num).replace(/^0+/,"")}${q==="high"?"_hires":""}.png`) : ""}" data-dex="${dx}" alt="" loading="lazy" decoding="async" onload="imgOk(this)" onerror="imgErr(this)">`;
 }
-function imgOk(el){ if(el.classList.contains("cimg")) el.parentNode.classList.add("loaded"); }
+function imgOk(el){
+  if(el.naturalWidth > el.naturalHeight * 1.1) el.classList.add("land"); else el.classList.remove("land");
+  if(el.classList.contains("cimg")) el.parentNode.classList.add("loaded");
+}
 function imgErr(el){
-  for(const k of ["alt","alt2"]){ const a = el.dataset[k]; if(a){ el.dataset[k] = ""; el.src = a; return; } }
+  for(const k of ["alt","alt3","alt2"]){ const a = el.dataset[k]; if(a){ el.dataset[k] = ""; el.src = a; return; } }
   const d = +el.dataset.dex; if(d){ el.dataset.dex = ""; el.classList.add("artfb"); el.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${d}.png`; return; }
   el.remove();
 }
@@ -1504,6 +1533,7 @@ function bindShelfHead(){
 /* ---------- Albumcover ---------- */
 const RSCORE = {MHR:14,SIR:13,HR:12,SUR:11,BWR:11,MAR:10,IR:9,UR:8,SEC:8,SR:7,SRVMAX:7,SRV:6,AR:6,LEG:6,LVX:6,CSR:9,CHR:7,RRR:5,VMAX:5,VSTAR:5,RAD:5,FA:5,ACE:4,RR:4,V:3,RH:2,R:1};
 const logoUrl = (s,l) => `https://assets.tcgdex.net/${s.ja?"ja":l}/${s.sr}/${s.id}/logo.webp`;
+const logoSrc = (s,l) => OFF_LOGO[s.id] || (s.xlogo ? s.xlogo.replace(/^(https:\/\/assets\.tcgdex\.net\/)[a-z-]+\//, `$1${s.ja?"ja":l}/`) + ".webp" : logoUrl(s,l));
 const symUrl = s => `https://assets.tcgdex.net/univ/${s.sr}/${s.id}/symbol.webp`;
 function logoErr(el){ if(el.dataset.alt){ const a = el.dataset.alt; el.dataset.alt = ""; el.src = a; return; } el.remove(); }
 const fanOrder = l => l.length===3 ? [l[1], l[0], l[2]] : l.length===2 ? [l[1], l[0]] : l;
@@ -1516,7 +1546,7 @@ function coverHTML(s, lang){
   const ll = lang==="en" ? "en" : "de", lb = flag(lang || (s.ja ? "ja" : ""));
   return `<a class="cover set" href="#${albumHash(s, lang)}" data-cover="${esc(s.id)}" data-lang="${lang||""}" style="--spine:${spineColor(s)}" aria-label="${esc(s.de)}, ${p.base} von ${p.baseTotal} Karten"><span class="ring2 r1" aria-hidden="true"></span><span class="ring2 r2" aria-hidden="true"></span>
     ${lb?`<span class="lbadge">${lb}</span>`:""}${s.promo?`<span class="pbadge">Promo</span>`:""}<div class="fan">${fan.map((f,i)=>`<span class="fc f${i}${f.own?"":" ghost"}">${cimg(s, f.num, "low", "fimg", f.lang || (lang ? LANGNAME[lang] : undefined))}</span>`).join("")}</div>
-    <div class="logo"><img src="${logoUrl(s,ll)}" data-alt="${logoUrl(s,ll==="de"?"en":"de")}" alt="${esc(lang==="en"?s.en:s.de)}" loading="lazy" onerror="logoErr(this)"><b class="logo-t">${esc(lang==="en"?s.en:s.de)}<small>${s.jn && s.jn!==s.de ? esc(s.jn) + " · " : ""}${esc(s.abbr)}</small></b></div>
+    <div class="logo"><img src="${logoSrc(s,ll)}" data-alt="${logoUrl(s,ll==="de"?"en":"de")}" alt="${esc(lang==="en"?s.en:s.de)}" loading="lazy" onerror="logoErr(this)"><b class="logo-t">${esc(lang==="en"?s.en:s.de)}<small>${s.jn && s.jn!==s.de ? esc(s.jn) + " · " : ""}${esc(s.abbr)}</small></b></div>
     <div class="cmeta"><img class="sym" src="${symUrl(s)}" alt="" loading="lazy" onerror="this.remove()"><span>${p.base} / ${p.baseTotal}</span><span class="v">${eur(sum(list,valOf))}</span></div>
     <span class="bar-p"><i class="m" style="width:${(p.all/p.allTotal*100).toFixed(1)}%"></i><i style="width:${(p.base/p.allTotal*100).toFixed(1)}%"></i></span></a>`;
 }
@@ -1525,7 +1555,7 @@ const ICON_GRID = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" st
 const ICON_LIST = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1.2" fill="currentColor"/><circle cx="4.5" cy="12" r="1.2" fill="currentColor"/><circle cx="4.5" cy="18" r="1.2" fill="currentColor"/></svg>';
 function logoBox(s, lang, cls){
   const ll = lang==="en" ? "en" : "de", t = lang==="en" && s.en ? s.en : s.de;
-  return `<span class="${cls}"><img src="${logoUrl(s,ll)}" data-alt="${logoUrl(s,ll==="de"?"en":"de")}" alt="" loading="lazy" onerror="logoErr(this)"><b class="logo-t">${esc(s.abbr)}</b></span>`;
+  return `<span class="${cls}"><img src="${logoSrc(s,ll)}" data-alt="${logoUrl(s,ll==="de"?"en":"de")}" alt="" loading="lazy" onerror="logoErr(this)"><b class="logo-t">${esc(s.abbr)}</b></span>`;
 }
 function rowHTML(s, lang){
   const owned = setOwned(s, lang), p = setProgress(s, owned), v = sum([...owned.values()].flat(), valOf), t = lang==="en" && s.en ? s.en : s.de;
@@ -1657,13 +1687,13 @@ function renderSet(s){
   setTimeout(()=>syncSetCards(s), 600);
   const owned = setOwned(s, view.lang), p = setProgress(s, owned), list = [...owned.values()].flat(), value = sum(list,valOf);
   const hasAlbum = albums.some(a=>a.setId===s.id && (a.lang||null)===(view.lang||null)), fc = filtCount(), vl = view.lang==="en" ? "en" : "de";
-  $("#head").innerHTML = `<div class="sethead" id="sethead" style="--spine:${spineColor(s)}"><div class="slogo"><img src="${logoUrl(s,vl)}" data-alt="${logoUrl(s,vl==="de"?"en":"de")}" alt="${esc(setTitle(s))}" onerror="logoErr(this)" onload="if(this.naturalWidth/this.naturalHeight>3.2)this.parentNode.classList.add('wide')"><b class="logo-t">${esc(setTitle(s))}<small>${s.jn && s.jn!==s.de ? esc(s.jn) + " · " : ""}${esc(s.abbr)}</small></b></div>
+  $("#head").innerHTML = `<div class="sethead" id="sethead" style="--spine:${spineColor(s)}"><div class="slogo"><img src="${logoSrc(s,vl)}" data-alt="${logoUrl(s,vl==="de"?"en":"de")}" alt="${esc(setTitle(s))}" onerror="logoErr(this)" onload="if(this.naturalWidth/this.naturalHeight>3.2)this.parentNode.classList.add('wide')"><b class="logo-t">${esc(setTitle(s))}<small>${s.jn && s.jn!==s.de ? esc(s.jn) + " · " : ""}${esc(s.abbr)}</small></b></div>
     <div class="ringrow">${ringSVG(p)}<div class="kvs">${s.rel?`<div class="kv"><span>Erschienen</span><b>${deDate(s.rel)}</b></div>`:""}<div class="kv"><span>Grundset</span><b>${p.base} / ${p.baseTotal}</b></div>${p.allTotal>p.baseTotal?`<div class="kv"><span>Master-Set</span><b>${p.all} / ${p.allTotal}</b></div>`:""}<div class="kv"><span>Wert</span><b>${eur(value)}</b></div></div></div>
-    <div class="hchips">${view.lang ? `<span class="hc l">${flag(view.lang)}${LANGNAME[view.lang]}</span>` : s.ja ? `<span class="hc l">${flag("ja")}Japanisch</span>` : ""}<span class="hc">${esc(s.abbr)}</span><span class="hc">${esc(s.serie)}</span><span class="hc">${s.promo ? `${s.cards.length} Promokarten` : s.cards.length - p.baseTotal > 0 ? `${s.off} + ${s.cards.length - p.baseTotal} Secret` : `${s.off} Karten`}</span></div>${hasAlbum ? top3HTML(s, view.lang, owned) : ""}<p class="sub" hidden>${s.promo?`${s.cards.length} Promokarten`:`${s.off} Karten + ${s.cards.length - p.baseTotal} Secret`}</p></div>`;
+    <div class="hchips">${view.lang ? `<span class="hc l">${flag(view.lang)}${LANGNAME[view.lang]}</span>` : s.ja ? `<span class="hc l">${flag("ja")}Japanisch</span>` : ""}<span class="hc">${esc(s.abbr)}</span><span class="hc">${esc(s.serie)}</span><span class="hc">${s.promo ? `${s.cards.length} Promokarten` : s.cards.length - p.baseTotal > 0 ? `${s.off} + ${s.cards.length - p.baseTotal} Secret` : `${s.off} Karten`}</span></div>${s.noimg?.length ? `<p class="imghint">🖼 ${s.noimg.length === 1 ? "1 Kartenbild folgt" : `${s.noimg.length} Kartenbilder folgen`} – die Datenbank (TCGdex) hat ${s.noimg.length === 1 ? "es" : "sie"} noch nicht. Bis dahin siehst du das Pokémon-Artwork.</p>` : ""}${hasAlbum ? top3HTML(s, view.lang, owned) : ""}<p class="sub" hidden>${s.promo?`${s.cards.length} Promokarten`:`${s.off} Karten + ${s.cards.length - p.baseTotal} Secret`}</p></div>`;
   const opts = setFilterOptions(s);
   const chips = FGROUPS.flatMap(([g])=>[...filt[g]].map(v=>{ const o = opts[g].find(x=>x[0]===v); return `<button class="chip" type="button" data-funset="${g}|${esc(v)}" aria-label="Filter ${esc(o?o[1]:v)} entfernen">${o&&o[2]?o[2]:""}${esc(o?o[1]:v)} ✕</button>`; })).join("");
   const filtered = fc>0;
-  $("#tools").innerHTML = `<div class="stick" id="stick"><div class="mini" id="mini">${ringSVG(p, true)}<span class="mlogo"><img src="${logoUrl(s,"de")}" data-alt="${logoUrl(s,"en")}" alt="${esc(setTitle(s))}" onerror="logoErr(this)"><b class="logo-t">${esc(setTitle(s))}</b></span><span class="mv"><b>${p.base}/${p.baseTotal}</b> · ${eur(value)}</span></div>
+  $("#tools").innerHTML = `<div class="stick" id="stick"><div class="mini" id="mini">${ringSVG(p, true)}<span class="mlogo"><img src="${logoSrc(s,"de")}" data-alt="${logoUrl(s,"en")}" alt="${esc(setTitle(s))}" onerror="logoErr(this)"><b class="logo-t">${esc(setTitle(s))}</b></span><span class="mv"><b>${p.base}/${p.baseTotal}</b> · ${eur(value)}</span></div>
     <div class="segrow"><label class="fsel"><span class="sr">Anzeige</span><select id="fsel">${[["all","Alle"],["owned","Gesammelt"],["missing","Fehlend"],["dup","Doppelt"]].map(([k,l])=>`<option value="${k}"${filter===k?" selected":""}>${l}</option>`).join("")}</select></label><button class="fbtn${fc||setSort!=="num"?" on":""}" type="button" id="open-filter" aria-label="Filter${fc?`, ${fc} aktiv`:""}${setSort!=="num"?", sortiert nach Trendpreis":""}">${FILTER_SVG}${fc?fc:""}</button><button class="fbtn${setQ?" on":""}" type="button" id="open-sq" aria-label="Im Set suchen" aria-expanded="${sqOpen||!!setQ}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></button><button class="fbtn alb" type="button" id="open-album" aria-label="Album öffnen">${BOOK_SVG}<span class="albt">Album</span></button></div>
     ${sqOpen||setQ?`<div class="sqwrap"><input class="field" id="sq" type="search" placeholder="Pokémon oder Nummer im Set suchen" autocomplete="off" autocorrect="off" enterkeyhint="search" value="${esc(setQ)}"></div>`:""}
     ${fc?`<div class="fchips">${chips}<button class="chip" type="button" id="f-clear">Alle zurücksetzen</button></div>`:""}</div>
@@ -2558,7 +2588,7 @@ const PTCG = {"2011bw":"mcd11","2012bw":"mcd12","2014xy":"mcd14","2015xy":"mcd15
 const ptcgUrl = (s, num, q) => s.ptcg ? `https://images.pokemontcg.io/${s.ptcg}/${String(num).replace(/^0+/,"")}${q==="high"?"_hires":""}.png` : "";
 function showFallbackImg(im, s, c){
   const p = ptcgUrl(s, c[0], "high"); $("#d-3d").hidden = true;
-  const art = () => { im.onerror = () => im.classList.add("noimg"); im.onload = null; if(c[7]){ im.classList.add("art"); im.src = artUrl(c[7]); $("#d-imgnote").hidden = false; } else im.classList.add("noimg"); };
+  const art = () => { im.onerror = () => im.classList.add("noimg"); im.onload = null; if(c[7]){ im.classList.add("art"); im.src = artUrl(c[7]); $("#d-imgnote").textContent = "Kartenbild folgt – bis dahin Pokémon-Artwork als Ersatz"; $("#d-imgnote").hidden = false; } else im.classList.add("noimg"); };
   im.onerror = art; im.onload = () => { $("#d-3d").hidden = ctx?.kind!=="set"; };
   if(p) im.src = p; else art();
 }
@@ -2668,7 +2698,7 @@ const TIPS = [
   "Album anlegen: Jede Karte des Sets bekommt eine Tasche, sortiert nach Kartennummer.",
   "Filter: Mit einer gewählten Variante beziehen sich „Gesammelt“ und „Fehlend“ auf genau diese Variante – ideal fürs Master-Set.",
   "Album: Handy quer kippen öffnet die Doppelseite, Wischen blättert um.",
-  "3D-Ansicht: Ziehen zum Drehen, Doppeltippen oder schnell wischen zum Umdrehen. Eine eigene Rückseite legst du als rueckseite.jpg ins Repository.",
+  "3D-Ansicht: Ziehen zum Drehen, Doppeltippen oder schnell wischen zum Umdrehen.",
   "Mit + gezählte Karten bekommen Standard-Sprache und -Zustand. Abweichungen trägst du in den Details einer Variante ein."
 ];
 function renderMore(){
@@ -2879,10 +2909,12 @@ function renderDialog(){
     cardInfo(s, c[0], (mine[0]?.lang || defLang(s.id)) === "Englisch").then(info => {
       if(req !== infoReq || !ctx) return;
       lastInfo.set(key, info);
-      if(info.image){ const tile = document.querySelector(`.slot[data-set="${CSS.escape(s.id)}"][data-num="${CSS.escape(c[0])}"] img`)?.currentSrc || "";
-        const urls = [info.image + "/high.webp", info.image + "/low.webp", tile, imgUrl(s, c[0], "en", "high"), imgUrl(s, c[0], "en", "low")].filter((u,i,a)=>u && a.indexOf(u)===i);
+      const off = offImg(s, c[0]);
+      if(info.image || off){ const tile = document.querySelector(`.slot[data-set="${CSS.escape(s.id)}"][data-num="${CSS.escape(c[0])}"] img`)?.currentSrc || "";
+        const tcg = info.image ? [info.image + "/high.webp", info.image + "/low.webp"] : [];
+        const urls = (off?.first ? [off.u, ...tcg, tile] : [...tcg, tile, off?.u, imgUrl(s, c[0], "en", "high"), imgUrl(s, c[0], "en", "low")]).filter((u,i,a)=>u && a.indexOf(u)===i && !/official-artwork/.test(u));
         let ui = 0; im.onerror = () => { if(im.dataset.key !== key) return; if(++ui < urls.length) im.src = urls[ui]; else { im.onerror = null; showFallbackImg(im, s, c); $("#d-3d").hidden = true; } };
-        im.onload = () => { $("#d-3d").hidden = ctx?.kind!=="set"; if(cardSheet.state==="half") cardSheet.set("half"); }; im.src = urls[0]; } else showFallbackImg(im, s, c);
+        im.onload = () => { if(im.dataset.key !== key) return; $("#d-3d").hidden = ctx?.kind!=="set"; const n = $("#d-imgnote"); if(off && im.currentSrc === off.u){ n.textContent = "ⓘ " + off.note; n.hidden = false; } else n.hidden = true; if(cardSheet.state==="half") cardSheet.set("half"); }; im.src = urls[0]; } else showFallbackImg(im, s, c);
       recordVariants(key, info); renderPrice();
       if(applyPrices(s.id, c[0], info)) render(); else renderVariants();
       if(cardSheet.state==="half") cardSheet.set("half");
@@ -2925,6 +2957,50 @@ function recordVariants(key, info){
   const upd = info.price?.updated;
   for(const v of Object.keys(info.vprice)) if(info.vprice[v]) recordPrice(key+"|"+v, {trend:info.vprice[v], avg30:info.vavg?.[v]||0, peak:info.vpeak?.[v]||0, updated:upd});
 }
+/* ---------- Ziehchancen (inoffiziell, gezählte Pack-Öffnungen) ---------- */
+// r: Packs je Treffer der Seltenheit (irgendeine Karte dieser Seltenheit); je Karte = r × Anzahl Karten der Seltenheit im Set
+const ODDS_SRC = {
+  tcg30: {t:"TCGplayer hat 3.000 englische Booster geöffnet und gezählt (veröffentlicht 23.09.2026, zusammengefasst u. a. von Polkastarter).", u:"https://polkastarter.com/blog/pokemon-30th-celebration-pull-rates"},
+  tom30: {t:"Tommy13 hat 4.063 englische Pack-Öffnungen aus Streams gezählt – nur ein einziger RGB-Treffer, die echte Chance liegt laut Auswertung irgendwo zwischen 1 von 718 und 1 von 23.016 (Wargamer, 17.09.2026).", u:"https://www.wargamer.com/pokemon-trading-card-game/30th-celebration-pull-rates"},
+  meg:   {t:"TCGplayer hat über 5.000 englische Booster geöffnet und gezählt (zusammengefasst von Pokemon Price Tracker).", u:"https://www.pokemonpricetracker.com/blog/posts/mega-evolution-set-pull-rates-ev-guide-2026"},
+  pfl:   {t:"TCGplayer-Zählung englischer Booster (zusammengefasst von Card Codex).", u:"https://cardcodex.com/blog/phantasmal-flames-pull-rates/"},
+  asc:   {t:"TCGplayer-Zählung englischer Booster (zusammengefasst von Obsidia).", u:"https://obsidia-tcg.store/blogs/news/ascended-heroes-pull-rates-revealed-full-breakdown"},
+  pre:   {t:"TCGTalk hat 200 englische Booster dokumentiert geöffnet – kleine Stichprobe.", u:"https://tcgtalk.com/guides/prismatic-evolutions-pull-rates-god-pack"},
+  eraME: {t:"Grobe Schätzung: Durchschnitt der TCGplayer-Zählungen für Mega-Entwicklung-Sets (z. B. Double Rare 1 von 5, Illustration Rare 1 von 9). Für dieses Set gibt es noch keine eigene Zählung.", u:"https://cardcodex.com/blog/30th-celebration-pull-rates/", est:1},
+  eraSV: {t:"Grobe Schätzung: typische TCGplayer-Werte der Karmesin-&-Purpur-Ära. Für dieses Set ist keine eigene Zählung hinterlegt.", u:"https://www.pokemonpricetracker.com/blog/posts/mega-evolution-set-pull-rates-ev-guide-2026", est:1},
+  eraSW: {t:"Sehr grobe Schätzung: typische Werte der Schwert-&-Schild-Ära. Für dieses Set ist keine eigene Zählung hinterlegt.", u:"", est:1}
+};
+const ODDS_SET = {
+  "30th":   {RR:[5,"tcg30"], IR:[5,"tcg30"], SIR:[21,"tcg30"], FUR:[120,"tcg30"], RGB:[4063,"tom30"], PIK:[1,"tcg30"]},
+  "30th-c": {"":[10,"tcg30"]},
+  "me01":   {RR:[5,"meg"], UR:[12,"meg"], IR:[9,"meg"], SIR:[101,"meg"], MHR:[1260,"meg"]},
+  "me02":   {RR:[5,"pfl"], IR:[9,"pfl"], SIR:[80,"pfl"]},
+  "me02.5": {SIR:[70,"asc"], MHR:[540,"asc"]},
+  "sv08.5": {SIR:[53,"pre"], HR:[152,"pre"]}
+};
+const ODDS_ERA = {
+  me:   {RR:[5,"eraME"], UR:[12,"eraME"], IR:[9,"eraME"], SIR:[90,"eraME"]},
+  sv:   {RR:[6,"eraSV"], UR:[15,"eraSV"], IR:[13,"eraSV"], SIR:[86,"eraSV"], HR:[137,"eraSV"], ACE:[20,"eraSV"]},
+  swsh: {V:[7,"eraSW"], VMAX:[15,"eraSW"], VSTAR:[15,"eraSW"], RAD:[20,"eraSW"]}
+};
+const ODDS_LBL = {"":"Karte der Klassischen Sammlung", PIK:"Pikachu-Karte"};
+function cardOdds(s, c){
+  if(!s || s.ja || s.promo || c.x) return null;
+  const r = c[3] || "", own = ODDS_SET[s.id]?.[r], era = ODDS_ERA[s.sr]?.[r];
+  const hit = own || era; if(!hit) return null;
+  const n = s.cards.filter(x=>!x.x && (x[3]||"")===r).length || 1;
+  return {packs: hit[0], per: Math.round(hit[0] * n), n, r, src: ODDS_SRC[hit[1]], key: hit[1], every: hit[0] === 1};
+}
+const fmtN = n => n.toLocaleString("de-DE");
+function oddsHTML(s, c){
+  const o = cardOdds(s, c); if(!o) return "";
+  return `<div class="odds"><small>Ziehchance <button class="pinf" type="button" id="d-oinf" aria-label="Woher stammt die Ziehchance?">i</button></small><b>≈ 1 von ${fmtN(o.per)}</b><small>Packs${o.src.est ? " · Schätzung" : ""}</small></div>`;
+}
+function oddsExp(s, c){
+  const o = cardOdds(s, c); if(!o) return "";
+  const rn = ODDS_LBL[o.r] || (RAR[o.r]||[o.r])[0], pack = OFF_PACK[s.id];
+  return `<div class="pexp oexp" id="d-oexp" hidden>${pack ? `<img class="opack" src="${pack}" alt="" loading="lazy" onerror="this.remove()">` : ""}<div><b>Inoffizielle Zahl.</b> Pokémon veröffentlicht keine Ziehchancen. ${o.every ? `In jedem Pack steckt genau eine ${esc(rn)} – es gibt ${o.n} verschiedene` : `Eine ${esc(rn)} kommt etwa in 1 von ${fmtN(o.packs)} Packs; ${o.n === 1 ? "es gibt nur diese eine Karte" : `es gibt ${o.n} Karten dieser Seltenheit`}`}, also für genau diese Karte ≈ 1 von ${fmtN(o.per)} Packs.<br><span class="osrc">${esc(o.src.t)} Gilt für englische Booster; deutsche können abweichen.${o.src.u ? ` <a href="${o.src.u}" target="_blank" rel="noopener">Quelle ↗</a>` : ""}</span></div></div>`;
+}
 function renderPrice(){
   const box = $("#d-price");
   if(!ctx || ctx.kind!=="set") return;
@@ -2937,13 +3013,12 @@ function renderPrice(){
     priceVar = ownedV[0] || keys.find(v=>info.vprice[v]) || keys[0];
   }
   const cmA = $("#d-cm"); if(cmA) cmA.href = cmLink(s, c, cmIdFor(s, c));
-  const h = priceHist()[key+"|"+priceVar];
   box.innerHTML = `${keys.length>1?`<div class="pchips" role="group" aria-label="Variante für den Preis">${keys.map(v=>`<button class="pchip" type="button" data-pvar="${esc(v)}" aria-pressed="${v===priceVar}">${esc(vLabel(v))}</button>`).join("")}</div>`:""}
     <div class="pmain"><div class="now"><small>Trendpreis${keys.length>1?"":` · ${esc(vLabel(priceVar))}`} <button class="pinf" type="button" id="d-pinf" aria-label="Was ist der Trendpreis?">i</button></small><b>${fmtPrice(info.vprice[priceVar])}</b></div>
-    <div class="ath"><small>${h?`Höchster Trend seit ${deDate(h.since)}`:"Höchster Trend"}</small><b>${fmtPrice(h?.max)}</b></div></div>
-    <p class="pexp" id="d-pexp" hidden>Der Trendpreis ist der Richtwert von Cardmarket, geglättet aus den letzten Verkäufen – die beste Schätzung des aktuellen Werts. Mit ihm rechnet die App überall (Sammlungswert, Portfolio, Sortierung). Die Durchschnitte darunter sind echte Verkaufspreise.</p>
+    ${oddsHTML(s, c)}</div>
+    <p class="pexp" id="d-pexp" hidden>Der Trendpreis ist der Richtwert von Cardmarket, geglättet aus den letzten Verkäufen – die beste Schätzung des aktuellen Werts. Mit ihm rechnet die App überall (Sammlungswert, Portfolio, Sortierung). Die Durchschnitte darunter sind echte Verkaufspreise.</p>${oddsExp(s, c)}
     ${avgRow(info, priceVar)}
-    <div class="pinfo">${h?`Höchster Trend am ${deDate(h.d)} · `:""}Stand ${deDate(info.price?.updated)}</div>
+    <div class="pinfo">Stand ${deDate(info.price?.updated)}</div>
     <button class="btn phbtn" type="button" id="d-hist">${CHART_SVG}Wertverlauf</button>`;
   box.hidden = false;
 }
@@ -2956,7 +3031,7 @@ function avgRow(info, v){
   if(now && a30){ const p = (now - a30) / a30 * 100, r = Math.round(Math.abs(p)); cmp = `<p class="pcmp">${r < 1 ? "Trend entspricht etwa dem 30-Tage-Schnitt" : `Trend <b class="${p>0?"up":"dn"}">${r} % ${p>0?"über":"unter"}</b> dem 30-Tage-Schnitt`}</p>`; }
   return `<div class="pavg">${a.map(([l, x])=>`<div><small>Ø Verkaufspreis ${l}</small><b>${fmtPrice(x)}</b></div>`).join("")}</div>${cmp}`;
 }
-$("#d-price").addEventListener("click", e=>{ if(e.target.closest("#d-hist")){ openHist(); return; } if(e.target.closest("#d-pinf")){ const x = $("#d-pexp"); x.hidden = !x.hidden; return; } const b = e.target.closest("[data-pvar]"); if(!b) return; priceVar = b.dataset.pvar; renderPrice(); });
+$("#d-price").addEventListener("click", e=>{ if(e.target.closest("#d-hist")){ openHist(); return; } if(e.target.closest("#d-pinf")){ const x = $("#d-pexp"); x.hidden = !x.hidden; return; } if(e.target.closest("#d-oinf")){ const x = $("#d-oexp"); if(x) x.hidden = !x.hidden; return; } const b = e.target.closest("[data-pvar]"); if(!b) return; priceVar = b.dataset.pvar; renderPrice(); });
 let histRange = 30;
 function openHist(){
   if(!ctx || ctx.kind!=="set") return;
@@ -2984,6 +3059,8 @@ function openHist(){
       <div class="seg phseg" role="group" aria-label="Zeitraum">${R.map(([d,l])=>`<button type="button" data-hr="${d}" aria-pressed="${d===histRange}">${l}</button>`).join("")}</div>
       <div class="phnow"><b>${fmtPrice(now)}</b>${diff != null && pts.length >= 2 ? `<span class="${diff>0.004?"up":diff<-0.004?"dn":""}">${diff>0?"+":""}${fmtPrice(diff)} ${pctTxt(now, ref)}</span>` : ""}</div>
       ${chart || `<p class="phempty">${since != null ? `Der Verlauf wird seit ${deDate(dayIso(since))} täglich aufgezeichnet. Ab dem zweiten Tag erscheint hier die Kurve.` : "Für diese Karte gibt es noch keinen aufgezeichneten Verlauf. Die App speichert ab jetzt bei jedem Preisabgleich den Tagespreis – für deine Karten täglich automatisch."}</p>`}
+      ${pts.length >= 2 ? (()=>{ const mx = pts.reduce((a,b)=>b[1] >= a[1] ? b : a), mn = pts.reduce((a,b)=>b[1] <= a[1] ? b : a);
+        return `<div class="phhl"><div><small>Hoch im Zeitraum</small><b>${fmtPrice(mx[1])}</b><span>${deDate(dayIso(mx[0]))}</span></div><div><small>Tief im Zeitraum</small><b>${fmtPrice(mn[1])}</b><span>${deDate(dayIso(mn[0]))}</span></div></div>`; })() : ""}
       ${partial && chart ? `<p class="hint" style="margin:0">Daten seit ${deDate(dayIso(since))} – der Zeitraum füllt sich mit jedem Tag.</p>` : ""}
       <p class="sec-h">Cardmarket-Durchschnitt</p>${avgRow(info, v) || `<p class="hint">Keine Durchschnittswerte verfügbar.</p>`}
       <p class="hint" style="margin:0">Durchschnitte echter Verkäufe der letzten 7 und 30 Tage liefert Cardmarket (über TCGdex). Die Kurve zeigt den Trendpreis, den die App täglich selbst aufzeichnet.</p>`;
@@ -3464,7 +3541,7 @@ function renderPicker(){
   const langsOf = id => sa.filter(x=>x.s.id===id).map(x=>x.lang||"mix");
   const have = new Set(SETS.filter(s=>{ const l = langsOf(s.id); return s.ja ? l.length>0 : (l.includes("mix") || (l.includes("de") && l.includes("en"))); }).map(s=>s.id));
   for(const s of SETS){ if(!!s.ja !== (pickLang==="ja")) continue; if(q && !(`${s.de} ${s.en} ${s.jn||""} ${s.abbr} ${s.id}`.toLowerCase().includes(q))) continue; if(!groups.has(s.serie)) groups.set(s.serie,[]); groups.get(s.serie).push(s); }
-  $("#p-list").innerHTML = groups.size ? [...groups].map(([g,list])=>`<div><h5>${esc(g)}</h5><div class="grp">${list.map(s=>`<button class="prow" type="button" data-pset="${esc(s.id)}" ${have.has(s.id)?"disabled":""}><span class="plogo"><img src="${logoUrl(s,"de")}" data-alt="${logoUrl(s,"en")}" alt="" loading="lazy" onerror="logoErr(this)"><span class="ab">${esc(s.abbr||s.id.toUpperCase())}</span></span><span><b>${esc(s.de)}</b>${s.jn && s.jn!==s.de ? `<small class="jn">${esc(s.jn)}</small>` : ""}<small>${esc(s.abbr||"")}${s.abbr?" · ":""}${deDate(s.rel)} · ${s.cards.length} Karten</small></span><em>${have.has(s.id)?"im Regal":"Anlegen"}</em></button>`).join("")}</div></div>`).join("") : `<p class="empty">Kein Set gefunden.</p>`;
+  $("#p-list").innerHTML = groups.size ? [...groups].map(([g,list])=>`<div><h5>${esc(g)}</h5><div class="grp">${list.map(s=>`<button class="prow" type="button" data-pset="${esc(s.id)}" ${have.has(s.id)?"disabled":""}><span class="plogo"><img src="${logoSrc(s,"de")}" data-alt="${logoUrl(s,"en")}" alt="" loading="lazy" onerror="logoErr(this)"><span class="ab">${esc(s.abbr||s.id.toUpperCase())}</span></span><span><b>${esc(s.de)}</b>${s.jn && s.jn!==s.de ? `<small class="jn">${esc(s.jn)}</small>` : ""}<small>${esc(s.abbr||"")}${s.abbr?" · ":""}${deDate(s.rel)} · ${s.cards.length} Karten</small></span><em>${have.has(s.id)?"im Regal":"Anlegen"}</em></button>`).join("")}</div></div>`).join("") : `<p class="empty">Kein Set gefunden.</p>`;
 }
 $("#p-q").addEventListener("input", renderPicker);
 $("#p-list").addEventListener("click", e=>{
@@ -3648,7 +3725,6 @@ window.addEventListener("resize", ()=>{ clearTimeout(rzT); rzT = setTimeout(()=>
 /* ---------- 3D-Ansicht ---------- */
 const V = {open:false, base:0, rx:0, ry:0, drag:null, tilt:false, lastTap:0};
 const vEl = $("#viewer"), c3d = $("#c3d");
-let backImgOk = null;
 function vApply(spring){
   c3d.classList.toggle("spring", !!spring);
   c3d.style.transform = `rotateX(${V.rx.toFixed(1)}deg) rotateY(${(V.base + V.ry).toFixed(1)}deg)`;
@@ -3659,15 +3735,15 @@ function vApply(spring){
 function openViewer(){
   if(!ctx || ctx.kind!=="set") return;
   const s = SET.get(ctx.setId), c = cardAt(ctx.setId, ctx.num), im = $("#d-img");
-  $("#v-front").src = im.currentSrc || im.src;
+  $("#v-front").src = im.currentSrc || im.src; $("#v-front").classList.toggle("land", im.classList.contains("land"));
   const v = priceVar || cardVariants(c)[0] || "normal", type = v.split("/")[0];
   const strong = type==="holo" || type==="reverse" || ["RR","UR","IR","SIR","HR","SR","SUR","MHR","MAR","BWR","ACE","RAD"].includes(c[3]);
   $("#v-holo").style.display = strong ? "" : "none";
   const q = sum(cards.filter(e=>e.setId===s.id && e.num===c[0]), qtyOf);
-  const design = `<div class="bdesign"><img src="${logoUrl(s,"de")}" data-alt="${logoUrl(s,"en")}" alt="" onerror="logoErr(this)"><b>${esc(cardTitleFor(s,c))}</b><span>${esc(s.abbr)} ${esc(numDisp(s,c[0]))} · ${esc((RAR[c[3]]||[c[3]])[0])}</span><span>${q ? `${q}× in deinem Album` : "noch nicht in deinem Album"}</span></div>`;
+  const design = `<div class="bdesign"><img src="${logoSrc(s,"de")}" data-alt="${logoUrl(s,"en")}" alt="" onerror="logoErr(this)"><b>${esc(cardTitleFor(s,c))}</b><span>${esc(s.abbr)} ${esc(numDisp(s,c[0]))} · ${esc((RAR[c[3]]||[c[3]])[0])}</span><span>${q ? `${q}× in deinem Album` : "noch nicht in deinem Album"}</span></div>`;
   const back = $("#v-back");
-  if(backImgOk) back.innerHTML = `<img src="rueckseite.jpg" alt="">`;
-  else { back.innerHTML = design; if(backImgOk===null){ const t = new Image(); t.onload = ()=>{ backImgOk = true; if(V.open) back.innerHTML = `<img src="rueckseite.jpg" alt="">`; }; t.onerror = ()=>{ backImgOk = false; }; t.src = "rueckseite.jpg"; } }
+  back.innerHTML = `<img src="${OFF_BACK}" alt="Kartenrückseite">`;
+  back.querySelector("img").onerror = () => { back.innerHTML = design; };
   $("#v-tilt").hidden = isMouse();
   $("#v-hint").textContent = isMouse() ? "Ziehen zum Drehen · Doppelklick zum Umdrehen · Esc schließt" : "Ziehen zum Drehen · Doppeltippen oder schnell wischen zum Umdrehen";
   $("#v-hint").hidden = !!LS.raw("pk-3dhint") && !isMouse(); LS.put("pk-3dhint","1");
@@ -3676,6 +3752,7 @@ function openViewer(){
 }
 function closeViewer(){ if(!V.open) return; V.open = false; setTilt(false); vEl.classList.remove("on"); setTimeout(()=>{ if(!V.open) vEl.hidden = true; }, 200); }
 function vFlip(){ V.base += 180; V.rx = 0; V.ry = 0; vApply(true); }
+$("#d-img").addEventListener("load", e=>{ const el = e.target; el.classList.toggle("land", !el.classList.contains("art") && el.naturalWidth > el.naturalHeight * 1.1); });
 $("#d-img").addEventListener("click", ()=>{ if(ctx?.kind==="set" && !$("#d-img").classList.contains("noimg")) openViewer(); });
 $("#d-3d").addEventListener("click", openViewer);
 function navList(){
@@ -3686,7 +3763,7 @@ function navList(){
 function navNeighbors(){
   if(ctx?.kind!=="set") return [null, null];
   const l = navList(), i = l.findIndex(x=>x.k===ctx.setId+"|"+ctx.num); if(i<0) return [null, null];
-  const src = it => { if(!it) return null; const im = it.el.querySelector("img"); const [sid, num] = it.k.split("|"), sx = SET.get(sid); it.src = im?.currentSrc || im?.src || (sx ? imgUrl(sx, num, sx.ja ? "ja" : "de", "low") : ""); return it; };
+  const src = it => { if(!it) return null; const im = it.el.querySelector("img"); const [sid, num] = it.k.split("|"), sx = SET.get(sid); it.src = im?.currentSrc || im?.src || (sx ? (offImg(sx, num)?.first ? offImg(sx, num).u : imgUrl(sx, num, sx.ja ? "ja" : "de", "low")) : ""); return it; };
   return [src(l[i-1]), src(l[i+1])];
 }
 function updNeighbors(){
