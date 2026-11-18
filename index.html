@@ -393,6 +393,8 @@ html{min-height:calc(100% + env(safe-area-inset-top,0px))}body{min-height:calc(1
 .chip.link{cursor:pointer;min-height:34px}
 .ticon{display:inline-block;width:16px;height:16px;border-radius:4px;background-repeat:no-repeat;background-position:0 50%;background-size:auto 16.2px;flex:0 0 auto;vertical-align:-3px}
 .dmeta{margin:8px 0 0;font-size:13px;color:var(--muted)}
+.bigwrap:has(.big.noimg) .nb{display:none}
+.dill{display:flex;align-items:center;gap:6px;margin-top:4px}.dill svg{width:14px;height:14px;flex:0 0 14px}
 .dlinks{margin-top:10px}
 .price{border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;gap:8px;font-size:13px;color:var(--muted)}
 .pmain{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:12px}
@@ -836,7 +838,7 @@ button.tab{border:0;background:none;padding:0;cursor:pointer;width:100%;font:600
 .slogo .logo-t small{font-size:13px}
 .mlogo .logo-t small{display:none}
 .cimg.artfb{object-fit:contain;padding:22% 10%;background:var(--page);box-sizing:border-box}
-.imgnote{margin:0;text-align:center;font-size:12px;color:var(--muted)}
+.imgnote{margin:0 auto;max-width:calc(100% - 120px);text-align:center;font-size:12px;line-height:1.35;color:var(--muted)}
 .big.art{object-fit:contain;background:var(--pocket);border-radius:12px;padding:12%}
 
 /* ---------- Desktop / großer Bildschirm (ab 900 px) ---------- */
@@ -932,7 +934,7 @@ body.noscan [data-scan]{display:none!important}
   <div class="sheet-scroll" id="sheet-scroll"><div class="dlg">
     <div class="dlg-x"><span class="pnav"><button class="x" type="button" id="d-prev" aria-label="Vorherige Karte"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><button class="x" type="button" id="d-next" aria-label="Nächste Karte"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button><small>← → · Esc</small></span><button class="x" type="button" data-sheet-close aria-label="Schließen">×</button></div>
     <p class="imgnote" id="d-imgnote" hidden>Kartenbild folgt – bis dahin Pokémon-Artwork als Ersatz</p><div class="bigwrap"><img class="nb nb-l" id="d-nl" alt="" aria-hidden="true" hidden><img class="nb nb-r" id="d-nr" alt="" aria-hidden="true" hidden><img class="big noimg" id="d-img" alt=""><button class="b3d" type="button" id="d-3d" aria-label="Karte in 3D ansehen" hidden>3D</button></div>
-    <div><h2 id="d-title"></h2><p class="dsub" id="d-sub" hidden></p><div class="chips" id="d-chips"></div><p class="dmeta" id="d-meta"></p><div class="dlinks" id="d-links"></div></div>
+    <div><h2 id="d-title"></h2><p class="dsub" id="d-sub" hidden></p><div class="chips" id="d-chips"></div><p class="dmeta" id="d-meta"></p><p class="dmeta dill" id="d-ill" hidden></p><div class="dlinks" id="d-links"></div></div>
     <div class="price" id="d-price" hidden></div>
     <div id="d-body"></div>
     <div class="dnote" id="d-note" hidden></div>
@@ -1036,6 +1038,7 @@ const CONDS = ["Mint","Near Mint","Excellent","Good","Light Played","Played","Po
 
 /* ---------- Änderungsprotokoll ---------- */
 const CHANGELOG = [
+  {v:"1.38", d:"2026-11-18", items:["Ziehchance-ⓘ mit deutschem Booster-Bild für 21 Sets – bei mehreren Motiven jedes Mal ein zufälliges (vorläufig von Pokézentrum)", "Karten-Sheet: Zeichner der Karte als eigene Zeile („Illustration: …“)", "Karten-Sheet: „Wert“ aus der Zeile mit Set und Pokédex-Nummer entfernt", "Karten-Sheet: Hinweis zum Kartenbild läuft nicht mehr unter den Schließen-Button, Abstände vereinheitlicht"]},
   {v:"1.37", d:"2026-11-18", items:["Ziehchance je Karte im Karten-Sheet („≈ 1 von X Packs“) mit ⓘ: Quelle, Stichprobe und Hinweis „inoffiziell“; Schätzungen sind markiert", "Preisbox ohne „Höchster Trend“ – dafür Hoch und Tief mit Datum im Wertverlauf, passend zum gewählten Zeitraum", "30 Jahre: offizielle deutsche Kartenbilder aus der pokemon.com-Galerie, solange TCGdex keine hat", "RGB-Mews vorläufig mit englischem Bild (Scrydex), mit Hinweis im Karten-Sheet", "Klassische Sammlung: Karten sind jetzt Holo (vorhandene Einträge werden automatisch umgestellt)", "Set-Logos direkt aus den TCGdex-Setdaten, 30 Jahre mit offiziellem Logo", "Hinweis „Kartenbilder folgen“, wenn TCGdex für ein Set noch keine Bilder hat", "Querformat-Karten (z. B. TURBO) werden gedreht eingepasst", "3D-Ansicht: offizielle Kartenrückseite"]},
   {v:"1.36", d:"2026-11-17", items:["Preisbox verständlicher: Trendpreis mit Erklärung, Ø Verkaufspreis 7 und 30 Tage, Vergleich zum 30-Tage-Schnitt", "„Höchster Trend“ statt Höchstwert – nur noch aus dem Trendpreis, einmalig neu gestartet", "Karten-Sheet: Karte deutlich größer, Nachbarkarten schmaler angeschnitten", "Sets gleichen sich täglich mit TCGdex ab: nachgetragene Karten erscheinen automatisch", "Karten mit Sondernummern (z. B. RGB-Mews R/G/B) zählen nicht mehr ins Grundset", "Sortierung heißt jetzt „Trendpreis“"]},
   {v:"1.35", d:"2026-11-17", items:["Wertverlauf je Karte: Cardmarket-Durchschnitt 1/7/30 Tage im Karten-Sheet, Verlauf 7 Tage bis 12 Monate (wird ab jetzt täglich aufgezeichnet)", "Preisverläufe und Set-Verläufe werden zwischen Geräten abgeglichen", "Set-Album: Sortierung nach Nummer oder Cardmarket-Preis (ab-/aufsteigend), persönliche Alben zusätzlich „Günstigste zuerst“", "Bilder-Speicher speichert keine Fehler mehr – fehlende oder unscharfe Bilder laden wieder richtig", "Wischen im Karten-Sheet ohne Ruckeln"]},
@@ -1249,6 +1252,12 @@ const OFF_LOGO = {"30th":"https://d1i787aglh9bmb.cloudfront.net/assets/img/me-ex
 OFF_LOGO["30th-c"] = OFF_LOGO["30th"];
 const OFF_PACK = {"30th":"https://d1i787aglh9bmb.cloudfront.net/assets/img/me-expansions/thirty/expansion_highlights/de-de/booster-packs.png"};
 OFF_PACK["30th-c"] = OFF_PACK["30th"];
+const PZ_PACKS = {"me01":["Pokemon-Mega-Entwicklung-Booster-Pack-Kangama-Deutsch.jpg","Pokemon-Mega-Entwicklung-Booster-Pack-Guardevoir-Deutsch.jpg","Pokemon-Mega-Entwicklung-Booster-Pack-Lucario-Deutsch.jpg","Pokemon-Mega-Entwicklung-Booster-Pack-Bisaflor-Deutsch.jpg"],"me02":["Pokemon-Fatale-Flammen-Booster-Pack-Mega-Glurak-Deutsch.jpg","Pokemon-Fatale-Flammen-Booster-Pack-Mega-Gengar-Deutsch.jpg","Pokemon-Fatale-Flammen-Booster-Pack-Mega-Skaraborn-Deutsch.jpg","Pokemon-Fatale-Flammen-Booster-Pack-Mega-Schlapor-Deutsch.jpg"],"me02.5":["Pokemon-Erhabene-Helden-Boosterpack-Deutsch.jpg"],"me03":["Pokemon-Mega-Entwicklung-Optimale-Ordnung-Booster-Pack-Mega-Zygarde-Deutsch.jpg","Pokemon-Mega-Entwicklung-Optimale-Ordnung-Booster-Pack-Mega-Starmie-Deutsch.jpg","Pokemon-Mega-Entwicklung-Optimale-Ordnung-Booster-Pack-Mega-Pixi-Deutsch.jpg","Pokemon-Mega-Entwicklung-Optimale-Ordnung-Booster-Pack-Mauzi-Deutsch.jpg"],"me04":["Pokemon-Wachsendes-Chaos-Booster-Pack-Mega-Quajutsu-ex-Deutsch-TCG-2026.jpg","Pokemon-Wachsendes-Chaos-Booster-Pack-Mega-Floette-ex-Deutsch-TCG-2026.jpg","Pokemon-Wachsendes-Chaos-Booster-Pack-Mega-Tandrak-ex-Deutsch-TCG-2026.jpg","Pokemon-Wachsendes-Chaos-Booster-Pack-Mega-Pyroleo-ex-Deutsch-TCG-2026.jpg"],"me05":["Pokemon-Mega-Entwicklung-Dunkelnacht-Boosterpack-Deutsch-TCG-Sammelkartenspiel-2026-Mega-Darkrai.jpg","Pokemon-Mega-Entwicklung-Dunkelnacht-Boosterpack-Deutsch-TCG-Sammelkartenspiel-2026-Mega-Skelabra.jpg","Pokemon-Mega-Entwicklung-Dunkelnacht-Boosterpack-Deutsch-TCG-Sammelkartenspiel-2026-Mega-Zeraora.jpg","Pokemon-Mega-Entwicklung-Dunkelnacht-Boosterpack-Deutsch-TCG-Sammelkartenspiel-2026-Mega-Stalobor.jpg"],"sv10.5b":["Pokemon-Karmesin-Purpur-Schwarze-Blitze-Booster-Pack-Deutsch.jpg"],"sv10.5w":["Pokemon-Karmesin-Purpur-Weisse-Flammen-Booster-Pack-Deutsch.jpg"],"sv10":["Pokemon-Karmesin-Purpur-Ewige-Rivalen-Booster-Pack-Giovanni-Mewtu-Deutsch.jpg","Pokemon-Karmesin-Purpur-Ewige-Rivalen-Booster-Pack-Klarin-Ho-Oh-Deutsch.jpg","Pokemon-Karmesin-Purpur-Ewige-Rivalen-Booster-Pack-Cynthia-Deutsch.jpg","Pokemon-Karmesin-Purpur-Ewige-Rivalen-Booster-Pack-Team-Rocket-Deutsch.jpg"],"sv09":["Pokemon-Karmesin-Purpur-Reisegefaehrten-Booster-Pack-Enigmara-TCG-Sammelkartenspiel-2025.jpg","Pokemon-Karmesin-Purpur-Reisegefaehrten-Booster-Pack-N-Zoroark-TCG-Sammelkartenspiel-2025.jpg","Pokemon-Karmesin-Purpur-Reisegefaehrten-Booster-Pack-Lillie-Lilly-TCG-Sammelkartenspiel-2025.jpg","Pokemon-Karmesin-Purpur-Reisegefaehrten-Booster-Pack-Hop-Zacian-TCG-Sammelkartenspiel-2025.jpg"],"sv08.5":["Pokemon-Prismatische-Entwicklungen-Booster-Pack-Nachtara-Psiana-Deutsch.jpg","Pokemon-Prismatische-Entwicklungen-Booster-Pack-Glaziola-Folipurba-Deutsch.jpg","Pokemon-Prismatische-Entwicklungen-Booster-Pack-Flamara-Blitza-Aquana-Deutsch.jpg","Pokemon-Prismatische-Entwicklungen-Booster-Pack-Evoli-Feelinara-Deutsch.jpg"],"sv08":["Pokemon-Karmesin-Purpur-Stuermische-Funken-Booster-Pack-Pikachu-TCG-Sammelkartenspiel-2024.jpg","Pokemon-Karmesin-Purpur-Stuermische-Funken-Booster-Pack-Alola-Kokowei-TCG-Sammelkartenspiel-2024.jpg","Pokemon-Karmesin-Purpur-Stuermische-Funken-Booster-Pack-Latias-TCG-Sammelkartenspiel-2024.jpg","Pokemon-Karmesin-Purpur-Stuermische-Funken-Booster-Pack-Briduradon-TCG-Sammelkartenspiel-2024.jpg"],"sv07":["Pokemon-Stellarkrone-Stellar-Crown-Booster-Pack-Lapras-Deutsch.jpg","Pokemon-Stellarkrone-Stellar-Crown-Booster-Pack-Terapagos-Deutsch.jpg","Pokemon-Stellarkrone-Stellar-Crown-Booster-Pack-Liberlo-Deutsch.jpg","Pokemon-Stellarkrone-Stellar-Crown-Booster-Pack-Voltula-Deutsch.jpg"],"sv06.5":["Pokemon-Nebel-der-Sagen-Booster-Pack-Boninu-Deutsch_Karmesin-Purpur.jpg","Pokemon-Nebel-der-Sagen-Booster-Pack-Benesaru-Deutsch_Karmesin-Purpur.jpg","Pokemon-Nebel-der-Sagen-Booster-Pack-Beatori-Deutsch_Karmesin-Purpur.jpg","Pokemon-Nebel-der-Sagen-Booster-Pack-Infamomo-Deutsch_Karmesin-Purpur.jpg"],"sv06":["Pokemon-Maskerade-im-Zwielicht-Booster-Pack-Fatalitcha-Deutsch.jpg","Pokemon-Maskerade-im-Zwielicht-Booster-Pack-Katapuldra-Deutsch.jpg","Pokemon-Maskerade-im-Zwielicht-Booster-Pack-Ogerpon-Deutsch.jpg","Pokemon-Maskerade-im-Zwielicht-Booster-Pack-Ursaluna-Deutsch.jpg"],"sv05":["Pokemon-Gewalten-der-Zeit-Booster-Pack-Furienblitz-Purpur-Deutsch.jpg","Pokemon-Gewalten-der-Zeit-Booster-Pack-Windewoge-Purpur-Deutsch.jpg","Pokemon-Gewalten-der-Zeit-Booster-Pack-Eisenblatt-Purpur-Deutsch.jpg","Pokemon-Gewalten-der-Zeit-Booster-Pack-Eisenhaupt-Purpur-Deutsch.jpg"],"sv04":["Pokemon-TCG-Paradoxrift-Paradox-Rift-Booster-Pack-Crimanzo-Karmesin-Purpur.jpg","okemon-TCG-Paradoxrift-Paradox-Rift-Booster-Pack-Knakrack-Karmesin-Purpur.jpg","Pokemon-TCG-Paradoxrift-Paradox-Rift-Booster-Pack-Donnersichel-Karmesin-Purpur.jpg","Pokemon-TCG-Paradoxrift-Paradox-Rift-Booster-Pack-Eisenkrieger-Karmesin-Purpur.jpg"],"sv03.5":["Pokemon-Karmesin-Purpur-151-Booster-Pack.jpg"],"sv02":["Entwicklungen-in-Paldea-Booster-Pack-Bailonda-Pokemon.jpg","Entwicklungen-in-Paldea-Booster-Pack-Maskagato-Pokemon.jpg","Entwicklungen-in-Paldea-Booster-Pack-Skelokrok-Pokemon.jpg","Entwicklungen-in-Paldea-Booster-Pack-Baojian-Pokemon.jpg","Entwicklungen-in-Paldea-Booster-Pack-Dinglu-Pokemon.jpg"],"sv01":["Pokemon_Karmesin_Purpur_Booster_Pack_Gyrados_DE.jpg","Pokemon_Karmesin_Purpur_Booster_Pack_Starter_Pokemon_DE.jpg","Pokemon_Karmesin_Purpur_Booster_Pack_Koraidon_DE.jpg","Pokemon_Karmesin_Purpur_Booster_Pack_Miraidon_DE.jpg"],"swsh12.5":["Pokemon-Karten-Zenit-der-Koenige-Booster-Pack.jpg"]};
+function packImg(s){
+  if(OFF_PACK[s.id]) return {u:OFF_PACK[s.id], src:"pokemon.com"};
+  const l = PZ_PACKS[s.id]; if(!l?.length) return null;
+  return {u:"https://pokezentrum.de/wp-content/uploads/" + l[Math.floor(Math.random() * l.length)], src:"Pokézentrum", n:l.length};
+}
 function offImg(s, num){
   const n = String(num);
   if(s.id==="30th"){ if(/^[RGB]$/.test(n)) return {u:`https://images.scrydex.com/pokemon/me55-${n}/large`, first:true, note:"Englische Version (Scrydex) – vorläufig, bis ein offizielles deutsches Bild verfügbar ist"};
@@ -1313,7 +1322,7 @@ function cardInfo(s, num, preferEn){
       va1[key] = v ? g("avg1") : 0; va7[key] = v ? g("avg7") : 0;
       vprice[key] = v; vavg[key] = a30; vpeak[key] = v ? pk : 0; vcm[key] = (d?.thirdParty?.cardmarket || pc?.idProduct || base?.idProduct || 0);
     });
-    return { image: a?.image || b?.image || null, price: base, vprice, vavg, vpeak, vcm, va1, va7, cm: base?.idProduct || normalId || 0 };
+    return { image: a?.image || b?.image || null, ill: a?.illustrator || b?.illustrator || "", price: base, vprice, vavg, vpeak, vcm, va1, va7, cm: base?.idProduct || normalId || 0 };
   })();
   infoCache.set(k, p); p.catch(() => infoCache.delete(k));
   return p;
@@ -2895,7 +2904,8 @@ function renderDialog(){
   const typeChip = c[4]==="P" && t ? `<span class="chip type" style="--tb:${t[1]};--ti:${t[2]}">${typeIcon(c[5])}${esc(t[0])}</span>` : `<span class="chip">${esc(CAT[c[4]]||"")}</span>`;
   $("#d-chips").innerHTML = `<span class="chip num">${esc(s.abbr)} ${esc(numDisp(s,c[0]))}</span>${rar[0]&&rar[0]!=="–"?`<span class="chip rare">${esc(/★/.test(rar[1]||"") ? rar[1]+" " : "")}${esc(rar[0])}</span>`:""}${typeChip}${q?`<span class="chip have">${q}× im Album</span>`:`<span class="chip none">nicht im Album</span>`}`;
   const gtx = gradeTxt(notes[s.id+"|"+c[0]]); if(gtx) $("#d-chips").insertAdjacentHTML("beforeend", `<span class="chip grade">${esc(gtx)}</span>`);
-  $("#d-meta").textContent = [s.de, c[7] ? `Pokédex #${pad4(c[7])}` : "", q ? `Wert ${eur(sum(mine,valOf))}` : ""].filter(Boolean).join(" · ");
+  $("#d-meta").textContent = [s.de, c[7] ? `Pokédex #${pad4(c[7])}` : ""].filter(Boolean).join(" · ");
+  setIll(lastInfo.get(s.id+"|"+c[0])?.ill);
   const wk = wishKey(s.id, c[0]), ww = wish[wk];
   $("#d-links").innerHTML = `<a class="btn" id="d-cm" href="${cmLink(s, c, cmIdFor(s, c))}" target="_blank" rel="noopener">Bei Cardmarket ansehen ↗</a><button class="btn wishbtn" type="button" id="d-wish" aria-pressed="${!!ww}">${ww?HEART_SVG:HEART_O}${ww?`Wunschliste · ${prioLbl(ww.p)}`:"Wunschliste"}</button><button class="btn" type="button" id="d-padd">+ Zu Album</button>`;
   $("#d-wish").addEventListener("click", ()=>openPrio(s.id, c[0]));
@@ -2908,7 +2918,7 @@ function renderDialog(){
     $("#d-price").innerHTML = "Preis wird geladen …"; $("#d-price").hidden = false;
     cardInfo(s, c[0], (mine[0]?.lang || defLang(s.id)) === "Englisch").then(info => {
       if(req !== infoReq || !ctx) return;
-      lastInfo.set(key, info);
+      lastInfo.set(key, info); setIll(info.ill);
       const off = offImg(s, c[0]);
       if(info.image || off){ const tile = document.querySelector(`.slot[data-set="${CSS.escape(s.id)}"][data-num="${CSS.escape(c[0])}"] img`)?.currentSrc || "";
         const tcg = info.image ? [info.image + "/high.webp", info.image + "/low.webp"] : [];
@@ -2998,8 +3008,8 @@ function oddsHTML(s, c){
 }
 function oddsExp(s, c){
   const o = cardOdds(s, c); if(!o) return "";
-  const rn = ODDS_LBL[o.r] || (RAR[o.r]||[o.r])[0], pack = OFF_PACK[s.id];
-  return `<div class="pexp oexp" id="d-oexp" hidden>${pack ? `<img class="opack" src="${pack}" alt="" loading="lazy" onerror="this.remove()">` : ""}<div><b>Inoffizielle Zahl.</b> Pokémon veröffentlicht keine Ziehchancen. ${o.every ? `In jedem Pack steckt genau eine ${esc(rn)} – es gibt ${o.n} verschiedene` : `Eine ${esc(rn)} kommt etwa in 1 von ${fmtN(o.packs)} Packs; ${o.n === 1 ? "es gibt nur diese eine Karte" : `es gibt ${o.n} Karten dieser Seltenheit`}`}, also für genau diese Karte ≈ 1 von ${fmtN(o.per)} Packs.<br><span class="osrc">${esc(o.src.t)} Gilt für englische Booster; deutsche können abweichen.${o.src.u ? ` <a href="${o.src.u}" target="_blank" rel="noopener">Quelle ↗</a>` : ""}</span></div></div>`;
+  const rn = ODDS_LBL[o.r] || (RAR[o.r]||[o.r])[0], pk = packImg(s), pack = pk?.u;
+  return `<div class="pexp oexp" id="d-oexp" hidden>${pack ? `<img class="opack" src="${pack}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">` : ""}<div><b>Inoffizielle Zahl.</b> Pokémon veröffentlicht keine Ziehchancen. ${o.every ? `In jedem Pack steckt genau eine ${esc(rn)} – es gibt ${o.n} verschiedene` : `Eine ${esc(rn)} kommt etwa in 1 von ${fmtN(o.packs)} Packs; ${o.n === 1 ? "es gibt nur diese eine Karte" : `es gibt ${o.n} Karten dieser Seltenheit`}`}, also für genau diese Karte ≈ 1 von ${fmtN(o.per)} Packs.<br><span class="osrc">${esc(o.src.t)} Gilt für englische Booster; deutsche können abweichen.${pk ? ` Booster-Bild: ${pk.src}${pk.n > 1 ? ` (eins von ${pk.n} Motiven)` : ""}.` : ""}${o.src.u ? ` <a href="${o.src.u}" target="_blank" rel="noopener">Quelle ↗</a>` : ""}</span></div></div>`;
 }
 function renderPrice(){
   const box = $("#d-price");
@@ -3105,10 +3115,11 @@ $("#d-body").addEventListener("click", e=>{
 });
 
 /* Pokédex-Dialog: alle Karten eines Pokémon, Tap öffnet das Set */
+function setIll(n){ const el = $("#d-ill"); if(!el) return; el.hidden = !n; el.innerHTML = n ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21c3 0 7-1 7-5a3 3 0 0 0-6 0c0 2-1 3-1 5z"/><path d="M10 16l11-11-3-3L7 13"/></svg>Illustration: ${esc(n)}` : ""; }
 function renderDexDialog(){
   const n = ctx.dex, mine = cards.filter(e=>+e.dex===n && qtyOf(e)), q = sum(mine,qtyOf);
   $("#d-3d").hidden = true;
-  const im = $("#d-img"); if(im.dataset.key !== "dex"+n){ im.dataset.key = "dex"+n; im.className = "big art"; im.onload = null; im.onerror = () => im.classList.add("noimg"); im.src = artUrl(n); } $("#d-price").hidden = true; $("#d-links").innerHTML = ""; $("#d-sub").hidden = true; $("#d-imgnote").hidden = true; $("#d-note").hidden = true; $("#d-note").dataset.key = "";
+  const im = $("#d-img"); if(im.dataset.key !== "dex"+n){ im.dataset.key = "dex"+n; im.className = "big art"; im.onload = null; im.onerror = () => im.classList.add("noimg"); im.src = artUrl(n); } $("#d-price").hidden = true; setIll(""); $("#d-links").innerHTML = ""; $("#d-sub").hidden = true; $("#d-imgnote").hidden = true; $("#d-note").hidden = true; $("#d-note").dataset.key = "";
   $("#d-title").textContent = NAMES[n-1];
   $("#d-chips").innerHTML = `<span class="chip num">#${pad4(n)}</span>${q?`<span class="chip have">${q}× im Album</span>`:`<span class="chip none">nicht im Album</span>`}`;
   $("#d-meta").textContent = `${(DEXCARDS.get(n)||[]).length} Karten in der Setliste` + (q ? ` · Wert ${eur(sum(mine,valOf))}` : "");

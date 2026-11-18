@@ -1,5 +1,11 @@
 # Kartenalbum – Änderungen
 
+## Version 1.38 · 18.11.2026
+- Ziehchance-ⓘ mit deutschem Booster-Bild für 21 Sets – bei mehreren Motiven jedes Mal ein zufälliges (vorläufig von Pokézentrum)
+- Karten-Sheet: Zeichner der Karte als eigene Zeile („Illustration: …“)
+- Karten-Sheet: „Wert“ aus der Zeile mit Set und Pokédex-Nummer entfernt
+- Karten-Sheet: Hinweis zum Kartenbild läuft nicht mehr unter den Schließen-Button, Abstände vereinheitlicht
+
 ## Version 1.37 · 18.11.2026
 - Ziehchance je Karte im Karten-Sheet („≈ 1 von X Packs“) mit ⓘ: Quelle, Stichprobe und Hinweis „inoffiziell“; Schätzungen sind markiert
 - Preisbox ohne „Höchster Trend“ – dafür Hoch und Tief mit Datum im Wertverlauf, passend zum gewählten Zeitraum

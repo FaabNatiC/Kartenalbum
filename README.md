@@ -4,7 +4,7 @@ Private Web-App für meine Pokémon-Sammelkarten – als digitales Album fürs i
 
 **App öffnen:** https://faabnatic.github.io/Kartenalbum/
 
-Aktuelle Version: **1.37** · Änderungen je Version stehen in [`CHANGELOG.md`](CHANGELOG.md).
+Aktuelle Version: **1.38** · Änderungen je Version stehen in [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Funktionen
 
@@ -88,6 +88,7 @@ Neue Versionen meldet die App selbst („Version x verfügbar · Aktualisieren�
 - Anmeldung und Abgleich: [Firebase](https://firebase.google.com)
 - Ersatzbilder für McDonald’s-Karten: [pokemontcg.io](https://pokemontcg.io)
 - 30 Jahre: Kartenbilder, Logo, Booster und Kartenrückseite aus der offiziellen Galerie auf [pokemon.com](https://tcg.pokemon.com/de-de/galleries/30th-celebration/), RGB-Mews vorläufig von [Scrydex](https://scrydex.com)
+- Deutsche Booster-Bilder im Ziehchancen-ⓘ: vorläufig von [Pokézentrum](https://pokezentrum.de), live geladen
 - Ziehchancen (inoffiziell): gezählte Pack-Öffnungen von TCGplayer, TCGTalk und Tommy13 – Quelle steht bei jeder Karte
 - Texterkennung beim Kamera-Scan: [Tesseract.js](https://github.com/naptha/tesseract.js) (über jsDelivr)
 - 3D-Darstellung der Orden: [Three.js](https://threejs.org) (über cdnjs, wird erst beim Öffnen eines Ordens geladen)
