@@ -394,7 +394,8 @@ html{min-height:calc(100% + env(safe-area-inset-top,0px))}body{min-height:calc(1
 .ticon{display:inline-block;width:16px;height:16px;border-radius:4px;background-repeat:no-repeat;background-position:0 50%;background-size:auto 16.2px;flex:0 0 auto;vertical-align:-3px}
 .dmeta{margin:8px 0 0;font-size:13px;color:var(--muted)}
 .bigwrap:has(.big.noimg) .nb{display:none}
-.dill{display:flex;align-items:center;gap:6px;margin-top:4px}.dill svg{width:14px;height:14px;flex:0 0 14px}
+.dill{justify-self:center;display:inline-flex;align-items:center;gap:6px;margin:-8px auto 0;padding:5px 12px;border:0;border-radius:999px;background:var(--pocket);color:var(--muted);font:500 13px var(--f-body);cursor:pointer}.dill[hidden]{display:none}.dill svg{width:14px;height:14px;flex:0 0 14px}.dill span{color:var(--ink)}.dill b{font-weight:600;opacity:.6}
+.illhead{display:flex;justify-content:space-between;gap:8px;align-items:baseline;margin:0 0 10px;font-size:13px;color:var(--muted)}.illgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:10px}.illc{position:relative;padding:0;border:0;background:none;text-align:left;color:inherit;cursor:pointer}.illc .ib{position:relative;aspect-ratio:63/88;border-radius:6px;overflow:hidden;background:var(--pocket)}.illc .ib img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.illc.own .ib{outline:2px solid var(--accent);outline-offset:1px}.illc .ok{position:absolute;top:4px;right:4px;width:20px;height:20px;border-radius:50%;background:var(--accent);color:#fff;font-size:12px;display:grid;place-items:center}.illc small{display:block;margin-top:4px;font-size:11px;line-height:1.25;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.illc.na{cursor:default}
 .dlinks{margin-top:10px}
 .price{border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;gap:8px;font-size:13px;color:var(--muted)}
 .pmain{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:12px}
@@ -933,8 +934,8 @@ body.noscan [data-scan]{display:none!important}
   <div class="grab" aria-hidden="true"><span></span></div>
   <div class="sheet-scroll" id="sheet-scroll"><div class="dlg">
     <div class="dlg-x"><span class="pnav"><button class="x" type="button" id="d-prev" aria-label="Vorherige Karte"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><button class="x" type="button" id="d-next" aria-label="Nächste Karte"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button><small>← → · Esc</small></span><button class="x" type="button" data-sheet-close aria-label="Schließen">×</button></div>
-    <p class="imgnote" id="d-imgnote" hidden>Kartenbild folgt – bis dahin Pokémon-Artwork als Ersatz</p><div class="bigwrap"><img class="nb nb-l" id="d-nl" alt="" aria-hidden="true" hidden><img class="nb nb-r" id="d-nr" alt="" aria-hidden="true" hidden><img class="big noimg" id="d-img" alt=""><button class="b3d" type="button" id="d-3d" aria-label="Karte in 3D ansehen" hidden>3D</button></div>
-    <div><h2 id="d-title"></h2><p class="dsub" id="d-sub" hidden></p><div class="chips" id="d-chips"></div><p class="dmeta" id="d-meta"></p><p class="dmeta dill" id="d-ill" hidden></p><div class="dlinks" id="d-links"></div></div>
+    <p class="imgnote" id="d-imgnote" hidden>Kartenbild folgt – bis dahin Pokémon-Artwork als Ersatz</p><div class="bigwrap"><img class="nb nb-l" id="d-nl" alt="" aria-hidden="true" hidden><img class="nb nb-r" id="d-nr" alt="" aria-hidden="true" hidden><img class="big noimg" id="d-img" alt=""><button class="b3d" type="button" id="d-3d" aria-label="Karte in 3D ansehen" hidden>3D</button></div><button class="dill" type="button" id="d-ill" hidden></button>
+    <div><h2 id="d-title"></h2><p class="dsub" id="d-sub" hidden></p><div class="chips" id="d-chips"></div><p class="dmeta" id="d-meta"></p><div class="dlinks" id="d-links"></div></div>
     <div class="price" id="d-price" hidden></div>
     <div id="d-body"></div>
     <div class="dnote" id="d-note" hidden></div>
@@ -1038,6 +1039,7 @@ const CONDS = ["Mint","Near Mint","Excellent","Good","Light Played","Played","Po
 
 /* ---------- Änderungsprotokoll ---------- */
 const CHANGELOG = [
+  {v:"1.39", d:"2026-11-18", items:["Karten-Sheet: Zeichner als Signatur direkt unter dem Kartenbild – antippen zeigt alle Karten dieses Zeichners über alle Sets, deine markiert", "Karten-Sheet: Chip „im Album / nicht im Album“ entfernt", "Karten-Sheet: „+ Persönliches Album“ und „Wunschliste“ oben, „Bei Cardmarket ansehen“ darunter", "„Zu Album“ heißt jetzt „Persönliches Album“, damit es nicht mit dem Set-Album verwechselt wird"]},
   {v:"1.38", d:"2026-11-18", items:["Ziehchance-ⓘ mit deutschem Booster-Bild für 21 Sets – bei mehreren Motiven jedes Mal ein zufälliges (vorläufig von Pokézentrum)", "Karten-Sheet: Zeichner der Karte als eigene Zeile („Illustration: …“)", "Karten-Sheet: „Wert“ aus der Zeile mit Set und Pokédex-Nummer entfernt", "Karten-Sheet: Hinweis zum Kartenbild läuft nicht mehr unter den Schließen-Button, Abstände vereinheitlicht"]},
   {v:"1.37", d:"2026-11-18", items:["Ziehchance je Karte im Karten-Sheet („≈ 1 von X Packs“) mit ⓘ: Quelle, Stichprobe und Hinweis „inoffiziell“; Schätzungen sind markiert", "Preisbox ohne „Höchster Trend“ – dafür Hoch und Tief mit Datum im Wertverlauf, passend zum gewählten Zeitraum", "30 Jahre: offizielle deutsche Kartenbilder aus der pokemon.com-Galerie, solange TCGdex keine hat", "RGB-Mews vorläufig mit englischem Bild (Scrydex), mit Hinweis im Karten-Sheet", "Klassische Sammlung: Karten sind jetzt Holo (vorhandene Einträge werden automatisch umgestellt)", "Set-Logos direkt aus den TCGdex-Setdaten, 30 Jahre mit offiziellem Logo", "Hinweis „Kartenbilder folgen“, wenn TCGdex für ein Set noch keine Bilder hat", "Querformat-Karten (z. B. TURBO) werden gedreht eingepasst", "3D-Ansicht: offizielle Kartenrückseite"]},
   {v:"1.36", d:"2026-11-17", items:["Preisbox verständlicher: Trendpreis mit Erklärung, Ø Verkaufspreis 7 und 30 Tage, Vergleich zum 30-Tage-Schnitt", "„Höchster Trend“ statt Höchstwert – nur noch aus dem Trendpreis, einmalig neu gestartet", "Karten-Sheet: Karte deutlich größer, Nachbarkarten schmaler angeschnitten", "Sets gleichen sich täglich mit TCGdex ab: nachgetragene Karten erscheinen automatisch", "Karten mit Sondernummern (z. B. RGB-Mews R/G/B) zählen nicht mehr ins Grundset", "Sortierung heißt jetzt „Trendpreis“"]},
@@ -2902,12 +2904,12 @@ function renderDialog(){
   $("#d-title").textContent = cardTitleFor(s, c);
   const dsub = cardSubFor(s, c); $("#d-sub").textContent = dsub; $("#d-sub").hidden = !dsub;
   const typeChip = c[4]==="P" && t ? `<span class="chip type" style="--tb:${t[1]};--ti:${t[2]}">${typeIcon(c[5])}${esc(t[0])}</span>` : `<span class="chip">${esc(CAT[c[4]]||"")}</span>`;
-  $("#d-chips").innerHTML = `<span class="chip num">${esc(s.abbr)} ${esc(numDisp(s,c[0]))}</span>${rar[0]&&rar[0]!=="–"?`<span class="chip rare">${esc(/★/.test(rar[1]||"") ? rar[1]+" " : "")}${esc(rar[0])}</span>`:""}${typeChip}${q?`<span class="chip have">${q}× im Album</span>`:`<span class="chip none">nicht im Album</span>`}`;
+  $("#d-chips").innerHTML = `<span class="chip num">${esc(s.abbr)} ${esc(numDisp(s,c[0]))}</span>${rar[0]&&rar[0]!=="–"?`<span class="chip rare">${esc(/★/.test(rar[1]||"") ? rar[1]+" " : "")}${esc(rar[0])}</span>`:""}${typeChip}`;
   const gtx = gradeTxt(notes[s.id+"|"+c[0]]); if(gtx) $("#d-chips").insertAdjacentHTML("beforeend", `<span class="chip grade">${esc(gtx)}</span>`);
   $("#d-meta").textContent = [s.de, c[7] ? `Pokédex #${pad4(c[7])}` : ""].filter(Boolean).join(" · ");
   setIll(lastInfo.get(s.id+"|"+c[0])?.ill);
   const wk = wishKey(s.id, c[0]), ww = wish[wk];
-  $("#d-links").innerHTML = `<a class="btn" id="d-cm" href="${cmLink(s, c, cmIdFor(s, c))}" target="_blank" rel="noopener">Bei Cardmarket ansehen ↗</a><button class="btn wishbtn" type="button" id="d-wish" aria-pressed="${!!ww}">${ww?HEART_SVG:HEART_O}${ww?`Wunschliste · ${prioLbl(ww.p)}`:"Wunschliste"}</button><button class="btn" type="button" id="d-padd">+ Zu Album</button>`;
+  $("#d-links").innerHTML = `<button class="btn" type="button" id="d-padd">+ Persönliches Album</button><button class="btn wishbtn" type="button" id="d-wish" aria-pressed="${!!ww}">${ww?HEART_SVG:HEART_O}${ww?`Wunschliste · ${prioLbl(ww.p)}`:"Wunschliste"}</button><a class="btn" id="d-cm" href="${cmLink(s, c, cmIdFor(s, c))}" target="_blank" rel="noopener">Bei Cardmarket ansehen ↗</a>`;
   $("#d-wish").addEventListener("click", ()=>openPrio(s.id, c[0]));
   $("#d-padd").addEventListener("click", ()=>openAddToAlbum(s.id, c[0]));
   renderNote(s, c);
@@ -3115,7 +3117,7 @@ $("#d-body").addEventListener("click", e=>{
 });
 
 /* Pokédex-Dialog: alle Karten eines Pokémon, Tap öffnet das Set */
-function setIll(n){ const el = $("#d-ill"); if(!el) return; el.hidden = !n; el.innerHTML = n ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21c3 0 7-1 7-5a3 3 0 0 0-6 0c0 2-1 3-1 5z"/><path d="M10 16l11-11-3-3L7 13"/></svg>Illustration: ${esc(n)}` : ""; }
+function setIll(n){ const el = $("#d-ill"); if(!el) return; el.hidden = !n; el.dataset.ill = n || ""; el.setAttribute("aria-label", n ? `Alle Karten von ${n} anzeigen` : ""); el.innerHTML = n ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21c3 0 7-1 7-5a3 3 0 0 0-6 0c0 2-1 3-1 5z"/><path d="M10 16l11-11-3-3L7 13"/></svg><span>${esc(n)}</span><b aria-hidden="true">›</b>` : ""; }
 function renderDexDialog(){
   const n = ctx.dex, mine = cards.filter(e=>+e.dex===n && qtyOf(e)), q = sum(mine,qtyOf);
   $("#d-3d").hidden = true;
@@ -3261,13 +3263,57 @@ function openPMenu(a){
 }
 function openAddToAlbum(setId, num){
   const fr = albums.filter(a=>a.kind==="p" && a.ptype==="free"), k = setId+"|"+num;
-  $("#ws-title").textContent = "Zu Album hinzufügen";
+  $("#ws-title").textContent = "Zu persönlichem Album hinzufügen";
   $("#ws-body").innerHTML = `<div class="group">${fr.map(a=>{ const inn = (a.cards||[]).includes(k); return `<button class="menu-row" type="button" data-fa="${esc(a.id)}">${esc(persName(a))}<small>${inn ? "✓ enthalten – tippen zum Entfernen" : (a.cards||[]).length + " Karten"}</small></button>`; }).join("")}<button class="menu-row" type="button" id="fa-new">+ Neues freies Album</button></div>`;
   $("#ws-body").querySelectorAll("[data-fa]").forEach(b=>b.addEventListener("click", ()=>{ const a = albums.find(x=>x.id===b.dataset.fa); a.cards = a.cards || []; if(a.cards.includes(k)) a.cards = a.cards.filter(x=>x!==k); else a.cards.push(k); LS.set("pk-albums", albums); wishSheet.close(); render(); }));
   $("#fa-new").addEventListener("click", ()=>{ $("#ws-title").textContent = "Freies Album"; $("#ws-body").innerHTML = `<input class="field" id="fa-name" type="text" maxlength="40" placeholder="Name" autocomplete="off"><div class="row" style="justify-content:flex-end"><button class="btn primary" type="button" id="fa-ok">Anlegen</button></div>`; $("#fa-ok").addEventListener("click", ()=>{ const v = $("#fa-name").value.trim(); if(!v) return; albums.push({id:"p"+rid().slice(1), kind:"p", ptype:"free", pval:"", name:v, cards:[k], created:new Date().toISOString()}); LS.set("pk-albums", albums); wishSheet.close(); render(); }); });
   if(wishSheet.state==="closed") wishSheet.open("half"); else wishSheet.set("half");
 }
 
+
+
+/* ---------- Alle Karten eines Zeichners ---------- */
+let illIdx = null;
+function tcgIndex(){
+  if(illIdx) return illIdx; illIdx = new Map();
+  for(const s of SETS){ if(s.ja) continue; for(const c of s.cards){ const id = s.xid?.[c[0]] || (s.id + "-" + c[0]); if(!illIdx.has(id)) illIdx.set(id, [s, c]); } }
+  return illIdx;
+}
+const ILL_PAGE = 60; let illState = null;
+async function openIll(name){
+  if(!name) return;
+  $("#ws-title").textContent = `Karten von ${name}`;
+  $("#ws-body").innerHTML = `<p class="hint" style="margin:0">Karten werden geladen …</p>`;
+  if(wishSheet.state==="closed") wishSheet.open("full"); else wishSheet.set("full");
+  const q = `cards?illustrator=eq:${encodeURIComponent(name)}`;
+  const get = async l => { try{ const r = await fetch(`${API}/${l}/${q}`); return r.ok ? await r.json() : []; } catch { return []; } };
+  const [de, en] = await Promise.all([get("de"), get("en")]);
+  if($("#ws-title").textContent !== `Karten von ${name}`) return;
+  const byId = new Map(); for(const x of [...(Array.isArray(de)?de:[]), ...(Array.isArray(en)?en:[])]) if(x?.id && !byId.has(x.id)) byId.set(x.id, x);
+  const idx = tcgIndex();
+  const list = [...byId.values()].map(x => { const m = idx.get(x.id); return {x, s:m?.[0], c:m?.[1]}; })
+    .sort((a,b)=> (a.s && b.s) ? (b.s.rel||"").localeCompare(a.s.rel||"") || String(a.c[0]).localeCompare(String(b.c[0]), "de", {numeric:true}) : a.s ? -1 : b.s ? 1 : 0);
+  illState = {name, list, shown: 0};
+  if(!list.length){ $("#ws-body").innerHTML = `<p class="hint" style="margin:0">Keine Karten gefunden – TCGdex ist gerade nicht erreichbar oder führt den Zeichner anders.</p>`; return; }
+  const own = list.filter(o=>o.s && qtyOfCard(o.s.id, o.c[0])).length;
+  $("#ws-body").innerHTML = `<div class="illhead"><span>${list.length} Karten in ${new Set(list.map(o=>o.s?.id || o.x.id.replace(/-[^-]+$/,""))).size} Sets</span><b>${own} von ${list.length} gesammelt</b></div><div class="illgrid" id="ill-grid"></div><div class="row" style="justify-content:center;margin-top:14px"><button class="btn" type="button" id="ill-more" hidden>Mehr laden</button></div><p class="hint" style="margin:12px 0 0">Quelle: TCGdex. Karten aus Sets, die nicht in der App sind, lassen sich nicht öffnen.</p>`;
+  $("#ill-more").addEventListener("click", illMore);
+  $("#ill-grid").addEventListener("click", e => { const b = e.target.closest("[data-ic]"); if(!b) return; const [sid, num] = b.dataset.ic.split("|"); wishSheet.close(); openCtx({kind:"set", setId:sid, num}); });
+  illMore();
+}
+function qtyOfCard(sid, num){ return sum(cards.filter(e=>e.setId===sid && e.num===num), qtyOf); }
+function illMore(){
+  const st = illState; if(!st) return; const g = $("#ill-grid"); if(!g) return;
+  const part = st.list.slice(st.shown, st.shown + ILL_PAGE); st.shown += part.length;
+  g.insertAdjacentHTML("beforeend", part.map(({x,s,c}) => {
+    const q = s ? qtyOfCard(s.id, c[0]) : 0;
+    const img = s ? cimg(s, c[0], "low", "") : (x.image ? `<img src="${x.image}/low.webp" alt="" loading="lazy" onerror="this.remove()">` : "");
+    const lbl = s ? `${s.abbr} ${numDisp(s, c[0])}` : x.id;
+    return s ? `<button class="illc${q ? " own" : ""}" type="button" data-ic="${esc(s.id)}|${esc(c[0])}" aria-label="${esc(cardTitleFor(s,c))} öffnen"><div class="ib">${img}${q ? `<span class="ok">✓</span>` : ""}</div><small>${esc(cardTitleFor(s,c))}</small><small>${esc(lbl)}</small></button>`
+             : `<div class="illc na"><div class="ib">${img}</div><small>${esc(x.name || "")}</small><small>${esc(lbl)}</small></div>`;
+  }).join(""));
+  $("#ill-more").hidden = st.shown >= st.list.length;
+}
 
 /* ---------- Tauschmarkt ---------- */
 let tmFilt = "all", tmQ = "", tmShowKept = false;
@@ -3763,6 +3809,7 @@ function openViewer(){
 }
 function closeViewer(){ if(!V.open) return; V.open = false; setTilt(false); vEl.classList.remove("on"); setTimeout(()=>{ if(!V.open) vEl.hidden = true; }, 200); }
 function vFlip(){ V.base += 180; V.rx = 0; V.ry = 0; vApply(true); }
+$("#d-ill").addEventListener("click", e=>openIll(e.currentTarget.dataset.ill));
 $("#d-img").addEventListener("load", e=>{ const el = e.target; el.classList.toggle("land", !el.classList.contains("art") && el.naturalWidth > el.naturalHeight * 1.1); });
 $("#d-img").addEventListener("click", ()=>{ if(ctx?.kind==="set" && !$("#d-img").classList.contains("noimg")) openViewer(); });
 $("#d-3d").addEventListener("click", openViewer);

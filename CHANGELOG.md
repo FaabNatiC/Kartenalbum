@@ -1,5 +1,11 @@
 # Kartenalbum – Änderungen
 
+## Version 1.39 · 18.11.2026
+- Karten-Sheet: Zeichner als Signatur direkt unter dem Kartenbild – antippen zeigt alle Karten dieses Zeichners über alle Sets, deine markiert
+- Karten-Sheet: Chip „im Album / nicht im Album“ entfernt
+- Karten-Sheet: „+ Persönliches Album“ und „Wunschliste“ oben, „Bei Cardmarket ansehen“ darunter
+- „Zu Album“ heißt jetzt „Persönliches Album“, damit es nicht mit dem Set-Album verwechselt wird
+
 ## Version 1.38 · 18.11.2026
 - Ziehchance-ⓘ mit deutschem Booster-Bild für 21 Sets – bei mehreren Motiven jedes Mal ein zufälliges (vorläufig von Pokézentrum)
 - Karten-Sheet: Zeichner der Karte als eigene Zeile („Illustration: …“)
